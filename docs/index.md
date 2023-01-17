@@ -5,8 +5,8 @@
 
 how
 mapping
-operations
 codelists/index
+operations
 reference/index
 changelog
 ```
