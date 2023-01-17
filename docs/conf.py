@@ -13,6 +13,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import json
 import os
 from glob import glob
 from pathlib import Path
@@ -39,6 +40,8 @@ release = '1.0.0-rc.1'
 # ones.
 extensions = [
     'myst_parser',
+    'sphinxcontrib.jsonschema',
+    'sphinxcontrib.opendataservices',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -47,7 +50,7 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '_static/docson/*.md', '_static/docson/integration/*.md']
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -105,12 +108,11 @@ html_theme_options = {
 # Imported by manage.py.
 standard_tag = '1__1__5'  # the version of OCDS to patch
 standard_version = '1.1'
-managed_codelist = False
+managed_codelist = True
 # List the extension identifiers and versions that should be part of this specification. The extensions must be in
 # the extension registry: https://github.com/open-contracting/extension_registry/blob/main/extension_versions.csv
-extension_versions = {
-    # 'extension_id_in_registry': 'version',
-}
+with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'extension_versions.json')) as f:
+    extension_versions = json.load(f)
 
 
 def setup(app):
