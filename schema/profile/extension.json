@@ -17,5 +17,25 @@
   "contactPoint": {
     "name": "Open Contracting Partnership",
     "email": "data@open-contracting.org"
-  }
+  },
+  "codelists": [
+    "awardCriterionType.csv",
+    "awardCriterionFixed.csv",
+    "criterionWeight.csv",
+    "criterionThreshold.csv",
+    "coveredBy.csv",
+    "participationFeeType.csv",
+    "methodOfPayment.csv",
+    "sustainabilityGoal.csv",
+    "sustainabilityStrategy.csv",
+    "dynamicPurchasingSystemType.csv",
+    "dynamicPurchasingSystemStatus.csv",
+    "frameworkAgreementMethod.csv"
+  ],
+  "dependencies": [
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_location_extension/master/extension.json"
+  ],
+  "testDependencies": [
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_lots_extension/master/extension.json"
+  ]
 }

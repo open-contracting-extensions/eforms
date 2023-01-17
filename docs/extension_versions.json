@@ -1,1 +1,12 @@
-{}
+{
+  "awardCriteria": "master",
+  "beneficialOwners": "master",
+  "bidOpening": "master",
+  "communication": "master",
+  "coveredBy": "master",
+  "designContest": "master",
+  "participation_fee": "master",
+  "subcontracting": "master",
+  "sustainability": "master",
+  "techniques": "master"
+}

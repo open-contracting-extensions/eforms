@@ -1,0 +1,15 @@
+Code,Title,Description,Extension
+economic,Economic,"The goal is economic, such as formal employment and the local economy.",Sustainability
+economic.formalEmploymentPromotion,Formal employment promotion,The goal is to promote formal employment.,Sustainability
+economic.localEconomyPromotion,Local economy promotion,The goal is to promote the local economy.,Sustainability
+economic.marketInnovationPromotion,Market innovation promotion,The goal is to promote market innovation.,Sustainability
+environmental,Environmental,"The goal is to minimize and, if possible, avoid environmental damage: for example, reducing CO2 emissions and waste or promoting resource reuse and energy efficiency.",Sustainability
+environmental.carbonEmissionsReduction,Carbon emissions reduction,The goal is to reduce carbon dioxide (CO2) emissions.,Sustainability
+environmental.energyEfficiency,Energy efficiency,The goal is to promote energy efficiency.,Sustainability
+environmental.recycling,Recycling,The goal is to promote recycling.,Sustainability
+environmental.resourceReuse,Resource reuse,The goal is to maximize the reuse of resources.,Sustainability
+environmental.wasteReduction,Waste reduction,The goal is to reduce waste.,Sustainability
+social,Social,"The goal is to generate benefits to society: for example, promoting labor rights, diversity and equal opportunity, and occupational health and safety.",Sustainability
+social.laborRightsPromotion,Labor rights promotion,The goal is to promote labor rights.,Sustainability
+social.smeInclusion,SME inclusion,The goal is to promote the participation of small and medium-sized enterprises (SMEs).,Sustainability
+social.womenInclusion,Women inclusion,The goal is to promote the participation of women-owned suppliers.,Sustainability

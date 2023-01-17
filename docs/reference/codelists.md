@@ -16,6 +16,22 @@ The codelists can be downloaded as CSV files from <https://standard.open-contrac
 :file: ../_static/patched/codelists/awardCriteria.csv
 ```
 
+## Award Criterion Fixed
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/awardCriterionFixed.csv
+```
+
+## Award Criterion Type
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/awardCriterionType.csv
+```
+
 ## Award Status
 
 ```{csv-table-no-translate}
@@ -30,6 +46,30 @@ The codelists can be downloaded as CSV files from <https://standard.open-contrac
 :header-rows: 1
 :class: codelist-table
 :file: ../_static/patched/codelists/contractStatus.csv
+```
+
+## Covered By
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/coveredBy.csv
+```
+
+## Criterion Threshold
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/criterionThreshold.csv
+```
+
+## Criterion Weight
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/criterionWeight.csv
 ```
 
 ## Currency
@@ -48,12 +88,36 @@ The codelists can be downloaded as CSV files from <https://standard.open-contrac
 :file: ../_static/patched/codelists/documentType.csv
 ```
 
+## Dynamic Purchasing System Status
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/dynamicPurchasingSystemStatus.csv
+```
+
+## Dynamic Purchasing System Type
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/dynamicPurchasingSystemType.csv
+```
+
 ## Extended Procurement Category
 
 ```{csv-table-no-translate}
 :header-rows: 1
 :class: codelist-table
 :file: ../_static/patched/codelists/extendedProcurementCategory.csv
+```
+
+## Framework Agreement Method
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/frameworkAgreementMethod.csv
 ```
 
 ## Initiation Type
@@ -80,6 +144,14 @@ The codelists can be downloaded as CSV files from <https://standard.open-contrac
 :file: ../_static/patched/codelists/method.csv
 ```
 
+## Method Of Payment
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/methodOfPayment.csv
+```
+
 ## Milestone Status
 
 ```{csv-table-no-translate}
@@ -94,6 +166,14 @@ The codelists can be downloaded as CSV files from <https://standard.open-contrac
 :header-rows: 1
 :class: codelist-table
 :file: ../_static/patched/codelists/milestoneType.csv
+```
+
+## Participation Fee Type
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/participationFeeType.csv
 ```
 
 ## Party Role
@@ -142,6 +222,22 @@ The codelists can be downloaded as CSV files from <https://standard.open-contrac
 :header-rows: 1
 :class: codelist-table
 :file: ../_static/patched/codelists/submissionMethod.csv
+```
+
+## Sustainability Goal
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/sustainabilityGoal.csv
+```
+
+## Sustainability Strategy
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/sustainabilityStrategy.csv
 ```
 
 ## Tender Status
