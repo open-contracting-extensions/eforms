@@ -120,6 +120,14 @@ The codelists can be downloaded as CSV files from <https://standard.open-contrac
 :file: ../_static/patched/codelists/frameworkAgreementMethod.csv
 ```
 
+## Geometry Type
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/geometryType.csv
+```
+
 ## Initiation Type
 
 ```{csv-table-no-translate}
@@ -134,6 +142,14 @@ The codelists can be downloaded as CSV files from <https://standard.open-contrac
 :header-rows: 1
 :class: codelist-table
 :file: ../_static/patched/codelists/itemClassificationScheme.csv
+```
+
+## Location Gazetteers
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/locationGazetteers.csv
 ```
 
 ## Method
