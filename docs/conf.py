@@ -24,7 +24,7 @@ from sphinx.locale import get_translation
 
 # -- Project information -----------------------------------------------------
 
-project = 'Open Contracting Data Standard for TODO'
+project = 'Open Contracting Data Standard for eForms'
 copyright = 'Open Contracting Partnership'
 author = 'Open Contracting Partnership'
 
@@ -69,8 +69,8 @@ html_static_path = ['_static']
 
 _ = get_translation('theme')
 
-profile_identifier = 'TODO'
-repository_url = 'https://github.com/open-contracting-extensions/TODO'
+profile_identifier = 'eforms'
+repository_url = 'https://github.com/open-contracting-extensions/eforms'
 
 # Internationalization.
 gettext_compact = False
