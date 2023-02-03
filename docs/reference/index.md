@@ -1,5 +1,9 @@
 # Reference
 
+```{admonition} Summary
+This section serves to document the fields and codes in OCDS.
+```
+
 Please refer to the following pages:
 
 ```{toctree}
