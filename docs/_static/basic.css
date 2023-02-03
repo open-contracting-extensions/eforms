@@ -11,3 +11,8 @@
 .rst-content .break-all code.literal {
   word-break: break-all;
 }
+.wy-table-responsive input {
+  margin-bottom: 1rem;
+  padding: .25rem;
+  border: 1px solid #999;
+}
