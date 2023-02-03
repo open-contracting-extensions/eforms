@@ -1,4 +1,4 @@
-# How it works
+# How to use this profile
 
 ## Mapping steps
 
@@ -6,7 +6,15 @@
 
 For each `OrganizationReference` object in your data, get the `Organization` in `parties` whose `.id` is equal to the `.id` of the organization reference and set the organization reference's `.name` to the `.name` of the organization. The following fields are `OrganizationReference` objects:
 
-* `<list of fields>`
+* `buyer`
+* `planning/budget/finance/financingParty`
+* `tender/documents/publisher`
+* `tender/lots/designContest/selectedParticipants`
+* `bids/details/tenderers`
+* `bids/details/subcontracting/subcontracts/subcontractor`
+* `bids/details/subcontracting/subcontracts/tenderers`
+* `awards/suppliers`
+* `awards/buyers`
 
 ### Withhold the publication of information
 
@@ -92,3 +100,15 @@ For E5:
 - OPT-092-ReviewReq
 - OPT-301-ReviewBody
 - OPT-301-ReviewReq
+
+## Data use
+
+### Framework agreements with multiple winners (cascades)
+
+Suppliers are in a cascade if:
+
+* The tender or lot uses a framework agreement (`.techniques.hasFrameworkAgreement` is `true`); and
+* The award has multiple suppliers (`.suppliers` contains more than one `OrganizationReference`); and
+* Bids have ranks (`bids.details.hasRank` is `true`).
+
+The rank of each bid might be available in `bids.details.rank`.
