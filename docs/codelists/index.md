@@ -11,19 +11,19 @@ You generally do not need to access these pages directly.
 ```{toctree}
 :maxdepth: 1
 
-award-criterion-fixed
-award-criterion-threshold
-award-criterion-weight
 buyer-contracting-type
-dps-type
+dps-usage
 environmental-impact
 form-type
 framework-agreement-method
 innovative-acquisition
+number-fixed
+number-threshold
+number-weight
 organisation-role
 procurement-procedure-type
-selection-criterion-type
+received-submission-type
+selection-criterion
 social-objective
 strategic-procurement
-submission-count-types
 ```

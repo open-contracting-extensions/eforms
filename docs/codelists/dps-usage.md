@@ -1,6 +1,6 @@
-# dps-type
+# dps-usage
 
 ```{csv-table}
 :header-rows: 1
-:file: dps-type.csv
+:file: dps-usage.csv
 ```
