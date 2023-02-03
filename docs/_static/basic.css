@@ -8,6 +8,6 @@
 .rst-content table.docutils td {
   vertical-align: top;
 }
-.rst-content code {
-  font-size: 10px;
+.rst-content .break-all code.literal {
+  word-break: break-all;
 }

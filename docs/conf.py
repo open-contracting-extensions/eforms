@@ -104,6 +104,7 @@ html_theme_options = {
     'license_name': 'Apache License 2.0',
     'license_url': f'{repository_url}/blob/HEAD/LICENSE',
     'repository_url': repository_url,
+    'style_external_links': True,
 }
 
 # Imported by manage.py.
