@@ -40,7 +40,12 @@ Instructions to follow to map the eForms field to OCDS.
 <!-- Do not edit past this point. It is managed by european-union-support. -->
 
 <div id="mappings" class="wy-table-responsive">
-  <p><label for="mappings-search">Search the table by eForms field, business term, XML element, OCDS field, etc.:</label><input id="mappings-search" class="search" placeholder="Search"></p>
+  <p>
+    <label for="mappings-search">
+      Search the table by eForms field, business term, XML element, OCDS field, etc.:
+    </label>
+    <input id="mappings-search" class="search" placeholder="Search">
+  </p>
   <table class="docutils">
     <colgroup>
       <col width="30%">
