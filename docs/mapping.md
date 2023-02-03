@@ -16,7 +16,7 @@
     </thead>
     <tbody>
       <tr>
-        <td class="break-all">
+        <td>
             <p><b>The field's ID</b> <a class="reference external" href="#" title="A link to the field's description in the eForms SDK"></a><br>The field's title</p><p><i>The ID of the business term to which the field is associated:</i> The business term's description.</p>
             <code class="docutils literal notranslate"><span class="pre">The XPath that uniquely corresponds to this field.</span></code>
         </td>
