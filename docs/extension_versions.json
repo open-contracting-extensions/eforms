@@ -1,6 +1,7 @@
 {
   "awardCriteria": "master",
   "beneficialOwners": "master",
+  "bids": "master"
   "bidOpening": "master",
   "communication": "master",
   "coveredBy": "master",
