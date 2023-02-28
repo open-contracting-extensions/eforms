@@ -334,7 +334,7 @@ For each `cac:ProcurementAdditionalType`, add or update the corresponding `Susta
   "tender": {
     "lots": [
       {
-        "hasSustainabilty": true,
+        "hasSustainability": true,
         "sustainability": [
           {
             "goal": "economic.innovativePurchase",
@@ -942,7 +942,7 @@ Map to `tender.communication.atypicalToolUrl`
 
 ```json
 {
-  "relatedProcess": [
+  "relatedProcesses": [
     {
       "id": "1",
       "relationship": [
@@ -975,7 +975,7 @@ Concatenate with <a href="#BT-1251-Part">BT-1251-Part Previous Planning Part Ide
 
 ```json
 {
-  "relatedProcess": [
+  "relatedProcesses": [
     {
       "id": "1",
       "relationship": [
@@ -1010,7 +1010,7 @@ For each `cac:NoticeDocumentReference`, add or update the corresponding `Related
 
 ```json
 {
-  "relatedProcess": [
+  "relatedProcesses": [
     {
       "id": "1",
       "relationship": [
@@ -1046,7 +1046,7 @@ Concatenate with <a href="#BT-125(i)-Part">BT-125(i)-Part Previous Planning Iden
 
 ```json
 {
-  "relatedProcess": [
+  "relatedProcesses": [
     {
       "id": "1",
       "relationship": [
@@ -2310,7 +2310,7 @@ Discard. The notice and sections that were modified can be determined by compari
       "documents": [
         {
           "url": "http://mycontract.acme.com/1234/",
-          "type": "contractSigned"
+          "documentType": "contractSigned"
         }
       ]
     }
@@ -2474,21 +2474,13 @@ See also <a href="https://standard.open-contracting.org/latest/en/guidance/map/o
         </td>
         <td class="mapping">
 
-Get the value of `ancestor::efac:SettledContract/cbc:ID` whose `efac:LotTender/cbc:ID` is equal to the value of `ancestor::efac:LotTender/cbc:ID`.
-
-Get the `Contract` in `contracts` whose `id` is equal to the value of this `efac:SettledContract/cbc:ID`. If none exists yet:
-
-- Add a `Contract` to `contracts`.
-- Set its `id` to the value of this `efac:SettledContract/cbc:ID`.
-- Get all LotResults (`ancestor::efac:NoticeResult/efac:LotResult`) with an `/efac:SettledContract/cbc:ID` equal to `ancestor::efac:SettledContract/cbc:ID`:
-  - If there is exactly one, add its `/cbc:ID` to the contract's `.awardID`.
-  - If there is more than one, add each LotResult's `/cbc:ID` to the contract's `.awardIDs`.
+Get the value of `ancestor::efac:SettledContract/cbc:ID` whose `efac:LotTender/cbc:ID` is equal to the value of `ancestor::efac:LotTender/cbc:ID` and <a href="operations.md#get-the-contract-for-a-settledcontract">get the contract for this SettledContract</a>.
 
 Add a `Charge` object to the contract's `.implementation.charges` array.
 
 - Set its `.id` to 'government'.
 - Set its `.paidBy` to 'government'.
-- Set its `.title` to the <a href="operations.md#get-a-translation">translation</a> of 'Revenue from the payment of prizes and payments by the buyer'.
+- Set its `.title` to the <a href="operations.md#get-a-translation">translation</a> of 'The estimated revenue coming from the buyer who granted the concession (e.g. prizes and payments).'.
 - Map the value of this field to its `.estimatedValue.amount` and `@currencyID` to the estimatedValue's `.currency`.
 
 ```xml
@@ -2505,7 +2497,7 @@ Add a `Charge` object to the contract's `.implementation.charges` array.
         "charges": [
           {
             "id": "government",
-            "title": "Revenue from the payment of prizes and payments by the buyer",
+            "title": "The estimated revenue coming from the buyer who granted the concession (e.g. prizes and payments).",
             "estimatedValue": {
               "amount": 350,
               "currency": "EUR"
@@ -2547,21 +2539,13 @@ Discard. This is derived from the `value` of awards.
         </td>
         <td class="mapping">
 
-Get the value of `ancestor::efac:SettledContract/cbc:ID` whose `efac:LotTender/cbc:ID` is equal to the value of `ancestor::efac:LotTender/cbc:ID`.
-
-Get the `Contract` in `contracts` whose `id` is equal to the value of this `efac:SettledContract/cbc:ID`. If none exists yet:
-
-- Add a `Contract` to `contracts`.
-- Set its `id` to the value of this `efac:SettledContract/cbc:ID`.
-- Get all LotResults (`ancestor::efac:NoticeResult/efac:LotResult`) with an `/efac:SettledContract/cbc:ID` equal to `ancestor::efac:SettledContract/cbc:ID`:
-  - If there is exactly one, add its `/cbc:ID` to the contract's `.awardID`.
-  - If there is more than one, add each LotResult's `/cbc:ID` to the contract's `.awardIDs`.
+Get the value of `ancestor::efac:SettledContract/cbc:ID` whose `efac:LotTender/cbc:ID` is equal to the value of `ancestor::efac:LotTender/cbc:ID` and <a href="operations.md#get-the-contract-for-a-settledcontract">get the contract for this SettledContract</a>.
 
 Add a `Charge` object to the contract's `.implementation.charges` array.
 
 - Set its `.id` to 'user'.
 - Set its `.paidBy` to 'user'.
-- Set its `.title` to the <a href="operations.md#get-a-translation">translation</a> of 'Revenue from the payment of fees and fines by the users'.
+- Set its `.title` to the <a href="operations.md#get-a-translation">translation</a> of 'he estimated revenue coming from the users of the concession (e.g. fees and fines).'.
 - Map to its `.estimatedValue.amount` and `@currencyID` to the estimatedValue's `.currency`.
 
 ```xml
@@ -2578,7 +2562,7 @@ Add a `Charge` object to the contract's `.implementation.charges` array.
         "charges": [
           {
             "id": "user",
-            "title": "Revenue from the payment of fees and fines by the users",
+            "title": "he estimated revenue coming from the users of the concession (e.g. fees and fines).",
             "estimatedValue": {
               "amount": 350,
               "currency": "EUR"
@@ -2815,7 +2799,8 @@ If "allowed" or "required", add 'electronicSubmission' to the lot's `.submission
         </td>
         <td class="mapping">
 
-Look up the equivalent ISO 3166-1 alpha-2 code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country">authority table</a> and convert to lowercase. <a href="operations.md#get-the-bid-for-a-lottender">Get the bid for a LotTender</a> and add to the bid's `.countryOfOrigin` array.
+Look up the equivalent ISO 3166-1 alpha-2 code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country">authority table</a> and convert to lowercase.
+<a href="operations.md#get-the-bid-for-a-lottender">Get the bid for a LotTender</a> and add to the bid's `.countryOfOrigin` array.
 
 ```xml
 <efac:Origin>
@@ -9247,7 +9232,8 @@ Map to `tender.title`
       {
         "identifiers": [
           {
-            "id": "PROC/2020/0024-ABC-FGHI"
+            "id": "PROC/2020/0024-ABC-FGHI",
+            "scheme": "internal"
           }
         ]
       }
@@ -9278,7 +9264,8 @@ Map to `tender.title`
       {
         "identifiers": [
           {
-            "id": "PROC/2020/0024-ABC-FGHI"
+            "id": "PROC/2020/0024-ABC-FGHI",
+            "scheme": "internal"
           }
         ]
       }
@@ -9307,7 +9294,8 @@ Map to `tender.identifiers.id` and set `identifiers.scheme` to "internal".
   "tender": {
     "identifiers": [
       {
-        "id": "PROC/2020/0024-ABC-FGHI"
+        "id": "PROC/2020/0024-ABC-FGHI",
+        "scheme": "internal"
       }
     ]
   }
@@ -9334,7 +9322,8 @@ Map to `tender.identifiers.id` and set `identifiers.scheme` to "internal".
   "tender": {
     "identifiers": [
       {
-        "id": "PROC/2020/0024-ABC-FGHI"
+        "id": "PROC/2020/0024-ABC-FGHI",
+        "scheme": "internal"
       }
     ]
   }
@@ -9534,7 +9523,10 @@ Map to `tender.description`.
   "tender": {
     "items": [
       {
-        "quantity": 45000
+        "quantity": 45000,
+        "relatedLots": [
+          "LOT-0001"
+        ]
       }
     ]
   }
@@ -9550,7 +9542,7 @@ Map to `tender.description`.
         </td>
         <td class="mapping">
 
-This business term is mapped to the same objects as created for BT-263-Lot.
+This field maps to the same objects as created for BT-263-Lot.
 
 <a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>. For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications` array, capitalize and map to the classification's `.scheme`.
 
@@ -9569,6 +9561,9 @@ This business term is mapped to the same objects as created for BT-263-Lot.
           {
             "scheme": "CPV"
           }
+        ],
+        "relatedLots": [
+          "LOT-0001"
         ]
       }
     ]
@@ -9585,9 +9580,11 @@ This business term is mapped to the same objects as created for BT-263-Lot.
         </td>
         <td class="mapping">
 
-This business term is mapped to the same objects as created for BT-263.
+This field maps to the same objects as created for BT-263-Part. If no `Item` objects were created for `ancestor::AdditionalCommodityClassification`:
 
-For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications`, capitalize and map to the classification's `.scheme`.
+- Add an `Item object to the `tender.items\` array.
+- Set the item's `id` incrementally.
+  For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications`, capitalize and map to the classification's `.scheme`.
 
 ```xml
 <cac:AdditionalCommodityClassification>
@@ -9620,9 +9617,11 @@ For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add
         </td>
         <td class="mapping">
 
-This business term is mapped to the same objects as created for BT-263.
+This field maps to the same objects as created for BT-263-Procedure. If no `Item` objects were created for `ancestor::AdditionalCommodityClassification`:
 
-For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications`, capitalize and map to the classification's `.scheme`.
+- Add an `Item object to the `tender.items\` array.
+- Set the item's `id` incrementally.
+  For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications`, capitalize and map to the classification's `.scheme`.
 
 ```xml
 <cac:AdditionalCommodityClassification>
@@ -9655,7 +9654,8 @@ For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>, capitalize, and map to the item's `.classification.scheme`.
+This field maps to the same object as created for BT-262-Lot.
+<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a> and map to the item's `.classification.scheme`.
 
 ```xml
 <cac:MainCommodityClassification>
@@ -9670,7 +9670,10 @@ For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add
       {
         "classification": {
           "scheme": "CPV"
-        }
+        },
+        "relatedLots": [
+          "LOT-0001"
+        ]
       }
     ]
   }
@@ -9686,7 +9689,11 @@ For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add
         </td>
         <td class="mapping">
 
-Capitalize and map to the item's `.classification.scheme`.
+This field maps to the same object as created for BT-262-Part. If no `Item` object was created for `ancestor::MainCommodityClassification`:
+
+- Add an `Item object to the `tender.items\` array.
+- Set the item's `id` incrementally.
+  Capitalize and map to the item's `.classification.scheme`.
 
 ```xml
 <cac:MainCommodityClassification>
@@ -9717,7 +9724,11 @@ Capitalize and map to the item's `.classification.scheme`.
         </td>
         <td class="mapping">
 
-Capitalize and map to the item's `.classification.scheme`.
+This field maps to the same object as created for BT-262-Procedure. If no `Item` object was created for `ancestor::MainCommodityClassification`:
+
+- Add an `Item object to the `tender.items\` array.
+- Set the item's `id` incrementally.
+  Capitalize and map to the item's `.classification.scheme`.
 
 ```xml
 <cac:MainCommodityClassification>
@@ -9748,7 +9759,8 @@ Capitalize and map to the item's `.classification.scheme`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a> and map to its `.classification.id`.
+This field maps to the same object as created for BT-262-Lot.
+<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a> and map to its `.classification.id`.'
 
 ```xml
 <cac:MainCommodityClassification>
@@ -9779,7 +9791,11 @@ Capitalize and map to the item's `.classification.scheme`.
         </td>
         <td class="mapping">
 
-Map to the item's `.classification.id`.
+This field maps to the same object as created for BT-26(m)-Part. If no `Item` object was created for `ancestor::MainCommodityClassification`:
+
+- Add an `Item object to the `tender.items\` array.
+- Set the item's `id` incrementally.
+  Map to the item's `.classification.id`.
 
 ```xml
 <cac:MainCommodityClassification>
@@ -9810,7 +9826,11 @@ Map to the item's `.classification.id`.
         </td>
         <td class="mapping">
 
-Map to the item's `.classification.id`.
+This field maps to the same object as created for BT-26(m)-Pro. If no `Item` object was created for `ancestor::MainCommodityClassification`:
+
+- Add an `Item object to the `tender.items\` array.
+- Set the item's `id` incrementally.
+  Map to the item's `.classification.id`.
 
 ```xml
 <cac:MainCommodityClassification>
@@ -9841,7 +9861,7 @@ Map to the item's `.classification.id`.
         </td>
         <td class="mapping">
 
-This business term is mapped to the same `Classification` objects as created for BT-26-Lot.
+This field maps to the same `Classification` objects as created for BT-26(a)-Lot.
 
 <a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>. For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications` array and map to the classification's `.id`.
 
@@ -9876,9 +9896,11 @@ This business term is mapped to the same `Classification` objects as created for
         </td>
         <td class="mapping">
 
-This business term is mapped to the same objects as created for BT-26.
+This field maps to the same objects as created for BT-26(a)-Part. If no `Item` objects were created for `ancestor::AdditionalCommodityClassification`:
 
-For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications` array and map to the classification's `.id`.
+- Add an `Item object to the `tender.items\` array.
+- Set the item's `id` incrementally.
+  For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications` array and map to the classification's `.id`.
 
 ```xml
 <cac:AdditionalCommodityClassification>
@@ -9911,9 +9933,11 @@ For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add
         </td>
         <td class="mapping">
 
-This business term is mapped to the same objects as created for BT-26.
+This field maps to the same objects as created for BT-26(a)-Procedure. If no `Item` objects were created for `ancestor::AdditionalCommodityClassification`:
 
-For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications` and map to the classification's `.id`.
+- Add an `Item object to the `tender.items\` array.
+- Set the item's `id` incrementally.
+  For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications` and map to the classification's `.id`.
 
 ```xml
 <cac:AdditionalCommodityClassification>
@@ -10345,6 +10369,23 @@ Map to `tender.lotDetails.maximumLotsBidPerSupplier`
 
 ```json
 {
+  "parties": [
+    {
+      "id": "ORG-0001",
+      "roles": [
+        "supplier"
+      ]
+    }
+  ],
+  "awards": [
+    {
+      "suppliers": [
+        {
+          "id": "ORG-0001"
+        }
+      ]
+    }
+  ],
   "contracts": [
     {
       "relatedBids": [
@@ -11986,13 +12027,9 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```json
 {
   "tender": {
-    "items": [
+    "deliveryAddresses": [
       {
-        "deliveryAddresses": [
-          {
-            "streetAddress": "Main Street, 2, Building B1, 3rd floor"
-          }
-        ]
+        "streetAddress": "Main Street, 2, Building B1, 3rd floor"
       }
     ]
   }
@@ -12022,13 +12059,9 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```json
 {
   "tender": {
-    "items": [
+    "deliveryAddresses": [
       {
-        "deliveryAddresses": [
-          {
-            "streetAddress": "Main Street, 2, Building B1, 3rd floor"
-          }
-        ]
+        "streetAddress": "Main Street, 2, Building B1, 3rd floor"
       }
     ]
   }
@@ -12060,13 +12093,9 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```json
 {
   "tender": {
-    "items": [
+    "deliveryAddresses": [
       {
-        "deliveryAddresses": [
-          {
-            "streetAddress": "Main Street, 2, Building B1, 3rd floor"
-          }
-        ]
+        "streetAddress": "Main Street, 2, Building B1, 3rd floor"
       }
     ]
   }
@@ -12096,13 +12125,9 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```json
 {
   "tender": {
-    "items": [
+    "deliveryAddresses": [
       {
-        "deliveryAddresses": [
-          {
-            "streetAddress": "Main Street, 2, Building B1, 3rd floor"
-          }
-        ]
+        "streetAddress": "Main Street, 2, Building B1, 3rd floor"
       }
     ]
   }
@@ -12132,13 +12157,9 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```json
 {
   "tender": {
-    "items": [
+    "deliveryAddresses": [
       {
-        "deliveryAddresses": [
-          {
-            "streetAddress": "Main Street, 2, Building B1, 3rd floor"
-          }
-        ]
+        "streetAddress": "Main Street, 2, Building B1, 3rd floor"
       }
     ]
   }
@@ -12206,13 +12227,9 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```json
 {
   "tender": {
-    "items": [
+    "deliveryAddresses": [
       {
-        "deliveryAddresses": [
-          {
-            "streetAddress": "Main Street, 2, Building B1, 3rd floor"
-          }
-        ]
+        "streetAddress": "Main Street, 2, Building B1, 3rd floor"
       }
     ]
   }
@@ -12242,13 +12259,9 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```json
 {
   "tender": {
-    "items": [
+    "deliveryAddresses": [
       {
-        "deliveryAddresses": [
-          {
-            "streetAddress": "Main Street, 2, Building B1, 3rd floor"
-          }
-        ]
+        "streetAddress": "Main Street, 2, Building B1, 3rd floor"
       }
     ]
   }
@@ -13777,7 +13790,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
   "bids": {
     "details": [
       {
-        "subContracting": {
+        "subcontracting": {
           "value": {
             "amount": 9999999.99,
             "currency": "EUR"
@@ -13811,7 +13824,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
   "bids": {
     "details": [
       {
-        "subContracting": {
+        "subcontracting": {
           "description": "The subcontracting will be..."
         }
       }
@@ -13842,7 +13855,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
   "bids": {
     "details": [
       {
-        "subContracting": {
+        "subcontracting": {
           "minimumPercentage": 0.3,
           "maximumPercentage": 0.3
         }
@@ -14036,6 +14049,7 @@ Get the `Organization` object whose `.name` is 'European Union'. If none exists 
         <td class="mapping">
 
 This field maps to the same `finance` objects as created for BT-5011-Contract and BT-722-Contract.
+<a href="operations.md#get-the-contract-for-a-settledcontract">Get the contract for the SettledContract</a>.
 For each `efac:Funding`, add or update the corresponding `Finance` object in the contract's `.finance` array and map to its `.description`.
 
 ```xml
@@ -15144,7 +15158,7 @@ Map `@currencyID` to its `.currency`.
         "measure": "lowestValidBidValue",
         "value": 1230000,
         "currency": "EUR",
-        "relatedLot": "Lot-00001"
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -15180,7 +15194,7 @@ Map `@currencyID` to its `.currency`.
         "measure": "highestValidBidValue",
         "value": 456,
         "currency": "EUR",
-        "relatedLot": "Lot-0001"
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -15263,7 +15277,7 @@ For each `ancestor::AppealRequestStatistics`, <a href="operations.md#add-a-stati
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>. If "true", add 'CVD' to the lot's `.coveredBy` array. If "false", discard.
+<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>. If "true", add 'EU-CVD' to the lot's `.coveredBy` array. If "false", discard.
 
 ```xml
 <efac:StrategicProcurement>
@@ -15277,7 +15291,7 @@ For each `ancestor::AppealRequestStatistics`, <a href="operations.md#add-a-stati
     "lots": [
       {
         "coveredBy": [
-          "CVD"
+          "EU-CVD"
         ]
       }
     ]
@@ -15412,6 +15426,7 @@ These values map to the same `Amendment` objects as created for BT-140. Update t
         <td class="mapping">
 
 This field maps to the same `finance` objects as created for BT-5011 and BT-6110.
+<a href="operations.md#get-the-contract-for-a-settledcontract">Get the contract for the SettledContract</a>.
 For each `efac:Funding`, add or update the corresponding `Finance` object in the contract's `.finance` array and map to its `.title`.
 
 ```xml
@@ -15486,7 +15501,7 @@ This field maps to the same `Item` objects as created for OPT-155-LotResult, OPT
 
 For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/efbc:StatisticsCode` add a `Classification` object to the corresponding item's `additionalClassifications` array.
 
-- Set the classification's `.scheme` to "vehicle-category".
+- Set the classification's `.scheme` to "vehicleCategory".
 - Map the value of the field to the classification's `.id`.
 - Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/vehicle-category">authority table</a> and map it to the classification's `.description`.
 
@@ -15505,7 +15520,7 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
           "id": "1",
           "additionalClassifications": [
             {
-              "scheme": "vehicle-category",
+              "scheme": "vehicleCategory",
               "id": "n2-n3",
               "description": "Truck (N2-N3)"
             }
@@ -16041,7 +16056,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
         <td class="mapping">
 
 - <a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add a `Classification` object to the lot's `additionalClassifications` array.
-- Set the classification's `.scheme` to 'cvd-contract-type'.
+- Set the classification's `.scheme` to 'CVDContractType'.
 - Map the value of the field to the classification's `.id`.
 - Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/cvd-contract-type">authority table</a> and map it to the classification's `.description`.
 
@@ -16059,8 +16074,8 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
         "additionalClassifications": [
           {
             "id": "oth-serv-contr",
-            "scheme": "cvd-contract-type",
-            "descriptions": "other service contract"
+            "scheme": "CVDContractType",
+            "description": "other service contract"
           }
         ]
       }
@@ -16086,7 +16101,7 @@ This field maps to the same `Item` objects as created for OPT-155-LotResult and 
 
 For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/efbc:StatisticsCode` add a `Classification` object to the corresponding item's `additionalClassifications` array.
 
-- Set the classification's `.scheme` to "cvd-contract-type".
+- Set the classification's `.scheme` to "CVDContractType".
 - Map to the classification's `.id`.
 - Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/cvd-contract-type">authority table</a> and map it to the classification's `.description`.
 
@@ -16106,8 +16121,8 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
           "additionalClassifications": [
             {
               "id": "oth-serv-contr",
-              "scheme": "cvd-contract-type",
-              "descriptions": "other service contract"
+              "scheme": "CVDContractType",
+              "description": "other service contract"
             }
           ]
         }
@@ -16403,7 +16418,7 @@ Set the document's `.unofficialTranslation` to `true`.
       "details": {
         "classifications": [
           {
-            "scheme": "TED_BUYER_TYPE",
+            "scheme": "buyer-contracting-type",
             "id": "cont-ent",
             "description": "Contracting Entity"
           }
@@ -17162,7 +17177,7 @@ Set `tender.lotDetails.maximumLotsBidPerSupplier` to the number (not the string)
     "lots": [
       {
         "submissionTerms": {
-          "electronicCateloguePolicy": "allowed"
+          "electronicCataloguePolicy": "allowed"
         }
       }
     ]
@@ -17254,7 +17269,7 @@ If different from 'none', <a href="operations.md#get-the-lot-for-a-procurementpr
       {
         "techniques": {
           "hasDynamicPurchasingSystem": true,
-          "dynamidPurchasingSystem": {
+          "dynamicPurchasingSystem": {
             "type": "closed"
           }
         }
@@ -17286,7 +17301,7 @@ If different from 'none', set `tender.techniques.hasDynamicPurchasingSystem` to 
   "tender": {
     "techniques": {
       "hasDynamicPurchasingSystem": true,
-      "dynamidPurchasingSystem": {
+      "dynamicPurchasingSystem": {
         "type": "closed"
       }
     }
@@ -17485,7 +17500,7 @@ Discard. The contract is awarded within a framework agreement if the related lot
   "bids": {
     "details": [
       {
-        "hasSubContracting": true
+        "hasSubcontracting": true
       }
     ]
   }
@@ -17518,7 +17533,7 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
   "tender": {
     "lots": [
       {
-        "hasSustainabilty": true,
+        "hasSustainability": true,
         "sustainability": [
           {
             "goal": "environmental.circularEconomy"
@@ -17557,7 +17572,7 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
   "tender": {
     "lots": [
       {
-        "hasSustainabilty": true,
+        "hasSustainability": true,
         "sustainability": [
           {
             "goal": "social.ethnicEquality",
@@ -17601,7 +17616,7 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
   "tender": {
     "lots": [
       {
-        "hasSustainabilty": true,
+        "hasSustainability": true,
         "sustainability": [
           {
             "goal": "economic.processInnovation"
@@ -17838,7 +17853,7 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
   "tender": {
     "lots": [
       {
-        "hasSustainabilty": true,
+        "hasSustainability": true,
         "sustainability": [
           {
             "strategies": [
@@ -18314,11 +18329,27 @@ Discard.
         </td>
         <td class="mapping">
 
+<a href="common-operations.md#get-the-lots-for-settledcontract">Get the lots for the SettledContract</a> and map to each lot's `.hasEssentialAssets`.
 
+```xml
+<efac:SettledContract>
+  <efac:DurationJustification>
+    <efbc:ExtendedDurationIndicator>true</efbc:ExtendedDurationIndicator>
+  </efac:DurationJustification>
+</efac:SettledContract>
+```
 
-
-
-
+```json
+{
+  "tender": {
+    "lots": [
+      {
+        "hasEssentialAssets": true
+      }
+    ]
+  }
+}
+```
 
 </td>
       </tr>
@@ -18329,11 +18360,37 @@ Discard.
         </td>
         <td class="mapping">
 
+This field maps to the same `EssentialAssets` objects created for OPP-022-Contract and OPP-023-Contract.
 
+<a href="common-operations.md#get-the-lots-for-settledcontract">Get the lots for the SettledContract</a>. For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.description`.
 
+```xml
+<efac:SettledContract>
+  <efac:DurationJustification>
+    <efac:AssetsList>
+      <efac:Asset>
+        <efbc:AssetDescription languageID="SPA">Asset 1 blabla</efbc:AssetDescription>
+      </efac:Asset>
+    </efac:AssetsList>
+  </efac:DurationJustification>
+</efac:SettledContract>
+```
 
-
-
+```json
+{
+  "tender": {
+    "lots": [
+      {
+        "essentialAssets": [
+          {
+            "description": "Asset 1 blabla"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
 </td>
       </tr>
@@ -18344,11 +18401,37 @@ Discard.
         </td>
         <td class="mapping">
 
+This field maps to the same `EssentialAssets` objects created for OPP-021-Contract and OPP-023-Contract.
 
+<a href="common-operations.md#get-the-lots-for-settledcontract">Get the lots for the SettledContract</a>. For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.significance`.
 
+```xml
+<efac:SettledContract>
+  <efac:DurationJustification>
+    <efac:AssetsList>
+      <efac:Asset>
+        <efbc:AssetSignificance languageID="SPA">30</efbc:AssetSignificance>
+      </efac:Asset>
+    </efac:AssetsList>
+  </efac:DurationJustification>
+</efac:SettledContract>
+```
 
-
-
+```json
+{
+  "tender": {
+    "lots": [
+      {
+        "essentialAssets": [
+          {
+            "significance": "30"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
 </td>
       </tr>
@@ -18359,11 +18442,37 @@ Discard.
         </td>
         <td class="mapping">
 
+This field maps to the same `EssentialAssets` objects created for OPP-021-Contract and OPP-022-Contract.
 
+<a href="common-operations.md#get-the-lots-for-settledcontract">Get the lots for the SettledContract</a>. For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.predominance`.
 
+```xml
+<efac:SettledContract>
+  <efac:DurationJustification>
+    <efac:AssetsList>
+      <efac:Asset>
+        <efbc:AssetPredominance languageID="SPA">40</efbc:AssetPredominance>
+      </efac:Asset>
+    </efac:AssetsList>
+  </efac:DurationJustification>
+</efac:SettledContract>
+```
 
-
-
+```json
+{
+  "tender": {
+    "lots": [
+      {
+        "essentialAssets": [
+          {
+            "predominance": "40"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
 </td>
       </tr>
@@ -18374,9 +18483,13 @@ Discard.
         </td>
         <td class="mapping">
 
+Discard.
 
-
-
+```xml
+<efac:ContractTerm>
+  <efbc:TermCode listName="contract-detail">soc-stand</efbc:TermCode>
+</efac:ContractTerm>
+```
 
 
 
@@ -18389,11 +18502,37 @@ Discard.
         </td>
         <td class="mapping">
 
+If the value of `ancestor::ContractTerm/efbc:TermCode` is `all-rev-tic`, discard. Otherwise, <a href="common-operations.md#get-the-lot-for-a-lottender">get the lot for the lot tender</a>.
 
+If the value of `ancestor::ContractTerm/efbc:TermCode` is `exc-right`, set the lot's `contractTerms.hasExclusiveRights` to `true`. Otherwise,  map to the lot's `.contractTerms` according to the value of `ancestor::ContractTerm/efbc:TermCode`:
 
+```
+* `cost-comp`: Map to `contractTerms.financialTerms`
+* `other`:  Map to `contractTerms.otherTerms`
+* `publ-ser-obl`: Map to `contractTerms.performanceTerms`
+* `soc-stand`: Map to `contractTerms.socialStandards`
+```
 
+```xml
+<efac:ContractTerm>
+  <efbc:TermCode listName="contract-detail">soc-stand</efbc:TermCode>
+  <efbc:TermDescription languageID="ENG">Description of the social-standards blablabla ...</efbc:TermDescription>
+</efac:ContractTerm>
+```
 
-
+```json
+{
+  "tender": {
+    "lots": [
+      {
+        "contractTerms": {
+          "socialStandards": "Description of the social-standards blablabla ..."
+        }
+      }
+    ]
+  }
+}
+```
 
 </td>
       </tr>
@@ -18404,11 +18543,28 @@ Discard.
         </td>
         <td class="mapping">
 
+<a href="common-operations.md#get-the-lot-for-a-lottender">Get the lot for the lot tender</a> and map to its `.contractTerms.operatorRevenueShare`.
 
+```xml
+<efac:ContractTerm>
+  <efbc:TermCode>all-rev-ic</efbc:TermCode>
+  <efbc:TermPercent>100</efbc:TermPercent>
+</efac:ContractTerm>
+```
 
-
-
-
+```json
+{
+  "tender": {
+    "lots": [
+      {
+        "contractTerms": {
+          "operatorRevenueShare": 100
+        }
+      }
+    ]
+  }
+}
+```
 
 </td>
       </tr>
@@ -18419,7 +18575,7 @@ Discard.
         </td>
         <td class="mapping">
 
-
+Discard.
 
 ```xml
 <efac:ContractTerm>
@@ -18438,15 +18594,28 @@ Discard.
         </td>
         <td class="mapping">
 
-
+<a href="common-operations.md#get-the-lot-for-a-lottender">Get the lot for the lot tender</a> and map to its `.contractTerms.rewardsAndPenalties`.
 
 ```xml
 <efac:ContractTerm>
+  <efbc:TermCode listName="rewards-penalties">rew-pen</efbc:TermCode>
   <efbc:TermDescription languageID="ENG">Information on Rewards and Penalties ....</efbc:TermDescription>
 </efac:ContractTerm>
 ```
 
-
+```json
+{
+  "tender": {
+    "lots": [
+      {
+        "contractTerms": {
+          "rewardsAndPenalties": "Information on Rewards and Penalties ...."
+        }
+      }
+    ]
+  }
+}
+```
 
 </td>
       </tr>
@@ -18593,7 +18762,7 @@ Discard.
         </td>
         <td class="mapping">
 
-(TED guidance) (UNREVIEWED) Map to the contract's .publicPassengerTransportServicesKilometers
+Map to the contract's .publicPassengerTransportServicesKilometers
 
 ```xml
 <efac:LotTender>
@@ -18601,7 +18770,15 @@ Discard.
 </efac:LotTender>
 ```
 
-
+```json
+{
+  "awards": [
+    {
+      "publicPassengerTransportServicesKilometers": "988754432110987"
+    }
+  ]
+}
+```
 
 </td>
       </tr>
@@ -18683,7 +18860,7 @@ Get the `Organization` in `parties` whose `id` is equal to the value of `ancesto
 - Add an `Organization` to `parties`.
 - Set its `.id` to the value of `ancestor::cac:ServiceProviderParty/cac:Party/cac:PartyIdentification/cbc:ID`.
 
-If the value of the field is "serv-prov" add `procurementServiceProvider` to the organization's `.roles` array. If the value of the field is "ted-esen" add `esender` to the organization's `.roles` array.
+If the value of the field is "serv-prov" add `procurementServiceProvider` to the organization's `.roles` array. If the value of the field is "ted-esen" add `eSender` to the organization's `.roles` array.
 
 ```xml
 <cac:ServiceProviderParty>
@@ -18696,7 +18873,7 @@ If the value of the field is "serv-prov" add `procurementServiceProvider` to the
   "parties": [
     {
       "roles": [
-        "esender"
+        "eSender"
       ]
     }
   ]
@@ -19688,9 +19865,11 @@ If there is an `Organization` in `parties` whose `.id` is equal to the value of 
 {
   "parties": [
     {
-      "beneficialOwners": {
-        "id": "UBO-0001"
-      }
+      "beneficialOwners": [
+        {
+          "id": "UBO-0001"
+        }
+      ]
     }
   ]
 }
@@ -20149,10 +20328,8 @@ eForms allows document providers to differ per lot. However, while this may be p
         </td>
         <td class="mapping">
 
-If the value of the field follows the pattern "ORG-XXXX" then <a href="operations.md#get-the-organization-for-a-company">get the organization for the company</a> whose `cbc:ID` is equal to the value of the field.
-Or
-If the value of the field follows the pattern "TPO-XXXX" then <a href="operations.md#get-the-organization-for-a-touchpoint">get the organization for the touchpoint</a> whose `cbc:ID` is equal to the value of the field.
-Add 'mediationBody, to the organization's `.roles` array.
+<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'mediationBody, to the organization's `.roles` array.
+
 eForms allows review bodies and mediation bodies to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
 ```xml
@@ -20225,10 +20402,8 @@ eForms allows review information providers to differ per lot. However, while thi
         </td>
         <td class="mapping">
 
-If the value of the field follows the pattern "ORG-XXXX" then <a href="operations.md#get-the-organization-for-a-company">get the organization for the company</a> whose `cbc:ID` is equal to the value of the field.
-Or
-If the value of the field follows the pattern "TPO-XXXX" then <a href="operations.md#get-the-organization-for-a-touchpoint">get the organization for the touchpoint</a> whose `cbc:ID` is equal to the value of the field.
-Add 'reviewBody, to the organization's `.roles` array.
+<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'reviewBody, to the organization's `.roles` array.
+
 eForms allows review bodies and mediation bodies to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
 ```xml
@@ -20681,10 +20856,7 @@ eForms allows financing and payer parties to differ per lot. However, while this
         </td>
         <td class="mapping">
 
-If the value of the field follows the pattern "ORG-XXXX" then <a href="operations.md#get-the-organization-for-a-company">get the organization for the company</a> whose `cbc:ID` is equal to the value of the field.
-Or
-If the value of the field follows the pattern "TPO-XXXX" then <a href="operations.md#get-the-organization-for-a-touchpoint">get the organization for the touchpoint</a> whose `cbc:ID` is equal to the value of the field.
-Add 'mediationBody, to the organization's `.roles` array.
+<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'mediationBody, to the organization's `.roles` array.
 
 ```xml
 <cac:MediationParty>
@@ -20754,10 +20926,7 @@ Add 'mediationBody, to the organization's `.roles` array.
         </td>
         <td class="mapping">
 
-If the value of the field follows the pattern "ORG-XXXX" then <a href="operations.md#get-the-organization-for-a-company">get the organization for the company</a> whose `cbc:ID` is equal to the value of the field.
-or
-If the value of the field follows the pattern "TPO-XXXX" then <a href="operations.md#get-the-organization-for-a-touchpoint">get the organization for the touchpoint</a> whose `cbc:ID` is equal to the value of the field.
-Add 'reviewBody, to the organization's `.roles` array.
+<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'reviewBody, to the organization's `.roles` array.
 
 ```xml
 <cac:AppealReceiverParty>
@@ -20934,7 +21103,7 @@ Add 'reviewBody, to the organization's `.roles` array.
         </td>
         <td class="mapping">
 
-- Perform the mapping for `BT-500-Organization-Company` (Organisation Name). Get the Organization in `parties` whose `.id` is equal to the value of this field and add 'subcontractor' to its `.roles` array.
+- <a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'subcontractor' to its `.roles` array.
 - <a href="operations.md#get-the-bid-for-a-lottender">Get the bid for the LotTender</a>, add a `subcontracts` object to the bid's `.subcontracting.subcontracts` array, and:
   - Set its `.id` incrementally.
   - Add a `subcontractors` object and set its `.id` to the value of this field.

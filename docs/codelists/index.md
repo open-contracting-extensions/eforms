@@ -16,6 +16,7 @@ dps-usage
 environmental-impact
 form-type
 framework-agreement-method
+gpp-criteria
 innovative-acquisition
 number-fixed
 number-threshold
