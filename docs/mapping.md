@@ -474,7 +474,7 @@ Map to `tender.procurementMethod` according to the <a href="codelists/procuremen
       <tr id="BT-106-Procedure">
         <td class="field break-all">
             <p><b>BT-106-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#acceleratedProcedureSection"></a><br>Procedure Accelerated</p><p><i>BT-106:</i> The time limit for receipt of requests to participate or of tenders in this procedure can be reduced due to a state of urgency.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification/cbc:ProcessReasonCode[@listName='accelerated-procedure']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='accelerated-procedure']/cbc:ProcessReasonCode[@listName='accelerated-procedure']</span></code>
         </td>
         <td class="mapping">
 
@@ -726,7 +726,7 @@ If "true", add "GPA" to the `tender.coveredBy` array. Otherwise, do nothing.
       </tr>
       <tr id="BT-118-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-118-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_notice_aggregated_amounts"></a><br>Notice Framework Value</p><p><i>BT-118:</i> The maximum value which can be spent within the framework agreement(s) announced in this notice over its/their whole duration, in all lots, including options and renewals, as calculated on the basis of the winner’s tender or winners’ tenders.</p>
+            <p><b>BT-118-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_notice_aggregated_amounts"></a><br>Notice Framework Maximum Value</p><p><i>BT-118:</i> The maximum value which can be spent within the framework agreement(s) announced in this notice over its/their whole duration, in all lots, including options and renewals, as calculated on the basis of the winner’s tender or winners’ tenders.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efbc:OverallMaximumFrameworkContractsAmount</span></code>
         </td>
         <td class="mapping">
@@ -2322,7 +2322,7 @@ Discard. The notice and sections that were modified can be determined by compari
       </tr>
       <tr id="BT-156-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-156-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_notice_aggregated_amounts"></a><br>Group Framework Value</p><p><i>BT-156:</i> It is the re-calculated maximum value likely to be spent for a group of lots within the procedure. This information can be provided when the maximum value of a group of lots is lower than the sum of values of individual lots (e.g. when the same budget is shared for several lots). The value covers all contracts to be awarded within a framework agreement over its whole duration, including options and renewals. The value is re-calculated on the basis of the winner’s tender or winners’ tenders.</p>
+            <p><b>BT-156-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_notice_aggregated_amounts"></a><br>Group Framework Maximum Value</p><p><i>BT-156:</i> It is the re-calculated maximum value likely to be spent for a group of lots within the procedure. This information can be provided when the maximum value of a group of lots is lower than the sum of values of individual lots (e.g. when the same budget is shared for several lots). The value covers all contracts to be awarded within a framework agreement over its whole duration, including options and renewals. The value is re-calculated on the basis of the winner’s tender or winners’ tenders.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:GroupFramework/efbc:GroupFrameworkMaximumValueAmount</span></code>
         </td>
         <td class="mapping">
@@ -2364,7 +2364,7 @@ Discard.
       </tr>
       <tr id="BT-157-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-157-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#frameworkAgreementSection"></a><br>Group Framework Estimated Maximum Value</p><p><i>BT-157:</i> The maximum value which may be spent in a framework agreement within a group of lots. This information can be provided when the maximum value of a group of lots is lower than the sum of maximum values of individual lots in this group (e.g. when the same budget is shared for several lots).  Maximum value means a value covering all contracts to be awarded within a framework agreement over its whole duration, including options and renewals.</p>
+            <p><b>BT-157-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#frameworkAgreementSection"></a><br>Group Framework Maximum Value</p><p><i>BT-157:</i> The maximum value which may be spent in a framework agreement within a group of lots. This information can be provided when the maximum value of a group of lots is lower than the sum of maximum values of individual lots in this group (e.g. when the same budget is shared for several lots).  Maximum value means a value covering all contracts to be awarded within a framework agreement over its whole duration, including options and renewals.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingProcess/cac:FrameworkAgreement/cbc:EstimatedMaximumValueAmount</span></code>
         </td>
         <td class="mapping">
@@ -2694,7 +2694,7 @@ If "allowed" or "required", add 'electronicSubmission' to the lot's `.submission
   "bids": {
     "details": [
       {
-        "rank": "1"
+        "rank": 1
       }
     ]
   }
@@ -2723,7 +2723,7 @@ If "allowed" or "required", add 'electronicSubmission' to the lot's `.submission
   "bids": {
     "details": [
       {
-        "hasRank": "true"
+        "hasRank": true
       }
     ]
   }
@@ -2799,8 +2799,8 @@ If "allowed" or "required", add 'electronicSubmission' to the lot's `.submission
         </td>
         <td class="mapping">
 
-Look up the equivalent ISO 3166-1 alpha-2 code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country">authority table</a> and convert to lowercase.
-<a href="operations.md#get-the-bid-for-a-lottender">Get the bid for a LotTender</a> and add to the bid's `.countryOfOrigin` array.
+1. <a href="operations.md#get-the-bid-for-a-lottender">Get the bid for a LotTender</a>.
+2. If the value of the field is `1A0` (Kosovo), add 'XK' to the bid's `.countriesOfOrigin` array. Otherwise, look up the equivalent ISO 3166-1 alpha-2 code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country">authority table</a> and add to the bid's `.countriesOfOrigin` array.
 
 ```xml
 <efac:Origin>
@@ -2813,8 +2813,8 @@ Look up the equivalent ISO 3166-1 alpha-2 code in the <a href="https://op.europa
   "bids": {
     "details": [
       {
-        "countryOfOrigin": [
-          "it"
+        "countriesOfOrigin": [
+          "IT"
         ]
       }
     ]
@@ -7588,7 +7588,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-88)-Procedure. Ad
       </tr>
       <tr id="BT-198(BT-09)-Procedure">
         <td class="field break-all">
-            <p><b>BT-198(BT-09)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-09)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[cbc:ID/text()='CrossBorderLaw']/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='cro-bor-law']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7615,7 +7615,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-09)-Procedure. <a
       </tr>
       <tr id="BT-198(BT-105)-Procedure">
         <td class="field break-all">
-            <p><b>BT-198(BT-105)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-105)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='pro-typ']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7642,7 +7642,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-105)-Procedure. <
       </tr>
       <tr id="BT-198(BT-106)-Procedure">
         <td class="field break-all">
-            <p><b>BT-198(BT-106)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-106)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='accelerated-procedure']/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='pro-acc']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7669,7 +7669,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-106)-Procedure. <
       </tr>
       <tr id="BT-198(BT-1118)-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-1118)-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-1118)-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='not-app-val']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7688,7 +7688,7 @@ Discard.
       </tr>
       <tr id="BT-198(BT-118)-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-118)-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-118)-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='not-max-val']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7707,7 +7707,7 @@ Discard.
       </tr>
       <tr id="BT-198(BT-1252)-Procedure">
         <td class="field break-all">
-            <p><b>BT-198(BT-1252)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-1252)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='direct-award-justification']/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='dir-awa-pre']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7734,7 +7734,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. 
       </tr>
       <tr id="BT-198(BT-135)-Procedure">
         <td class="field break-all">
-            <p><b>BT-198(BT-135)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-135)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='direct-award-justification']/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='dir-awa-tex']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7761,7 +7761,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-135)-Procedure. <
       </tr>
       <tr id="BT-198(BT-1351)-Procedure">
         <td class="field break-all">
-            <p><b>BT-198(BT-1351)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-1351)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='accelerated-procedure']/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='pro-acc-jus']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7788,7 +7788,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-1351)-Procedure. 
       </tr>
       <tr id="BT-198(BT-136)-Procedure">
         <td class="field break-all">
-            <p><b>BT-198(BT-136)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-136)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='direct-award-justification']/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='dir-awa-jus']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7815,7 +7815,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-136)-Procedure. <
       </tr>
       <tr id="BT-198(BT-142)-LotResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-142)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-142)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='win-cho']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7842,7 +7842,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-142)-LotResult an
       </tr>
       <tr id="BT-198(BT-144)-LotResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-144)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-144)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:DecisionReason/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='no-awa-rea']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7869,7 +7869,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-144)-LotResult an
       </tr>
       <tr id="BT-198(BT-156)-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-156)-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-156)-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:GroupFramework/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='gro-max-val']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7888,7 +7888,7 @@ Discard.
       </tr>
       <tr id="BT-198(BT-1561)-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-1561)-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-1561)-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:GroupFramework/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='not-ree-val']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7907,7 +7907,7 @@ Discard.
       </tr>
       <tr id="BT-198(BT-160)-Tender">
         <td class="field break-all">
-            <p><b>BT-198(BT-160)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-160)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:ConcessionRevenue/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='con-rev-buy']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7934,7 +7934,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-160)-Tender and `
       </tr>
       <tr id="BT-198(BT-161)-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-161)-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-161)-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='not-val']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7953,7 +7953,7 @@ Discard.
       </tr>
       <tr id="BT-198(BT-162)-Tender">
         <td class="field break-all">
-            <p><b>BT-198(BT-162)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-162)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:ConcessionRevenue/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='con-rev-use']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -7980,7 +7980,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-162)-Tender and `
       </tr>
       <tr id="BT-198(BT-163)-Tender">
         <td class="field break-all">
-            <p><b>BT-198(BT-163)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-163)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:ConcessionRevenue/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='val-con-des']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8007,7 +8007,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-163)-Tender and `
       </tr>
       <tr id="BT-198(BT-171)-Tender">
         <td class="field break-all">
-            <p><b>BT-198(BT-171)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-171)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='ten-ran']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8034,7 +8034,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-171)-Tender and `
       </tr>
       <tr id="BT-198(BT-191)-Tender">
         <td class="field break-all">
-            <p><b>BT-198(BT-191)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-191)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:Origin/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='cou-ori']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8061,7 +8061,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-191)-Tender and `
       </tr>
       <tr id="BT-198(BT-193)-Tender">
         <td class="field break-all">
-            <p><b>BT-198(BT-193)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-193)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='win-ten-var']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8088,7 +8088,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-193)-Tender and `
       </tr>
       <tr id="BT-198(BT-539)-Lot">
         <td class="field break-all">
-            <p><b>BT-198(BT-539)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-539)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-typ']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8115,7 +8115,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-539)-Lot and `anc
       </tr>
       <tr id="BT-198(BT-539)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-198(BT-539)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-539)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-typ']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8142,7 +8142,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-539)-LotsGroup an
       </tr>
       <tr id="BT-198(BT-540)-Lot">
         <td class="field break-all">
-            <p><b>BT-198(BT-540)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-540)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-des']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8169,7 +8169,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-540)-Lot and `anc
       </tr>
       <tr id="BT-198(BT-540)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-198(BT-540)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-540)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-des']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8196,7 +8196,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-540)-LotsGroup an
       </tr>
       <tr id="BT-198(BT-541)-Lot">
         <td class="field break-all">
-            <p><b>BT-198(BT-541)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-541)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8223,7 +8223,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot and `anc
       </tr>
       <tr id="BT-198(BT-541)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-198(BT-541)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-541)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8250,7 +8250,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup an
       </tr>
       <tr id="BT-198(BT-5421)-Lot">
         <td class="field break-all">
-            <p><b>BT-198(BT-5421)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-5421)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-wei']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8277,7 +8277,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5421)-Lot and `an
       </tr>
       <tr id="BT-198(BT-5421)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-198(BT-5421)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-5421)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-wei']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8304,7 +8304,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5421)-LotsGroup a
       </tr>
       <tr id="BT-198(BT-5422)-Lot">
         <td class="field break-all">
-            <p><b>BT-198(BT-5422)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-5422)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-fix']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8331,7 +8331,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5422)-Lot and `an
       </tr>
       <tr id="BT-198(BT-5422)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-198(BT-5422)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-5422)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-fix']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8358,7 +8358,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5422)-LotsGroup a
       </tr>
       <tr id="BT-198(BT-5423)-Lot">
         <td class="field break-all">
-            <p><b>BT-198(BT-5423)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-5423)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-thr']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8385,7 +8385,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5423)-Lot and `an
       </tr>
       <tr id="BT-198(BT-5423)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-198(BT-5423)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-5423)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-thr']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8412,7 +8412,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5423)-LotsGroup a
       </tr>
       <tr id="BT-198(BT-543)-Lot">
         <td class="field break-all">
-            <p><b>BT-198(BT-543)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-543)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-com']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8439,7 +8439,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-543)-Lot and `anc
       </tr>
       <tr id="BT-198(BT-543)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-198(BT-543)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-543)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-com']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8466,7 +8466,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-543)-LotsGroup an
       </tr>
       <tr id="BT-198(BT-553)-Tender">
         <td class="field break-all">
-            <p><b>BT-198(BT-553)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-553)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8493,7 +8493,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-553)-Tender and `
       </tr>
       <tr id="BT-198(BT-554)-Tender">
         <td class="field break-all">
-            <p><b>BT-198(BT-554)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-554)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-des']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8520,7 +8520,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-554)-Tender and `
       </tr>
       <tr id="BT-198(BT-555)-Tender">
         <td class="field break-all">
-            <p><b>BT-198(BT-555)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-555)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8547,7 +8547,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-555)-Tender and `
       </tr>
       <tr id="BT-198(BT-556)-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-556)-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-556)-NoticeResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:GroupFramework/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='gro-max-ide']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8566,7 +8566,7 @@ Discard.
       </tr>
       <tr id="BT-198(BT-635)-LotResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-635)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-635)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:AppealRequestsStatistics[efbc:StatisticsCode/@listName='irregularity-type']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='buy-rev-cou']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8593,7 +8593,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-635)-LotResult an
       </tr>
       <tr id="BT-198(BT-636)-LotResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-636)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-636)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:AppealRequestsStatistics[efbc:StatisticsCode/@listName='irregularity-type']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='buy-rev-typ']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8620,7 +8620,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-636)-LotResult an
       </tr>
       <tr id="BT-198(BT-709)-LotResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-709)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-709)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:FrameworkAgreementValues/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='max-val']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8647,7 +8647,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-709)-LotResult an
       </tr>
       <tr id="BT-198(BT-710)-LotResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-710)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-710)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='ten-val-low']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8674,7 +8674,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-710)-LotResult an
       </tr>
       <tr id="BT-198(BT-711)-LotResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-711)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-711)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='ten-val-hig']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8701,7 +8701,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-711)-LotResult an
       </tr>
       <tr id="BT-198(BT-712)-LotResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-712)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-712)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:AppealRequestsStatistics[efbc:StatisticsCode/@listName='review-type']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='rev-req']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8728,7 +8728,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-712)-LotResult an
       </tr>
       <tr id="BT-198(BT-720)-Tender">
         <td class="field break-all">
-            <p><b>BT-198(BT-720)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-720)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='win-ten-val']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8755,7 +8755,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-720)-Tender and `
       </tr>
       <tr id="BT-198(BT-730)-Tender">
         <td class="field break-all">
-            <p><b>BT-198(BT-730)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-730)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val-kno']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8774,7 +8774,7 @@ Discard. BT-730 is discarded as it is implied by BT-553.
       </tr>
       <tr id="BT-198(BT-731)-Tender">
         <td class="field break-all">
-            <p><b>BT-198(BT-731)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-731)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per-kno']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8793,7 +8793,7 @@ Discard. BT-730 is discarded as it is implied by BT-553.
       </tr>
       <tr id="BT-198(BT-733)-Lot">
         <td class="field break-all">
-            <p><b>BT-198(BT-733)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-733)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-ord']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8820,7 +8820,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-733)-Lot and `anc
       </tr>
       <tr id="BT-198(BT-733)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-198(BT-733)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-733)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-ord']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8845,7 +8845,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-733)-LotsGroup an
       </tr>
       <tr id="BT-198(BT-734)-Lot">
         <td class="field break-all">
-            <p><b>BT-198(BT-734)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-734)-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-nam']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8872,7 +8872,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-734)-Lot and `anc
       </tr>
       <tr id="BT-198(BT-734)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-198(BT-734)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-734)-LotsGroup</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-nam']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8899,7 +8899,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-734)-LotsGroup an
       </tr>
       <tr id="BT-198(BT-759)-LotResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-759)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-759)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:ReceivedSubmissionsStatistics/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='rec-sub-cou']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8926,7 +8926,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-759)-LotResult an
       </tr>
       <tr id="BT-198(BT-760)-LotResult">
         <td class="field break-all">
-            <p><b>BT-198(BT-760)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-760)-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:ReceivedSubmissionsStatistics/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='rec-sub-typ']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8953,7 +8953,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-760)-LotResult an
       </tr>
       <tr id="BT-198(BT-773)-Tender">
         <td class="field break-all">
-            <p><b>BT-198(BT-773)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-773)-Tender</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-con']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -8980,7 +8980,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-773)-Tender and `
       </tr>
       <tr id="BT-198(BT-88)-Procedure">
         <td class="field break-all">
-            <p><b>BT-198(BT-88)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Accessibility Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <p><b>BT-198(BT-88)-Procedure</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='pro-fea']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -10982,7 +10982,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
       </tr>
       <tr id="BT-5011-Contract">
         <td class="field break-all">
-            <p><b>BT-5011-Contract</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#settledContractSection"></a><br>Contract EU Funds Identifier</p><p><i>BT-5011:</i> An identifier of the Union programme used to at least partially finance the contract. The most concrete information must be given (e.g. grant agreement number, national identifier, project acronym, contract number) </p>
+            <p><b>BT-5011-Contract</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#settledContractSection"></a><br>Contract EU Funds Financing Identifier</p><p><i>BT-5011:</i> An identifier of the Union programme used to at least partially finance the contract. The most concrete information must be given (e.g. grant agreement number, national identifier, project acronym, contract number) </p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:SettledContract/efac:Funding/efbc:FinancingIdentifier</span></code>
         </td>
         <td class="mapping">
@@ -14306,7 +14306,7 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `.communication.invitationToConfirmInterest.startDate`.
+<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `.communication.invitationToConfirmInterest`.
 
 ```xml
 <cac:ParticipationInvitationPeriod>
@@ -14320,9 +14320,7 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
     "lots": [
       {
         "communication": {
-          "invitationToConfirmInterest": {
-            "startDate": "2019-11-15T09:00:00+01:00"
-          }
+          "invitationToConfirmInterest": "2019-11-15T09:00:00+01:00"
         }
       }
     ]
@@ -14657,7 +14655,7 @@ If different from 'none':
       </tr>
       <tr id="BT-660-LotResult">
         <td class="field break-all">
-            <p><b>BT-660-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_lot_result"></a><br>Framework Estimated Value</p><p><i>BT-660:</i> The value likely to be spent within a framework agreement over its whole duration, including options and renewals, as re-estimated on the basis of the winner’s tender or winners’ tenders.</p>
+            <p><b>BT-660-LotResult</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_lot_result"></a><br>Framework Re-estimated Value</p><p><i>BT-660:</i> The value likely to be spent within a framework agreement over its whole duration, including options and renewals, as re-estimated on the basis of the winner’s tender or winners’ tenders.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:FrameworkAgreementValues/efbc:ReestimatedValueAmount</span></code>
         </td>
         <td class="mapping">
@@ -16270,7 +16268,7 @@ Set the document's `.unofficialTranslation` to `true`.
       </tr>
       <tr id="BT-738-notice">
         <td class="field break-all">
-            <p><b>BT-738-notice</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/notice-information.html#preferredDateSection"></a><br>Notice Publication Date Preferred</p><p><i>BT-738:</i> The preferred date of publication of the notice on TED (e.g. to avoid publication during a national holiday). </p>
+            <p><b>BT-738-notice</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/notice-information.html#preferredDateSection"></a><br>Notice Preferred Publication Date</p><p><i>BT-738:</i> The preferred date of publication of the notice on TED (e.g. to avoid publication during a national holiday). </p>
             <code class="docutils literal notranslate"><span class="pre">/*/cbc:RequestedPublicationDate</span></code>
         </td>
         <td class="mapping">
@@ -16452,7 +16450,7 @@ Set the document's `.unofficialTranslation` to `true`.
     "lots": [
       {
         "contractTerms": {
-          "electonicInvoicingPolicy": "required"
+          "electronicInvoicingPolicy": "required"
         }
       }
     ]
@@ -17594,7 +17592,7 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
       </tr>
       <tr id="BT-776-Lot">
         <td class="field break-all">
-            <p><b>BT-776-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#strategicProcurementSection"></a><br>Innovative Procurement</p><p><i>BT-776:</i> An indication that innovative works, supplies or services are being bought. </p>
+            <p><b>BT-776-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#strategicProcurementSection"></a><br>Procurement of Innovation</p><p><i>BT-776:</i> An indication that innovative works, supplies or services are being bought. </p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType/cbc:ProcurementTypeCode[@listName='innovative-acquisition']</span></code>
         </td>
         <td class="mapping">
@@ -18502,6 +18500,8 @@ Discard.
         </td>
         <td class="mapping">
 
+This mapping assumes that the value of this field is consistent across all the LotTenders for a given lot. If the values in your data source vary, contact the <a href="mailto:data@open-contracting.org">OCDS Data Support Team</a>.
+
 If the value of `ancestor::ContractTerm/efbc:TermCode` is `all-rev-tic`, discard. Otherwise, <a href="common-operations.md#get-the-lot-for-a-lottender">get the lot for the lot tender</a>.
 
 If the value of `ancestor::ContractTerm/efbc:TermCode` is `exc-right`, set the lot's `contractTerms.hasExclusiveRights` to `true`. Otherwise,  map to the lot's `.contractTerms` according to the value of `ancestor::ContractTerm/efbc:TermCode`:
@@ -18543,7 +18543,9 @@ If the value of `ancestor::ContractTerm/efbc:TermCode` is `exc-right`, set the l
         </td>
         <td class="mapping">
 
-<a href="common-operations.md#get-the-lot-for-a-lottender">Get the lot for the lot tender</a> and map to its `.contractTerms.operatorRevenueShare`.
+This mapping assumes that the value of this field is consistent across all the LotTenders for a given lot. If the values in your data source vary, contact the <a href="mailto:data@open-contracting.org">OCDS Data Support Team</a>.
+
+<a href="common-operations.md#get-the-lot-for-a-lottender">Get the lot for the lot tender</a>, divide by 100 and map the result to the lot's `.contractTerms.operatorRevenueShare`.
 
 ```xml
 <efac:ContractTerm>
@@ -18558,7 +18560,7 @@ If the value of `ancestor::ContractTerm/efbc:TermCode` is `exc-right`, set the l
     "lots": [
       {
         "contractTerms": {
-          "operatorRevenueShare": 100
+          "operatorRevenueShare": 1
         }
       }
     ]
@@ -18593,6 +18595,8 @@ Discard.
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:ContractTerm[efbc:TermCode/@listName='rewards-penalties']/efbc:TermDescription</span></code>
         </td>
         <td class="mapping">
+
+This mapping assumes that the value of this field is consistent across all the LotTenders for a given lot. If the values in your data source vary, contact the <a href="mailto:data@open-contracting.org">OCDS Data Support Team</a>.
 
 <a href="common-operations.md#get-the-lot-for-a-lottender">Get the lot for the lot tender</a> and map to its `.contractTerms.rewardsAndPenalties`.
 
@@ -19016,7 +19020,7 @@ For each `cac:ContractExecutionRequirement` add or update the corresponding `Cus
       <tr id="OPT-090-Lot">
         <td class="field break-all">
             <p><b>OPT-090-Lot</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#frameworkAgreementSection"></a><br>Buyer Categories</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:FrameworkAgreement/cac:SubsequentProcessTenderRequirement/cbc:Name</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:FrameworkAgreement/cac:SubsequentProcessTenderRequirement[cbc:Name/text()='buyer-categories']/cbc:Name</span></code>
         </td>
         <td class="mapping">
 
