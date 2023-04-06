@@ -65,7 +65,7 @@ Instructions to follow to map the eForms field to OCDS.
         </td>
         <td class="mapping">
 
-Set `tender.legalBasis.scheme` to <a href="https://eur-lex.europa.eu/eli-register/about.html">'ELI'</a>, and map to `tender.legalBasis.id`.
+Set `tender.legalBasis.scheme` to ['ELI'](https://eur-lex.europa.eu/eli-register/about.html), and map to `tender.legalBasis.id`.
 
 ```xml
 <cac:ProcurementLegislationDocumentReference>
@@ -174,7 +174,7 @@ Map to `tender.legalBasis.description`.
         </td>
         <td class="mapping">
 
-Set `tender.legalBasis.scheme` to <a href="https://eur-lex.europa.eu/content/help/faq/intro.html#help8">'CELEX'</a>, and map to `tender.legalBasis.id`.
+Set `tender.legalBasis.scheme` to ['CELEX'](https://eur-lex.europa.eu/content/help/faq/intro.html#help8), and map to `tender.legalBasis.id`.
 
 ```xml
 <cbc:RegulatoryDomain>32014L0024</cbc:RegulatoryDomain>
@@ -217,9 +217,9 @@ Discard.
         </td>
         <td class="mapping">
 
-The codes are drawn from the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/form-type">Form type</a> authority table in EU Vocabularies.
+The codes are drawn from the [Form type](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/form-type) authority table in EU Vocabularies.
 
-Look-up the code in the <a href="codelists/form-type">form type mapping table</a>, add the values of the release tag column to `tag` and set `tender.status` to the value of the tender status column.
+Look-up the code in the [form type mapping table](codelists/form-type), add the values of the release tag column to `tag` and set `tender.status` to the value of the tender status column.
 
 ```xml
 <cbc:NoticeTypeCode listName="competition">cn-standard</cbc:NoticeTypeCode>
@@ -268,7 +268,7 @@ Map to `tender.id`.
         </td>
         <td class="mapping">
 
-Combine with <a href="#BT-05(b)-notice">BT-05(b)-notice</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to `date`.
+Combine with [BT-05(b)-notice](<#BT-05(b)-notice>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `date`.
 
 ```xml
 <cbc:IssueDate>2019-11-26+01:00</cbc:IssueDate>
@@ -290,7 +290,7 @@ Combine with <a href="#BT-05(b)-notice">BT-05(b)-notice</a>, <a href="operations
         </td>
         <td class="mapping">
 
-Combine with <a href="#BT-05(a)-notice">BT-05(a)-notice</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to `date`.
+Combine with [BT-05(a)-notice](<#BT-05(a)-notice>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `date`.
 
 ```xml
 <cbc:IssueDate>2019-11-26+01:00</cbc:IssueDate>
@@ -314,13 +314,13 @@ Combine with <a href="#BT-05(a)-notice">BT-05(a)-notice</a>, <a href="operations
 
 This field maps to the same `Sustainability` objects as created for BT-777-Lot.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 
 If the code is "none" discard, otherwise set the lot's `.hasSustainability` to "true".
 
 For each `cac:ProcurementAdditionalType`, add or update the corresponding `Sustainability` object to the lot's `.sustainability` array.
 
-- Map the code to the sustainability's `.goal` according to the <a href="codelists/strategic-procurement">strategic procurement mapping table</a>.
+- Map the code to the sustainability's `.goal` according to the [strategic procurement mapping table](codelists/strategic-procurement).
 - Add 'awardCriteria', 'contractPerformanceConditions', 'selectionCriteria' and 'technicalSpecifications' to the sustainability's `.strategies` array.
 
 ```xml
@@ -361,7 +361,7 @@ For each `cac:ProcurementAdditionalType`, add or update the corresponding `Susta
         </td>
         <td class="mapping">
 
-See <a href="#BT-09(b)-Procedure">BT-09(b)-Procedure</a>.
+See [BT-09(b)-Procedure](<#BT-09(b)-Procedure>).
 
 
 
@@ -402,10 +402,10 @@ Map to `tender.crossBorderLaw`.
         </td>
         <td class="mapping">
 
-- <a href="operations.md#get-the-organization-for-the-buyer">Get the organization for the buyer</a> and add a `Classification` object to its `.details.classifications` array.
+- [Get the organization for the buyer](operations.md#get-the-organization-for-the-buyer) and add a `Classification` object to its `.details.classifications` array.
 - Map the value of this field to the classification's `.id`.
-- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/main-activity">authority table</a> and map it to the classification's `.description`.
-- If the code's definition in the authority table includes <a href="https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Classification_of_the_functions_of_government_(COFOG)">"COFOG"</a>, set the classification's `.scheme` to 'COFOG'. Otherwise, set it to 'Directive 2014/25/EU'.
+- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/main-activity) and map it to the classification's `.description`.
+- If the code's definition in the authority table includes ["COFOG"](<https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Classification_of_the_functions_of_government_(COFOG)>), set the classification's `.scheme` to 'COFOG'. Otherwise, set it to 'Directive 2014/25/EU'.
 
 ```xml
 <cac:ContractingParty>
@@ -448,9 +448,9 @@ Map to `tender.crossBorderLaw`.
         </td>
         <td class="mapping">
 
-The codes are drawn from the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/procurement-procedure-type">procurement procedure type</a>) authority table in EU Vocabularies.
+The codes are drawn from the [procurement procedure type](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/procurement-procedure-type)) authority table in EU Vocabularies.
 
-Map to `tender.procurementMethod` according to the <a href="codelists/procurement-procedure-type">procurement procedure type mapping table</a>.
+Map to `tender.procurementMethod` according to the [procurement procedure type mapping table](codelists/procurement-procedure-type).
 
 ```{note}
 `tender.procurementMethod` is not set for "oth-mult" or "oth-single".
@@ -510,7 +510,7 @@ Map to `tender.procedure.isAccelerated` as a boolean.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.techniques.frameworkAgreement.periodRationale`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.techniques.frameworkAgreement.periodRationale`.
 
 ```xml
 <cac:FrameworkAgreement>
@@ -543,9 +543,9 @@ Map to `tender.procedure.isAccelerated` as a boolean.
         </td>
         <td class="mapping">
 
-- <a href="operations.md#get-the-organization-for-the-buyer">Get the organization for the buyer</a> and add a `Classification` object to its `.details.classifications` array.
+- [Get the organization for the buyer](operations.md#get-the-organization-for-the-buyer) and add a `Classification` object to its `.details.classifications` array.
 - Map the value of this field to the classification's `.id`.
-- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/buyer-legal-type">authority table</a> and map it to the classification's `.description`.
+- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/buyer-legal-type) and map it to the classification's `.description`.
 - Set the classification's `.scheme` to 'TED_CA_TYPE'.
 
 ```xml
@@ -589,7 +589,7 @@ Map to `tender.procedure.isAccelerated` as a boolean.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to the its `.techniques.frameworkAgreement.buyerCategories`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to the its `.techniques.frameworkAgreement.buyerCategories`.
 
 ```xml
 <cac:FrameworkAgreement>
@@ -644,7 +644,7 @@ Discard.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to the its  `.techniques.frameworkAgreement.maximumParticipants`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to the its  `.techniques.frameworkAgreement.maximumParticipants`.
 
 ```xml
 <cac:FrameworkAgreement>
@@ -677,7 +677,7 @@ Discard.
         </td>
         <td class="mapping">
 
-If "true", <a href="operations.md#get-the-lot-for-a-procurementprojectlot">get the lot for the ProcurementProjectLot</a> and add "GPA" to its `.coveredBy` array. Otherwise, discard.
+If "true", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add "GPA" to its `.coveredBy` array. Otherwise, discard.
 
 ```xml
 <cbc:GovernmentAgreementConstraintIndicator>true</cbc:GovernmentAgreementConstraintIndicator>
@@ -750,7 +750,7 @@ Discard.
         </td>
         <td class="mapping">
 
-If "true", <a href="operations.md#get-the-lot-for-a-lotresult">get the lot for the LotResult</a> and set the lot's `.techniques.dynamicPurchasingSystem.status` to 'terminated'. Otherwise, discard.
+If "true", [get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult) and set the lot's `.techniques.dynamicPurchasingSystem.status` to 'terminated'. Otherwise, discard.
 
 ```xml
 <efac:LotResult>
@@ -783,7 +783,7 @@ If "true", <a href="operations.md#get-the-lot-for-a-lotresult">get the lot for t
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and set its `.secondStage.noNegotiationNecessary` to `true`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set its `.secondStage.noNegotiationNecessary` to `true`.
 
 ```xml
 <cbc:NoFurtherNegotiationIndicator>true</cbc:NoFurtherNegotiationIndicator>
@@ -812,7 +812,7 @@ If "true", <a href="operations.md#get-the-lot-for-a-lotresult">get the lot for t
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.techniques.electronicAuction.description`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.techniques.electronicAuction.description`.
 
 ```xml
 <cac:AuctionTerms>
@@ -845,7 +845,7 @@ If "true", <a href="operations.md#get-the-lot-for-a-lotresult">get the lot for t
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.techniques.electronicAuction.url`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.techniques.electronicAuction.url`.
 
 ```xml
 <cac:AuctionTerms>
@@ -878,7 +878,7 @@ If "true", <a href="operations.md#get-the-lot-for-a-lotresult">get the lot for t
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.communication.atypicalToolUrl`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.communication.atypicalToolUrl`.
 
 ```xml
 <cbc:AccessToolsURI>https://my-atypical-tool.com/</cbc:AccessToolsURI>
@@ -932,7 +932,7 @@ Map to `tender.communication.atypicalToolUrl`
         </td>
         <td class="mapping">
 
-<a href="operations.md#reference-a-previous-publication">Reference a previous publication</a>
+[Reference a previous publication](operations.md#reference-a-previous-publication)
 
 ```xml
 <cac:NoticeDocumentReference>
@@ -964,7 +964,7 @@ Map to `tender.communication.atypicalToolUrl`
         </td>
         <td class="mapping">
 
-Concatenate with <a href="#BT-1251-Part">BT-1251-Part Previous Planning Part Identifier</a> and <a href="operations.md#reference-a-previous-publication">reference a previous publication</a>.
+Concatenate with <a href="#BT-1251-Part">BT-1251-Part Previous Planning Part Identifier</a> and [reference a previous publication](operations.md#reference-a-previous-publication).
 
 ```xml
 <cac:NoticeDocumentReference>
@@ -1035,7 +1035,7 @@ For each `cac:NoticeDocumentReference`, add or update the corresponding `Related
         </td>
         <td class="mapping">
 
-Concatenate with <a href="#BT-125(i)-Part">BT-125(i)-Part Previous Planning Identifier</a> and <a href="operations.md#reference-a-previous-publication">reference a previous publication</a>.
+Concatenate with [BT-125(i)-Part Previous Planning Identifier](<#BT-125(i)-Part>) and [reference a previous publication](operations.md#reference-a-previous-publication).
 
 ```xml
 <cac:NoticeDocumentReference>
@@ -1104,7 +1104,7 @@ Map the value of the field to `.identifier`. Set `.scheme` to "eu-oj". If the va
         </td>
         <td class="mapping">
 
-<a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to `tender.communication.futureNoticeDate`.
+[Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `tender.communication.futureNoticeDate`.
 
 ```xml
 <cbc:PlannedDate>2020-03-15+01:00</cbc:PlannedDate>
@@ -1129,7 +1129,7 @@ Map the value of the field to `.identifier`. Set `.scheme` to "eu-oj". If the va
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, combine with <a href="#BT-13(t)-lot">BT-13(t)-Lot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `.enquiryPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-13(t)-Lot](<#BT-13(t)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.enquiryPeriod.endDate`.
 
 ```xml
 <cac:AdditionalInformationRequestPeriod>
@@ -1160,7 +1160,7 @@ Map the value of the field to `.identifier`. Set `.scheme` to "eu-oj". If the va
         </td>
         <td class="mapping">
 
-Combine with <a href="#BT-13(t)-part">BT-13(t)-Part</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to `tender.enquiryPeriod.endDate`.
+Combine with [BT-13(t)-Part](<#BT-13(t)-part>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `tender.enquiryPeriod.endDate`.
 
 ```xml
 <cac:AdditionalInformationRequestPeriod>
@@ -1187,7 +1187,7 @@ Combine with <a href="#BT-13(t)-part">BT-13(t)-Part</a>, <a href="operations.md#
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, combine with <a href="#BT-13(d)-lot">BT-13(d)-Lot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `.enquiryPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-13(d)-Lot](<#BT-13(d)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.enquiryPeriod.endDate`.
 
 ```xml
 <cac:AdditionalInformationRequestPeriod>
@@ -1218,7 +1218,7 @@ Combine with <a href="#BT-13(t)-part">BT-13(t)-Part</a>, <a href="operations.md#
         </td>
         <td class="mapping">
 
-Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to `tender.enquiryPeriod.endDate`.
+Combine with [BT-13(d)-Part](<#BT-13(d)-part>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `tender.enquiryPeriod.endDate`.
 
 ```xml
 <cac:AdditionalInformationRequestPeriod>
@@ -1245,7 +1245,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, <a href="operations.md#
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `.secondStage.invitationDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.secondStage.invitationDate`.
 
 ```xml
 <cac:InvitationSubmissionPeriod>
@@ -1276,7 +1276,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, <a href="operations.md#
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, combine with <a href="#BT-131(t)-lot">BT-131(t)-Lot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `.tenderPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-131(t)-Lot](<#BT-131(t)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
 
 ```xml
 <cac:TenderSubmissionDeadlinePeriod>
@@ -1307,7 +1307,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, <a href="operations.md#
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, combine with <a href="#BT-131(d)-lot">BT-131(d)-Lot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `.tenderPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-131(d)-Lot](<#BT-131(d)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
 
 ```xml
 <cac:TenderSubmissionDeadlinePeriod>
@@ -1338,7 +1338,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, <a href="operations.md#
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, combine with <a href="#BT-1311(t)-lot">BT-1311(t)-Lot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `.tenderPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-1311(t)-Lot](<#BT-1311(t)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
 
 ```xml
 <cac:ParticipationRequestReceptionPeriod>
@@ -1369,7 +1369,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, <a href="operations.md#
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, combine with <a href="#BT-1311(d)-lot">BT-1311(d)-Lot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `.tenderPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-1311(d)-Lot](<#BT-1311(d)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
 
 ```xml
 <cac:ParticipationRequestReceptionPeriod>
@@ -1400,7 +1400,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, <a href="operations.md#
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, combine with <a href="#BT-132(t)-lot">BT-132(t)-Lot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `.awardPeriod.startDate` and to its `.bidOpening.date`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-132(t)-Lot](<#BT-132(t)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.awardPeriod.startDate` and to its `.bidOpening.date`.
 
 ```xml
 <cac:OpenTenderEvent>
@@ -1431,7 +1431,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, <a href="operations.md#
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, combine with <a href="#BT-132(d)-lot">BT-132(d)-Lot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `.awardPeriod.startDate` and to its `.bidOpening.date`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-132(d)-Lot](<#BT-132(d)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.awardPeriod.startDate` and to its `.bidOpening.date`.
 
 ```xml
 <cac:OpenTenderEvent>
@@ -1462,7 +1462,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, <a href="operations.md#
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.bidOpening.location.description`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.bidOpening.location.description`.
 
 ```xml
 <cac:OpenTenderEvent>
@@ -1497,7 +1497,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, <a href="operations.md#
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `bidOpening.description`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `bidOpening.description`.
 
 ```xml
 <cac:OpenTenderEvent>
@@ -1588,7 +1588,7 @@ Map to `tender.procedure.acceleratedRationale`.
 Add a `Classification` object to `tender.procurementMethodRationaleClassifications`, and:
 
 - Map the code to its `.id`.
-- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/direct-award-justification">authority table</a> and map it to `.description`.
+- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/direct-award-justification) and map it to `.description`.
 - Set `.scheme` to its 'eforms-direct-award-justification'.
 
 ```xml
@@ -1830,14 +1830,9 @@ If not already present, add the value of the field to the lot group's `.relatedL
         </td>
         <td class="mapping">
 
-This field maps to the same `ParticipationFee` objects as created for BT-615-Lot and BT-707-Lot.
-
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
-
-For each `cac:CallForTendersDocumentReference`, add or update the corresponding `ParticipationFee` object in the lot's `participationFees` array, and:
-
-- Set its `.type` to 'document'.
-- Map `cac:CallForTendersDocumentReference/cdc:ID` to its `.id`.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
+Set its `.documentType` to 'biddingDocuments' and set it's `.accessDetails` to 'Restricted.'.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
 ```xml
 <cac:CallForTendersDocumentReference>
@@ -1848,13 +1843,13 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
 ```json
 {
   "tender": {
-    "lots": [
+    "documents": [
       {
-        "participationFees": [
-          {
-            "id": "1",
-            "type": "document"
-          }
+        "id": "20210521/CTFD/ENG/7654-02",
+        "documentType": "biddingDocuments",
+        "accessDetails": "Restricted.",
+        "relatedLots": [
+          "LOT-0001"
         ]
       }
     ]
@@ -1871,11 +1866,8 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
         </td>
         <td class="mapping">
 
-This field maps to the same `ParticipationFee` objects as created for BT-615-Lot and BT-707-Lot.
-For each `cac:CallForTendersDocumentReference`, add or update the corresponding `ParticipationFee` object in the `tender.participationFees` array and:
-
-- Set its `.type` to 'document'.
-- Map `cac:CallForTendersDocumentReference/cdc:ID` to its `.id`.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
+Set its `.documentType` to 'biddingDocuments' and set it's `.accessDetails` to 'Restricted.'.
 
 ```xml
 <cac:CallForTendersDocumentReference>
@@ -1886,12 +1878,11 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
 ```json
 {
   "tender": {
-    "participationFees": [
+    "documents": [
       {
-        "id": "1",
-        "type": [
-          "document"
-        ]
+        "id": "20210521/CTFD/ENG/7654-02",
+        "documentType": "biddingDocuments",
+        "accessDetails": "Restricted."
       }
     ]
   }
@@ -1909,12 +1900,12 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
 
 For each `ancestor::efac:Changes/efac:Change`:
 
-- If the change's `/efbc:ChangedSectionIdentifier` (BT-13716) references a LotResult (`RES-XXXX`), <a href="operations.md#get-the-award-for-a-lotresult">get the award for the LotResult</a> and add an `Amendment` object to the award's `.amendments` array. Otherwise, add an `Amendment` object to the `tender.amendments` array.
+- If the change's `/efbc:ChangedSectionIdentifier` (BT-13716) references a LotResult (`RES-XXXX`), [get the award for the LotResult](operations.md#get-the-award-for-a-lotresult) and add an `Amendment` object to the award's `.amendments` array. Otherwise, add an `Amendment` object to the `tender.amendments` array.
 - If the change's `/efbc:ChangedSectionIdentifier` (BT-13716) references a Lot (`LOT-XXXX`), add an `Amendment` object to the `tender.amendments` array and add the Lot's identifier to the amendment's `.relatedLots` array.
 - If the change's `/efbc:ChangedSectionIdentifier` (BT-13716) references a LotsGroup (`GLO-XXXX`), add an `Amendment` object to the `tender.amendments` array and add the LotGroup's identifier to the amendment's `.relatedLotGroups` array.
 - Set the amendment's `.id` sequentially across all notices for this procedure. For example, if the first change notice for a procedure has three changes, it uses `id`'s "1" through "3". A second change notice for the same procedure then uses `id`'s "4" and up, etc.
 - Add a `Classification` object to the amendment's `rationaleClassifications` array and map the value of this field to its `.id`.
-- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/change-corrig-justification">authority table</a> and map it to the classification's `.description`.
+- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/change-corrig-justification) and map it to the classification's `.description`.
 - Set the classification's `.scheme` to 'change-corrig-justification'.
 
 ```xml
@@ -2004,14 +1995,14 @@ These values map to the same `Amendment` objects as created for BT-140. Update t
         </td>
         <td class="mapping">
 
-If `open-nw`, <a href="operations.md#get-the-lot-for-a-lotresult">get the lot for the LotResult</a> and set its `.status` to `active`.
+If `open-nw`, [get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult) and set its `.status` to `active`.
 
-Otherwise, <a href="operations.md#get-the-award-for-a-lotresult">get the award for the LotResult</a>, and:
+Otherwise, [get the award for the LotResult](operations.md#get-the-award-for-a-lotresult), and:
 
 - If `selec-w`, set the awards's `.status` to 'active'.
 - If `clos-nw`, set the awards's `.status` to 'unsuccessful'.
 
-Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/winner-selection-status">authority table</a> and map it to `.statusDetails`.
+Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/winner-selection-status) and map it to `.statusDetails`.
 
 ```xml
 <efac:LotResult>
@@ -2039,9 +2030,9 @@ Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabula
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-award-for-a-lotresult">Get the award for the LotResult</a> and set the award's `.status` to 'unsuccessful'.
+[Get the award for the LotResult](operations.md#get-the-award-for-a-lotresult) and set the award's `.status` to 'unsuccessful'.
 
-Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-award-justification">authority table</a> and map it to the award's `.statusDetails`.
+Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-award-justification) and map it to the award's `.statusDetails`.
 
 ```xml
 <efac:DecisionReason>
@@ -2069,7 +2060,7 @@ Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabula
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-contract-for-a-settledcontract">Get the contract for the SettledContract</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the contract's `.dateSigned`.
+[Get the contract for the SettledContract](operations.md#get-the-contract-for-a-settledcontract), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the contract's `.dateSigned`.
 
 ```xml
 <efac:SettledContract>
@@ -2098,8 +2089,8 @@ Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabula
 
 For each `ancestor::efac:NoticeResult/efac:LotResult` with an `/efac:SettledContract/cbc:ID` equal to the value of `ancestor::efac:SettledContract/cbc:ID`:
 
-- <a href="operations.md#get-the-award-for-a-lotresult">Get the award for the LotResult</a>.
-- If the award's `.date` is not yet set or if the winner decision date is earlier than the award's `.date`, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the award's `.date`. Otherwise, discard.
+- [Get the award for the LotResult](operations.md#get-the-award-for-a-lotresult).
+- If the award's `.date` is not yet set or if the winner decision date is earlier than the award's `.date`, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the award's `.date`. Otherwise, discard.
 
 ```xml
 <efac:SettledContract>
@@ -2126,11 +2117,11 @@ For each `ancestor::efac:NoticeResult/efac:LotResult` with an `/efac:SettledCont
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Map to the document's `.url` and set its `.documentType` to 'biddingDocuments'.
 
-Add the value of `ancestor::cac:ProcurementProjectLot/cbc:ID` to `.relatedLots`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -2174,7 +2165,7 @@ Add the value of `ancestor::cac:ProcurementProjectLot/cbc:ID` to `.relatedLots`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference)
 
 Map to the document's `.url` and set its `.documentType` to 'biddingDocuments'
 
@@ -2212,7 +2203,7 @@ Map to the document's `.url` and set its `.documentType` to 'biddingDocuments'
         </td>
         <td class="mapping">
 
-- <a href="operations.md#get-the-contract-for-a-settledcontract">Get the contract for the SettledContract</a>.
+- [Get the contract for the SettledContract](operations.md#get-the-contract-for-a-settledcontract).
 - Add a `SimpleIdentifier` to the contract's `.identifiers` array.
 - If the scope of the list, register or scheme from which the contract identifier is drawn is subnational, set the simple identifier's `.scheme` to `{ISO 3166-1 alpha-2}-{system}`. Otherwise, set it to `{ISO 3166-2}-{system}`.
 - Map to the simple identifier's `.id`.
@@ -2291,7 +2282,7 @@ Discard. The notice and sections that were modified can be determined by compari
         </td>
         <td class="mapping">
 
-- <a href="operations.md#get-the-contract-for-a-settledcontract">Get the contract for the SettledContract</a>.
+- [Get the contract for the SettledContract](operations.md#get-the-contract-for-a-settledcontract).
 - Add a `Document` to its `.documents` array, and:
   - Set its `.id` incrementally.
   - Set its `.documentType` to 'contractSigned'.
@@ -2369,7 +2360,7 @@ Discard.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a>. Map to its `.techniques.frameworkAgreement.value.amount` and map `currencyID` to its `techniques.frameworkAgreement.value.currency`.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot). Map to its `.techniques.frameworkAgreement.value.amount` and map `currencyID` to its `techniques.frameworkAgreement.value.currency`.
 
 ```xml
 <cac:FrameworkAgreement>
@@ -2405,9 +2396,9 @@ Discard.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a> and append to the organization's `.name`, separated from the original text with ' - ' (space, dash, space).
+[Get the organization for the company](operations.md#get-the-organization-for-a-company) and append to the organization's `.name`, separated from the original text with ' - ' (space, dash, space).
 
-See also <a href="https://standard.open-contracting.org/latest/en/guidance/map/organizational_units/#using-the-organization-building-block-with-an-organizational-hierarchy">Using the Organization building block with an organizational hierarchy</a>.
+See also [Using the Organization building block with an organizational hierarchy](https://standard.open-contracting.org/latest/en/guidance/map/organizational_units/#using-the-organization-building-block-with-an-organizational-hierarchy).
 
 ```xml
 <efac:Organization>
@@ -2438,9 +2429,9 @@ See also <a href="https://standard.open-contracting.org/latest/en/guidance/map/o
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization the touchpoint</a> and append to the organization's `.name`, separated from the original text with ' - ' (space, dash, space).
+[Get the organization the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and append to the organization's `.name`, separated from the original text with ' - ' (space, dash, space).
 
-See also <a href="https://standard.open-contracting.org/latest/en/guidance/map/organizational_units/#using-the-organization-building-block-with-an-organizational-hierarchy">Using the Organization building block with an organizational hierarchy</a>.
+See also [Using the Organization building block with an organizational hierarchy](https://standard.open-contracting.org/latest/en/guidance/map/organizational_units/#using-the-organization-building-block-with-an-organizational-hierarchy).
 
 ```xml
 <efac:Organization>
@@ -2474,13 +2465,13 @@ See also <a href="https://standard.open-contracting.org/latest/en/guidance/map/o
         </td>
         <td class="mapping">
 
-Get the value of `ancestor::efac:SettledContract/cbc:ID` whose `efac:LotTender/cbc:ID` is equal to the value of `ancestor::efac:LotTender/cbc:ID` and <a href="operations.md#get-the-contract-for-a-settledcontract">get the contract for this SettledContract</a>.
+Get the value of `ancestor::efac:SettledContract/cbc:ID` whose `efac:LotTender/cbc:ID` is equal to the value of `ancestor::efac:LotTender/cbc:ID` and [get the contract for this SettledContract](operations.md#get-the-contract-for-a-settledcontract).
 
 Add a `Charge` object to the contract's `.implementation.charges` array.
 
 - Set its `.id` to 'government'.
 - Set its `.paidBy` to 'government'.
-- Set its `.title` to the <a href="operations.md#get-a-translation">translation</a> of 'The estimated revenue coming from the buyer who granted the concession (e.g. prizes and payments).'.
+- Set its `.title` to the [translation](operations.md#get-a-translation) of 'The estimated revenue coming from the buyer who granted the concession (e.g. prizes and payments).'.
 - Map the value of this field to its `.estimatedValue.amount` and `@currencyID` to the estimatedValue's `.currency`.
 
 ```xml
@@ -2539,13 +2530,13 @@ Discard. This is derived from the `value` of awards.
         </td>
         <td class="mapping">
 
-Get the value of `ancestor::efac:SettledContract/cbc:ID` whose `efac:LotTender/cbc:ID` is equal to the value of `ancestor::efac:LotTender/cbc:ID` and <a href="operations.md#get-the-contract-for-a-settledcontract">get the contract for this SettledContract</a>.
+Get the value of `ancestor::efac:SettledContract/cbc:ID` whose `efac:LotTender/cbc:ID` is equal to the value of `ancestor::efac:LotTender/cbc:ID` and [get the contract for this SettledContract](operations.md#get-the-contract-for-a-settledcontract).
 
 Add a `Charge` object to the contract's `.implementation.charges` array.
 
 - Set its `.id` to 'user'.
 - Set its `.paidBy` to 'user'.
-- Set its `.title` to the <a href="operations.md#get-a-translation">translation</a> of 'he estimated revenue coming from the users of the concession (e.g. fees and fines).'.
+- Set its `.title` to the [translation](operations.md#get-a-translation) of 'he estimated revenue coming from the users of the concession (e.g. fees and fines).'.
 - Map to its `.estimatedValue.amount` and `@currencyID` to the estimatedValue's `.currency`.
 
 ```xml
@@ -2620,7 +2611,7 @@ Map to the award's `.valueCalculationMethod`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a> and map to the organization's `.details.scale`
+[Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.details.scale`
 
 ```xml
 <efac:Company>
@@ -2649,9 +2640,7 @@ Map to the award's `.valueCalculationMethod`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.submissionTerms.electronicSubmissionPolicy`.
-
-If "allowed" or "required", add 'electronicSubmission' to the lot's `.submissionMethod` array.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.submissionTerms.electronicSubmissionPolicy`.
 
 ```xml
 <cbc:SubmissionMethodCode listName="esubmission">allowed</cbc:SubmissionMethodCode>
@@ -2681,7 +2670,7 @@ If "allowed" or "required", add 'electronicSubmission' to the lot's `.submission
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-bid-for-a-lottender">Get the bid for a LotTender</a> and map to the bid's `.rank`.
+[Get the bid for a LotTender](operations.md#get-the-bid-for-a-lottender) and map to the bid's `.rank`.
 
 ```xml
 <efac:LotTender>
@@ -2710,7 +2699,7 @@ If "allowed" or "required", add 'electronicSubmission' to the lot's `.submission
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-bid-for-a-lottender">Get the bid for a LotTender</a> and map to the bid's `.hasRank`.
+[Get the bid for a LotTender](operations.md#get-the-bid-for-a-lottender) and map to the bid's `.hasRank`.
 
 ```xml
 <efac:LotTender>
@@ -2739,7 +2728,7 @@ If "allowed" or "required", add 'electronicSubmission' to the lot's `.submission
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.submissionMethodDetails`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.submissionMethodDetails`.
 
 ```xml
 <cac:TenderRecipientParty>
@@ -2768,7 +2757,7 @@ If "allowed" or "required", add 'electronicSubmission' to the lot's `.submission
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>. Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/communication-justification">authority table</a> and map it to the lot's `.submissionTerms.nonElectronicRationale`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/communication-justification) and map it to the lot's `.submissionTerms.nonElectronicRationale`.
 
 ```xml
 <cac:ProcessJustification>
@@ -2799,8 +2788,8 @@ If "allowed" or "required", add 'electronicSubmission' to the lot's `.submission
         </td>
         <td class="mapping">
 
-1. <a href="operations.md#get-the-bid-for-a-lottender">Get the bid for a LotTender</a>.
-2. If the value of the field is `1A0` (Kosovo), add 'XK' to the bid's `.countriesOfOrigin` array. Otherwise, look up the equivalent ISO 3166-1 alpha-2 code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country">authority table</a> and add to the bid's `.countriesOfOrigin` array.
+1. [Get the bid for a LotTender](operations.md#get-the-bid-for-a-lottender).
+1. If the value of the field is `1A0` (Kosovo), add 'XK' to the bid's `.countriesOfOrigin` array. Otherwise, look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and add to the bid's `.countriesOfOrigin` array.
 
 ```xml
 <efac:Origin>
@@ -2831,7 +2820,7 @@ If "allowed" or "required", add 'electronicSubmission' to the lot's `.submission
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-bid-for-a-lottender">Get the bid for a LotTender</a> and set the bid's `.variant` to `true`.
+[Get the bid for a LotTender](operations.md#get-the-bid-for-a-lottender) and set the bid's `.variant` to `true`.
 
 ```xml
 <efac:LotTender>
@@ -5937,7 +5926,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-88)-Procedure and
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-09)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-09)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -5969,7 +5958,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-09)-Procedure. Ad
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-105)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-105)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6001,7 +5990,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-105)-Procedure. A
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-106)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-106)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6071,7 +6060,7 @@ Discard.
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6103,7 +6092,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. 
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6135,7 +6124,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. 
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-1351)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-1351)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6167,7 +6156,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-1351)-Procedure. 
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-136)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-136)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6199,7 +6188,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-136)-Procedure. A
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-142)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-142)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6231,7 +6220,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-142)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-144)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-144)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6301,7 +6290,7 @@ Discard.
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-160)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-160)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6352,7 +6341,7 @@ Discard.
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-162)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-162)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6384,7 +6373,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-162)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-163)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-163)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6416,7 +6405,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-163)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-171)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-171)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6448,7 +6437,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-171)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-191)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-191)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6480,7 +6469,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-191)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-193)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-193)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6512,7 +6501,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-193)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-539)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-539)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6544,7 +6533,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-539)-Lot and `anc
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-539)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-539)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6576,7 +6565,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-539)-LotsGroup an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-540)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-540)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6608,7 +6597,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-540)-Lot and `anc
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-540)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-540)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6640,7 +6629,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-540)-LotsGroup an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6672,7 +6661,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot and `anc
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6704,7 +6693,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5421)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-5421)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6736,7 +6725,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5421)-Lot and `an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5421)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-5421)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6768,7 +6757,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5421)-LotsGroup a
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5422)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-5422)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6800,7 +6789,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5422)-Lot and `an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5422)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-5422)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6832,7 +6821,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5422)-LotsGroup a
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5423)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-5423)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6864,7 +6853,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5423)-Lot and `an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5423)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-5423)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6896,7 +6885,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5423)-LotsGroup a
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-543)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-543)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6928,7 +6917,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-543)-Lot and `anc
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-543)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-543)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6960,7 +6949,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-543)-LotsGroup an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-553)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-553)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6992,7 +6981,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-553)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-554)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-554)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7024,7 +7013,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-554)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-555)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-555)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7075,7 +7064,7 @@ Discard.
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-635)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-635)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7107,7 +7096,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-635)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-636)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-636)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7139,7 +7128,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-636)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-709)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-709)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7171,7 +7160,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-709)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-710)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-710)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7203,7 +7192,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-710)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-711)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-711)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7235,7 +7224,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-711)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-712)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-712)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7267,7 +7256,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-712)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-720)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-720)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7337,7 +7326,7 @@ Discard. BT-731 is discarded as it is implied by BT-555.
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-733)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-733)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7369,7 +7358,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-733)-Lot and `anc
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-733)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-733)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7401,7 +7390,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-733)-LotsGroup an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-734)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-734)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7433,7 +7422,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-734)-Lot and `anc
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-734)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-734)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7465,7 +7454,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-734)-LotsGroup an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-759)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-759)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7497,7 +7486,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-759)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-760)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-760)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7529,7 +7518,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-760)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-773)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-773)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7561,7 +7550,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-773)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-88)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification">authority table</a>, map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-88)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id` and the `cbc:ReasonCode[@listName]` to `.scheme`. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7593,7 +7582,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-88)-Procedure. Ad
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-09)-Procedure. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-09)-Procedure. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7620,7 +7609,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-09)-Procedure. <a
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-105)-Procedure. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-105)-Procedure. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7647,7 +7636,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-105)-Procedure. <
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-106)-Procedure. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-106)-Procedure. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7712,7 +7701,7 @@ Discard.
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7739,7 +7728,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. 
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-135)-Procedure. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-135)-Procedure. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7766,7 +7755,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-135)-Procedure. <
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-1351)-Procedure. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-1351)-Procedure. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7793,7 +7782,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-1351)-Procedure. 
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-136)-Procedure. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-136)-Procedure. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7820,7 +7809,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-136)-Procedure. <
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-142)-LotResult and `ancestor::efac:LotResult`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-142)-LotResult and `ancestor::efac:LotResult`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7847,7 +7836,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-142)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-144)-LotResult and `ancestor::efac:LotResult`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-144)-LotResult and `ancestor::efac:LotResult`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7912,7 +7901,7 @@ Discard.
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-160)-Tender and `ancestor::efac:LotTender`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-160)-Tender and `ancestor::efac:LotTender`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7958,7 +7947,7 @@ Discard.
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-162)-Tender and `ancestor::efac:LotTender`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-162)-Tender and `ancestor::efac:LotTender`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7985,7 +7974,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-162)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-163)-Tender and `ancestor::efac:LotTender`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-163)-Tender and `ancestor::efac:LotTender`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8012,7 +8001,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-163)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-171)-Tender and `ancestor::efac:LotTender`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-171)-Tender and `ancestor::efac:LotTender`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8039,7 +8028,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-171)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-191)-Tender and `ancestor::efac:LotTender`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-191)-Tender and `ancestor::efac:LotTender`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8066,7 +8055,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-191)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-193)-Tender and `ancestor::efac:LotTender`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-193)-Tender and `ancestor::efac:LotTender`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8093,7 +8082,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-193)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-539)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-539)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8120,7 +8109,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-539)-Lot and `anc
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-539)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-539)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8147,7 +8136,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-539)-LotsGroup an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-540)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-540)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8174,7 +8163,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-540)-Lot and `anc
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-540)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-540)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8201,7 +8190,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-540)-LotsGroup an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8228,7 +8217,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot and `anc
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8255,7 +8244,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5421)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-5421)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8282,7 +8271,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5421)-Lot and `an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5421)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-5421)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8309,7 +8298,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5421)-LotsGroup a
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5422)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-5422)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8336,7 +8325,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5422)-Lot and `an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5422)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-5422)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8363,7 +8352,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5422)-LotsGroup a
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5423)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-5423)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8390,7 +8379,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5423)-Lot and `an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5423)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-5423)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8417,7 +8406,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-5423)-LotsGroup a
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-543)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-543)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8444,7 +8433,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-543)-Lot and `anc
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-543)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-543)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8471,7 +8460,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-543)-LotsGroup an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-553)-Tender and `ancestor::efac:LotTender`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-553)-Tender and `ancestor::efac:LotTender`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8498,7 +8487,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-553)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-554)-Tender and `ancestor::efac:LotTender`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-554)-Tender and `ancestor::efac:LotTender`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8525,7 +8514,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-554)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-555)-Tender and `ancestor::efac:LotTender`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-555)-Tender and `ancestor::efac:LotTender`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8571,7 +8560,7 @@ Discard.
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-635)-LotResult and `ancestor::efac:LotResult`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-635)-LotResult and `ancestor::efac:LotResult`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8598,7 +8587,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-635)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-636)-LotResult and `ancestor::efac:LotResult`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-636)-LotResult and `ancestor::efac:LotResult`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8625,7 +8614,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-636)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-709)-LotResult and `ancestor::efac:LotResult`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-709)-LotResult and `ancestor::efac:LotResult`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8652,7 +8641,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-709)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-710)-LotResult and `ancestor::efac:LotResult`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-710)-LotResult and `ancestor::efac:LotResult`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8679,7 +8668,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-710)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-711)-LotResult and `ancestor::efac:LotResult`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-711)-LotResult and `ancestor::efac:LotResult`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8706,7 +8695,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-711)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-712)-LotResult and `ancestor::efac:LotResult`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-712)-LotResult and `ancestor::efac:LotResult`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8733,7 +8722,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-712)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-720)-Tender and `ancestor::efac:LotTender`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-720)-Tender and `ancestor::efac:LotTender`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8798,7 +8787,7 @@ Discard. BT-730 is discarded as it is implied by BT-553.
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-733)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-733)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8825,7 +8814,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-733)-Lot and `anc
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-733)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-733)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 "withheldInformation":[{"availabilityDate":"2025-03-31T00:00:00+01:00"}]
@@ -8850,7 +8839,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-733)-LotsGroup an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-734)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-734)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8877,7 +8866,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-734)-Lot and `anc
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-734)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-734)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8904,7 +8893,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-734)-LotsGroup an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-759)-LotResult and `ancestor::efac:LotResult`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`.
+Get the `withheldInformationItem` object created for BT-195(BT-759)-LotResult and `ancestor::efac:LotResult`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8931,7 +8920,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-759)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-760)-LotResult and `ancestor::efac:LotResult`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`.
+Get the `withheldInformationItem` object created for BT-195(BT-760)-LotResult and `ancestor::efac:LotResult`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8958,7 +8947,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-760)-LotResult an
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-773)-Tender and `ancestor::efac:LotTender`. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-773)-Tender and `ancestor::efac:LotTender`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8985,7 +8974,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-773)-Tender and `
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-88)-Procedure. <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-88)-Procedure. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -9014,9 +9003,9 @@ Get the `withheldInformationItem` object created for BT-195(BT-88)-Procedure. <a
 
 This field maps to the same `Amendment` objects as created for BT-201-Contract and BT-202-Contract.
 
-For each `efac:ChangeReason`, add or update a corresponding `Amendement` object to the contract's `.amendements` array ensuring its `.id` (string) is set. The `.id` can be any value guaranteed to be globally unique. For example, it can be set to a <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">version 4 UUID</a>, or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
+For each `efac:ChangeReason`, add or update a corresponding `Amendement` object to the contract's `.amendements` array ensuring its `.id` (string) is set. The `.id` can be any value guaranteed to be globally unique. For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
 
-Map to the amendment's `.rationaleClassifications.id`. Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/modification-justification">authority table</a> and map it to `.rationaleClassifications.description` and set `.rationaleClassifications.scheme` to 'modification justification'.
+Map to the amendment's `.rationaleClassifications.id`. Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/modification-justification) and map it to `.rationaleClassifications.description` and set `.rationaleClassifications.scheme` to 'modification justification'.
 
 ```xml
 <efac:ChangeReason>
@@ -9054,7 +9043,7 @@ Map to the amendment's `.rationaleClassifications.id`. Look up the code's label 
         <td class="mapping">
 
 This field maps to the same `Amendment` objects as created for BT-200-Contract and BT-202-Contract.
-For each `efac:ChangeReason`, add or update a corresponding `Amendement` object to the contract's `.amendements` array ensuring its `.id` (string) is set. The `.id` can be any value guaranteed to be globally unique. For example, it can be set to a <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">version 4 UUID</a>, or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
+For each `efac:ChangeReason`, add or update a corresponding `Amendement` object to the contract's `.amendements` array ensuring its `.id` (string) is set. The `.id` can be any value guaranteed to be globally unique. For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
 Map to the amendment's `.rationale`
 
 ```xml
@@ -9087,7 +9076,7 @@ Map to the amendment's `.rationale`
         <td class="mapping">
 
 This field maps to the same `Amendment` objects as created for BT-200-Contract and BT-201-Contract.
-For each `ancestor::efac:ContractModification/efac:ChangeReason`, add or update a corresponding `Amendement` object to the contract's `.amendements` array ensuring its `.id` (string) is set. The `.id` can be any value guaranteed to be globally unique. For example, it can be set to a <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">version 4 UUID</a>, or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
+For each `ancestor::efac:ContractModification/efac:ChangeReason`, add or update a corresponding `Amendement` object to the contract's `.amendements` array ensuring its `.id` (string) is set. The `.id` can be any value guaranteed to be globally unique. For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
 Map to the amendment's `.description`.
 
 ```xml
@@ -9119,7 +9108,7 @@ Map to the amendment's `.description`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.title`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.title`.
 
 ```xml
 <cbc:Name languageID="ENG">Computer Network extension</cbc:Name>
@@ -9146,7 +9135,7 @@ Map to the amendment's `.description`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a> and map to its `.title`.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot) and map to its `.title`.
 
 ```xml
 <cbc:Name languageID="ENG">Computer Network extension</cbc:Name>
@@ -9219,7 +9208,7 @@ Map to `tender.title`
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.identifiers.id` and set `.identifiers.scheme` to "internal".
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.identifiers.id` and set `.identifiers.scheme` to "internal".
 
 ```xml
 <cbc:ID schemeName="InternalID">PROC/2020/0024-ABC-FGHI</cbc:ID>
@@ -9251,7 +9240,7 @@ Map to `tender.title`
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a> and map to its `.identifiers.id` and set `.identifiers.scheme` to "internal".
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot) and map to its `.identifiers.id` and set `.identifiers.scheme` to "internal".
 
 ```xml
 <cbc:ID schemeName="InternalID">PROC/2020/0024-ABC-FGHI</cbc:ID>
@@ -9339,7 +9328,7 @@ Map to `tender.identifiers.id` and set `identifiers.scheme` to "internal".
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>. If "works" or "services", map to the lot's `.mainProcurementCategory`. If "supplies", set the lot's `.mainProcurementCategory` to 'goods'. If "combined", add to the lot's `.additionalProcurementCategories` array.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). If "works" or "services", map to the lot's `.mainProcurementCategory`. If "supplies", set the lot's `.mainProcurementCategory` to 'goods'. If "combined", add to the lot's `.additionalProcurementCategories` array.
 
 ```xml
 <cbc:ProcurementTypeCode listName="contract-nature">works</cbc:ProcurementTypeCode>
@@ -9412,7 +9401,7 @@ If "works" or "services", map to `tender.mainProcurementCategory`. If "supplies"
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.description`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.description`.
 
 ```xml
 <cbc:Description languageID="ENG">Procedure for the procurement of ...</cbc:Description>
@@ -9439,7 +9428,7 @@ If "works" or "services", map to `tender.mainProcurementCategory`. If "supplies"
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a> and map to its `.description`.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot) and map to its `.description`.
 
 ```xml
 <cbc:Description languageID="ENG">Procedure for the procurement of ...</cbc:Description>
@@ -9512,7 +9501,7 @@ Map to `tender.description`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>, map to its `.quantity`, and add the value of `ancestor::cac:ProcurementProjectLot/cac:ID` to its `.relatedLots`.
+[Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot) and map to its `.quantity`.
 
 ```xml
 <cbc:EstimatedOverallContractQuantity unitCode="TNE">45000</cbc:EstimatedOverallContractQuantity>
@@ -9524,9 +9513,7 @@ Map to `tender.description`.
     "items": [
       {
         "quantity": 45000,
-        "relatedLots": [
-          "LOT-0001"
-        ]
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -9544,7 +9531,7 @@ Map to `tender.description`.
 
 This field maps to the same objects as created for BT-263-Lot.
 
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>. For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications` array, capitalize and map to the classification's `.scheme`.
+[Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot). For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications` array, capitalize and map to the classification's `.scheme`.
 
 ```xml
 <cac:AdditionalCommodityClassification>
@@ -9562,9 +9549,7 @@ This field maps to the same objects as created for BT-263-Lot.
             "scheme": "CPV"
           }
         ],
-        "relatedLots": [
-          "LOT-0001"
-        ]
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -9655,7 +9640,7 @@ This field maps to the same objects as created for BT-263-Procedure. If no `Item
         <td class="mapping">
 
 This field maps to the same object as created for BT-262-Lot.
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a> and map to the item's `.classification.scheme`.
+[Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot) and map to the item's `.classification.scheme`.
 
 ```xml
 <cac:MainCommodityClassification>
@@ -9671,9 +9656,7 @@ This field maps to the same object as created for BT-262-Lot.
         "classification": {
           "scheme": "CPV"
         },
-        "relatedLots": [
-          "LOT-0001"
-        ]
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -9760,7 +9743,7 @@ This field maps to the same object as created for BT-262-Procedure. If no `Item`
         <td class="mapping">
 
 This field maps to the same object as created for BT-262-Lot.
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a> and map to its `.classification.id`.'
+[Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot) and map to its `.classification.id`.'
 
 ```xml
 <cac:MainCommodityClassification>
@@ -9863,7 +9846,7 @@ This field maps to the same object as created for BT-26(m)-Pro. If no `Item` obj
 
 This field maps to the same `Classification` objects as created for BT-26(a)-Lot.
 
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>. For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications` array and map to the classification's `.id`.
+[Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot). For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications` array and map to the classification's `.id`.
 
 ```xml
 <cac:AdditionalCommodityClassification>
@@ -9970,7 +9953,7 @@ This field maps to the same objects as created for BT-26(a)-Procedure. If no `It
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, map to its `.value.amount` and map `currencyID` to its `value.currency`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), map to its `.value.amount` and map `currencyID` to its `value.currency`.
 
 ```xml
 <cac:RequestedTenderTotal>
@@ -10002,7 +9985,7 @@ This field maps to the same objects as created for BT-26(a)-Procedure. If no `It
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a>, map to its `.maximumValue.amount` and map `currencyID` to its `maximumValue.currency`.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot), map to its `.maximumValue.amount` and map `currencyID` to its `maximumValue.currency`.
 
 ```xml
 <cac:RequestedTenderTotal>
@@ -10090,7 +10073,7 @@ Map to `tender.value.amount` and map `currencyID` to `tender.value.currency`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, map to its `.techniques.frameworkAgreement.maximumValue.amount` and map `currencyID` to its `techniques.frameworkAgreement.maximumValue.currency`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), map to its `.techniques.frameworkAgreement.maximumValue.amount` and map `currencyID` to its `techniques.frameworkAgreement.maximumValue.currency`.
 
 ```xml
 <efext:EformsExtension>
@@ -10126,7 +10109,7 @@ Map to `tender.value.amount` and map `currencyID` to `tender.value.currency`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a>, map to its `.techniques.frameworkAgreement.maximumValue.amount` and map `currencyID` to its `techniques.frameworkAgreement.maximumValue.currency`.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot), map to its `.techniques.frameworkAgreement.maximumValue.amount` and map `currencyID` to its `techniques.frameworkAgreement.maximumValue.currency`.
 
 ```xml
 <efext:EformsExtension>
@@ -10194,7 +10177,7 @@ Map to `tender.techniques.frameworkAgreement.maximumValue.amount`. Map `@currenc
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and append to its `.description`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and append to its `.description`.
 
 This results in a loss of structure.
 
@@ -10223,7 +10206,7 @@ This results in a loss of structure.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a> and append to its `.description`.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot) and append to its `.description`.
 
 This results in a loss of structure.
 
@@ -10321,7 +10304,7 @@ Map to `tender.lotDetails.maximumLotsBidPerSupplier`
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-bid-for-a-lottender">Get the bid for the LotTender</a>, and map to its `.id`.
+[Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender), and map to its `.id`.
 
 ```xml
 <efac:TenderReference>
@@ -10350,14 +10333,14 @@ Map to `tender.lotDetails.maximumLotsBidPerSupplier`
         </td>
         <td class="mapping">
 
-- <a href="operations.md#get-the-contract-for-a-settledcontract">Get the contract for the SettledContract</a> and add the value of this field to its `.relatedBids` array.
+- [Get the contract for the SettledContract](operations.md#get-the-contract-for-a-settledcontract) and add the value of this field to its `.relatedBids` array.
 - Get the `ancestor::efac:NoticeResult/efac:LotTender` whose `/cbc:ID` is equal to the value of this field.
 - Get the `ancestor::efac:NoticeResult/efac:TenderingParty` whose `/cbc:ID` matches the `LotTender`'s `/efac:TenderingParty/cbc:ID`.
-- For each `ancestor::efac:TenderingParty/efac:Tenderer`, <a href="operations.md#get-the-organization-for-a-tenderer">get the organization for the tenderer</a>, and:
+- For each `ancestor::efac:TenderingParty/efac:Tenderer`, [get the organization for the tenderer](operations.md#get-the-organization-for-a-tenderer), and:
   - Get the `ancestor::efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company` whose `/cac:PartyIdentification/cbc:ID` is equal to the organization's `.id`, and:
     - Add 'supplier' to the organization's `.roles` array.
   - For each `ancestor::efac:NoticeResult/efac:LotResult` with an `/efac:SettledContract/cbc:ID` equal to the value of `ancestor::efac:SettledContract/cbc:ID`:
-    - <a href="operations.md#get-the-award-for-a-lotresult">Get the award for the LotResult</a>.
+    - [Get the award for the LotResult](operations.md#get-the-award-for-a-lotresult).
     - Add an `OrganizationReference` to the award's `.suppliers` array, and:
       - Set the organization reference's `.id` to the organization's `.id`.
 
@@ -10461,7 +10444,7 @@ If there is a `LotGroup` in `tender.lotGroups` whose `.id` is equal to the value
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 
 If `@unitCode` is set to "DAY", map to the lot's `.contractPeriod.durationInDays`.
 
@@ -10527,7 +10510,7 @@ If `@unitCode` is set to "MONTH", multiply by 30. If `@unitCode` is set to "YEAR
 
 If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, this field is maps to the same `SelectionCriterion` objects as created for BT-747, BT-749, BT-750, BT-752, BT-7531 and BT-7532.
 
-- <a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+- [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 - For each `efac:SelectionCriteria`, add or update a corresponding `SelectionCriterion` object in the lot's `.selectionCriteria.criteria`.
 - Set the criterion's `.forReduction` to `true`.
 
@@ -10564,7 +10547,7 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and and set its `.designContest.followUpContracts` to `true`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and and set its `.designContest.followUpContracts` to `true`.
 
 ```xml
 <cbc:FollowupContractIndicator>true</cbc:FollowupContractIndicator>
@@ -10593,7 +10576,7 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and set its `.designContest.bindingJuryDecision` to `true`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set its `.designContest.bindingJuryDecision` to `true`.
 
 ```xml
 <cbc:BindingOnBuyerIndicator>true</cbc:BindingOnBuyerIndicator>
@@ -10624,7 +10607,7 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
 
 This field maps to the same `Prize` objects as created for BT-45-Lot and BT-644-Lot.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 
 For each `cac:Prize`, add or update the corresponding `Prize` object in the lot's `.designContest.prizes.details` array and set its `.id` incrementally. The position of the prize object in the `.details` array determines the rank of the prize. Example: `.details[0]` should return the highest ranking prize, `.details[1]` the second highest ranking prize, etc.
 
@@ -10665,7 +10648,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 
 This field maps to the same `Prize` objects as created for BT-44-Lot and BT-644-Lot.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:Prize`, add or update the corresponding `Prize` object in the lot's `.designContest.prizes.details` array and map to its `description`.
 
 ```xml
@@ -10703,7 +10686,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, add a `JuryMember` object to its `.designContest.juryMembers` array, and map to the jury member's `.name`
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), add a `JuryMember` object to its `.designContest.juryMembers` array, and map to the jury member's `.name`
 
 ```xml
 <cac:TechnicalCommitteePerson>
@@ -10738,8 +10721,8 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-- <a href="operations.md#add-a-party">Add a party</a>, add 'selectedParticipant' to its `.roles`, and map to its `.name`.
-- <a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, add an `OrganizationReference` object to its `.designContest.selectedParticipants` array and set the organization reference's `.id` to the party's `.id`.
+- [Add a party](operations.md#add-a-party), add 'selectedParticipant' to its `.roles`, and map to its `.name`.
+- [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), add an `OrganizationReference` object to its `.designContest.selectedParticipants` array and set the organization reference's `.id` to the party's `.id`.
 
 ```xml
 <cac:PartyName>
@@ -10784,7 +10767,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.secondStage.minimumCandidates`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.secondStage.minimumCandidates`.
 
 ```xml
 <cac:EconomicOperatorShortList>
@@ -10815,7 +10798,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a> and map to the organization's `.name`.
+[Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.name`.
 
 ```xml
 <cac:PartyName>
@@ -10842,7 +10825,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization for the touchpoint</a> and map to the organization's `.name`.
+[Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.name`.
 
 ```xml
 <cac:PartyName>
@@ -10869,7 +10852,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-person-for-an-ultimate-beneficial-owner">Get the person for the ultimate beneficial owner</a> and map to the person's `.name`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.name`.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -10900,7 +10883,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a>, map to the organization's `.identifier.id` and <a href="https://standard.open-contracting.org/1.1/en/schema/identifiers/#organization-ids">set `.identifier.scheme`</a>.
+[Get the organization for the company](operations.md#get-the-organization-for-a-company), map to the organization's `.identifier.id` and [set `.identifier.scheme`](https://standard.open-contracting.org/1.1/en/schema/identifiers/#organization-ids).
 
 ```xml
 <efac:Organization>
@@ -10935,11 +10918,11 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 
 - Get the `Organization` object whose `.name` is 'European Union' and add 'funder' to its `.roles`.
 - If none exists yet:
-  - <a href="operations.md#add-a-party">Add a party</a>.
+  - [Add a party](operations.md#add-a-party).
   - Set its `.name` to 'European Union'.
   - Add 'funder' to its `.roles`.
 - This field maps to the same `finance` objects as created for BT-6140-Lot and BT-7220-Lot.
-- <a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+- [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 - For each `efac:Funding`, add or update the corresponding `Finance` object in the budget's `.finance` array and map to its `.id`.
   - Add the lot's identifier to `.relatedLots`.
   - Set its `.financingParty.name` to 'European Union'.
@@ -10989,11 +10972,11 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 
 - Get the `Organization` object whose `.name` is 'European Union' and add 'funder' to its `.roles`.
 - If none exists yet:
-  - <a href="operations.md#add-a-party">Add a party</a>.
+  - [Add a party](operations.md#add-a-party).
   - Set its `.name` to 'European Union'.
   - Add 'funder' to its `.roles`.
 - This field maps to the same `finance` objects as created for BT-6110-Contract and BT-722-Contract.
-- <a href="operations.md#get-the-contract-for-a-settledcontract">Get the contract for the SettledContract</a>.
+- [Get the contract for the SettledContract](operations.md#get-the-contract-for-a-settledcontract).
 - For each `efac:Funding`, add or update the corresponding `Finance` object in the contract's `.finance` array and map to its `.id`.
   - Set its `.financingParty.name` to 'European Union'.
   - Set its `.financingParty.id` to the party's `.id`.
@@ -11040,7 +11023,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a> and map to the organization's `.contactPoint.name`
+[Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.contactPoint.name`
 
 ```xml
 <cac:Contact>
@@ -11069,7 +11052,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization for the touchpoint</a> and map to the organization's `.contactPoint.name`.
+[Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.contactPoint.name`.
 
 ```xml
 <cac:Contact>
@@ -11098,7 +11081,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a> and map to the organization's `.contactPoint.telephone`
+[Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.contactPoint.telephone`
 
 ```xml
 <cac:Contact>
@@ -11127,7 +11110,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization for the touchpoint</a> and map to the organization's `.contactPoint.telephone`
+[Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.contactPoint.telephone`
 
 ```xml
 <cac:Contact>
@@ -11156,7 +11139,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-person-for-an-ultimate-beneficial-owner">Get the person for the ultimate beneficial owner</a> and map to the person's `.telephone`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.telephone`.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -11189,7 +11172,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a> and map to the organization's `.details.url`.
+[Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.details.url`.
 
 ```xml
 <efac:Company>
@@ -11218,7 +11201,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization for the touchpoint</a> and map to the organization's `.details.url`.
+[Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.details.url`.
 
 ```xml
 <efac:TouchPoint>
@@ -11247,7 +11230,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a> and map to the organization's `.contactPoint.email`
+[Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.contactPoint.email`
 
 ```xml
 <efac:Organization>
@@ -11280,7 +11263,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization for the touchpoint</a> and map to the organization's `.contactPoint.email`
+[Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.contactPoint.email`
 
 ```xml
 <efac:Organization>
@@ -11312,7 +11295,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-person-for-an-ultimate-beneficial-owner">Get the person for the ultimate beneficial owner</a> and map to the person's `.email`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.email`.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -11345,7 +11328,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a> and map to the organization's `.address.region`.
+[Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.address.region`.
 
 ```xml
 <efac:Organization>
@@ -11378,7 +11361,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization for the touchpoint</a> and map to the organization's `.address.region`.
+[Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.address.region`.
 
 ```xml
 <efac:Organization>
@@ -11411,7 +11394,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-person-for-an-ultimate-beneficial-owner">Get the person for the ultimate beneficial owner</a> and map to the person's `.address.region`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.address.region`.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -11448,7 +11431,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 
 This field maps to the same `Address` objects as created for BT-728-Lot, BT-5131-Lot, BT-5121-Lot, BT-727-Lot, BT-5101-Lot and BT-5141-Lot.
 
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>.
+[Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot).
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array and map to its `.region`.
 
 ```xml
@@ -11548,7 +11531,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-the-buyer">Get the organization for the buyer</a>. Map to the organization's `.details.buyerProfile`.
+[Get the organization for the buyer](operations.md#get-the-organization-for-the-buyer). Map to the organization's `.details.buyerProfile`.
 
 ```xml
 <cac:ContractingParty>
@@ -11577,7 +11560,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a> and map to the organization's `.eDeliveryGateway`.
+[Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.eDeliveryGateway`.
 
 ```xml
 <efac:Organization>
@@ -11606,7 +11589,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization for the touchpoint</a> and map to the organization's `.eDeliveryGateway`.
+[Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.eDeliveryGateway`.
 
 ```xml
 <efac:Organization>
@@ -11635,7 +11618,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.secondStage.maximumCandidates`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.secondStage.maximumCandidates`.
 
 ```xml
 <cac:EconomicOperatorShortList>
@@ -11666,7 +11649,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a>, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the organization's `address.streetAddress`.
+[Get the organization for the company](operations.md#get-the-organization-for-a-company), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the organization's `address.streetAddress`.
 
 ```xml
 <efac:Organization>
@@ -11699,7 +11682,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization for the touchpoint</a>, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the organization's `address.streetAddress`.
+[Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the organization's `address.streetAddress`.
 
 ```xml
 <efac:Organization>
@@ -11732,7 +11715,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-person-for-an-ultimate-beneficial-owner">Get the person for the ultimate beneficial owner</a>, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the person's `address.streetAddress`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the person's `address.streetAddress`.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -11767,7 +11750,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a>, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the organization's `address.streetAddress`.
+[Get the organization for the company](operations.md#get-the-organization-for-a-company), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the organization's `address.streetAddress`.
 
 ```xml
 <efac:Organization>
@@ -11800,7 +11783,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization for the touchpoint</a>, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the organization's `address.streetAddress`.
+[Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the organization's `address.streetAddress`.
 
 ```xml
 <efac:Organization>
@@ -11833,7 +11816,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-person-for-an-ultimate-beneficial-owner">Get the person for the ultimate beneficial owner</a>, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the person's `address.streetAddress`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the person's `address.streetAddress`.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -11868,7 +11851,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a>, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the organization's `address.streetAddress`.
+[Get the organization for the company](operations.md#get-the-organization-for-a-company), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the organization's `address.streetAddress`.
 
 ```xml
 <efac:Organization>
@@ -11903,7 +11886,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization for the touchpoint</a>, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the organization's `address.streetAddress`.
+[Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the organization's `address.streetAddress`.
 
 ```xml
 <efac:Organization>
@@ -11938,7 +11921,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-person-for-an-ultimate-beneficial-owner">Get the person for the ultimate beneficial owner</a>, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the person's `address.streetAddress`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the person's `address.streetAddress`.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -11977,7 +11960,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 
 This field maps to the same `Address` objects as created for BT-728-Lot, BT-5131-Lot, BT-5121-Lot, BT-5071-Lot, BT-727-Lot, and BT-5141-Lot.
 
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>.
+[Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot).
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the address's `.streetAddress`.
 
 ```xml
@@ -12079,7 +12062,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 
 This field maps to the same `Address` objects as created for BT-728-Lot, BT-5131-Lot, BT-5121-Lot, BT-5071-Lot, BT-727-Lot, and BT-5141-Lot.
 
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>.
+[Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot).
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the address's `.streetAddress`.
 
 ```xml
@@ -12177,7 +12160,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 
 This field maps to the same `Address` objects as created for BT-728-Lot, BT-5131-Lot, BT-5121-Lot, BT-5071-Lot, BT-727-Lot, and BT-5141-Lot.
 
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>.
+[Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot).
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map to the address's `.streetAddress`.
 
 ```xml
@@ -12277,7 +12260,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a> and map to the organization's `.address.postalCode`
+[Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.address.postalCode`
 
 ```xml
 <efac:Organization>
@@ -12310,7 +12293,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization for the touchpoint</a> and map to the touchpoint's `.address.postalCode`
+[Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the touchpoint's `.address.postalCode`
 
 ```xml
 <efac:Organization>
@@ -12343,7 +12326,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-person-for-an-ultimate-beneficial-owner">Get the person for the ultimate beneficial owner</a> and map to the person's `.address.postalCode`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.address.postalCode`.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -12380,7 +12363,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 
 This field maps to the same `Address` objects as created for BT-728-Lot, BT-5131-Lot, BT-5071-Lot, BT-727-Lot, BT-5101-Lot and BT-5141-Lot.
 
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>.
+[Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot).
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array and map to its `.postalCode`.
 
 ```xml
@@ -12480,7 +12463,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a> and map to the organization's `.address.locality`.
+[Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.address.locality`.
 
 ```xml
 <efac:Organization>
@@ -12513,7 +12496,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization for the touchpoint</a> and map to the organization's `.address.locality`.
+[Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.address.locality`.
 
 ```xml
 <efac:Organization>
@@ -12546,7 +12529,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-person-for-an-ultimate-beneficial-owner">Get the person for the ultimate beneficial owner</a> and map to the person's `.address.postalCode`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.address.postalCode`.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -12583,7 +12566,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 
 This field maps to the same `Address` objects as created for BT-728-Lot, BT-5121-Lot, BT-5071-Lot, BT-727-Lot, BT-5101-Lot and BT-5141-Lot.
 
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>.
+[Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot).
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array and map to its `.locality`.
 
 ```xml
@@ -12683,7 +12666,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a>, look up the equivalent ISO 3166-1 alpha-2 code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country">authority table</a> and map to the organization's `.address.country`.
+[Get the organization for the company](operations.md#get-the-organization-for-a-company), look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and map to the organization's `.address.country`.
 
 ```xml
 <efac:Organization>
@@ -12718,7 +12701,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization for the touchpoint</a>, look up the equivalent ISO 3166-1 alpha-2 code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country">authority table</a> and map to the organization's `.address.country`.
+[Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint), look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and map to the organization's `.address.country`.
 
 ```xml
 <efac:Organization>
@@ -12753,7 +12736,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-person-for-an-ultimate-beneficial-owner">Get the person for the ultimate beneficial owner</a>, look up the equivalent ISO 3166-1 alpha-2 code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country">authority table</a> and map to the person's `.address.country`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner), look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and map to the person's `.address.country`.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -12792,8 +12775,8 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 
 This field maps to the same `Address` objects as created for BT-728-Lot, BT-5131-Lot, BT-5121-Lot, BT-5071-Lot, BT-727-Lot, and BT-5101-Lot.
 
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>.
-For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array, look up the equivalent ISO 3166-1 alpha-2 code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country">authority table</a> and map to the address's `.country`.
+[Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot).
+For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array, look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and map to the address's `.country`.
 
 ```xml
 <cac:RealizedLocation>
@@ -12831,7 +12814,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         <td class="mapping">
 
 This field maps to the same `Address` objects as created for BT-728-Part, BT-5131-Part, BT-5121-Part, BT-5071-Part, BT-727-Part, and BT-5101-Part.
-For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the `tender.deliveryAddresses` array, look up the equivalent ISO 3166-1 alpha-2 code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country">authority table</a> and map to the address's `.country`.
+For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the `tender.deliveryAddresses` array, look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and map to the address's `.country`.
 
 ```xml
 <cac:RealizedLocation>
@@ -12865,7 +12848,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         <td class="mapping">
 
 This field maps to the same `Address` objects as created for BT-728-Procedure, BT-5131-Procedure, BT-5121-Procedure, BT-5071-Procedure, BT-727-Procedure, and BT-5101-Procedure.
-For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the `tender.deliveryAddresses` array, look up the equivalent ISO 3166-1 alpha-2 code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country">authority table</a> and map to the address's `.country`.
+For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the `tender.deliveryAddresses` array, look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and map to the address's `.country`.
 
 ```xml
 <cac:RealizedLocation>
@@ -12898,7 +12881,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and set its `secondStage.successiveReduction` to `true`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set its `secondStage.successiveReduction` to `true`.
 
 ```xml
 <cbc:CandidateReductionConstraintIndicator>true</cbc:CandidateReductionConstraintIndicator>
@@ -12927,7 +12910,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add to its `.additionalProcurementCategories` array.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add to its `.additionalProcurementCategories` array.
 
 ```xml
 <cac:ProcurementAdditionalType>
@@ -13012,7 +12995,7 @@ Add to `tender.additionalProcurementCategories` array.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `.contractPeriod.startDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.contractPeriod.startDate`.
 
 ```xml
 <cac:PlannedPeriod>
@@ -13043,7 +13026,7 @@ Add to `tender.additionalProcurementCategories` array.
         </td>
         <td class="mapping">
 
-<a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to `tender.contractPeriod.startDate`.
+[Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `tender.contractPeriod.startDate`.
 
 ```xml
 <cac:PlannedPeriod>
@@ -13070,7 +13053,7 @@ Add to `tender.additionalProcurementCategories` array.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `.contractPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.contractPeriod.endDate`.
 
 ```xml
 <cac:PlannedPeriod>
@@ -13101,7 +13084,7 @@ Add to `tender.additionalProcurementCategories` array.
         </td>
         <td class="mapping">
 
-<a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to `tender.contractPeriod.endDate`.
+[Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `tender.contractPeriod.endDate`.
 
 ```xml
 <cac:PlannedPeriod>
@@ -13128,7 +13111,7 @@ Add to `tender.additionalProcurementCategories` array.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.contractPeriod.description`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractPeriod.description`.
 
 ```xml
 <cac:PlannedPeriod>
@@ -13188,7 +13171,7 @@ Map to `tender.contractPeriod.description`
 
 This field maps to the same `AwardCriterion` objects as created for BT-540-Lot, BT-541-Lot, BT-5421-Lot, BT-5422-Lot, BT-5423-Lot and BT-734-Lot.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array and map to the award critereon's `.type`.
 
 ```xml
@@ -13226,7 +13209,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 
 This field maps to the same `AwardCriterion` objects as created for BT-540-LotsGroup, BT-541-LotsGroup, BT-5421-LotsGroup, BT-5422-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup.
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a>.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot group's `.awardCriteria.criteria` array and map to the award critereon's `.type`.
 
 ```xml
@@ -13262,7 +13245,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.options.description`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.options.description`.
 
 ```xml
 <cac:ContractExtension>
@@ -13295,7 +13278,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 
 This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-541-Lot, BT-5421-Lot, BT-5422-Lot, BT-5423-Lot and BT-734-Lot.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array and map to the award criterion's `.description`.
 
 ```xml
@@ -13333,7 +13316,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 
 This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-541-LotsGroup, BT-5421-LotsGroup, BT-5422-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup.
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a>.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot group's `.awardCriteria.criteria` array and map to the award criterion's `.description`.
 
 ```xml
@@ -13371,7 +13354,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 
 This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-5421-Lot, BT-5422-Lot, BT-5423-Lot and BT-734-Lot and to the same `AwardCriterionNumber` objects as created for BT-5421-Lot, BT-5422-Lot and BT-5423-Lot.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array.
 For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCriterionNumber` in the award criterion's `.numbers` array and map to the award criteron number's `.number`.
 
@@ -13414,7 +13397,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
 
 This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-541-LotsGroup, BT-5421-LotsGroup, BT-5422-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup and to the same `AwardCriterionNumber` objects as created for BT-5421-LotsGroup, BT-5422-LotsGroup and BT-5423-LotsGroup.
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a>.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot group's `.awardCriteria.criteria` array.
 For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCriterionNumber` in the award criterion's `.numbers` array and map to the award criteron number's `.number`.
 
@@ -13457,9 +13440,9 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
 
 This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-541-Lot, BT-5422-Lot, BT-5423-Lot and BT-734-Lot and to the same `AwardCriterionNumber` objects as created for BT-541-Lot, BT-5422-Lot and BT-5423-Lot.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array.
-For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.weight` according to the <a href="codelists/number-weight">number weight mapping table</a>.
+For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.weight` according to the [number weight mapping table](codelists/number-weight).
 
 ```xml
 <efac:AwardCriterionParameter>
@@ -13500,9 +13483,9 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
 
 This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-541-LotsGroup, BT-5422-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup and to the same `AwardCriterionNumber` objects as created for BT-541-LotsGroup, BT-5422-LotsGroup and BT-5423-LotsGroup.
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a>.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot group's `.awardCriteria.criteria` array.
-For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.weight` according to the <a href="codelists/number-weight">number weight mapping table</a>.
+For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.weight` according to the [number weight mapping table](codelists/number-weight).
 
 ```xml
 <efac:AwardCriterionParameter>
@@ -13543,9 +13526,9 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
 
 This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-541-Lot, BT-5421-Lot, BT-5423-Lot and BT-734-Lot and to the same `AwardCriterionNumber` objects as created for BT-541-Lot, BT-5421-Lot and BT-5423-Lot.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array.
-For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.fixed` according to the <a href="codelists/number-fixed">number fixed mapping table</a>.
+For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.fixed` according to the [number fixed mapping table](codelists/number-fixed).
 
 ```xml
 <efac:AwardCriterionParameter>
@@ -13586,9 +13569,9 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
 
 This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-541-LotsGroup, BT-5421-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup and to the same `AwardCriterionNumber` objects as created for BT-541-LotsGroup, BT-5421-LotsGroup and BT-5423-LotsGroup.
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a>.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot group's `.awardCriteria.criteria` array.
-For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.fixed` according to the <a href="codelists/number-fixed">number fixed mapping table</a>.
+For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.fixed` according to the [number fixed mapping table](codelists/number-fixed).
 
 ```xml
 <efac:AwardCriterionParameter>
@@ -13629,11 +13612,11 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
 
 This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-541-Lot, BT-5421-Lot, BT-5422-Lotand BT-734-Lot and to the same `AwardCriterionNumber` objects as created for BT-541-Lot, BT-5421-Lot and BT-5422-Lot.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array.
 
-For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.threshold` according to the <a href="codelists/number-threshold">number threshold mapping table</a>.
+For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.threshold` according to the [number threshold mapping table](codelists/number-threshold).
 
 ```xml
 <efac:AwardCriterionParameter>
@@ -13674,9 +13657,9 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
 
 This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-541-LotsGroup, BT-5421-LotsGroup, BT-5422-LotsGroup and BT-734-LotsGroup and to the same `AwardCriterionNumber` objects as created for BT-541-LotsGroup, BT-5421-LotsGroup and BT-5422-LotsGroup.
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a>.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot group's `.awardCriteria.criteria` array.
-For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.threshold` according to the <a href="codelists/number-threshold">number threshold mapping table</a>.
+For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.threshold` according to the [number threshold mapping table](codelists/number-threshold).
 
 ```xml
 <efac:AwardCriterionParameter>
@@ -13715,7 +13698,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.awardCriteria.weightingDescription`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.awardCriteria.weightingDescription`.
 
 ```xml
 <cac:AwardingCriterion>
@@ -13746,7 +13729,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a> and map to its `.awardCriteria.weightingDescription`.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot) and map to its `.awardCriteria.weightingDescription`.
 
 ```xml
 <cac:AwardingCriterion>
@@ -13777,7 +13760,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-bid-for-a-lottender">Get the bid for the LotTender</a> and map to its `.subcontracting.value.amount`.  Map `@currencyID` to the value's `.currency`.
+[Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender) and map to its `.subcontracting.value.amount`.  Map `@currencyID` to the value's `.currency`.
 
 ```xml
 <efac:SubcontractingTerm>
@@ -13811,7 +13794,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-bid-for-a-lottender">Get the bid for the LotTender</a> and map to its `.subcontracting.description`.
+[Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender) and map to its `.subcontracting.description`.
 
 ```xml
 <efac:SubcontractingTerm>
@@ -13842,7 +13825,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `AwardCri
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-bid-for-a-lottender">Get the bid for the LotTender</a>, divide number by 100 and map to the bid's `.subcontracting.minimumPercentage` and `.subcontracting.maximumPercentage`.
+[Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender), divide number by 100 and map to the bid's `.subcontracting.minimumPercentage` and `.subcontracting.maximumPercentage`.
 
 ```xml
 <efac:SubcontractingTerm>
@@ -13893,7 +13876,7 @@ Discard.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.renewal.description`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.renewal.description`.
 
 ```xml
 <cac:Period>
@@ -13943,7 +13926,7 @@ Discard. If `.otherRequirements.securityClearance` is set, a security clearance 
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.renewal.maximumRenewals`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.renewal.maximumRenewals`.
 
 ```xml
 <cac:ContractExtension>
@@ -13976,7 +13959,7 @@ Discard. If `.otherRequirements.securityClearance` is set, a security clearance 
 
 Get the `Organization` object whose `.name` is 'European Union'. If none exists yet:
 
-- <a href="operations.md#add-a-party">Add a party</a>.
+- [Add a party](operations.md#add-a-party).
 - Set its `.name` to 'European Union'.
 - Add 'funder' to its `.roles`.
 
@@ -14008,11 +13991,11 @@ Get the `Organization` object whose `.name` is 'European Union'. If none exists 
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-the-buyer">Get the organization for the buyer</a> and add a `Classification` object to its `.details.classifications` array.
+[Get the organization for the buyer](operations.md#get-the-organization-for-the-buyer) and add a `Classification` object to its `.details.classifications` array.
 
 - Map to the classification's `.id`.
-- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/main-activity">authority table</a> and map it to `.description`.
-- If the code's definition in the authority table includes <a href="https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Classification_of_the_functions_of_government_(COFOG)">"COFOG"</a>, set the classification's `.scheme` to 'COFOG'. Otherwise, set it to "Directive 2014/25/EU".
+- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/main-activity) and map it to `.description`.
+- If the code's definition in the authority table includes ["COFOG"](<https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Classification_of_the_functions_of_government_(COFOG)>), set the classification's `.scheme` to 'COFOG'. Otherwise, set it to "Directive 2014/25/EU".
 
 ```xml
 <cac:ContractingActivity>
@@ -14049,7 +14032,7 @@ Get the `Organization` object whose `.name` is 'European Union'. If none exists 
         <td class="mapping">
 
 This field maps to the same `finance` objects as created for BT-5011-Contract and BT-722-Contract.
-<a href="operations.md#get-the-contract-for-a-settledcontract">Get the contract for the SettledContract</a>.
+[Get the contract for the SettledContract](operations.md#get-the-contract-for-a-settledcontract).
 For each `efac:Funding`, add or update the corresponding `Finance` object in the contract's `.finance` array and map to its `.description`.
 
 ```xml
@@ -14114,11 +14097,9 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
         </td>
         <td class="mapping">
 
-This field maps to the same `ParticipationFee` objects as created for BT-14-Lot and BT-707-Lot.
-
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
-
-For each `cac:CallForTendersDocumentReference`, add or update the corresponding `ParticipationFee` object in the lot's `participationFees` array and map to its `.description`. If the document type label has already been mapped to this field append to it with ' - ' (space, dash, space).
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
+Map to its `.accessDetailsURL`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
 ```xml
 <cac:ExternalReference>
@@ -14129,12 +14110,12 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
 ```json
 {
   "tender": {
-    "lots": [
+    "documents": [
       {
-        "participationFees": [
-          {
-            "description": "https://mywebsite.com/proc/2019024/accessinfo"
-          }
+        "id": "20210521/CTFD/ENG/7654-02",
+        "accessDetailsURL": "https://mywebsite.com/proc/2019024/accessinfo",
+        "relatedLots": [
+          "LOT-0001"
         ]
       }
     ]
@@ -14151,8 +14132,8 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
         </td>
         <td class="mapping">
 
-This field maps to the same objects as created for BT-14-Part and BT-707-Part.
-For each `cac:CallForTendersDocumentReference`, add or update the corresponding `ParticipationFee` object in the `participationFees` array and map to its `.description`.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
+Map to its `.accessDetailsURL`.
 
 ```xml
 <cac:ExternalReference>
@@ -14163,9 +14144,10 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
 ```json
 {
   "tender": {
-    "participationFees": [
+    "documents": [
       {
-        "description": "https://mywebsite.com/proc/2019024/accessinfo"
+        "id": "20210521/CTFD/ENG/7654-02",
+        "accessDetailsURL": "https://mywebsite.com/proc/2019024/accessinfo"
       }
     ]
   }
@@ -14181,9 +14163,9 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
         </td>
         <td class="mapping">
 
-- <a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a> and map to its `.unit.id`.
-- Set the item's `.unit.scheme` to <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/measurement-unit">'EU Measurement unit'</a>.
-- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/measurement-unit">authority table</a> and map it to `.unit.name`.
+- [Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot) and map to its `.unit.id`.
+- Set the item's `.unit.scheme` to ['EU Measurement unit'](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/measurement-unit).
+- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/measurement-unit) and map it to `.unit.name`.
 
 ```xml
 <cbc:EstimatedOverallContractQuantity unitCode="TNE">45000</cbc:EstimatedOverallContractQuantity>
@@ -14195,6 +14177,7 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
     "items": [
       {
         "unit": {
+          "id": "TNE",
           "scheme": "EU Measurement unit",
           "name": "tonne"
         }
@@ -14213,7 +14196,7 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and set its `.submissionTerms.variantPolicy` according to <a href="https://extensions.open-contracting.org/en/extensions/submissionTerms/master/codelists/">the allowed values</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set its `.submissionTerms.variantPolicy` according to [the allowed values](https://extensions.open-contracting.org/en/extensions/submissionTerms/master/codelists/).
 
 ```xml
 <cac:TenderingTerms>
@@ -14244,7 +14227,7 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, combine with <a href="#BT-630(t)-lot">BT-630(t)-Lot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `tenderPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-630(t)-Lot](<#BT-630(t)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `tenderPeriod.endDate`.
 
 ```xml
 <efac:InterestExpressionReceptionPeriod>
@@ -14275,7 +14258,7 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, combine with <a href="#BT-630(d)-lot">BT-630(d)-Lot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `tenderPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-630(d)-Lot](<#BT-630(d)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `tenderPeriod.endDate`.
 
 ```xml
 <efac:InterestExpressionReceptionPeriod>
@@ -14306,7 +14289,7 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to the lot's `.communication.invitationToConfirmInterest`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.communication.invitationToConfirmInterest`.
 
 ```xml
 <cac:ParticipationInvitationPeriod>
@@ -14337,7 +14320,7 @@ For each `cac:CallForTendersDocumentReference`, add or update the corresponding 
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.communication.atypicalToolName`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.communication.atypicalToolName`.
 
 ```xml
 <efext:EformsExtension>
@@ -14395,7 +14378,7 @@ Map to `tender.communication.atypicalToolName`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a> and set it's `details.scale` to 'selfEmployed'.
+[Get the organization for the company](operations.md#get-the-organization-for-a-company) and set it's `details.scale` to 'selfEmployed'.
 
 ```xml
 <efac:Organization>
@@ -14462,7 +14445,7 @@ Discard.
         </td>
         <td class="mapping">
 
-This field maps to the same `Statistic` objects as created for BT-636-LotResult. For each `AppealRequestStatistics`, <a href="operations.md#add-a-statistic">add a statistic</a> or update the corresponding `Statistic` object and map to its `.value`.
+This field maps to the same `Statistic` objects as created for BT-636-LotResult. For each `AppealRequestStatistics`, [add a statistic](operations.md#add-a-statistic) or update the corresponding `Statistic` object and map to its `.value`.
 
 ```xml
 <efac:AppealRequestsStatistics>
@@ -14491,7 +14474,7 @@ This field maps to the same `Statistic` objects as created for BT-636-LotResult.
         </td>
         <td class="mapping">
 
-This field maps to the same `Statistic` objects as created for BT-635-LotResult. For each `AppealRequestStatistics`, <a href="operations.md#add-a-statistic">add a statistic</a> or update the corresponding `Statistic` object and map to its `.measure`. Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/irregularity-type">authority table</a> and map it to `.notes`
+This field maps to the same `Statistic` objects as created for BT-635-LotResult. For each `AppealRequestStatistics`, [add a statistic](operations.md#add-a-statistic) or update the corresponding `Statistic` object and map to its `.measure`. Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/irregularity-type) and map it to `.notes`
 
 ```xml
 <efac:AppealRequestsStatistics>
@@ -14521,7 +14504,7 @@ This field maps to the same `Statistic` objects as created for BT-635-LotResult.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.subcontracting.competitiveMinimumPercentage`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.subcontracting.competitiveMinimumPercentage`.
 
 ```xml
 <cac:AllowedSubcontractTerms>
@@ -14554,7 +14537,7 @@ This field maps to the same `Statistic` objects as created for BT-635-LotResult.
 
 This field maps to the same `Prize` objects as created for BT-44-Lot and BT-45-Lot.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:Prize` add or update the corresponding `Prize` object in the lot's `designContest.prize.details` array and map to its `value.amount`. Map `@currencyID` to the value's `.currency`.
 
 ```xml
@@ -14597,8 +14580,8 @@ For each `cac:Prize` add or update the corresponding `Prize` object in the lot's
 
 If different from 'none':
 
-- <a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
-- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/subcontracting-obligation">authority table</a> and map it to the lot's `.subcontracting.description`.
+- [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
+- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/subcontracting-obligation) and map it to the lot's `.subcontracting.description`.
 
 ```xml
 <cac:AllowedSubcontractTerms>
@@ -14629,7 +14612,7 @@ If different from 'none':
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add to the lot's `.submissionTerms.subcontractingClauses` array.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add to the lot's `.submissionTerms.subcontractingClauses` array.
 
 ```xml
 <efac:TenderSubcontractingRequirements>
@@ -14660,7 +14643,7 @@ If different from 'none':
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-award-for-a-lotresult">Get the award for the LotResult</a> and map to the award's `.estimatedValue.amount`. Map `@currencyID` to the value's `.currency`.
+[Get the award for the LotResult](operations.md#get-the-award-for-a-lotresult) and map to the award's `.estimatedValue.amount`. Map `@currencyID` to the value's `.currency`.
 
 ```xml
 <efac:FrameworkAgreementValues>
@@ -14767,7 +14750,7 @@ Map to the relevant `tender.exclusionGrounds` `SelectionCriterion` object's `.de
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.contractTerms.performanceTerms`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractTerms.performanceTerms`.
 
 ```xml
 <cac:ContractExecutionRequirement>
@@ -14799,7 +14782,7 @@ Map to the relevant `tender.exclusionGrounds` `SelectionCriterion` object's `.de
         </td>
         <td class="mapping">
 
-<a href="operations.md#create-a-release">Create a new release</a>
+[Create a new release](operations.md#create-a-release)
 
 ```xml
 <cbc:ID schemeName="notice-id">0f56d80f-8a5f-4876-8e24-feaa766c456d</cbc:ID>
@@ -14816,7 +14799,7 @@ Map to the relevant `tender.exclusionGrounds` `SelectionCriterion` object's `.de
         </td>
         <td class="mapping">
 
-Lowercase `/*/cbc:NoticeLanguageCode` and convert the code into a two-letter <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1 code</a>, and map to `language`.
+Lowercase `/*/cbc:NoticeLanguageCode` and convert the code into a two-letter [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and map to `language`.
 
 Discard `/*/cac:AdditionalNoticeLanguage/cbc:ID`.
 
@@ -14858,7 +14841,7 @@ Discard `/*/cac:AdditionalNoticeLanguage/cbc:ID`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-person-for-an-ultimate-beneficial-owner">Get the person for the ultimate beneficial owner</a>, look up the equivalent ISO 3166-1 alpha-2 code in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country">authority table</a> and map to the person's `.nationality`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner), look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and map to the person's `.nationality`.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -14891,11 +14874,9 @@ Discard `/*/cac:AdditionalNoticeLanguage/cbc:ID`.
         </td>
         <td class="mapping">
 
-This field maps to the same `ParticipationFee` objects as created for BT-14-Lot and BT-615-Lot.
-
-- <a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
-- For each `cac:CallForTendersDocumentReference`, add or update the corresponding `ParticipationFee` object in the lot's `.participationFees` array.
-- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/communication-justification">authority table</a> and map it to the `ParticipationFee` object's `.description`.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
+Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/communication-justification) and map to the document's `.accessDetails`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
 ```xml
 <cac:CallForTendersDocumentReference>
@@ -14906,12 +14887,12 @@ This field maps to the same `ParticipationFee` objects as created for BT-14-Lot 
 ```json
 {
   "tender": {
-    "lots": [
+    "documents": [
       {
-        "participationFees": [
-          {
-            "description": "Intellectual property right issues"
-          }
+        "id": "20210521/CTFD/ENG/7654-02",
+        "accessDetails": "Restricted. Intellectual property rights issues",
+        "relatedLots": [
+          "LOT-0001"
         ]
       }
     ]
@@ -14928,10 +14909,8 @@ This field maps to the same `ParticipationFee` objects as created for BT-14-Lot 
         </td>
         <td class="mapping">
 
-This field maps to the same `ParticipationFee` objects as created for BT-14-Part and BT-615-Part.
-
-- For each `cac:CallForTendersDocumentReference`, add or update the corresponding `ParticipationFee` object in the `.participationFees` array.
-- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/communication-justification">authority table</a> and map to the `ParticipationFee` object's `.description`.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
+Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/communication-justification) and map to the document's `.accessDetails`.
 
 ```xml
 <cac:CallForTendersDocumentReference>
@@ -14942,9 +14921,10 @@ This field maps to the same `ParticipationFee` objects as created for BT-14-Part
 ```json
 {
   "tender": {
-    "participationFees": [
+    "documents": [
       {
-        "description": "Intellectual property right issues"
+        "id": "20210521/CTFD/ENG/7654-02",
+        "accessDetails": "Restricted. Intellectual property rights issues"
       }
     ]
   }
@@ -14960,11 +14940,11 @@ This field maps to the same `ParticipationFee` objects as created for BT-14-Part
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
-Lowercase and convert the code into a two-letter <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1 code</a> and add it to the document's `.languages` array.
+Lowercase and convert the code into a two-letter [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) and add it to the document's `.languages` array.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add it to the document's `.relatedLots`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add it to the document's `.relatedLots`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -15005,9 +14985,9 @@ Lowercase and convert the code into a two-letter <a href="https://en.wikipedia.o
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
-Lowercase and convert the code into a two-letter <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1 code</a>.
+Lowercase and convert the code into a two-letter [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
 
 Add it to the document's `.languages` array.
 
@@ -15042,7 +15022,7 @@ Add it to the document's `.languages` array.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-award-for-a-lotresult">Get the award for the LotResult</a> and map to the award's `.maximumValue.amount`. Map `@currencyID` to the value's `.currency`.
+[Get the award for the LotResult](operations.md#get-the-award-for-a-lotresult) and map to the award's `.maximumValue.amount`. Map `@currencyID` to the value's `.currency`.
 
 ```xml
 <efac:FrameworkAgreementValues>
@@ -15072,7 +15052,7 @@ Add it to the document's `.languages` array.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 
 If "res-pub-ser", add 'publicServiceMissionOrganization' to the lot's `.otherRequirements.reservedParticipation` array. If "res-ws", add 'shelteredWorkshop' to the lot's `.otherRequirements.reservedParticipation` array. If "none", discard.
 
@@ -15136,11 +15116,11 @@ If `@TendererRequirementTypeCode` is "res-pub-ser", add 'publicServiceMissionOrg
         </td>
         <td class="mapping">
 
-<a href="operations.md#add-a-statistic">Add a bids statistic</a>, set its `.measure` to 'lowestValidBidValue', map to its `.value`.
+[Add a bids statistic](operations.md#add-a-statistic), set its `.measure` to 'lowestValidBidValue', map to its `.value`.
 
 Map `@currencyID` to its `.currency`.
 
-<a href="operations.md#get-the-lot-for-a-lotresult">Get the lot for the LotResult</a> and add the lot's `.id` to the statistic's `.relatedLots`.
+[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult) and add the lot's `.id` to the statistic's `.relatedLots`.
 
 ```xml
 <efac:LotResult>
@@ -15172,11 +15152,11 @@ Map `@currencyID` to its `.currency`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#add-a-statistic">Add a bids statistic</a>, set its `.measure` to 'highestValidBidValue', and map to its `.value`.
+[Add a bids statistic](operations.md#add-a-statistic), set its `.measure` to 'highestValidBidValue', and map to its `.value`.
 
 Map `@currencyID` to its `.currency`.
 
-<a href="operations.md#get-the-lot-for-a-lotresult">Get the lot for the LotResult</a> and add the lot's `.id` to the statistic's `.relatedLots`.
+[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult) and add the lot's `.id` to the statistic's `.relatedLots`.
 
 ```xml
 <efac:LotResult>
@@ -15210,9 +15190,9 @@ Map `@currencyID` to its `.currency`.
 
 This field maps to the same `Statistic` objects as created for BT-712(b)-LotResult.
 
-For each `ancestor::AppealRequestStatistics`, <a href="operations.md#add-a-statistic">add a complaints statistic</a> or update the corresponding `Statistic` object, and set its `.measure` to "complainants".
+For each `ancestor::AppealRequestStatistics`, [add a complaints statistic](operations.md#add-a-statistic) or update the corresponding `Statistic` object, and set its `.measure` to "complainants".
 
-<a href="operations.md#get-the-lot-for-a-lotresult">Get the lot for the LotResult</a> and add the lot's `.id` to the statistic's `.relatedLots`.
+[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult) and add the lot's `.id` to the statistic's `.relatedLots`.
 
 ```xml
 <efac:AppealRequestsStatistics>
@@ -15243,9 +15223,9 @@ For each `ancestor::AppealRequestStatistics`, <a href="operations.md#add-a-stati
 
 This field maps to the same `Statistic` objects as created for BT-712(a)-LotResult.
 
-For each `ancestor::AppealRequestStatistics`, <a href="operations.md#add-a-statistic">add a complaints statistic</a> or update the corresponding `Statistic` object, and map to its `.value`.
+For each `ancestor::AppealRequestStatistics`, [add a complaints statistic](operations.md#add-a-statistic) or update the corresponding `Statistic` object, and map to its `.value`.
 
-<a href="operations.md#get-the-lot-for-a-lotresult">Get the lot for the LotResult</a> and add the lot's `.id` to the statistic's `.relatedLots`.
+[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult) and add the lot's `.id` to the statistic's `.relatedLots`.
 
 ```xml
 <efac:AppealRequestsStatistics>
@@ -15275,7 +15255,7 @@ For each `ancestor::AppealRequestStatistics`, <a href="operations.md#add-a-stati
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>. If "true", add 'EU-CVD' to the lot's `.coveredBy` array. If "false", discard.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). If "true", add 'EU-CVD' to the lot's `.coveredBy` array. If "false", discard.
 
 ```xml
 <efac:StrategicProcurement>
@@ -15335,7 +15315,7 @@ These values map to the same `Amendment` objects as created for BT-140. Update t
         </td>
         <td class="mapping">
 
-These values map to the same `Amendment` objects as created for BT-140. Update the corresponding `Amendment` object, <a href="operations.md#convert-a-date-to-iso-format">convert date to ISO format</a> and map to its `.documentsChangeDate`.
+These values map to the same `Amendment` objects as created for BT-140. Update the corresponding `Amendment` object, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.documentsChangeDate`.
 
 ```xml
 <efac:Change>
@@ -15364,7 +15344,7 @@ These values map to the same `Amendment` objects as created for BT-140. Update t
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-bid-for-a-lottender">Get the bid for the LotTender</a> and map to the bid's `.value`. Map `@currencyID` to the value's `.currency`.
+[Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender) and map to the bid's `.value`. Map `@currencyID` to the value's `.currency`.
 
 ```xml
 <cac:LegalMonetaryTotal>
@@ -15396,7 +15376,7 @@ These values map to the same `Amendment` objects as created for BT-140. Update t
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-contract-for-a-settledcontract">Get the contract for the SettledContract</a> and map to the contract's `.title`.
+[Get the contract for the SettledContract](operations.md#get-the-contract-for-a-settledcontract) and map to the contract's `.title`.
 
 ```xml
 <efac:SettledContract>
@@ -15424,7 +15404,7 @@ These values map to the same `Amendment` objects as created for BT-140. Update t
         <td class="mapping">
 
 This field maps to the same `finance` objects as created for BT-5011 and BT-6110.
-<a href="operations.md#get-the-contract-for-a-settledcontract">Get the contract for the SettledContract</a>.
+[Get the contract for the SettledContract](operations.md#get-the-contract-for-a-settledcontract).
 For each `efac:Funding`, add or update the corresponding `Finance` object in the contract's `.finance` array and map to its `.title`.
 
 ```xml
@@ -15493,7 +15473,7 @@ For each `ancestor::efac:Funding`, add or update the corresponding `Finance` obj
 
 This field maps to the same `Item` objects as created for OPT-155-LotResult, OPT-156-LotResult and BT-735-LotResult. If no `Item` objects were created for `ancestor::efac:ProcurementDetails`:
 
-- <a href="operations.md#get-the-award-for-a-lotresult">Get the award for the LotResult</a>.
+- [Get the award for the LotResult](operations.md#get-the-award-for-a-lotresult).
 - Add an `Item` object to its `items` array.
 - Set the item's `.id` incrementally.
 
@@ -15501,7 +15481,7 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
 
 - Set the classification's `.scheme` to "vehicleCategory".
 - Map the value of the field to the classification's `.id`.
-- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/vehicle-category">authority table</a> and map it to the classification's `.description`.
+- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/vehicle-category) and map it to the classification's `.description`.
 
 ```xml
 <efac:ProcurementDetails>
@@ -15539,7 +15519,7 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.suitability.sme`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.suitability.sme`.
 
 ```xml
 <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
@@ -15568,7 +15548,7 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a> and map to the lot group's `.suitability.sme`.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot) and map to the lot group's `.suitability.sme`.
 
 ```xml
 <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
@@ -15624,9 +15604,9 @@ Map to `.tender.suitability.sme`.
 
 This field maps to the same `Address` objects as created for BT-728-Lot, BT-5121-Lot, BT-5071-Lot, BT-5131-Lot, BT-5101-Lot and BT-5141-Lot.
 
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>.
+[Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot).
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array.
-Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/other-place-service">authority table</a> and map it to the address's `.description`, concatenating to the existing entry in this field if necessary.
+Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/other-place-service) and map it to the address's `.description`, concatenating to the existing entry in this field if necessary.
 
 ```xml
 <cac:Address>
@@ -15661,7 +15641,7 @@ Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabula
 
 This field maps to the same `Address` objects as created for BT-728-Part, BT-5121-Part, BT-5131-Part, BT-5071-Part, BT-5101-Part and BT-5141-Part.
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the `tender.deliveryAddresses` array
-Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/other-place-service">authority table</a>, and map to the address's `.description`, concatenating to the existing entry in this field if necessary.
+Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/other-place-service), and map to the address's `.description`, concatenating to the existing entry in this field if necessary.
 
 ```xml
 <cac:Address>
@@ -15692,7 +15672,7 @@ Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabula
 
 This field maps to the same `Address` objects as created for BT-728-Procedure, BT-5121-Procedure, BT-5131-Procedure, BT-5071-Procedure, BT-5101-Procedure and BT-5141-Procedure.
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the `tender.deliveryAddresses` array
-Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/other-place-service">authority table</a>, and map to the address's `.description`, concatenating to the existing entry in this field if necessary.
+Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/other-place-service), and map to the address's `.description`, concatenating to the existing entry in this field if necessary.
 
 ```xml
 <cac:Address>
@@ -15723,7 +15703,7 @@ Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabula
 
 This field maps to the same `Address` objects as created for BT-727-Lot, BT-5121-Lot, BT-5071-Lot, BT-5131-Lot, BT-5101-Lot and BT-5141-Lot.
 
-<a href="operations.md#get-the-item-for-a-procurementprojectlot">Get the item for the ProcurementProjectLot</a>.
+[Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot).
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array and map it to the address's `.description`, concatenating to the existing entry in this field if necessary.
 
 ```xml
@@ -15815,7 +15795,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.subcontracting.competitiveMaximumPercentage`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.subcontracting.competitiveMaximumPercentage`.
 
 ```xml
 <cac:AllowedSubcontractTerms>
@@ -15884,7 +15864,7 @@ Discard. If the award's `.subcontracting.minimumPercentage` and `.subcontracting
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.otherRequirements.securityClearance`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.otherRequirements.securityClearance`.
 
 ```xml
 <cac:SecurityClearanceTerm>
@@ -15915,7 +15895,7 @@ Discard. If the award's `.subcontracting.minimumPercentage` and `.subcontracting
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.awardCriteria.orderRationale`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.awardCriteria.orderRationale`.
 
 ```xml
 <cac:AwardingCriterion>
@@ -15946,7 +15926,7 @@ Discard. If the award's `.subcontracting.minimumPercentage` and `.subcontracting
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a> and map to its `.awardCriteria.orderRationale`.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot) and map to its `.awardCriteria.orderRationale`.
 
 ```xml
 <cac:AwardingCriterion>
@@ -15979,7 +15959,7 @@ Discard. If the award's `.subcontracting.minimumPercentage` and `.subcontracting
 
 This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-541-Lot, BT-5421-Lot, BT-5422-Lot and BT-5423-Lot.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array and map to the the award criterion's `.name`.
 
 ```xml
@@ -16017,7 +15997,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 
 This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-541-LotsGroup, BT-5421-LotsGroup, BT-5422-LotsGroup and BT-5423-LotsGroup.
 
-<a href="operations.md#get-the-lot-group-for-a-procurementprojectlot">Get the lot group for the ProcurementProjectLot</a>.
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot group's `.awardCriteria.criteria` array and map to the the award criterion's `.name`.
 
 ```xml
@@ -16053,10 +16033,10 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
         </td>
         <td class="mapping">
 
-- <a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add a `Classification` object to the lot's `additionalClassifications` array.
+- [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add a `Classification` object to the lot's `additionalClassifications` array.
 - Set the classification's `.scheme` to 'CVDContractType'.
 - Map the value of the field to the classification's `.id`.
-- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/cvd-contract-type">authority table</a> and map it to the classification's `.description`.
+- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/cvd-contract-type) and map it to the classification's `.description`.
 
 ```xml
 <efac:StrategicProcurementInformation>
@@ -16093,7 +16073,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 
 This field maps to the same `Item` objects as created for OPT-155-LotResult and BT-723-LotResult. If no `Item` objects were created for `ancestor::efac:StrategicProcurementInformation/efbc:ProcurementDetails`:
 
-- <a href="operations.md#get-the-award-for-a-lotresult">Get the award for the LotResult</a>.
+- [Get the award for the LotResult](operations.md#get-the-award-for-a-lotresult).
 - Add an `Item` object to its `items` array.
 - Set the item's `.id` incrementally.
 
@@ -16101,7 +16081,7 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
 
 - Set the classification's `.scheme` to "CVDContractType".
 - Map to the classification's `.id`.
-- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/cvd-contract-type">authority table</a> and map it to the classification's `.description`.
+- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/cvd-contract-type) and map it to the classification's `.description`.
 
 ```xml
 <efac:StrategicProcurementInformation>
@@ -16139,7 +16119,7 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
         </td>
         <td class="mapping">
 
-If "yes", <a href="operations.md#get-the-lot-for-a-procurementprojectlot">get the lot for the ProcurementProjectLot</a> and set the lot's `.contractTerms.reservedExecution` to `true`. Otherwise, discard.
+If "yes", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set the lot's `.contractTerms.reservedExecution` to `true`. Otherwise, discard.
 
 ```xml
 <cac:ContractExecutionRequirement>
@@ -16197,11 +16177,11 @@ Set `tender.contractTerms.reservedExecution` to `true` if `@ExecutionRequirement
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Set the document's `.unofficialTranslation` to `true`.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add its `id` to the document's `.relatedLots`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -16240,7 +16220,7 @@ Set the document's `.unofficialTranslation` to `true`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Set the document's `.unofficialTranslation` to `true`.
 
@@ -16273,7 +16253,7 @@ Set the document's `.unofficialTranslation` to `true`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to `tender.communication.noticeRequestedPublicationDate`.
+[Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `tender.communication.noticeRequestedPublicationDate`.
 
 ```xml
 <cbc:RequestedPublicationDate>2020-03-15+01:00</cbc:RequestedPublicationDate>
@@ -16298,7 +16278,7 @@ Set the document's `.unofficialTranslation` to `true`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a> and map to the organization's `.contactPoint.faxNumber`
+[Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.contactPoint.faxNumber`
 
 ```xml
 <efac:Organization>
@@ -16331,7 +16311,7 @@ Set the document's `.unofficialTranslation` to `true`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-touchpoint">Get the organization for the touchpoint</a> and map to the organization's `.contactPoint.faxNumber`
+[Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.contactPoint.faxNumber`
 
 ```xml
 <efac:Organization>
@@ -16364,7 +16344,7 @@ Set the document's `.unofficialTranslation` to `true`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-person-for-an-ultimate-beneficial-owner">Get the person for the ultimate beneficial owner</a> and map to the person's `.faxNumber`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.faxNumber`.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -16397,10 +16377,10 @@ Set the document's `.unofficialTranslation` to `true`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-the-buyer">Get the organization for the buyer</a> and add a `Classification` object to its `.details.classifications` array.
+[Get the organization for the buyer](operations.md#get-the-organization-for-the-buyer) and add a `Classification` object to its `.details.classifications` array.
 
 - Map the value of this field to the classification's `.id`.
-- Set its `.description` according to the <a href="codelists/buyer-contracting-type">buyer contracting type mapping table</a> and set its `.scheme` to 'buyer-contracting-type'.
+- Set its `.description` according to the [buyer contracting type mapping table](codelists/buyer-contracting-type) and set its `.scheme` to 'buyer-contracting-type'.
 
 ```xml
 <cac:ContractingPartyType>
@@ -16436,7 +16416,7 @@ Set the document's `.unofficialTranslation` to `true`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and set its `.contractTerms.electronicInvoicingPolicy` according to <a href="https://extensions.open-contracting.org/en/extensions/contractTerms/master/codelists/">the allowed values</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set its `.contractTerms.electronicInvoicingPolicy` according to [the allowed values](https://extensions.open-contracting.org/en/extensions/contractTerms/master/codelists/).
 
 ```xml
 <cac:ContractExecutionRequirement>
@@ -16467,7 +16447,7 @@ Set the document's `.unofficialTranslation` to `true`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and set its `.submissionTerms.advancedElectronicSignaturePolicy` to "required".
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set its `.submissionTerms.advancedElectronicSignaturePolicy` to "required".
 
 ```xml
 <cac:ContractExecutionRequirement>
@@ -16498,7 +16478,7 @@ Set the document's `.unofficialTranslation` to `true`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.submissionMethodDetails`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.submissionMethodDetails`.
 
 ```xml
 <cac:ProcessJustification>
@@ -16527,7 +16507,7 @@ Set the document's `.unofficialTranslation` to `true`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-company">Get the organization for the company</a> and map to the organization's `.details.listedOnRegulatedMarket`.
+[Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.details.listedOnRegulatedMarket`.
 
 ```xml
 <efac:Organization>
@@ -16540,7 +16520,7 @@ Set the document's `.unofficialTranslation` to `true`.
   "parties": [
     {
       "details": {
-        "listedOnRegulatedMarket": "false"
+        "listedOnRegulatedMarket": false
       }
     }
   ]
@@ -16558,9 +16538,9 @@ Set the document's `.unofficialTranslation` to `true`.
 
 If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40, BT-749, BT-750, BT-752, BT-7531 and BT-7532.
 
-- <a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+- [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 - For each `<efac:SelectionCriteria>`, add or update a corresponding `SelectionCriterion` object in the lot's `.selectionCriteria.criteria`.
-- Identify the equivalent code in the <a href="codelists/selection-criterion">selection criterion mapping table</a> and map to the criterion's `.type`.
+- Identify the equivalent code in the [selection criterion mapping table](codelists/selection-criterion) and map to the criterion's `.type`.
 
 ```xml
 <efac:SelectionCriteria>
@@ -16616,7 +16596,7 @@ Discard.
 
 If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-750-Lot, BT-752-Lot, BT-7531-Lot and BT-7532-Lot.
 
-- <a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+- [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 - For each `efac:SelectionCriteria`, add or update a corresponding `SelectionCriterion` object in the lot's `.selectionCriteria.criteria`.
 - Map to the criterion's `.description`. Concatenate it with <a href="#BT-750-Lot">BT-750-Lot Selection Criteria Description</a>.
 
@@ -16653,7 +16633,7 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.submissionTerms.depositsGuarantees`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.submissionTerms.depositsGuarantees`.
 
 ```xml
 <cac:RequiredFinancialGuarantee>
@@ -16686,7 +16666,7 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
 
 If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-752-Lot, BT-7531-Lot and BT-7532-Lot.
 
-- <a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+- [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 - For each `efac:SelectionCriteria`, add or update a corresponding `SelectionCriterion` object in the lot's `.selectionCriteria.criteria`.
 - Map to the criterion's `.description`. Concatenate it with <a href="#BT-749-Lot">BT-749-Lot Selection Criteria Name</a>.
 
@@ -16744,7 +16724,7 @@ Discard. If the lot's `.submissionTerms.depositsGuarantees` is not empty, a guar
 
 If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-750-Lot, BT-7531-Lot and BT-7532-Lot, and the same `SelectionCriterionNumber` objects as created for BT-7531-Lot and BT-7532-Lot.
 
-- <a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+- [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 - For each `efac:SelectionCriteria`, add or update a corresponding `SelectionCriterion` object in the lot's `.selectionCriteria.criteria`.
 - For each `efac:CriterionParameter`, add or update a corresponding `SelectionCriterionNumber` object in the criterion's `.numbers`.
 - Map to the number's `.number`.
@@ -16788,10 +16768,10 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
 
 If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-750-Lot, BT-752-Lot and BT-7532-Lot, and the same `SelectionCriterionNumber` objects as created for BT-752-Lot and BT-7532-Lot.
 
-- <a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+- [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 - For each `efac:SelectionCriteria`, add or update a corresponding `SelectionCriterion` object in the lot's `.selectionCriteria.criteria`.
 - For each `efac:CriterionParameter`, add or update a corresponding `SelectionCriterionNumber` object in the criterion's `.numbers`.
-- Identify the equivalent code in the <a href="https://extensions.open-contracting.org/en/extensions/awardCriteria/master/codelists/#criterionWeight.csv">criterionWeight</a> codelist and map to the number's `.weight`.
+- Identify the equivalent code in the [criterionWeight](https://extensions.open-contracting.org/en/extensions/awardCriteria/master/codelists/#criterionWeight.csv) codelist and map to the number's `.weight`.
 
 ```xml
 <efac:CriterionParameter>
@@ -16832,10 +16812,10 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
 
 If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-750-Lot, BT-752-Lot and BT-7531-Lot, and the same `SelectionCriterionNumber` objects as created for BT-752-Lot and BT-7531-Lot.
 
-- <a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+- [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 - For each `efac:SelectionCriteria`, add or update a corresponding `SelectionCriterion` object in the lot's `.selectionCriteria.criteria`.
 - For each `efac:CriterionParameter`, add or update a corresponding `SelectionCriterionNumber` object in the criterion's `.numbers`.
-- Identify the equivalent code in the <a href="https://extensions.open-contracting.org/en/extensions/awardCriteria/master/codelists/#criterionThreshold.csv">criterionThreshold</a> codelist and map to the number's `.threshold`.
+- Identify the equivalent code in the [criterionThreshold](https://extensions.open-contracting.org/en/extensions/awardCriteria/master/codelists/#criterionThreshold.csv) codelist and map to the number's `.threshold`.
 
 ```xml
 <efac:CriterionParameter>
@@ -16874,7 +16854,7 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>. If "inc", set the lot's `.hasAccessibilityCriteria` to "true", otherwise set to "false". If "n-inc", set the lot's `.noAccessibilityCriteriaRationale` to "Procurement is not intended for use by natural persons".
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). If "inc", set the lot's `.hasAccessibilityCriteria` to "true", otherwise set to "false". If "n-inc", set the lot's `.noAccessibilityCriteriaRationale` to "Procurement is not intended for use by natural persons".
 
 ```xml
 <cac:ProcurementAdditionalType>
@@ -16903,7 +16883,7 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to the lot's `.noAccessibilityCriteriaRationale`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to the lot's `.noAccessibilityCriteriaRationale`.
 
 ```xml
 <cac:ProcurementAdditionalType>
@@ -16993,9 +16973,9 @@ Discard.
 
 This field maps to the same `Statistic` objects as created for BT-760-LotResult.
 
-For each `efac:ReceivedSubmissionsStatistics`, <a href="operations.md#add-a-statistic">add a bids statistic</a> or update the corresponding `Statistic` object and map to its `.value`.
+For each `efac:ReceivedSubmissionsStatistics`, [add a bids statistic](operations.md#add-a-statistic) or update the corresponding `Statistic` object and map to its `.value`.
 
-<a href="operations.md#get-the-lot-for-a-lotresult">Get the lot for the LotResult</a> and add the lot's `.id` to the statistic's `.relatedLots`.
+[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult) and add the lot's `.id` to the statistic's `.relatedLots`.
 
 ```xml
 <efac:ReceivedSubmissionsStatistics>
@@ -17024,7 +17004,7 @@ For each `efac:ReceivedSubmissionsStatistics`, <a href="operations.md#add-a-stat
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.contractTerms.tendererLegalForm`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractTerms.tendererLegalForm`.
 
 ```xml
 <cac:TendererQualificationRequest>
@@ -17057,9 +17037,9 @@ For each `efac:ReceivedSubmissionsStatistics`, <a href="operations.md#add-a-stat
 
 This field maps to the same `Statistic` objects as created for BT-759-LotResult.
 
-For each `efac:ReceivedSubmissionsStatistics`, <a href="operations.md#add-a-statistic">add a bids statistic</a> or update the corresponding `Statistic` object and map to its `.measure` according to the <a href="codelists/received-submission-type">received submission type mapping table</a>.
+For each `efac:ReceivedSubmissionsStatistics`, [add a bids statistic](operations.md#add-a-statistic) or update the corresponding `Statistic` object and map to its `.measure` according to the [received submission type mapping table](codelists/received-submission-type).
 
-<a href="operations.md#get-the-lot-for-a-lotresult">Get the lot for the LotResult</a> and add the lot's `.id` to the statistic's `.relatedLots`.
+[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult) and add the lot's `.id` to the statistic's `.relatedLots`.
 
 ```xml
 <efac:ReceivedSubmissionsStatistics>
@@ -17161,7 +17141,7 @@ Set `tender.lotDetails.maximumLotsBidPerSupplier` to the number (not the string)
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and set its `.submissionTerms.electronicCataloguePolicy` according to <a href="https://extensions.open-contracting.org/en/extensions/submissionTerms/master/codelists/">the allowed values</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set its `.submissionTerms.electronicCataloguePolicy` according to [the allowed values](https://extensions.open-contracting.org/en/extensions/submissionTerms/master/codelists/).
 
 ```xml
 <cac:ContractExecutionRequirement>
@@ -17192,7 +17172,7 @@ Set `tender.lotDetails.maximumLotsBidPerSupplier` to the number (not the string)
         </td>
         <td class="mapping">
 
-If different from 'none', <a href="operations.md#get-the-lot-for-a-procurementprojectlot">get the lot for the ProcurementProjectLot</a> and set its `.techniques.hasFrameworkAgreement` to `true`. Map the code according to the <a href="codelists/framework-agreement-method">framework agreement method mapping table</a> to the lot's `.techniques.method`. Otherwise discard.
+If different from 'none', [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set its `.techniques.hasFrameworkAgreement` to `true`. Map the code according to the [framework agreement method mapping table](codelists/framework-agreement-method) to the lot's `.techniques.method`. Otherwise discard.
 
 ```xml
 <cac:ContractingSystem>
@@ -17224,7 +17204,7 @@ If different from 'none', <a href="operations.md#get-the-lot-for-a-procurementpr
         </td>
         <td class="mapping">
 
-If different from 'none', set `tender.techniques.hasFrameworkAgreement` to `true`. Map the code according to the <a href="codelists/framework-agreement-method">framework agreement method mapping table</a> to `tender.techniques.method`. Otherwise discard.
+If different from 'none', set `tender.techniques.hasFrameworkAgreement` to `true`. Map the code according to the [framework agreement method mapping table](codelists/framework-agreement-method) to `tender.techniques.method`. Otherwise discard.
 
 ```xml
 <cac:ContractingSystem>
@@ -17252,7 +17232,7 @@ If different from 'none', set `tender.techniques.hasFrameworkAgreement` to `true
         </td>
         <td class="mapping">
 
-If different from 'none', <a href="operations.md#get-the-lot-for-a-procurementprojectlot">get the lot for the ProcurementProjectLot</a> and set its `.techniques.hasDynamicPurchasingSystem` to `true`. Map the code according to the <a href="codelists/dps-usage">DPS usage mapping table</a> to the lot's `.techniques.dynamicPurchasingSystem.type`. Otherwise discard.
+If different from 'none', [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set its `.techniques.hasDynamicPurchasingSystem` to `true`. Map the code according to the [DPS usage mapping table](codelists/dps-usage) to the lot's `.techniques.dynamicPurchasingSystem.type`. Otherwise discard.
 
 ```xml
 <cac:ContractingSystem>
@@ -17286,7 +17266,7 @@ If different from 'none', <a href="operations.md#get-the-lot-for-a-procurementpr
         </td>
         <td class="mapping">
 
-If different from 'none', set `tender.techniques.hasDynamicPurchasingSystem` to `true`. Map the code according to the <a href="codelists/dps-usage">DPS usage mapping table</a> to `tender.techniques.dynamicPurchasingSystem.type`. Otherwise discard.
+If different from 'none', set `tender.techniques.hasDynamicPurchasingSystem` to `true`. Map the code according to the [DPS usage mapping table](codelists/dps-usage) to `tender.techniques.dynamicPurchasingSystem.type`. Otherwise discard.
 
 ```xml
 <cac:ContractingSystem>
@@ -17316,7 +17296,7 @@ If different from 'none', set `tender.techniques.hasDynamicPurchasingSystem` to 
         </td>
         <td class="mapping">
 
-If "true", <a href="operations.md#get-the-lot-for-a-procurementprojectlot">get the lot for the ProcurementProjectLot</a> and set the lot's `.techniques.hasElectronicAuction` to `true`. Otherwise, discard.
+If "true", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set the lot's `.techniques.hasElectronicAuction` to `true`. Otherwise, discard.
 
 ```xml
 <cac:AuctionTerms>
@@ -17366,7 +17346,7 @@ Discard. The contract is awarded within a framework agreement if the related lot
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and set the lot's `.submissionTerms.multipleTendersPolicy` according to <a href="https://extensions.open-contracting.org/en/extensions/submissionTerms/master/codelists/">the allowed values</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set the lot's `.submissionTerms.multipleTendersPolicy` according to [the allowed values](https://extensions.open-contracting.org/en/extensions/submissionTerms/master/codelists/).
 
 ```xml
 <cbc:MultipleTendersCode listName="permission">allowed</cbc:MultipleTendersCode>
@@ -17395,7 +17375,7 @@ Discard. The contract is awarded within a framework agreement if the related lot
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.contractTerms.financialTerms`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractTerms.financialTerms`.
 
 ```xml
 <cac:PaymentTerms>
@@ -17426,8 +17406,8 @@ Discard. The contract is awarded within a framework agreement if the related lot
         </td>
         <td class="mapping">
 
-- <a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
-- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/missing-info-submission">authority table</a> and map it to the lot's `.submissionMethodDetails`. Append if other information is already mapped to this field.
+- [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
+- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/missing-info-submission) and map it to the lot's `.submissionMethodDetails`. Append if other information is already mapped to this field.
 
 ```xml
 <cac:SpecificTendererRequirement>
@@ -17456,7 +17436,7 @@ Discard. The contract is awarded within a framework agreement if the related lot
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.submissionMethodDetails`. Append if other information is already mapped to this field.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.submissionMethodDetails`. Append if other information is already mapped to this field.
 
 ```xml
 <cac:SpecificTendererRequirement>
@@ -17485,7 +17465,7 @@ Discard. The contract is awarded within a framework agreement if the related lot
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-bid-for-a-lottender">Get the bid for the LotTender</a>. If "yes", set the bid's `.hasSubcontracting` to `true`. If "no", set the bid's `.hasSubcontracting` to `false`.
+[Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender). If "yes", set the bid's `.hasSubcontracting` to `true`. If "no", set the bid's `.hasSubcontracting` to `false`.
 
 ```xml
 <efac:SubcontractingTerm>
@@ -17514,11 +17494,11 @@ Discard. The contract is awarded within a framework agreement if the related lot
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and set the lot''s `.hasSustainability` to "true".
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set the lot''s `.hasSustainability` to "true".
 
 For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` object to the lot''s `.sustainability` array.
 
-- Map the code to the sustainability''s `.goal` according to the <a href="codelists/environmental-impact">environmental impact mapping table</a>.
+- Map the code to the sustainability''s `.goal` according to the [environmental impact mapping table](codelists/environmental-impact).
 
 ```xml
 <cac:ProcurementAdditionalType>
@@ -17552,11 +17532,11 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and set the lot's `.hasSustainability` to "true".
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set the lot's `.hasSustainability` to "true".
 
 For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` object to the lot's `.sustainability` array.
 
-- Map the code to the sustainability's `.goal` according to the <a href="codelists/social-objective">social objective mapping table</a>.
+- Map the code to the sustainability's `.goal` according to the [social objective mapping table](codelists/social-objective).
 - Add 'awardCriteria', 'contractPerformanceConditions', 'selectionCriteria' and 'technicalSpecifications' to the sustainability's `.strategies` array.
 
 ```xml
@@ -17597,11 +17577,11 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and set the lot's `.hasSustainability` to "true".
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set the lot's `.hasSustainability` to "true".
 
 For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` object to the lot's `.sustainability` array.
 
-- Map the code to the sustainability's `.goal` according to the <a href="codelists/innovative-acquisition">innovative acquisition mapping table</a>.
+- Map the code to the sustainability's `.goal` according to the [innovative acquisition mapping table](codelists/innovative-acquisition).
 
 ```xml
 <cac:ProcurementAdditionalType>
@@ -17637,7 +17617,7 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
 
 This field maps to the same `Sustainability` objects as created for BT-06-Lot.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and for each `cbc:ProcurementTypeCode`, add or update the corresponding `Sustainability` object in the lot's `sustainability` array and map to its `.description`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and for each `cbc:ProcurementTypeCode`, add or update the corresponding `Sustainability` object in the lot's `sustainability` array and map to its `.description`.
 
 ```xml
 <cac:ProcurementAdditionalType>
@@ -17670,11 +17650,11 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, add a new `Milestone` object to the lot's `.milestones` array.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), add a new `Milestone` object to the lot's `.milestones` array.
 
 - Set its `id` incrementally.
 - Set its `.type` to 'securityClearanceDeadline'.
-- <a href="operations.md#convert-a-date-to-iso-format">Convert date to ISO format</a> and map to its `.dueDate`.
+- [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.dueDate`.
 
 ```xml
 <cbc:LatestSecurityClearanceDate>2019-11-15+01:00</cbc:LatestSecurityClearanceDate>
@@ -17707,7 +17687,7 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>. If "par-requ" or "t-requ", set the lot's `.otherRequirements.requiresStaffNamesAndQualifications` to `true`. If "not-requ", set it to `false`. Otherwise, discard.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). If "par-requ" or "t-requ", set the lot's `.otherRequirements.requiresStaffNamesAndQualifications` to `true`. If "not-requ", set it to `false`. Otherwise, discard.
 
 ```xml
 <cbc:RequiredCurriculaCode listName="requirement-stage">t-requ</cbc:RequiredCurriculaCode>
@@ -17736,7 +17716,7 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.contractTerms.hasNonDisclosureAgreement`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractTerms.hasNonDisclosureAgreement`.
 
 ```xml
 <cac:ContractExecutionRequirement>
@@ -17767,7 +17747,7 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.contractTerms.nonDisclosureAgreement`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractTerms.nonDisclosureAgreement`.
 
 ```xml
 <cac:ContractExecutionRequirement>
@@ -17832,13 +17812,13 @@ Discard.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 
 If "none" discard, otherwise set the lot's `.hasSustainability` to "true".
 
 For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` object to the lot's `.sustainability` array.
 
-- Map the code to the sustainability's `.strategies` array according to the <a href="codelists/gpp-criteria">GPP criteria mapping table</a>.
+- Map the code to the sustainability's `.strategies` array according to the [GPP criteria mapping table](codelists/gpp-criteria).
 
 ```xml
 <cac:ProcurementAdditionalType>
@@ -17899,7 +17879,7 @@ Map to `tender.procurementMethodDetails`
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.contractTerms.hasElectronicOrdering`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractTerms.hasElectronicOrdering`.
 
 ```xml
 <cac:PostAwardProcess>
@@ -17930,7 +17910,7 @@ Map to `tender.procurementMethodDetails`
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.contractTerms.hasElectronicPayment`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractTerms.hasElectronicPayment`.
 
 ```xml
 <cac:PostAwardProcess>
@@ -17961,7 +17941,7 @@ Map to `tender.procurementMethodDetails`
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.hasRecurrence`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.hasRecurrence`.
 
 ```xml
 <cbc:RecurringProcurementIndicator>true</cbc:RecurringProcurementIndicator>
@@ -17988,7 +17968,7 @@ Map to `tender.procurementMethodDetails`
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.recurrence.description`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.recurrence.description`.
 
 ```xml
 <cbc:RecurringProcurementDescription languageID="ENG">The current procurement ...</cbc:RecurringProcurementDescription>
@@ -18017,7 +17997,7 @@ Map to `tender.procurementMethodDetails`
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>, map to ISO 639-1 in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/language">language authority table</a> and add to the lot's `.submissionTerms.languages` array.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), map to ISO 639-1 in the [language authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/language) and add to the lot's `.submissionTerms.languages` array.
 
 ```xml
 <cac:Language>
@@ -18050,7 +18030,7 @@ Map to `tender.procurementMethodDetails`
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 
 Multiply by:
 
@@ -18092,7 +18072,7 @@ Map to the lot's `.submissionTerms.bidValidityPeriod.durationInDays`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and map to its `.reviewDetails`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.reviewDetails`.
 
 ```xml
 <cac:PresentationPeriod>
@@ -18327,7 +18307,7 @@ Discard.
         </td>
         <td class="mapping">
 
-<a href="common-operations.md#get-the-lots-for-settledcontract">Get the lots for the SettledContract</a> and map to each lot's `.hasEssentialAssets`.
+[Get the lots for the SettledContract](common-operations.md#get-the-lots-for-settledcontract) and map to each lot's `.hasEssentialAssets`.
 
 ```xml
 <efac:SettledContract>
@@ -18360,7 +18340,7 @@ Discard.
 
 This field maps to the same `EssentialAssets` objects created for OPP-022-Contract and OPP-023-Contract.
 
-<a href="common-operations.md#get-the-lots-for-settledcontract">Get the lots for the SettledContract</a>. For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.description`.
+[Get the lots for the SettledContract](common-operations.md#get-the-lots-for-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.description`.
 
 ```xml
 <efac:SettledContract>
@@ -18401,7 +18381,7 @@ This field maps to the same `EssentialAssets` objects created for OPP-022-Contra
 
 This field maps to the same `EssentialAssets` objects created for OPP-021-Contract and OPP-023-Contract.
 
-<a href="common-operations.md#get-the-lots-for-settledcontract">Get the lots for the SettledContract</a>. For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.significance`.
+[Get the lots for the SettledContract](common-operations.md#get-the-lots-for-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.significance`.
 
 ```xml
 <efac:SettledContract>
@@ -18442,7 +18422,7 @@ This field maps to the same `EssentialAssets` objects created for OPP-021-Contra
 
 This field maps to the same `EssentialAssets` objects created for OPP-021-Contract and OPP-022-Contract.
 
-<a href="common-operations.md#get-the-lots-for-settledcontract">Get the lots for the SettledContract</a>. For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.predominance`.
+[Get the lots for the SettledContract](common-operations.md#get-the-lots-for-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.predominance`.
 
 ```xml
 <efac:SettledContract>
@@ -18500,9 +18480,9 @@ Discard.
         </td>
         <td class="mapping">
 
-This mapping assumes that the value of this field is consistent across all the LotTenders for a given lot. If the values in your data source vary, contact the <a href="mailto:data@open-contracting.org">OCDS Data Support Team</a>.
+This mapping assumes that the value of this field is consistent across all the LotTenders for a given lot. If the values in your data source vary, contact the [OCDS Data Support Team](mailto:data@open-contracting.org).
 
-If the value of `ancestor::ContractTerm/efbc:TermCode` is `all-rev-tic`, discard. Otherwise, <a href="common-operations.md#get-the-lot-for-a-lottender">get the lot for the lot tender</a>.
+If the value of `ancestor::ContractTerm/efbc:TermCode` is `all-rev-tic`, discard. Otherwise, [get the lot for the lot tender](common-operations.md#get-the-lot-for-a-lottender).
 
 If the value of `ancestor::ContractTerm/efbc:TermCode` is `exc-right`, set the lot's `contractTerms.hasExclusiveRights` to `true`. Otherwise,  map to the lot's `.contractTerms` according to the value of `ancestor::ContractTerm/efbc:TermCode`:
 
@@ -18543,9 +18523,9 @@ If the value of `ancestor::ContractTerm/efbc:TermCode` is `exc-right`, set the l
         </td>
         <td class="mapping">
 
-This mapping assumes that the value of this field is consistent across all the LotTenders for a given lot. If the values in your data source vary, contact the <a href="mailto:data@open-contracting.org">OCDS Data Support Team</a>.
+This mapping assumes that the value of this field is consistent across all the LotTenders for a given lot. If the values in your data source vary, contact the [OCDS Data Support Team](mailto:data@open-contracting.org).
 
-<a href="common-operations.md#get-the-lot-for-a-lottender">Get the lot for the lot tender</a>, divide by 100 and map the result to the lot's `.contractTerms.operatorRevenueShare`.
+[Get the lot for the lot tender](common-operations.md#get-the-lot-for-a-lottender), divide by 100 and map the result to the lot's `.contractTerms.operatorRevenueShare`.
 
 ```xml
 <efac:ContractTerm>
@@ -18596,9 +18576,9 @@ Discard.
         </td>
         <td class="mapping">
 
-This mapping assumes that the value of this field is consistent across all the LotTenders for a given lot. If the values in your data source vary, contact the <a href="mailto:data@open-contracting.org">OCDS Data Support Team</a>.
+This mapping assumes that the value of this field is consistent across all the LotTenders for a given lot. If the values in your data source vary, contact the [OCDS Data Support Team](mailto:data@open-contracting.org).
 
-<a href="common-operations.md#get-the-lot-for-a-lottender">Get the lot for the lot tender</a> and map to its `.contractTerms.rewardsAndPenalties`.
+[Get the lot for the lot tender](common-operations.md#get-the-lot-for-a-lottender) and map to its `.contractTerms.rewardsAndPenalties`.
 
 ```xml
 <efac:ContractTerm>
@@ -18657,7 +18637,7 @@ Add to `tender.additionalProcurementCategories` array.
         </td>
         <td class="mapping">
 
-If the value is "false" then discard. Otherwise <a href="operations.md#get-the-organization-for-a-company">get the organization for the company</a> and add 'leadBuyer' to the organization's `.roles` array.
+If the value is "false" then discard. Otherwise [get the organization for the company](operations.md#get-the-organization-for-a-company) and add 'leadBuyer' to the organization's `.roles` array.
 
 ```xml
 <efac:Organization>
@@ -18687,7 +18667,7 @@ If the value is "false" then discard. Otherwise <a href="operations.md#get-the-o
         </td>
         <td class="mapping">
 
-If the value is "false" then discard. Otherwise <a href="operations.md#get-the-organization-for-a-company">get the organization for the company</a> and add 'awardingCentralPurchasingBody' to the organization's `.roles` array.
+If the value is "false" then discard. Otherwise [get the organization for the company](operations.md#get-the-organization-for-a-company) and add 'awardingCentralPurchasingBody' to the organization's `.roles` array.
 
 ```xml
 <efac:Organization>
@@ -18717,7 +18697,7 @@ If the value is "false" then discard. Otherwise <a href="operations.md#get-the-o
         </td>
         <td class="mapping">
 
-If the value is "false" then discard. Otherwise <a href="operations.md#get-the-organization-for-a-company">get the organization for the company</a> and add 'acquiringCentralPurchasingBody' to the organization's `.roles` array.
+If the value is "false" then discard. Otherwise [get the organization for the company](operations.md#get-the-organization-for-a-company) and add 'acquiringCentralPurchasingBody' to the organization's `.roles` array.
 
 ```xml
 <efac:Organization>
@@ -18793,7 +18773,7 @@ Map to the contract's .publicPassengerTransportServicesKilometers
         </td>
         <td class="mapping">
 
-<a href="operations.md#reference-a-previous-publication">Reference a previous publication</a>. If OPP-090-Procedure is repeated set the relatedProcess's `id` incrementally.
+[Reference a previous publication](operations.md#reference-a-previous-publication). If OPP-090-Procedure is repeated set the relatedProcess's `id` incrementally.
 
 ```xml
 <cac:NoticeDocumentReference>
@@ -18946,10 +18926,10 @@ Discard. OPT-070 may only be used in some circumstances for a Call for Expressio
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add a `CustomerServices` object to its `contractTerms` array.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add a `CustomerServices` object to its `contractTerms` array.
 
 - Map to its `.type`.
-- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/customer-service">authority table</a> and map it to `.name`.
+- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/customer-service) and map it to `.name`.
 
 ```xml
 <cac:ContractExecutionRequirement>
@@ -18987,7 +18967,7 @@ Discard. OPT-070 may only be used in some circumstances for a Call for Expressio
 
 These values map to the same `CustomerServices` objects as created for OPT-071-Lot.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a>.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 
 For each `cac:ContractExecutionRequirement` add or update the corresponding `CustomerServices` object in the lot's `contractTerms` array and map to its `.description`.
 
@@ -19085,11 +19065,11 @@ Add a `RelatedProcess` to the contract's `.relatedProcesses` array, and:
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Map to the document's `.url`.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add its `id` to the document's `.relatedLots`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -19132,7 +19112,7 @@ Map to the document's `.url`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Map to the document's `.url`.
 
@@ -19169,11 +19149,11 @@ Map to the document's `.url`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Set the document's `.documentType` to 'legislation'.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add its `id` to the document's `.relatedLots`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -19216,7 +19196,7 @@ Set the document's `.documentType` to 'legislation'.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Set the document's `.documentType` to 'legislation'.
 
@@ -19253,11 +19233,11 @@ Set the document's `.documentType` to 'legislation'.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Set the document's `.documentType` to 'legislation'.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add its `id` to the document's `.relatedLots`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -19295,7 +19275,7 @@ Set the document's `.documentType` to 'legislation'.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Set the document's `.documentType` to 'legislation'.
 
@@ -19327,11 +19307,11 @@ Set the document's `.documentType` to 'legislation'.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Set the document's `.documentType` to 'legislation'.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add its `id` to the document's `.relatedLots`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -19369,7 +19349,7 @@ Set the document's `.documentType` to 'legislation'.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Set the document's `.documentType` to 'legislation'.
 
@@ -19401,11 +19381,11 @@ Set the document's `.documentType` to 'legislation'.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Map to the document's `.url`.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add its `id` to the document's `.relatedLots`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -19448,7 +19428,7 @@ Map to the document's `.url`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Map to the document's `.url`.
 
@@ -19485,11 +19465,11 @@ Map to the document's `.url`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Map to the document's `.url`.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add its `id` to the document's `.relatedLots`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -19532,7 +19512,7 @@ Map to the document's `.url`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 Map to the document's `.url`.
 
@@ -19569,9 +19549,9 @@ Map to the document's `.url`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add its `id` to the document's `.relatedLots`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
 ```xml
 <cac:CallForTendersDocumentReference>
@@ -19603,7 +19583,7 @@ Map to the document's `.url`.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a>.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
 ```xml
 <cac:CallForTendersDocumentReference>
@@ -19650,14 +19630,14 @@ This data element is underspecified in eForms. No mapping is available.
 This field maps to the same `Item` objects as created for BT-723-LotResult, BT-735-LotResult and OPT-156-LotResult.
 
 If the value of `ancestor::efac:StrategicProcurementStatistics/efbc:StatisticsNumeric` is 0 discard. Otherwise:
-\- <a href="operations.md#get-the-award-for-a-lotresult">Get the award for the LotResult</a>
+\- [Get the award for the LotResult](operations.md#get-the-award-for-a-lotresult)
 \- Add an `Item` object to its `items` array.
 \- Set the item's `.id` incrementally.
 
 For each `efbc:StatisticsCode` add a `Classification` object to the item's `additionalClassifications` array.
 \- Set the classification's `.scheme` to "vehicles".
 \- Map the value of the field to the classification's `.id`.
-\- Look up the code's label in the <a href="https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/vehicles">authority table</a> and map it to the classification's `.description`.
+\- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/vehicles) and map it to the classification's `.description`.
 
 ```xml
 <efac:StrategicProcurementStatistics>
@@ -19733,7 +19713,7 @@ If the value of this field is 0 then discard. Otherwise:
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-person-for-an-ultimate-beneficial-owner">Get the person for the ultimate beneficial owner</a> and map to the person's `.name`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.name`.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -19764,7 +19744,7 @@ If the value of this field is 0 then discard. Otherwise:
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-a-tenderer">Get the organization for the tenderer</a>. If "true", add 'leadTenderer' to its `.roles`.
+[Get the organization for the tenderer](operations.md#get-the-organization-for-a-tenderer). If "true", add 'leadTenderer' to its `.roles`.
 
 ```xml
 <efac:Tenderer>
@@ -19857,7 +19837,7 @@ If there is an `Organization` in `parties` whose `.id` is equal to the value of 
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-person-for-an-ultimate-beneficial-owner">Get the person for the ultimate beneficial owner</a> and map to the person's `.id`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.id`.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -19912,7 +19892,7 @@ Discard. Each tenderer in the tendering party is covered by OPT-310-Tenderer.
   - Set its `.id` to the value of this field.
 - Add 'buyer' to its roles.
 - Get the `ancestor::efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company` whose `/cac:PartyIdentification/cbc:ID` is equal to the value of this field and set the organization's `.name` to the value of `/cac:PartyName/cbc:Name`.
-- <a href="operations.md#get-the-contract-for-a-settledcontract">Get the contract for the SettledContract</a>. For each award referenced in the contract's `.awardID` field or `.awardIDs` array:
+- [Get the contract for the SettledContract](operations.md#get-the-contract-for-a-settledcontract). For each award referenced in the contract's `.awardID` field or `.awardIDs` array:
   - Add an `OrganizationReference` object to the award's `.buyers` array.
   - Set its `.id` to the organization's `.id`.
 
@@ -19948,7 +19928,7 @@ Discard. Each tenderer in the tendering party is covered by OPT-310-Tenderer.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a>
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference)
 
 - Add 'buyer' to its `.roles` array.
 - Add an `OrganizationReference` object to `buyer` and set its `.id` to the organization's `.id`.
@@ -19985,7 +19965,7 @@ Discard. Each tenderer in the tendering party is covered by OPT-310-Tenderer.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a>.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference).
 
 Get the `ancestor::efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company` whose `/cac:PartyIdentification/cbc:ID` is equal to the value of this field and set the organization's `.name` to the value of `/cac:PartyName/cbc:Name`.
 
@@ -20034,7 +20014,7 @@ Discard. This field is mapped as part of OPT-310-Tender.
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'processContactPoint' to its `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'processContactPoint' to its `.roles` array.
 
 eForms allows additional information providers to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
@@ -20072,7 +20052,7 @@ eForms allows additional information providers to differ per lot. However, while
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'processContactPoint' to its `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'processContactPoint' to its `.roles` array.
 
 eForms allows document providers to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
@@ -20110,11 +20090,11 @@ eForms allows document providers to differ per lot. However, while this may be p
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a> and map to its `publisher.id`.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference) and map to its `publisher.id`.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add its `id` to the document's `.relatedLots`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'informationProvider' to is `roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'informationProvider' to is `roles` array.
 
 ```xml
 <ext:UBLExtensions>
@@ -20184,11 +20164,11 @@ eForms allows document providers to differ per lot. However, while this may be p
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a> and map to its `publisher.id`.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference) and map to its `publisher.id`.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add its `id` to the document's `.relatedLots`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'informationProvider' to is `roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'informationProvider' to is `roles` array.
 
 ```xml
 <ext:UBLExtensions>
@@ -20258,11 +20238,11 @@ eForms allows document providers to differ per lot. However, while this may be p
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a> and map to its `publisher.id`.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference) and map to its `publisher.id`.
 
-<a href="operations.md#get-the-lot-for-a-procurementprojectlot">Get the lot for the ProcurementProjectLot</a> and add its `id` to the document's `.relatedLots`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and add its `id` to the document's `.relatedLots`.
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'informationProvider' to is `roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'informationProvider' to is `roles` array.
 
 ```xml
 <ext:UBLExtensions>
@@ -20332,7 +20312,7 @@ eForms allows document providers to differ per lot. However, while this may be p
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'mediationBody, to the organization's `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'mediationBody, to the organization's `.roles` array.
 
 eForms allows review bodies and mediation bodies to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
@@ -20366,7 +20346,7 @@ eForms allows review bodies and mediation bodies to differ per lot. However, whi
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'reviewContactPoint' to its `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'reviewContactPoint' to its `.roles` array.
 
 eForms allows review information providers to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
@@ -20406,7 +20386,7 @@ eForms allows review information providers to differ per lot. However, while thi
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'reviewBody, to the organization's `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'reviewBody, to the organization's `.roles` array.
 
 eForms allows review bodies and mediation bodies to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
@@ -20440,7 +20420,7 @@ eForms allows review bodies and mediation bodies to differ per lot. However, whi
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'evaluationBody' to its `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'evaluationBody' to its `.roles` array.
 
 eForms allows tender evaluation organizations to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
@@ -20478,7 +20458,7 @@ eForms allows tender evaluation organizations to differ per lot. However, while 
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'submissionReceiptBody' to its `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'submissionReceiptBody' to its `.roles` array.
 
 eForms allows tender recipient organizations to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
@@ -20516,7 +20496,7 @@ eForms allows tender recipient organizations to differ per lot. However, while t
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'funder' to its `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'funder' to its `.roles` array.
 
 eForms allows financing and payer parties to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
@@ -20550,7 +20530,7 @@ eForms allows financing and payer parties to differ per lot. However, while this
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'payer' to its `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'payer' to its `.roles` array.
 
 eForms allows financing and payer parties to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
@@ -20584,7 +20564,7 @@ eForms allows financing and payer parties to differ per lot. However, while this
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'processContactPoint' to its `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'processContactPoint' to its `.roles` array.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -20620,7 +20600,7 @@ eForms allows financing and payer parties to differ per lot. However, while this
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'processContactPoint' to its `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'processContactPoint' to its `.roles` array.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -20656,9 +20636,9 @@ eForms allows financing and payer parties to differ per lot. However, while this
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a> and map to its `publisher.id`.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference) and map to its `publisher.id`.
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'informationProvider' to is `roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'informationProvider' to is `roles` array.
 
 ```xml
 <ext:UBLExtensions>
@@ -20724,9 +20704,9 @@ eForms allows financing and payer parties to differ per lot. However, while this
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a> and map to its `publisher.id`.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference) and map to its `publisher.id`.
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'informationProvider' to is `roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'informationProvider' to is `roles` array.
 
 ```xml
 <ext:UBLExtensions>
@@ -20792,9 +20772,9 @@ eForms allows financing and payer parties to differ per lot. However, while this
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-document-for-a-document-reference">Get the document for the document reference</a> and map to its `publisher.id`.
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference) and map to its `publisher.id`.
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'informationProvider' to is `roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'informationProvider' to is `roles` array.
 
 ```xml
 <ext:UBLExtensions>
@@ -20860,7 +20840,7 @@ eForms allows financing and payer parties to differ per lot. However, while this
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'mediationBody, to the organization's `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'mediationBody, to the organization's `.roles` array.
 
 ```xml
 <cac:MediationParty>
@@ -20892,7 +20872,7 @@ eForms allows financing and payer parties to differ per lot. However, while this
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'reviewContactPoint' to its `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'reviewContactPoint' to its `.roles` array.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -20930,7 +20910,7 @@ eForms allows financing and payer parties to differ per lot. However, while this
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'reviewBody, to the organization's `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'reviewBody, to the organization's `.roles` array.
 
 ```xml
 <cac:AppealReceiverParty>
@@ -20962,7 +20942,7 @@ eForms allows financing and payer parties to differ per lot. However, while this
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'evaluationBody' to its `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'evaluationBody' to its `.roles` array.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -20998,7 +20978,7 @@ eForms allows financing and payer parties to differ per lot. However, while this
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'submissionReceiptBody' to its `.roles` array.
+[Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'submissionReceiptBody' to its `.roles` array.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -21034,8 +21014,8 @@ eForms allows financing and payer parties to differ per lot. However, while this
         </td>
         <td class="mapping">
 
-- <a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'tenderer' to its `.roles` array.
-- <a href="operations.md#get-the-bid-for-a-lottender">Get the bid for the LotTender</a>, and get the `subcontracts` object whose `subcontractors.id` is equal to the value of `ancestor: efac:SubContractor/cbc:ID`.
+- [Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'tenderer' to its `.roles` array.
+- [Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender), and get the `subcontracts` object whose `subcontractors.id` is equal to the value of `ancestor: efac:SubContractor/cbc:ID`.
 - Add an `OrganizationReference` object to the subcontract's `.tenderers` array and set its `.id` to the value of this field.
 
 ```xml
@@ -21107,8 +21087,8 @@ eForms allows financing and payer parties to differ per lot. However, while this
         </td>
         <td class="mapping">
 
-- <a href="operations.md#get-the-organization-for-an-organization-technical-identifier-reference">Get the organization for the organization technical identifier reference</a> and add 'subcontractor' to its `.roles` array.
-- <a href="operations.md#get-the-bid-for-a-lottender">Get the bid for the LotTender</a>, add a `subcontracts` object to the bid's `.subcontracting.subcontracts` array, and:
+- [Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference) and add 'subcontractor' to its `.roles` array.
+- [Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender), add a `subcontracts` object to the bid's `.subcontracting.subcontracts` array, and:
   - Set its `.id` incrementally.
   - Add a `subcontractors` object and set its `.id` to the value of this field.
 
@@ -21211,9 +21191,9 @@ If there is a `Person` in the organization's `.beneficialOwners` array whose `id
         </td>
         <td class="mapping">
 
-- <a href="operations.md#get-the-bid-for-a-lottender">Get the bid for the LotTender</a> and get the `ancestor::efac:NoticeResult/efac:TenderingParty` whose `/cbc:ID` is equal to the value of this field.
+- [Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender) and get the `ancestor::efac:NoticeResult/efac:TenderingParty` whose `/cbc:ID` is equal to the value of this field.
 - For each `/efac:Tenderer` in the tendering party:
-  - <a href="operations.md#get-the-organization-for-a-tenderer">Get the organization for the tenderer</a>.
+  - [Get the organization for the tenderer](operations.md#get-the-organization-for-a-tenderer).
   - Add an `OrganizationReference` object to the bid's `.tenderers` array and set its `.id` to the organization's `.id`.
 
 ```xml
@@ -21252,7 +21232,7 @@ If there is a `Person` in the organization's `.beneficialOwners` array whose `id
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-contract-for-a-settledcontract">Get the contract for the SettledContract</a> and map to its `.id`.
+[Get the contract for the SettledContract](operations.md#get-the-contract-for-a-settledcontract) and map to its `.id`.
 
 ```xml
 <efac:LotResult>
@@ -21314,7 +21294,7 @@ If there is a `Contract` in `contracts` whose `.id` is equal to the value of thi
         </td>
         <td class="mapping">
 
-<a href="operations.md#get-the-award-for-a-lotresult">Get the award for the LotResult</a> and add to its `.relatedBids` array.
+[Get the award for the LotResult](operations.md#get-the-award-for-a-lotresult) and add to its `.relatedBids` array.
 
 ```xml
 <efac:NoticeResult>
