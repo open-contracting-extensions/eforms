@@ -18307,7 +18307,7 @@ Discard.
         </td>
         <td class="mapping">
 
-[Get the lots for the SettledContract](operations.md#get-the-lots-for-settledcontract) and map to each lot's `.hasEssentialAssets`.
+[Get the lots for the SettledContract](operations.md#get-the-lots-for-a-settledcontract) and map to each lot's `.hasEssentialAssets`.
 
 ```xml
 <efac:SettledContract>
@@ -18340,7 +18340,7 @@ Discard.
 
 This field maps to the same `EssentialAssets` objects created for OPP-022-Contract and OPP-023-Contract.
 
-[Get the lots for the SettledContract](operations.md#get-the-lots-for-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.description`.
+[Get the lots for the SettledContract](operations.md#get-the-lots-for-a-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.description`.
 
 ```xml
 <efac:SettledContract>
@@ -18381,7 +18381,7 @@ This field maps to the same `EssentialAssets` objects created for OPP-022-Contra
 
 This field maps to the same `EssentialAssets` objects created for OPP-021-Contract and OPP-023-Contract.
 
-[Get the lots for the SettledContract](operations.md#get-the-lots-for-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.significance`.
+[Get the lots for the SettledContract](operations.md#get-the-lots-for-a-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.significance`.
 
 ```xml
 <efac:SettledContract>
@@ -18422,7 +18422,7 @@ This field maps to the same `EssentialAssets` objects created for OPP-021-Contra
 
 This field maps to the same `EssentialAssets` objects created for OPP-021-Contract and OPP-022-Contract.
 
-[Get the lots for the SettledContract](operations.md#get-the-lots-for-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.predominance`.
+[Get the lots for the SettledContract](operations.md#get-the-lots-for-a-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.predominance`.
 
 ```xml
 <efac:SettledContract>
