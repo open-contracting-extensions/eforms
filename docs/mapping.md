@@ -18307,7 +18307,7 @@ Discard.
         </td>
         <td class="mapping">
 
-[Get the lots for the SettledContract](common-operations.md#get-the-lots-for-settledcontract) and map to each lot's `.hasEssentialAssets`.
+[Get the lots for the SettledContract](operations.md#get-the-lots-for-settledcontract) and map to each lot's `.hasEssentialAssets`.
 
 ```xml
 <efac:SettledContract>
@@ -18340,7 +18340,7 @@ Discard.
 
 This field maps to the same `EssentialAssets` objects created for OPP-022-Contract and OPP-023-Contract.
 
-[Get the lots for the SettledContract](common-operations.md#get-the-lots-for-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.description`.
+[Get the lots for the SettledContract](operations.md#get-the-lots-for-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.description`.
 
 ```xml
 <efac:SettledContract>
@@ -18381,7 +18381,7 @@ This field maps to the same `EssentialAssets` objects created for OPP-022-Contra
 
 This field maps to the same `EssentialAssets` objects created for OPP-021-Contract and OPP-023-Contract.
 
-[Get the lots for the SettledContract](common-operations.md#get-the-lots-for-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.significance`.
+[Get the lots for the SettledContract](operations.md#get-the-lots-for-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.significance`.
 
 ```xml
 <efac:SettledContract>
@@ -18422,7 +18422,7 @@ This field maps to the same `EssentialAssets` objects created for OPP-021-Contra
 
 This field maps to the same `EssentialAssets` objects created for OPP-021-Contract and OPP-022-Contract.
 
-[Get the lots for the SettledContract](common-operations.md#get-the-lots-for-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.predominance`.
+[Get the lots for the SettledContract](operations.md#get-the-lots-for-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.predominance`.
 
 ```xml
 <efac:SettledContract>
@@ -18482,7 +18482,7 @@ Discard.
 
 This mapping assumes that the value of this field is consistent across all the LotTenders for a given lot. If the values in your data source vary, contact the [OCDS Data Support Team](mailto:data@open-contracting.org).
 
-If the value of `ancestor::ContractTerm/efbc:TermCode` is `all-rev-tic`, discard. Otherwise, [get the lot for the lot tender](common-operations.md#get-the-lot-for-a-lottender).
+If the value of `ancestor::ContractTerm/efbc:TermCode` is `all-rev-tic`, discard. Otherwise, [get the lot for the lot tender](operations.md#get-the-lot-for-a-lottender).
 
 If the value of `ancestor::ContractTerm/efbc:TermCode` is `exc-right`, set the lot's `contractTerms.hasExclusiveRights` to `true`. Otherwise,  map to the lot's `.contractTerms` according to the value of `ancestor::ContractTerm/efbc:TermCode`:
 
@@ -18525,7 +18525,7 @@ If the value of `ancestor::ContractTerm/efbc:TermCode` is `exc-right`, set the l
 
 This mapping assumes that the value of this field is consistent across all the LotTenders for a given lot. If the values in your data source vary, contact the [OCDS Data Support Team](mailto:data@open-contracting.org).
 
-[Get the lot for the lot tender](common-operations.md#get-the-lot-for-a-lottender), divide by 100 and map the result to the lot's `.contractTerms.operatorRevenueShare`.
+[Get the lot for the lot tender](operations.md#get-the-lot-for-a-lottender), divide by 100 and map the result to the lot's `.contractTerms.operatorRevenueShare`.
 
 ```xml
 <efac:ContractTerm>
@@ -18578,7 +18578,7 @@ Discard.
 
 This mapping assumes that the value of this field is consistent across all the LotTenders for a given lot. If the values in your data source vary, contact the [OCDS Data Support Team](mailto:data@open-contracting.org).
 
-[Get the lot for the lot tender](common-operations.md#get-the-lot-for-a-lottender) and map to its `.contractTerms.rewardsAndPenalties`.
+[Get the lot for the lot tender](operations.md#get-the-lot-for-a-lottender) and map to its `.contractTerms.rewardsAndPenalties`.
 
 ```xml
 <efac:ContractTerm>
