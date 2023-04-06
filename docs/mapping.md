@@ -268,7 +268,7 @@ Map to `tender.id`.
         </td>
         <td class="mapping">
 
-Combine with [BT-05(b)-notice](<#BT-05(b)-notice>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `date`.
+Combine with <a href="#BT-05(b)-notice">BT-05(b)-notice</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `date`.
 
 ```xml
 <cbc:IssueDate>2019-11-26+01:00</cbc:IssueDate>
@@ -290,7 +290,7 @@ Combine with [BT-05(b)-notice](<#BT-05(b)-notice>), [convert date to ISO format]
         </td>
         <td class="mapping">
 
-Combine with [BT-05(a)-notice](<#BT-05(a)-notice>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `date`.
+Combine with <a href="#BT-05(a)-notice">BT-05(a)-notice</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `date`.
 
 ```xml
 <cbc:IssueDate>2019-11-26+01:00</cbc:IssueDate>
@@ -361,7 +361,7 @@ For each `cac:ProcurementAdditionalType`, add or update the corresponding `Susta
         </td>
         <td class="mapping">
 
-See [BT-09(b)-Procedure](<#BT-09(b)-Procedure>).
+See <a href="#BT-09(b)-Procedure">BT-09(b)-Procedure</a>.
 
 
 
@@ -1035,7 +1035,7 @@ For each `cac:NoticeDocumentReference`, add or update the corresponding `Related
         </td>
         <td class="mapping">
 
-Concatenate with [BT-125(i)-Part Previous Planning Identifier](<#BT-125(i)-Part>) and [reference a previous publication](operations.md#reference-a-previous-publication).
+Concatenate with <a href="#BT-125(i)-Part">BT-125(i)-Part Previous Planning Identifier</a> and [reference a previous publication](operations.md#reference-a-previous-publication).
 
 ```xml
 <cac:NoticeDocumentReference>
@@ -1129,7 +1129,7 @@ Map the value of the field to `.identifier`. Set `.scheme` to "eu-oj". If the va
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-13(t)-Lot](<#BT-13(t)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.enquiryPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-13(t)-lot">BT-13(t)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.enquiryPeriod.endDate`.
 
 ```xml
 <cac:AdditionalInformationRequestPeriod>
@@ -1160,7 +1160,7 @@ Map the value of the field to `.identifier`. Set `.scheme` to "eu-oj". If the va
         </td>
         <td class="mapping">
 
-Combine with [BT-13(t)-Part](<#BT-13(t)-part>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `tender.enquiryPeriod.endDate`.
+Combine with <a href="#BT-13(t)-part">BT-13(t)-Part</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `tender.enquiryPeriod.endDate`.
 
 ```xml
 <cac:AdditionalInformationRequestPeriod>
@@ -1187,7 +1187,7 @@ Combine with [BT-13(t)-Part](<#BT-13(t)-part>), [convert date to ISO format](ope
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-13(d)-Lot](<#BT-13(d)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.enquiryPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-13(d)-lot">BT-13(d)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.enquiryPeriod.endDate`.
 
 ```xml
 <cac:AdditionalInformationRequestPeriod>
@@ -1218,7 +1218,7 @@ Combine with [BT-13(t)-Part](<#BT-13(t)-part>), [convert date to ISO format](ope
         </td>
         <td class="mapping">
 
-Combine with [BT-13(d)-Part](<#BT-13(d)-part>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `tender.enquiryPeriod.endDate`.
+Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `tender.enquiryPeriod.endDate`.
 
 ```xml
 <cac:AdditionalInformationRequestPeriod>
@@ -1276,7 +1276,7 @@ Combine with [BT-13(d)-Part](<#BT-13(d)-part>), [convert date to ISO format](ope
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-131(t)-Lot](<#BT-131(t)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-131(t)-lot">BT-131(t)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
 
 ```xml
 <cac:TenderSubmissionDeadlinePeriod>
@@ -1307,7 +1307,7 @@ Combine with [BT-13(d)-Part](<#BT-13(d)-part>), [convert date to ISO format](ope
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-131(d)-Lot](<#BT-131(d)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-131(d)-lot">BT-131(d)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
 
 ```xml
 <cac:TenderSubmissionDeadlinePeriod>
@@ -1338,7 +1338,7 @@ Combine with [BT-13(d)-Part](<#BT-13(d)-part>), [convert date to ISO format](ope
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-1311(t)-Lot](<#BT-1311(t)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-1311(t)-lot">BT-1311(t)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
 
 ```xml
 <cac:ParticipationRequestReceptionPeriod>
@@ -1369,7 +1369,7 @@ Combine with [BT-13(d)-Part](<#BT-13(d)-part>), [convert date to ISO format](ope
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-1311(d)-Lot](<#BT-1311(d)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-1311(d)-lot">BT-1311(d)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
 
 ```xml
 <cac:ParticipationRequestReceptionPeriod>
@@ -1400,7 +1400,7 @@ Combine with [BT-13(d)-Part](<#BT-13(d)-part>), [convert date to ISO format](ope
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-132(t)-Lot](<#BT-132(t)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.awardPeriod.startDate` and to its `.bidOpening.date`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-132(t)-lot">BT-132(t)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.awardPeriod.startDate` and to its `.bidOpening.date`.
 
 ```xml
 <cac:OpenTenderEvent>
@@ -1431,7 +1431,7 @@ Combine with [BT-13(d)-Part](<#BT-13(d)-part>), [convert date to ISO format](ope
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-132(d)-Lot](<#BT-132(d)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.awardPeriod.startDate` and to its `.bidOpening.date`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-132(d)-lot">BT-132(d)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.awardPeriod.startDate` and to its `.bidOpening.date`.
 
 ```xml
 <cac:OpenTenderEvent>
@@ -14227,7 +14227,7 @@ Map to its `.accessDetailsURL`.
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-630(t)-Lot](<#BT-630(t)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `tenderPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-630(t)-lot">BT-630(t)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `tenderPeriod.endDate`.
 
 ```xml
 <efac:InterestExpressionReceptionPeriod>
@@ -14258,7 +14258,7 @@ Map to its `.accessDetailsURL`.
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with [BT-630(d)-Lot](<#BT-630(d)-lot>), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `tenderPeriod.endDate`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-630(d)-lot">BT-630(d)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `tenderPeriod.endDate`.
 
 ```xml
 <efac:InterestExpressionReceptionPeriod>
