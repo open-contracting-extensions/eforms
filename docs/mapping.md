@@ -1714,9 +1714,12 @@ Get the `Award` in `awards` whose `.id` is equal to the value of `ancestor::efac
 If not already present, add the value of the field to the award's `.relatedLots`
 
 ```xml
-<efac:TenderLot>
-  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
-</efac:TenderLot>
+<efac:LotResult>
+  <cbc:ID schemeName="result">RES-0002</cbc:ID>
+  <efac:TenderLot>
+    <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  </efac:TenderLot>
+</efac:LotResult>
 ```
 
 ```json
@@ -1749,9 +1752,12 @@ Get the `Bid` in `bids` whose `.id` is equal to the value of `ancestor::efac:Lot
 If not already present, add the value of this field to the bid's `.relatedLots`.
 
 ```xml
-<efac:TenderLot>
-  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
-</efac:TenderLot>
+<efac:LotTender>
+  <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+  <efac:TenderLot>
+    <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  </efac:TenderLot>
+</efac:LotTender>
 ```
 
 ```json
@@ -1803,6 +1809,7 @@ If not already present, add the value of this field to the lot group's `.related
 ```xml
 <cac:LotDistribution>
   <cac:LotsGroup>
+    <cbc:LotsGroupID schemeName="LotsGroup">GLO-0001</cbc:LotsGroupID>
     <cac:ProcurementProjectLotReference>
       <cbc:ID schemeName="Lot">LOT-0002</cbc:ID>
     </cac:ProcurementProjectLotReference>
@@ -1815,6 +1822,7 @@ If not already present, add the value of this field to the lot group's `.related
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "relatedLots": [
           "LOT-0002"
         ]
@@ -2520,7 +2528,7 @@ Discard. This is derived from the `value` of awards.
         </td>
         <td class="mapping">
 
-Get the value of `ancestor::efac:SettledContract/cbc:ID` whose `efac:LotTender/cbc:ID` is equal to the value of `ancestor::efac:LotTender/cbc:ID` and [get the contract for this SettledContract](operations.md#get-the-contract-for-a-settledcontract).
+Get the value of `ancestor::efac:NoticeResult/efac:SettledContract/cbc:ID` whose `efac:LotTender/cbc:ID` is equal to the value of `ancestor::efac:LotTender/cbc:ID` and [get the contract for this SettledContract](operations.md#get-the-contract-for-a-settledcontract).
 
 Add a `Charge` object to the contract's `.implementation.charges` array.
 
@@ -2530,15 +2538,23 @@ Add a `Charge` object to the contract's `.implementation.charges` array.
 - Set its `.title` to the [translation](operations.md#get-a-translation) of 'he estimated revenue coming from the users of the concession (e.g. fees and fines).'.
 
 ```xml
-<efac:ConcessionRevenue>
-  <efbc:RevenueUserAmount currencyID="EUR">350</efbc:RevenueUserAmount>
-</efac:ConcessionRevenue>
+<efac:NoticeResult>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+  </efac:SettledContract>
+  <efac:LotTender>
+    <efac:ConcessionRevenue>
+      <efbc:RevenueUserAmount currencyID="EUR">350</efbc:RevenueUserAmount>
+    </efac:ConcessionRevenue>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "contracts": [
     {
+      "id": "CON-0001",
       "implementation": {
         "charges": [
           {
@@ -2566,7 +2582,7 @@ Add a `Charge` object to the contract's `.implementation.charges` array.
         </td>
         <td class="mapping">
 
-Get the value of `ancestor::efac:LotResult/cbc:ID` whose `efac:LotTender/cbc:ID` is equal to the value of `ancestor::efac:LotTender/cbc:ID`.
+Get the value of `ancestor::efac:NoticeResult/efac:LotResult/cbc:ID` whose `efac:LotTender/cbc:ID` is equal to the value of `ancestor::efac:LotTender/cbc:ID`.
 
 Get the `Award` in `awards` whose `id` is equal to the value of this `efac:LotResult/cbc:ID`. If none exists yet:
 
@@ -2577,15 +2593,32 @@ Get the `Award` in `awards` whose `id` is equal to the value of this `efac:LotRe
 Map the value of this field to the award's `.valueCalculationMethod`.
 
 ```xml
-<efac:ConcessionRevenue>
-  <efbc:ValueDescription>The awarded value takes into account the growing revenue expected from fees.</efbc:ValueDescription>
-</efac:ConcessionRevenue>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:LotTender>
+      <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    </efac:LotTender>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+  <efac:LotTender>
+    <efac:ConcessionRevenue>
+      <efbc:ValueDescription>The awarded value takes into account the growing revenue expected from fees.</efbc:ValueDescription>
+    </efac:ConcessionRevenue>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "awards": [
     {
+      "id": "RES-0001",
+      "relatedLots": [
+        "LOT-0001"
+      ],
       "valueCalculationMethod": "The awarded value takes into account the growing revenue expected from fees."
     }
   ]
@@ -10806,6 +10839,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
           "prizes": {
             "details": [
               {
+                "id": "0",
                 "description": "The first prize winner will be awarded ..."
               }
             ]
@@ -14714,6 +14748,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
           "prizes": {
             "details": [
               {
+                "id": "0",
                 "value": {
                   "amount": 5000,
                   "currency": "EUR"
@@ -20112,11 +20147,29 @@ Discard. Each tenderer in the tendering party is covered by OPT-310-Tenderer.
   - Set its `.id` to the organization's `.id`.
 
 ```xml
-<efac:SettledContract>
-  <cac:SignatoryParty>
-    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
-  </cac:SignatoryParty>
-</efac:SettledContract>
+<efext:EformsExtension>
+  <efac:Organizations>
+    <efac:Organization>
+      <efac:Company>
+        <cac:PartyIdentification>
+          <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+        </cac:PartyIdentification>
+        <cac:PartyName>
+          <cbc:Name languageID="ENG">Financial Adinistration for ...</cbc:Name>
+        </cac:PartyName>
+      </efac:Company>
+    </efac:Organization>
+  </efac:Organizations>
+  <efac:NoticeResult>
+    <efac:SettledContract>
+      <cac:SignatoryParty>
+        <cac:PartyIdentification>
+          <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+        </cac:PartyIdentification>
+      </cac:SignatoryParty>
+    </efac:SettledContract>
+  </efac:NoticeResult>
+</efext:EformsExtension>
 ```
 
 ```json
@@ -21377,6 +21430,10 @@ If there is a `Person` in the organization's `.beneficialOwners` array whose `id
 
 ```xml
 <efac:Organization>
+  <efac:Company>
+    <cac:PartyIdentification/>
+    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+  </efac:Company>
   <efac:UltimateBeneficialOwner>
     <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
   </efac:UltimateBeneficialOwner>
