@@ -6697,7 +6697,7 @@
         },
         "field": {
           "title": "Field",
-          "description": "The identifer of the field with which the withheld information would otherwise be published.",
+          "description": "The identifier of the field with which the withheld information would otherwise be published.",
           "type": [
             "string",
             "null"
