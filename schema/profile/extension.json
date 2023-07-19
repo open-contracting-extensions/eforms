@@ -19,15 +19,33 @@
     "email": "data@open-contracting.org"
   },
   "codelists": [
+    "+partyRole.csv",
+    "language.csv",
     "awardCriterionType.csv",
     "awardCriterionFixed.csv",
     "criterionWeight.csv",
     "criterionThreshold.csv",
+    "country.csv",
+    "statistic.csv",
+    "bidStatus.csv",
+    "chargePaidBy.csv",
+    "permission.csv",
     "coveredBy.csv",
+    "+documentType.csv",
+    "+itemClassificationScheme.csv",
+    "+milestoneType.csv",
+    "+relatedProcessScheme.csv",
+    "financeCategory.csv",
+    "financeType.csv",
     "locationGazetteers.csv",
     "geometryType.csv",
+    "reservedParticipation.csv",
     "participationFeeType.csv",
     "methodOfPayment.csv",
+    "partyScale.csv",
+    "selectionCriterionType.csv",
+    "appliesTo.csv",
+    "statisticScope.csv",
     "sustainabilityGoal.csv",
     "sustainabilityStrategy.csv",
     "dynamicPurchasingSystemType.csv",
@@ -35,6 +53,13 @@
     "frameworkAgreementMethod.csv"
   ],
   "testDependencies": [
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_document_publisher_extension/master/extension.json",
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_finance_extension/master/extension.json",
     "https://raw.githubusercontent.com/open-contracting-extensions/ocds_lots_extension/master/extension.json"
+  ],
+  "dependencies": [
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_awardCriteria_extension/master/extension.json",
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_bid_extension/master/extension.json",
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_location_extension/master/extension.json"
   ]
 }

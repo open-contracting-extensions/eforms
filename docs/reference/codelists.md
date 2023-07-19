@@ -8,6 +8,14 @@ The codelists below are from the OCDS and its extensions, and are provided here 
 
 The codelists can be downloaded as CSV files from <https://standard.open-contracting.org/profiles/eforms/latest/en/_static/patched/codelists/>.
 
+## Applies To
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/appliesTo.csv
+```
+
 ## Award Criteria
 
 ```{csv-table-no-translate}
@@ -40,12 +48,36 @@ The codelists can be downloaded as CSV files from <https://standard.open-contrac
 :file: ../_static/patched/codelists/awardStatus.csv
 ```
 
+## Bid Status
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/bidStatus.csv
+```
+
+## Charge Paid By
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/chargePaidBy.csv
+```
+
 ## Contract Status
 
 ```{csv-table-no-translate}
 :header-rows: 1
 :class: codelist-table
 :file: ../_static/patched/codelists/contractStatus.csv
+```
+
+## Country
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/country.csv
 ```
 
 ## Covered By
@@ -112,6 +144,22 @@ The codelists can be downloaded as CSV files from <https://standard.open-contrac
 :file: ../_static/patched/codelists/extendedProcurementCategory.csv
 ```
 
+## Finance Category
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/financeCategory.csv
+```
+
+## Finance Type
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/financeType.csv
+```
+
 ## Framework Agreement Method
 
 ```{csv-table-no-translate}
@@ -142,6 +190,14 @@ The codelists can be downloaded as CSV files from <https://standard.open-contrac
 :header-rows: 1
 :class: codelist-table
 :file: ../_static/patched/codelists/itemClassificationScheme.csv
+```
+
+## Language
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/language.csv
 ```
 
 ## Location Gazetteers
@@ -200,6 +256,22 @@ The codelists can be downloaded as CSV files from <https://standard.open-contrac
 :file: ../_static/patched/codelists/partyRole.csv
 ```
 
+## Party Scale
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/partyScale.csv
+```
+
+## Permission
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/permission.csv
+```
+
 ## Procurement Category
 
 ```{csv-table-no-translate}
@@ -230,6 +302,38 @@ The codelists can be downloaded as CSV files from <https://standard.open-contrac
 :header-rows: 1
 :class: codelist-table
 :file: ../_static/patched/codelists/releaseTag.csv
+```
+
+## Reserved Participation
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/reservedParticipation.csv
+```
+
+## Selection Criterion Type
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/selectionCriterionType.csv
+```
+
+## Statistic
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/statistic.csv
+```
+
+## Statistic Scope
+
+```{csv-table-no-translate}
+:header-rows: 1
+:class: codelist-table
+:file: ../_static/patched/codelists/statisticScope.csv
 ```
 
 ## Submission Method
