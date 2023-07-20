@@ -988,6 +988,16 @@
             "type": "string"
           }
         },
+        "buyers": {
+          "title": "Buyers",
+          "description": "The organizations aiming to conclude a contract with the suppliers or to use the goods, services or works resulting from the contract, if not identical to the buyers for the contracting process.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrganizationReference"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
         "valueCalculationMethod": {
           "title": "Value calculation method",
           "description": "Any details relevant to the value of the concession according to article 8(3) of Directive 2014/23/EU on concession contracts.",
@@ -1203,6 +1213,11 @@
           "items": {
             "type": "string"
           }
+        },
+        "buyer": {
+          "title": "Buyer",
+          "description": "The organization aiming to conclude a contract with the suppliers or to use the goods, services or works resulting from the contract, if not identical to the buyer for the contracting process.",
+          "$ref": "#/definitions/OrganizationReference"
         },
         "periodRationale": {
           "title": "Contract period rationale",

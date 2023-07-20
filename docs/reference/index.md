@@ -28,6 +28,7 @@ This profile makes use of the extensions below. Instead of declaring each extens
 * [Beneficial owners](https://extensions.open-contracting.org/en/extensions/beneficialOwners/master/)
 * [Bid opening](https://extensions.open-contracting.org/en/extensions/bidOpening/master/)
 * [Bid statistics and details](https://extensions.open-contracting.org/en/extensions/bids/master/)
+* [Buyer per award or contract](https://extensions.open-contracting.org/en/extensions/contract_buyer/master/)
 * [Charges](https://extensions.open-contracting.org/en/extensions/charges/master/)
 * [Communication](https://extensions.open-contracting.org/en/extensions/communication/master/)
 * [Contract terms](https://extensions.open-contracting.org/en/extensions/contractTerms/master/)
