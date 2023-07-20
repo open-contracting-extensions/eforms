@@ -35,6 +35,7 @@ This profile makes use of the extensions below. Instead of declaring each extens
 * [Covered by](https://extensions.open-contracting.org/en/extensions/coveredBy/master/)
 * [Design contest](https://extensions.open-contracting.org/en/extensions/designContest/master/)
 * [Document publisher](https://extensions.open-contracting.org/en/extensions/document_publisher/master/)
+* [Documentation](https://extensions.open-contracting.org/en/extensions/documentation/master/)
 * [Essential assets](https://extensions.open-contracting.org/en/extensions/essentialAssets/master/)
 * [European Union](https://extensions.open-contracting.org/en/extensions/eu/1.1/)
 * [Exclusion grounds](https://extensions.open-contracting.org/en/extensions/exclusionGrounds/master/)

@@ -484,6 +484,59 @@
           "description": "The organization responsible for making the document available.",
           "$ref": "#/definitions/OrganizationReference"
         },
+        "pageStart": {
+          "title": "Page start",
+          "description": "When the information referenced exists within a large document, indicate the first page on which it can be found. This should refer to the printed page number, not the page number reported by software applications.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "pageEnd": {
+          "title": "Page end",
+          "description": "When the information referenced exists within a large document, indicate the last page on which it can be found. This should refer to the printed page number, not the page number reported by software applications.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "accessDetails": {
+          "title": "Access details",
+          "description": "A description of any special arrangements needed to access this document, for example: registering for access, paying a fee, or visiting a location to inspect the document.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "accessDetailsURL": {
+          "title": "Access details URL",
+          "description": "A web address for information on any special arrangements needed to access the document.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "author": {
+          "title": "Author",
+          "description": "The names of the authors of the document.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "unofficialTranslation": {
+          "title": "Unofficial translation",
+          "description": "Whether the document is an unofficial translation.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
         "relatedLots": {
           "title": "Related lot(s)",
           "description": "The identifiers of the lots to which this document relates.",
