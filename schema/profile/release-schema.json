@@ -524,6 +524,35 @@
       },
       "minProperties": 1
     },
+    "Amendment": {
+      "properties": {
+        "rationaleClassifications": {
+          "title": "Rationale classifications",
+          "description": "The classifications of the rationale.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Classification"
+          },
+          "wholeListMerge": true,
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "relatedLots": {
+          "title": "Related lot(s)",
+          "description": "The identifiers of the lots to which this amendment relates.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        }
+      }
+    },
     "Lot": {
       "properties": {
         "awardCriteria": {
@@ -3528,24 +3557,6 @@
           "items": {
             "type": "string"
           }
-        }
-      }
-    },
-    "Amendment": {
-      "properties": {
-        "relatedLots": {
-          "title": "Related lot(s)",
-          "description": "The identifiers of the lots to which this amendment relates.",
-          "type": [
-            "array",
-            "null"
-          ],
-          "items": {
-            "type": "string",
-            "minLength": 1
-          },
-          "uniqueItems": true,
-          "minItems": 1
         }
       }
     },

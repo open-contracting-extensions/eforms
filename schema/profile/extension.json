@@ -21,6 +21,7 @@
   "codelists": [
     "+partyRole.csv",
     "language.csv",
+    "+itemClassificationScheme.csv",
     "awardCriterionType.csv",
     "awardCriterionFixed.csv",
     "criterionWeight.csv",
@@ -32,7 +33,6 @@
     "permission.csv",
     "coveredBy.csv",
     "+documentType.csv",
-    "+itemClassificationScheme.csv",
     "+milestoneType.csv",
     "+relatedProcessScheme.csv",
     "financeCategory.csv",
@@ -51,5 +51,15 @@
     "dynamicPurchasingSystemType.csv",
     "dynamicPurchasingSystemStatus.csv",
     "frameworkAgreementMethod.csv"
+  ],
+  "dependencies": [
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_awardCriteria_extension/master/extension.json",
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_bid_extension/master/extension.json",
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_location_extension/master/extension.json"
+  ],
+  "testDependencies": [
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_document_publisher_extension/master/extension.json",
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_finance_extension/master/extension.json",
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_lots_extension/master/extension.json"
   ]
 }

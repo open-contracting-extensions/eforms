@@ -1,4 +1,5 @@
 Code,Title,Description,Source,Category
+eu-change-corrig-justification,EU modification justification,The main reasons for modifying a contract within the domain of public procurement according to the legislation of the European Parliament.,https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/modification-justification,amendmentRationaleClassifications
 eu-vehicle-category,European Union vehicle category,The category of vehicle falling within the scope of the EU Clean Vehicles Directive 2009/33/EC.,https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/vehicle-category,
 eu-cvd-contract-type,European Union Clean Vehicle Directive contract type,The category of contract according to the EU Clean Vehicles Directive 2009/33/EC.,https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/cvd-contract-type,
 CELEX,CELEX number,Identifier scheme for EUR-Lex documents,https://eur-lex.europa.eu/content/help/faq/intro.html#help8,legalBasis
