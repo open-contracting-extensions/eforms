@@ -4593,6 +4593,17 @@
           "description": "A local identifier for this bid",
           "type": "string"
         },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Identifiers for this bid. This field can be used to provide internal identifiers for the bid, such as identifiers from a buyer's document management system or procurement system.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SimpleIdentifier"
+          },
+          "wholeListMerge": true,
+          "uniqueItems": true,
+          "minItems": 1
+        },
         "date": {
           "title": "Date",
           "description": "The date when this bid was received.",
