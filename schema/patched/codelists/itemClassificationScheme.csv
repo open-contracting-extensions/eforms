@@ -14,8 +14,11 @@ eu-change-corrig-justification,EU modification justification,The main reasons fo
 eu-vehicle-category,European Union vehicle category,The category of vehicle falling within the scope of the EU Clean Vehicles Directive 2009/33/EC.,European Union
 eu-cvd-contract-type,European Union Clean Vehicle Directive contract type,The category of contract according to the EU Clean Vehicles Directive 2009/33/EC.,European Union
 CELEX,CELEX number,Identifier scheme for EUR-Lex documents,Legal basis
+ELI,European Legislation Identifier,Identifier scheme for European legislation,Legal basis
 LEXML,LexML URN,Identifier scheme for BR-Lex documents,Legal basis
 COFOG,Classification of the Functions of Government,"A standard classifying the purposes of government activities, developed by the Organisation for Economic Co-operation and Development and published by the United Nations Statistical Division.",Organization classification
+eu-buyer-contracting-type,EU buyer contracting type,Whether a buyer is a contracting entity within the domain of public procurement according to legislation of the European Parliament.,Organization classification
+eu-main-activity,EU main activity,The main activities of buyers within the domain of public procurement according to legislation of the European Parliament.,Organization classification
 TED_CA_TYPE,EC Type of contracting authority,The types of contracting authority within the domain of public procurement according to legislation of the European Parliament.,Organization classification
 TED_CE_ACTIVITY,EC Main activity of contracting entity,The main activities of contracting entities within the domain of public procurement according to legislation of the European Parliament.,Organization classification
 TED_PT_AWARD_CONTRACT_WITHOUT_CALL,European Union direct award justification (TED schema),Justification for using a procedure which allows awarding contracts directly without the requirement of publishing a call for competition in the Official Journal of the European Union. This scheme's codes match those in the TED schema.,Procurement method rationale classifications
