@@ -61,7 +61,7 @@ Instructions to follow to map the eForms field to OCDS.
       <tr id="BT-01(c)-Procedure">
         <td class="field break-all">
             <p><b>BT-01(c)-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#otherLegalBasisSection"></a><br>Procedure Legal Basis (ID)</p><p><i>BT-01:</i> The legal basis (e.g. a Union or national legal act) under which the procurement procedure takes place or, in case of prior information notices, under which the procurement procedure(s) will take place.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[not(cbc:ID/text()=('CrossBorderLaw','LocalLegalBasis'))]/cbc:ID[not(text()=('CrossBorderLaw','LocalLegalBasis'))]</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[not(cbc:ID/text()=('CrossBorderLaw','LocalLegalBasis'))]/cbc:ID</span></code>
         </td>
         <td class="mapping">
 
@@ -116,7 +116,7 @@ Map to `tender.legalBasis.description`.
       <tr id="BT-01(e)-Procedure">
         <td class="field break-all">
             <p><b>BT-01(e)-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#otherLegalBasisSection"></a><br>Procedure Legal Basis (NoID)</p><p><i>BT-01:</i> The legal basis (e.g. a Union or national legal act) under which the procurement procedure takes place or, in case of prior information notices, under which the procurement procedure(s) will take place.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[cbc:ID/text()='LocalLegalBasis']/cbc:ID[text()='LocalLegalBasis']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[cbc:ID/text()='LocalLegalBasis']/cbc:ID</span></code>
         </td>
         <td class="mapping">
 
@@ -174,7 +174,7 @@ Map to `tender.legalBasis.description`.
         </td>
         <td class="mapping">
 
-Map to `tender.legalBasis.id`, and set `tender.legalBasis.scheme` to ['CELEX'](https://eur-lex.europa.eu/content/help/faq/intro.html#help8).
+Map to `tender.legalBasis.id`, and set `tender.legalBasis.scheme` to ['CELEX'](https://eur-lex.europa.eu/content/help/eurlex-content/celex-number.html).
 
 ```xml
 <cbc:RegulatoryDomain>32014L0024</cbc:RegulatoryDomain>
@@ -308,7 +308,7 @@ Combine with <a href="#BT-05(a)-notice">BT-05(a)-notice</a>, [convert date to IS
       <tr id="BT-06-Lot">
         <td class="field break-all">
             <p><b>BT-06-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#strategicProcurementSection"></a><br>Strategic Procurement</p><p><i>BT-06:</i> The procurement procedure aims at reducing the environmental impacts of the procurement, fulfilling social objectives and/or buying an innovative work, supply or service.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='strategic-procurement']/cbc:ProcurementTypeCode[@listName='strategic-procurement']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='strategic-procurement']/cbc:ProcurementTypeCode</span></code>
         </td>
         <td class="mapping">
 
@@ -316,7 +316,7 @@ This field maps to the same `Sustainability` objects as created for BT-777-Lot.
 
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 
-If the code is "none" discard. Otherwise, set the lot's `.hasSustainability` to "true".
+If the code is "none" discard. Otherwise, set the lot's `.hasSustainability` to `true`.
 
 For each `cac:ProcurementAdditionalType`, add or update the corresponding `Sustainability` object to the lot's `.sustainability` array.
 
@@ -324,9 +324,14 @@ For each `cac:ProcurementAdditionalType`, add or update the corresponding `Susta
 - Add 'awardCriteria', 'contractPerformanceConditions', 'selectionCriteria' and 'technicalSpecifications' to the sustainability's `.strategies` array.
 
 ```xml
-<cac:ProcurementAdditionalType>
-  <cbc:ProcurementTypeCode listName="strategic-procurement">inn-pur</cbc:ProcurementTypeCode>
-</cac:ProcurementAdditionalType>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:ProcurementAdditionalType>
+      <cbc:ProcurementTypeCode listName="strategic-procurement">inn-pur</cbc:ProcurementTypeCode>
+    </cac:ProcurementAdditionalType>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -334,6 +339,7 @@ For each `cac:ProcurementAdditionalType`, add or update the corresponding `Susta
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "hasSustainability": true,
         "sustainability": [
           {
@@ -357,7 +363,7 @@ For each `cac:ProcurementAdditionalType`, add or update the corresponding `Susta
       <tr id="BT-09(a)-Procedure">
         <td class="field break-all">
             <p><b>BT-09(a)-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#crossBorderLawSection"></a><br>Cross Border Law</p><p><i>BT-09:</i> The applicable law when buyers from different countries procure together within one procurement procedure.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[cbc:ID/text()='CrossBorderLaw']/cbc:ID[text()='CrossBorderLaw']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[cbc:ID/text()='CrossBorderLaw']/cbc:ID</span></code>
         </td>
         <td class="mapping">
 
@@ -478,8 +484,8 @@ Map to `tender.procurementMethod` according to the [procurement procedure type m
       </tr>
       <tr id="BT-106-Procedure">
         <td class="field break-all">
-            <p><b>BT-106-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#acceleratedProcedureSection"></a><br>Procedure Accelerated</p><p><i>BT-106:</i> The time limit for receipt of requests to participate or of tenders in this procedure can be reduced due to a state of urgency.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='accelerated-procedure']/cbc:ProcessReasonCode[@listName='accelerated-procedure']</span></code>
+            <p><b>BT-106-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#acceleratedProcedureSection"></a><br>Procedure Accelerated</p><p><i>BT-106:</i> The time limit for receipt of requests to participate or of tenders in this procedure can be reduced due to a state of urgency.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='accelerated-procedure']/cbc:ProcessReasonCode</span></code>
         </td>
         <td class="mapping">
 
@@ -596,12 +602,17 @@ Map to `tender.procedure.isAccelerated` as a boolean.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to the its `.techniques.frameworkAgreement.buyerCategories`.
 
 ```xml
-<cac:FrameworkAgreement>
-  <cac:SubsequentProcessTenderRequirement>
-    <cbc:Name>buyer-categories</cbc:Name>
-    <cbc:Description languageID="ENG">Offices of the "greater region" ...</cbc:Description>
-  </cac:SubsequentProcessTenderRequirement>
-</cac:FrameworkAgreement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:FrameworkAgreement>
+      <cac:SubsequentProcessTenderRequirement>
+        <cbc:Name>buyer-categories</cbc:Name>
+        <cbc:Description languageID="ENG">Offices of the "greater region" ...</cbc:Description>
+      </cac:SubsequentProcessTenderRequirement>
+    </cac:FrameworkAgreement>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -609,6 +620,7 @@ Map to `tender.procedure.isAccelerated` as a boolean.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "techniques": {
           "frameworkAgreement": {
             "buyerCategories": "Offices of the \"greater region\" ..."
@@ -651,9 +663,14 @@ Discard.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to the its  `.techniques.frameworkAgreement.maximumParticipants`.
 
 ```xml
-<cac:FrameworkAgreement>
-  <cbc:MaximumOperatorQuantity>50</cbc:MaximumOperatorQuantity>
-</cac:FrameworkAgreement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:FrameworkAgreement>
+      <cbc:MaximumOperatorQuantity>50</cbc:MaximumOperatorQuantity>
+    </cac:FrameworkAgreement>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -661,6 +678,7 @@ Discard.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "techniques": {
           "frameworkAgreement": {
             "maximumParticipants": 50
@@ -681,10 +699,15 @@ Discard.
         </td>
         <td class="mapping">
 
-If "true", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and add "GPA" to its `.coveredBy` array. Otherwise, discard.
+If "true", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and add 'GPA' to its `.coveredBy` array. Otherwise, discard.
 
 ```xml
-<cbc:GovernmentAgreementConstraintIndicator>true</cbc:GovernmentAgreementConstraintIndicator>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cbc:GovernmentAgreementConstraintIndicator>true</cbc:GovernmentAgreementConstraintIndicator>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -692,6 +715,7 @@ If "true", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "coveredBy": [
           "GPA"
         ]
@@ -710,7 +734,7 @@ If "true", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot
         </td>
         <td class="mapping">
 
-If "true", add "GPA" to the `tender.coveredBy` array. Otherwise, do nothing.
+If "true", add 'GPA' to the `tender.coveredBy` array. Otherwise, do nothing.
 
 ```xml
 <cbc:GovernmentAgreementConstraintIndicator>true</cbc:GovernmentAgreementConstraintIndicator>
@@ -730,7 +754,7 @@ If "true", add "GPA" to the `tender.coveredBy` array. Otherwise, do nothing.
       </tr>
       <tr id="BT-118-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-118-NoticeResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_notice_aggregated_amounts"></a><br>Notice Framework Maximum Value</p><p><i>BT-118:</i> The maximum value which can be spent within the framework agreement(s) announced in this notice over its/their whole duration, in all lots, including options and renewals, as calculated on the basis of the winner’s tender or winners’ tenders.</p>
+            <p><b>BT-118-NoticeResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_notice_aggregated_amounts"></a><br>Notice Framework Maximum Value</p><p><i>BT-118:</i> The maximum value which can be spent within the framework agreement(s) announced in this notice over its/their whole duration, in all lots, including options and renewals, as calculated on the basis of the winner’s tender or winners’ tenders.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efbc:OverallMaximumFrameworkContractsAmount</span></code>
         </td>
         <td class="mapping">
@@ -757,9 +781,14 @@ Discard.
 If "true", [get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult), and set the lot's `.techniques.dynamicPurchasingSystem.status` to 'terminated'. Otherwise, discard.
 
 ```xml
-<efac:LotResult>
-  <efbc:DPSTerminationIndicator>true</efbc:DPSTerminationIndicator>
-</efac:LotResult>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efbc:DPSTerminationIndicator>true</efbc:DPSTerminationIndicator>
+  </efac:LotResult>
+  <efac:TenderLot>
+    <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  </efac:TenderLot>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -767,6 +796,7 @@ If "true", [get the lot for the LotResult](operations.md#get-the-lot-for-a-lotre
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "techniques": {
           "dynamicPurchasingSystem": {
             "status": "terminated"
@@ -790,7 +820,14 @@ If "true", [get the lot for the LotResult](operations.md#get-the-lot-for-a-lotre
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.secondStage.noNegotiationNecessary` to `true`.
 
 ```xml
-<cbc:NoFurtherNegotiationIndicator>true</cbc:NoFurtherNegotiationIndicator>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cbc:NoFurtherNegotiationIndicator>true</cbc:NoFurtherNegotiationIndicator>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -798,6 +835,7 @@ If "true", [get the lot for the LotResult](operations.md#get-the-lot-for-a-lotre
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "secondStage": {
           "noNegotiationNecessary": true
         }
@@ -819,9 +857,14 @@ If "true", [get the lot for the LotResult](operations.md#get-the-lot-for-a-lotre
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.techniques.electronicAuction.description`.
 
 ```xml
-<cac:AuctionTerms>
-  <cbc:Description languageID="ENG">The online auction solution ...</cbc:Description>
-</cac:AuctionTerms>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:AuctionTerms>
+      <cbc:Description languageID="ENG">The online auction solution ...</cbc:Description>
+    </cac:AuctionTerms>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -829,6 +872,7 @@ If "true", [get the lot for the LotResult](operations.md#get-the-lot-for-a-lotre
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "techniques": {
           "electronicAuction": {
             "description": "The online auction solution ..."
@@ -852,9 +896,14 @@ If "true", [get the lot for the LotResult](operations.md#get-the-lot-for-a-lotre
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.techniques.electronicAuction.url`.
 
 ```xml
-<cac:AuctionTerms>
-  <cbc:AuctionURI>https://my-online-eauction.eu/</cbc:AuctionURI>
-</cac:AuctionTerms>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:AuctionTerms>
+      <cbc:AuctionURI>https://my-online-eauction.eu/</cbc:AuctionURI>
+    </cac:AuctionTerms>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -862,6 +911,7 @@ If "true", [get the lot for the LotResult](operations.md#get-the-lot-for-a-lotre
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "techniques": {
           "electronicAuction": {
             "url": "https://my-online-eauction.eu/"
@@ -885,7 +935,12 @@ If "true", [get the lot for the LotResult](operations.md#get-the-lot-for-a-lotre
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.communication.atypicalToolUrl`.
 
 ```xml
-<cbc:AccessToolsURI>https://my-atypical-tool.com/</cbc:AccessToolsURI>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cbc:AccessToolsURI>https://my-atypical-tool.com/</cbc:AccessToolsURI>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -893,6 +948,7 @@ If "true", [get the lot for the LotResult](operations.md#get-the-lot-for-a-lotre
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "communication": {
           "atypicalToolUrl": "https://my-atypical-tool.com/"
         }
@@ -1076,7 +1132,7 @@ Add a `RelatedProcess` object to the `relatedProcesses` array, and set its .id (
 
 For example, if a first notice for a given procedure has nine related processes, it uses id's "1" through "9". A second notice for the same procedure then uses id's "10" and up, etc.
 
-Map the value of the field to `.identifier`. Set `.scheme` to "eu-oj". If the value of `sibling::cbc:ProcessReasonCode` is "irregular" or "unsuitable", add 'unsuccessfulProcess' to the `.relationship` array. If it is "additional", "existing" or "repetition, add 'prior' to the `.relationship` array.
+Map the value of the field to `.identifier`. Set `.scheme` to 'eu-oj'. If the value of `sibling::cbc:ProcessReasonCode` is "irregular" or "unsuitable", add 'unsuccessfulProcess' to the `.relationship` array. If it is "additional", "existing" or "repetition, add 'prior' to the `.relationship` array.
 
 ```xml
 <cac:ProcessJustification>
@@ -1136,9 +1192,15 @@ Map the value of the field to `.identifier`. Set `.scheme` to "eu-oj". If the va
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-13(t)-lot">BT-13(t)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.enquiryPeriod.endDate`.
 
 ```xml
-<cac:AdditionalInformationRequestPeriod>
-  <cbc:EndDate>2019-11-08+01:00</cbc:EndDate>
-</cac:AdditionalInformationRequestPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:AdditionalInformationRequestPeriod>
+      <cbc:EndDate>2019-11-08+01:00</cbc:EndDate>
+      <cbc:EndTime>18:00:00+01:00</cbc:EndTime>
+    </cac:AdditionalInformationRequestPeriod>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -1146,6 +1208,7 @@ Map the value of the field to `.identifier`. Set `.scheme` to "eu-oj". If the va
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "enquiryPeriod": {
           "endDate": "2019-11-08T23:59:59+01:00"
         }
@@ -1169,6 +1232,7 @@ Combine with <a href="#BT-13(t)-part">BT-13(t)-Part</a>, [convert date to ISO fo
 ```xml
 <cac:AdditionalInformationRequestPeriod>
   <cbc:EndDate>2019-11-08+01:00</cbc:EndDate>
+  <cbc:EndTime>18:00:00+01:00</cbc:EndTime>
 </cac:AdditionalInformationRequestPeriod>
 ```
 
@@ -1194,9 +1258,15 @@ Combine with <a href="#BT-13(t)-part">BT-13(t)-Part</a>, [convert date to ISO fo
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-13(d)-lot">BT-13(d)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.enquiryPeriod.endDate`.
 
 ```xml
-<cac:AdditionalInformationRequestPeriod>
-  <cbc:EndTime>18:00:00+01:00</cbc:EndTime>
-</cac:AdditionalInformationRequestPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:AdditionalInformationRequestPeriod>
+      <cbc:EndDate>2019-11-08+01:00</cbc:EndDate>
+      <cbc:EndTime>18:00:00+01:00</cbc:EndTime>
+    </cac:AdditionalInformationRequestPeriod>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -1204,6 +1274,7 @@ Combine with <a href="#BT-13(t)-part">BT-13(t)-Part</a>, [convert date to ISO fo
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "enquiryPeriod": {
           "endDate": "2019-11-08T18:00:00+01:00"
         }
@@ -1226,6 +1297,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
 
 ```xml
 <cac:AdditionalInformationRequestPeriod>
+  <cbc:EndDate>2019-11-08+01:00</cbc:EndDate>
   <cbc:EndTime>18:00:00+01:00</cbc:EndTime>
 </cac:AdditionalInformationRequestPeriod>
 ```
@@ -1252,9 +1324,14 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.secondStage.invitationDate`.
 
 ```xml
-<cac:InvitationSubmissionPeriod>
-  <cbc:StartDate>2019-11-15+01:00</cbc:StartDate>
-</cac:InvitationSubmissionPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:InvitationSubmissionPeriod>
+      <cbc:StartDate>2019-11-15+01:00</cbc:StartDate>
+    </cac:InvitationSubmissionPeriod>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -1262,6 +1339,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "secondStage": {
           "invitationDate": "2019-11-15T00:00:00+01:00"
         }
@@ -1283,9 +1361,15 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-131(t)-lot">BT-131(t)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
 
 ```xml
-<cac:TenderSubmissionDeadlinePeriod>
-  <cbc:EndDate>2019-11-30+01:00</cbc:EndDate>
-</cac:TenderSubmissionDeadlinePeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:TenderSubmissionDeadlinePeriod>
+      <cbc:EndDate>2019-11-30+01:00</cbc:EndDate>
+      <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+    </cac:TenderSubmissionDeadlinePeriod>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -1293,6 +1377,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "tenderPeriod": {
           "endDate": "2019-11-30T23:59:59+01:00"
         }
@@ -1314,9 +1399,15 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-131(d)-lot">BT-131(d)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
 
 ```xml
-<cac:TenderSubmissionDeadlinePeriod>
-  <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
-</cac:TenderSubmissionDeadlinePeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:TenderSubmissionDeadlinePeriod>
+      <cbc:EndDate>2019-11-30+01:00</cbc:EndDate>
+      <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+    </cac:TenderSubmissionDeadlinePeriod>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -1324,6 +1415,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "tenderPeriod": {
           "endDate": "2019-11-30T12:00:00+01:00"
         }
@@ -1345,9 +1437,15 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-1311(t)-lot">BT-1311(t)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
 
 ```xml
-<cac:ParticipationRequestReceptionPeriod>
-  <cbc:EndDate>2019-11-25+01:00</cbc:EndDate>
-</cac:ParticipationRequestReceptionPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:ParticipationRequestReceptionPeriod>
+      <cbc:EndDate>2019-11-25+01:00</cbc:EndDate>
+      <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+    </cac:ParticipationRequestReceptionPeriod>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -1355,6 +1453,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "tenderPeriod": {
           "endDate": "2019-11-25T23:59:59+01:00"
         }
@@ -1376,9 +1475,15 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-1311(d)-lot">BT-1311(d)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.tenderPeriod.endDate`.
 
 ```xml
-<cac:ParticipationRequestReceptionPeriod>
-  <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
-</cac:ParticipationRequestReceptionPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:ParticipationRequestReceptionPeriod>
+      <cbc:EndDate>2019-11-25+01:00</cbc:EndDate>
+      <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+    </cac:ParticipationRequestReceptionPeriod>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -1386,6 +1491,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "tenderPeriod": {
           "endDate": "2019-11-25T12:00:00+01:00"
         }
@@ -1407,9 +1513,15 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-132(t)-lot">BT-132(t)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.awardPeriod.startDate` and to its `.bidOpening.date`.
 
 ```xml
-<cac:OpenTenderEvent>
-  <cbc:OccurrenceDate>2019-11-05+01:00</cbc:OccurrenceDate>
-</cac:OpenTenderEvent>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:OpenTenderEvent>
+      <cbc:OccurrenceDate>2019-11-05+01:00</cbc:OccurrenceDate>
+      <cbc:OccurrenceTime>14:00:00+01:00</cbc:OccurrenceTime>
+    </cac:OpenTenderEvent>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -1417,6 +1529,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "awardPeriod": {
           "startDate": "2019-11-05T00:00:00+01:00"
         }
@@ -1438,9 +1551,15 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-132(d)-lot">BT-132(d)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.awardPeriod.startDate` and to its `.bidOpening.date`.
 
 ```xml
-<cac:OpenTenderEvent>
-  <cbc:OccurrenceTime>14:00:00+01:00</cbc:OccurrenceTime>
-</cac:OpenTenderEvent>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:OpenTenderEvent>
+      <cbc:OccurrenceDate>2019-11-05+01:00</cbc:OccurrenceDate>
+      <cbc:OccurrenceTime>14:00:00+01:00</cbc:OccurrenceTime>
+    </cac:OpenTenderEvent>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -1448,6 +1567,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "awardPeriod": {
           "startDate": "2019-11-05T14:00:00+01:00"
         }
@@ -1461,7 +1581,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
       </tr>
       <tr id="BT-133-Lot">
         <td class="field break-all">
-            <p><b>BT-133-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#openingEventSection"></a><br>Public Opening Place</p><p><i>BT-133:</i> The place (e.g. physical address, URL) where the tenders will be publicly opened.</p>
+            <p><b>BT-133-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#openingEventSection"></a><br>Public Opening Place</p><p><i>BT-133:</i> The place (e.g. physical address, URL) where the tenders will be publicly opened.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:OpenTenderEvent/cac:OccurenceLocation/cbc:Description</span></code>
         </td>
         <td class="mapping">
@@ -1469,11 +1589,16 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.bidOpening.location.description`.
 
 ```xml
-<cac:OpenTenderEvent>
-  <cac:OccurenceLocation>
-    <cbc:Description languageID="ENG">online at URL https://event-on-line.org/d22f65 ...</cbc:Description>
-  </cac:OccurenceLocation>
-</cac:OpenTenderEvent>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:OpenTenderEvent>
+      <cac:OccurenceLocation>
+        <cbc:Description languageID="ENG">online at URL https://event-on-line.org/d22f65 ...</cbc:Description>
+      </cac:OccurenceLocation>
+    </cac:OpenTenderEvent>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -1481,6 +1606,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "bidOpening": {
           "location": {
             "description": "online at URL https://event-on-line.org/d22f65 ..."
@@ -1504,9 +1630,14 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `bidOpening.description`.
 
 ```xml
-<cac:OpenTenderEvent>
-  <cbc:Description languageID="ENG">Any tenderer may attend ...</cbc:Description>
-</cac:OpenTenderEvent>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:OpenTenderEvent>
+      <cbc:Description languageID="ENG">Any tenderer may attend ...</cbc:Description>
+    </cac:OpenTenderEvent>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -1514,6 +1645,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "bidOpening": {
           "description": "Any tenderer may attend ..."
         }
@@ -1527,7 +1659,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
       </tr>
       <tr id="BT-135-Procedure">
         <td class="field break-all">
-            <p><b>BT-135-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#directAwardSection"></a><br>Direct Award Justification Text</p><p><i>BT-135:</i> The justification for using a procedure which allows directly awarding contracts, i.e. a procedure that does not require publishing a call for competition in the Official Journal of the European Union.</p>
+            <p><b>BT-135-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#directAwardSection"></a><br>Direct Award Justification Text</p><p><i>BT-135:</i> The justification for using a procedure which allows directly awarding contracts, i.e. a procedure that does not require publishing a call for competition in the Official Journal of the European Union.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='direct-award-justification']/cbc:ProcessReason</span></code>
         </td>
         <td class="mapping">
@@ -1552,7 +1684,7 @@ Map to `tender.procurementMethodRationale`
       </tr>
       <tr id="BT-1351-Procedure">
         <td class="field break-all">
-            <p><b>BT-1351-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#acceleratedProcedureSection"></a><br>Procedure Accelerated Justification</p><p><i>BT-1351:</i> The justification for using an accelerated procedure.</p>
+            <p><b>BT-1351-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#acceleratedProcedureSection"></a><br>Procedure Accelerated Justification</p><p><i>BT-1351:</i> The justification for using an accelerated procedure.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='accelerated-procedure']/cbc:ProcessReason</span></code>
         </td>
         <td class="mapping">
@@ -1583,7 +1715,7 @@ Map to `tender.procedure.acceleratedRationale`.
       </tr>
       <tr id="BT-136-Procedure">
         <td class="field break-all">
-            <p><b>BT-136-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#directAwardSection"></a><br>Direct Award Justification Code</p><p><i>BT-136:</i> A justification for using a procedure which allows directly awarding contracts, i.e. a procedure that does not require publishing a call for competition in the Official Journal of the European Union.</p>
+            <p><b>BT-136-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#directAwardSection"></a><br>Direct Award Justification Code</p><p><i>BT-136:</i> A justification for using a procedure which allows directly awarding contracts, i.e. a procedure that does not require publishing a call for competition in the Official Journal of the European Union.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='direct-award-justification']/cbc:ProcessReasonCode</span></code>
         </td>
         <td class="mapping">
@@ -1701,7 +1833,7 @@ Map to `tender.id`.
       </tr>
       <tr id="BT-13713-LotResult">
         <td class="field break-all">
-            <p><b>BT-13713-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_lot_result"></a><br>Result Lot Identifier</p><p><i>BT-13713:</i> An identifier of a lot. The information in the procedure lot result section refers to this lot.</p>
+            <p><b>BT-13713-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_lot_result"></a><br>Result Lot Identifier</p><p><i>BT-13713:</i> An identifier of a lot. The information in the procedure lot result section refers to this lot.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:TenderLot/cbc:ID</span></code>
         </td>
         <td class="mapping">
@@ -1739,7 +1871,7 @@ If not already present, add the value of the field to the award's `.relatedLots`
       </tr>
       <tr id="BT-13714-Tender">
         <td class="field break-all">
-            <p><b>BT-13714-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Tender Lot Identifier</p><p><i>BT-13714:</i> An identifier of a lot or a group of lots for which the tender was submitted. The information in the tender section refers to this lot.</p>
+            <p><b>BT-13714-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Tender Lot Identifier</p><p><i>BT-13714:</i> An identifier of a lot or a group of lots for which the tender was submitted. The information in the tender section refers to this lot.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:TenderLot/cbc:ID</span></code>
         </td>
         <td class="mapping">
@@ -1842,13 +1974,19 @@ If not already present, add the value of this field to the lot group's `.related
         <td class="mapping">
 
 [Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
-Set its `.documentType` to 'biddingDocuments' and set it's `.accessDetails` to 'Restricted.'.
+Set its `.documentType` to 'biddingDocuments' and set it's `.accessDetails` to "Restricted.".
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and add its `id` to the document's `.relatedLots`.
 
 ```xml
-<cac:CallForTendersDocumentReference>
-  <cbc:DocumentType>restricted-document</cbc:DocumentType>
-</cac:CallForTendersDocumentReference>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:CallForTendersDocumentReference>
+      <cbc:ID>20210521/CTFD/ENG/7654-02</cbc:ID>
+      <cbc:DocumentType>restricted-document</cbc:DocumentType>
+    </cac:CallForTendersDocumentReference>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -1878,10 +2016,11 @@ Set its `.documentType` to 'biddingDocuments' and set it's `.accessDetails` to '
         <td class="mapping">
 
 [Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
-Set its `.documentType` to 'biddingDocuments', and set it's `.accessDetails` to 'Restricted.'.
+Set its `.documentType` to 'biddingDocuments', and set it's `.accessDetails` to "Restricted.".
 
 ```xml
 <cac:CallForTendersDocumentReference>
+  <cbc:ID>20210521/CTFD/ENG/7654-02</cbc:ID>
   <cbc:DocumentType>restricted-document</cbc:DocumentType>
 </cac:CallForTendersDocumentReference>
 ```
@@ -1904,7 +2043,7 @@ Set its `.documentType` to 'biddingDocuments', and set it's `.accessDetails` to 
       </tr>
       <tr id="BT-140-notice">
         <td class="field break-all">
-            <p><b>BT-140-notice</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/change-notice.html#changeSection"></a><br>Change Reason Code</p><p><i>BT-140:</i> The main reason for the change in the notice compared to the original notice.</p>
+            <p><b>BT-140-notice</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/change-notice.html#changeSection"></a><br>Change Reason Code</p><p><i>BT-140:</i> The main reason for the change in the notice compared to the original notice.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Changes/efac:ChangeReason/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
@@ -2038,7 +2177,7 @@ Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu
       </tr>
       <tr id="BT-144-LotResult">
         <td class="field break-all">
-            <p><b>BT-144-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_lot_result"></a><br>Not Awarded Reason</p><p><i>BT-144:</i> The reason for not choosing a winner.</p>
+            <p><b>BT-144-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_lot_result"></a><br>Not Awarded Reason</p><p><i>BT-144:</i> The reason for not choosing a winner.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:DecisionReason/efbc:DecisionReasonCode</span></code>
         </td>
         <td class="mapping">
@@ -2048,17 +2187,29 @@ Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu
 Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-award-justification) and map it to the award's `.statusDetails`.
 
 ```xml
-<efac:DecisionReason>
-  <efbc:DecisionReasonCode listName="non-award-justification">no-rece</efbc:DecisionReasonCode>
-</efac:DecisionReason>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:DecisionReason>
+      <efbc:DecisionReasonCode listName="non-award-justification">no-rece</efbc:DecisionReasonCode>
+    </efac:DecisionReason>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "awards": [
     {
+      "id": "RES-0001",
       "status": "unsuccessful",
-      "statusDetails": "No tenders, requests to participate or projects were received"
+      "statusDetails": "No tenders, requests to participate or projects were received",
+      "relatedLots": [
+        "LOT-0001"
+      ]
     }
   ]
 }
@@ -2076,16 +2227,27 @@ Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu
 [Get the contract for the SettledContract](operations.md#get-the-contract-for-a-settledcontract), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the contract's `.dateSigned`.
 
 ```xml
-<efac:SettledContract>
-  <cbc:IssueDate>2021-02-21+01:00</cbc:IssueDate>
-</efac:SettledContract>
+<efac:NoticeResult>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <cbc:IssueDate>2021-02-21+01:00</cbc:IssueDate>
+  </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "contracts": [
     {
-      "dateSigned": "2021-02-21T23:59:59+01:00"
+      "id": "CON-0001",
+      "dateSigned": "2021-02-21T23:59:59+01:00",
+      "awardID": "RES-0001"
     }
   ]
 }
@@ -2095,7 +2257,7 @@ Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu
       </tr>
       <tr id="BT-1451-Contract">
         <td class="field break-all">
-            <p><b>BT-1451-Contract</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#settledContractSection"></a><br>Winner Decision Date</p><p><i>BT-1451:</i> The date of the official decision choosing the winning tender.</p>
+            <p><b>BT-1451-Contract</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#settledContractSection"></a><br>Winner Decision Date</p><p><i>BT-1451:</i> The date of the official decision choosing the winning tender.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:SettledContract/cbc:AwardDate</span></code>
         </td>
         <td class="mapping">
@@ -2106,15 +2268,25 @@ For each `ancestor::efac:NoticeResult/efac:LotResult` with an `/efac:SettledCont
 - If the award's `.date` is not yet set or if the winner decision date is earlier than the award's `.date`, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the award's `.date`. Otherwise, discard.
 
 ```xml
-<efac:SettledContract>
-  <cbc:AwardDate>2021-02-19+01:00</cbc:AwardDate>
-</efac:SettledContract>
+<efac:NoticeResult>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <cbc:AwardDate>2021-02-19+01:00</cbc:AwardDate>
+  </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "awards": [
     {
+      "id": "RES-0001",
       "date": "2021-02-19T23:59:59+01:00"
     }
   ]
@@ -2126,7 +2298,7 @@ For each `ancestor::efac:NoticeResult/efac:LotResult` with an `/efac:SettledCont
       <tr id="BT-15-Lot">
         <td class="field break-all">
             <p><b>BT-15-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#procurementDocsSection"></a><br>Documents URL</p><p><i>BT-15:</i> The internet address for accessing (the non-restricted part of) the procurement documents. For all notices except prior information notices, the address shall give access that is direct (i.e. the exact webpage with the documents, not a general website), unrestricted (e.g. no registration), full (i.e. the procurement documents are complete) and free of charge and the documents shall be available already at the time of the publication of the notice.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:CallForTendersDocumentReference/cac:Attachment[not(../cbc:DocumentType/text()='restricted-document')]/cac:ExternalReference/cbc:URI</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:CallForTendersDocumentReference/cac:Attachment[../cbc:DocumentType/text()='non-restricted-document']/cac:ExternalReference/cbc:URI</span></code>
         </td>
         <td class="mapping">
 
@@ -2174,7 +2346,7 @@ Map to the document's `.url`, and set its `.documentType` to 'biddingDocuments'.
       <tr id="BT-15-Part">
         <td class="field break-all">
             <p><b>BT-15-Part</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#procurementDocsSection"></a><br>Documents URL</p><p><i>BT-15:</i> The internet address for accessing (the non-restricted part of) the procurement documents. For all notices except prior information notices, the address shall give access that is direct (i.e. the exact webpage with the documents, not a general website), unrestricted (e.g. no registration), full (i.e. the procurement documents are complete) and free of charge and the documents shall be available already at the time of the publication of the notice.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingTerms/cac:CallForTendersDocumentReference/cac:Attachment[not(../cbc:DocumentType/text()='restricted-document')]/cac:ExternalReference/cbc:URI</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingTerms/cac:CallForTendersDocumentReference/cac:Attachment[../cbc:DocumentType/text()='non-restricted-document']/cac:ExternalReference/cbc:URI</span></code>
         </td>
         <td class="mapping">
 
@@ -2211,7 +2383,7 @@ Map to the document's `.url`, and set its `.documentType` to 'biddingDocuments'
       </tr>
       <tr id="BT-150-Contract">
         <td class="field break-all">
-            <p><b>BT-150-Contract</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#settledContractSection"></a><br>Contract Identifier</p><p><i>BT-150:</i> An identifier of the contract or, in case of voluntary-ex ante transparency notices and design contest result notices, of the decision. The information in the contract section refers to this contract or decision.</p>
+            <p><b>BT-150-Contract</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#settledContractSection"></a><br>Contract Identifier</p><p><i>BT-150:</i> An identifier of the contract or, in case of voluntary-ex ante transparency notices and design contest result notices, of the decision. The information in the contract section refers to this contract or decision.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:SettledContract/efac:ContractReference/cbc:ID</span></code>
         </td>
         <td class="mapping">
@@ -2222,23 +2394,34 @@ Map to the document's `.url`, and set its `.documentType` to 'biddingDocuments'
 - If the scope of the list, register or scheme from which the contract identifier is drawn is subnational, set the simple identifier's `.scheme` to `{ISO 3166-1 alpha-2}-{system}`. Otherwise, set it to `{ISO 3166-2}-{system}`.
 
 ```xml
-<efac:SettledContract>
-  <efac:ContractReference>
-    <cbc:ID>CRN ABC:EFG/2020-01</cbc:ID>
-  </efac:ContractReference>
-</efac:SettledContract>
+<efac:NoticeResult>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <efac:ContractReference>
+      <cbc:ID>CRN ABC:EFG/2020-01</cbc:ID>
+    </efac:ContractReference>
+  </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "contracts": [
     {
+      "id": "CON-0001",
       "identifiers": [
         {
           "id": "CRN ABC:EFG/2020-01",
           "scheme": "NL-TENDERNED"
         }
-      ]
+      ],
+      "awardID": "RES-0001"
     }
   ]
 }
@@ -2302,22 +2485,33 @@ Discard. The notice and sections that were modified can be determined by compari
   - Set its `.documentType` to 'contractSigned'.
 
 ```xml
-<efac:SettledContract>
-  <cbc:URI>http://mycontract.acme.com/1234/</cbc:URI>
-</efac:SettledContract>
+<efac:NoticeResult>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <cbc:URI>http://mycontract.acme.com/1234/</cbc:URI>
+  </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "contracts": [
     {
+      "id": "CON-0001",
       "documents": [
         {
           "id": "1",
           "url": "http://mycontract.acme.com/1234/",
           "documentType": "contractSigned"
         }
-      ]
+      ],
+      "awardID": "RES-0001"
     }
   ]
 }
@@ -2399,19 +2593,28 @@ As such, this data element is duplicated in the eForms SDK. The OCDS mapping the
 See also [Using the Organization building block with an organizational hierarchy](https://standard.open-contracting.org/latest/en/guidance/map/organizational_units/#using-the-organization-building-block-with-an-organizational-hierarchy).
 
 ```xml
-<efac:Organization>
-  <efac:Company>
-    <cac:PostalAddress>
-      <cbc:Department>Procurement Department</cbc:Department>
-    </cac:PostalAddress>
-  </efac:Company>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name languageID="ENG">Ministry of Education</cbc:Name>
+      </cac:PartyName>
+      <cac:PostalAddress>
+        <cbc:Department>Procurement Department</cbc:Department>
+      </cac:PostalAddress>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "name": "Ministry of Education - Procurement Department"
     }
   ]
@@ -2432,23 +2635,38 @@ See also [Using the Organization building block with an organizational hierarchy
 See also [Using the Organization building block with an organizational hierarchy](https://standard.open-contracting.org/latest/en/guidance/map/organizational_units/#using-the-organization-building-block-with-an-organizational-hierarchy).
 
 ```xml
-<efac:Organization>
-  <efac:TouchPoint>
-    <cac:PartyName>
-      <cbc:Name languageID="ENG">Legal Department</cbc:Name>
-    </cac:PartyName>
-    <cac:PostalAddress>
-      <cbc:Department>Department XYZ</cbc:Department>
-    </cac:PostalAddress>
-  </efac:TouchPoint>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>998298</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+    <efac:TouchPoint>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name languageID="ENG">Ministry of Education</cbc:Name>
+      </cac:PartyName>
+      <cac:PostalAddress>
+        <cbc:Department>Legal Department</cbc:Department>
+      </cac:PostalAddress>
+    </efac:TouchPoint>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
-      "name": "Ministry of Education - Legal Department"
+      "id": "TPO-0001",
+      "name": "Ministry of Education - Legal Department",
+      "identifier": {
+        "id": "998298",
+        "scheme": "internal"
+      }
     }
   ]
 }
@@ -2458,7 +2676,7 @@ See also [Using the Organization building block with an organizational hierarchy
       </tr>
       <tr id="BT-160-Tender">
         <td class="field break-all">
-            <p><b>BT-160-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Concession Revenue Buyer</p><p><i>BT-160:</i> The estimated revenue coming from the buyer who granted the concession (e.g. prizes and payments).</p>
+            <p><b>BT-160-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Concession Revenue Buyer</p><p><i>BT-160:</i> The estimated revenue coming from the buyer who granted the concession (e.g. prizes and payments).</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:ConcessionRevenue/efbc:RevenueBuyerAmount</span></code>
         </td>
         <td class="mapping">
@@ -2473,15 +2691,34 @@ Add a `Charge` object to the contract's `.implementation.charges` array.
 - Set its `.title` to the [translation](operations.md#get-a-translation) of 'The estimated revenue coming from the buyer who granted the concession (e.g. prizes and payments).'.
 
 ```xml
-<efac:ConcessionRevenue>
-  <efbc:RevenueBuyerAmount currencyID="EUR">350</efbc:RevenueBuyerAmount>
-</efac:ConcessionRevenue>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    <efac:ConcessionRevenue>
+      <efbc:RevenueBuyerAmount currencyID="EUR">350</efbc:RevenueBuyerAmount>
+    </efac:ConcessionRevenue>
+  </efac:LotTender>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <efac:LotTender>
+      <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    </efac:LotTender>
+  </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "contracts": [
     {
+      "id": "CON-0001",
+      "awardID": "RES-0001",
       "implementation": {
         "charges": [
           {
@@ -2504,7 +2741,7 @@ Add a `Charge` object to the contract's `.implementation.charges` array.
       </tr>
       <tr id="BT-161-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-161-NoticeResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_notice_aggregated_amounts"></a><br>Notice Value</p><p><i>BT-161:</i> The value of all contracts awarded in this notice, including options and renewals.</p>
+            <p><b>BT-161-NoticeResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_notice_aggregated_amounts"></a><br>Notice Value</p><p><i>BT-161:</i> The value of all contracts awarded in this notice, including options and renewals.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/cbc:TotalAmount</span></code>
         </td>
         <td class="mapping">
@@ -2523,7 +2760,7 @@ Discard. This is derived from the `value` of awards.
       </tr>
       <tr id="BT-162-Tender">
         <td class="field break-all">
-            <p><b>BT-162-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Concession Revenue User</p><p><i>BT-162:</i> The estimated revenue coming from the users of the concession (e.g. fees and fines).</p>
+            <p><b>BT-162-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Concession Revenue User</p><p><i>BT-162:</i> The estimated revenue coming from the users of the concession (e.g. fees and fines).</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:ConcessionRevenue/efbc:RevenueUserAmount</span></code>
         </td>
         <td class="mapping">
@@ -2539,14 +2776,24 @@ Add a `Charge` object to the contract's `.implementation.charges` array.
 
 ```xml
 <efac:NoticeResult>
-  <efac:SettledContract>
-    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
-  </efac:SettledContract>
   <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
     <efac:ConcessionRevenue>
       <efbc:RevenueUserAmount currencyID="EUR">350</efbc:RevenueUserAmount>
     </efac:ConcessionRevenue>
   </efac:LotTender>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <efac:LotTender>
+      <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    </efac:LotTender>
+  </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
 </efac:NoticeResult>
 ```
 
@@ -2567,7 +2814,8 @@ Add a `Charge` object to the contract's `.implementation.charges` array.
             "paidBy": "user"
           }
         ]
-      }
+      },
+      "awardID": "RES-0001"
     }
   ]
 }
@@ -2577,7 +2825,7 @@ Add a `Charge` object to the contract's `.implementation.charges` array.
       </tr>
       <tr id="BT-163-Tender">
         <td class="field break-all">
-            <p><b>BT-163-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Concession Value Description</p><p><i>BT-163:</i> The description of the method used for calculating the estimated value of the concession and any other relevant information concerning the value of the concession.</p>
+            <p><b>BT-163-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Concession Value Description</p><p><i>BT-163:</i> The description of the method used for calculating the estimated value of the concession and any other relevant information concerning the value of the concession.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:ConcessionRevenue/efbc:ValueDescription</span></code>
         </td>
         <td class="mapping">
@@ -2630,22 +2878,30 @@ Map the value of this field to the award's `.valueCalculationMethod`.
       <tr id="BT-165-Organization-Company">
         <td class="field break-all">
             <p><b>BT-165-Organization-Company</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/parties.html#_general_structure_of_an_organization_related_information"></a><br>Winner Size</p><p><i>BT-165:</i> The size of the winner, tenderer or subcontractor (e.g. micro enterprise, small enterprise, medium enterprise).</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company[(cac:PartyIdentification/cbc:ID/text() = //efac:TenderingParty/efac:Tenderer/cbc:ID/text()) or (cac:PartyIdentification/cbc:ID/text() = //efac:TenderingParty/efac:Subcontractor/cbc:ID/text())]/efbc:CompanySizeCode</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/efbc:CompanySizeCode</span></code>
         </td>
         <td class="mapping">
 
 [Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.details.scale`
 
 ```xml
-<efac:Company>
-  <efbc:CompanySizeCode listName="economic-operator-size">large</efbc:CompanySizeCode>
-</efac:Company>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <efbc:CompanySizeCode listName="economic-operator-size">large</efbc:CompanySizeCode>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "details": {
         "scale": "large"
       }
@@ -2666,7 +2922,12 @@ Map the value of this field to the award's `.valueCalculationMethod`.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.submissionTerms.electronicSubmissionPolicy` to the corresponding code in the [permission](https://extensions.open-contracting.org/en/extensions/submissionTerms/master/codelists/#permission.csv) codelist.
 
 ```xml
-<cbc:SubmissionMethodCode listName="esubmission">allowed</cbc:SubmissionMethodCode>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cbc:SubmissionMethodCode listName="esubmission">allowed</cbc:SubmissionMethodCode>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -2674,6 +2935,7 @@ Map the value of this field to the award's `.valueCalculationMethod`.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "submissionTerms": {
           "electronicSubmissionPolicy": "allowed"
         }
@@ -2695,9 +2957,15 @@ Map the value of this field to the award's `.valueCalculationMethod`.
 [Get the bid for a LotTender](operations.md#get-the-bid-for-a-lottender) and map to the bid's `.rank`.
 
 ```xml
-<efac:LotTender>
-  <cbc:RankCode>1</cbc:RankCode>
-</efac:LotTender>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    <cbc:RankCode>1</cbc:RankCode>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -2705,7 +2973,11 @@ Map the value of this field to the award's `.valueCalculationMethod`.
   "bids": {
     "details": [
       {
-        "rank": 1
+        "id": "TEN-0001",
+        "rank": 1,
+        "relatedLots": [
+          "LOT-0001"
+        ]
       }
     ]
   }
@@ -2724,9 +2996,15 @@ Map the value of this field to the award's `.valueCalculationMethod`.
 [Get the bid for a LotTender](operations.md#get-the-bid-for-a-lottender) and map to the bid's `.hasRank`.
 
 ```xml
-<efac:LotTender>
-  <efbc:TenderRankedIndicator>true</efbc:TenderRankedIndicator>
-</efac:LotTender>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    <efbc:TenderRankedIndicator>true</efbc:TenderRankedIndicator>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -2734,7 +3012,11 @@ Map the value of this field to the award's `.valueCalculationMethod`.
   "bids": {
     "details": [
       {
-        "hasRank": true
+        "id": "TEN-0001",
+        "hasRank": true,
+        "relatedLots": [
+          "LOT-0001"
+        ]
       }
     ]
   }
@@ -2745,7 +3027,7 @@ Map the value of this field to the award's `.valueCalculationMethod`.
       </tr>
       <tr id="BT-18-Lot">
         <td class="field break-all">
-            <p><b>BT-18-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#partiesSection"></a><br>Submission URL</p><p><i>BT-18:</i> The internet address for submission of tenders, requests to participate, or expressions of interest by electronic means. The address shall be as direct as possible (ideally a dedicated address for the electronic submission, not just a general website).</p>
+            <p><b>BT-18-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#partiesSection"></a><br>Submission URL</p><p><i>BT-18:</i> The internet address for submission of tenders, requests to participate, or expressions of interest by electronic means. The address shall be as direct as possible (ideally a dedicated address for the electronic submission, not just a general website).</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:TenderRecipientParty/cbc:EndpointID</span></code>
         </td>
         <td class="mapping">
@@ -2774,17 +3056,22 @@ Map the value of this field to the award's `.valueCalculationMethod`.
       </tr>
       <tr id="BT-19-Lot">
         <td class="field break-all">
-            <p><b>BT-19-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#nonelectronicSection"></a><br>Submission Nonelectronic Justification</p><p><i>BT-19:</i> The justification for electronic submission of tenders, requests to participate, or expressions of interest not being possible.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:ProcessJustification/cbc:ProcessReasonCode[@listName='no-esubmission-justification']</span></code>
+            <p><b>BT-19-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#nonelectronicSection"></a><br>Submission Nonelectronic Justification</p><p><i>BT-19:</i> The justification for electronic submission of tenders, requests to participate, or expressions of interest not being possible.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='no-esubmission-justification']/cbc:ProcessReasonCode</span></code>
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/communication-justification) and map it to the lot's `.submissionTerms.nonElectronicRationale`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/communication-justification) and map it to the lot's `.submissionTerms.nonElectronicSubmissionRationale`.
 
 ```xml
-<cac:ProcessJustification>
-  <cbc:ProcessReasonCode listName="no-esubmission-justification">phy-mod</cbc:ProcessReasonCode>
-</cac:ProcessJustification>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:ProcessJustification>
+      <cbc:ProcessReasonCode listName="no-esubmission-justification">phy-mod</cbc:ProcessReasonCode>
+    </cac:ProcessJustification>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -2792,8 +3079,9 @@ Map the value of this field to the award's `.valueCalculationMethod`.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "submissionTerms": {
-          "nonElectronicRationale": "Inclusion of a physical model"
+          "nonElectronicSubmissionRationale": "Inclusion of a physical model"
         }
       }
     ]
@@ -2814,9 +3102,17 @@ Map the value of this field to the award's `.valueCalculationMethod`.
 If the value of the field is `1A0` (Kosovo), add 'XK' to the bid's `.countriesOfOrigin` array. Otherwise, look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country), and add it to the bid's `.countriesOfOrigin` array.
 
 ```xml
-<efac:Origin>
-  <efbc:AreaCode listName="eforms-country">ITA</efbc:AreaCode>
-</efac:Origin>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    <efac:Origin>
+      <efbc:AreaCode listName="eforms-country">ITA</efbc:AreaCode>
+    </efac:Origin>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -2824,8 +3120,12 @@ If the value of the field is `1A0` (Kosovo), add 'XK' to the bid's `.countriesOf
   "bids": {
     "details": [
       {
+        "id": "TEN-0001",
         "countriesOfOrigin": [
           "IT"
+        ],
+        "relatedLots": [
+          "LOT-0001"
         ]
       }
     ]
@@ -2845,9 +3145,15 @@ If the value of the field is `1A0` (Kosovo), add 'XK' to the bid's `.countriesOf
 [Get the bid for a LotTender](operations.md#get-the-bid-for-a-lottender), and set the bid's `.variant` to `true`.
 
 ```xml
-<efac:LotTender>
-  <efbc:TenderVariantIndicator>true</efbc:TenderVariantIndicator>
-</efac:LotTender>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    <efbc:TenderVariantIndicator>true</efbc:TenderVariantIndicator>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -2855,7 +3161,11 @@ If the value of the field is `1A0` (Kosovo), add 'XK' to the bid's `.countriesOf
   "bids": {
     "details": [
       {
-        "variant": true
+        "id": "TEN-0001",
+        "variant": true,
+        "relatedLots": [
+          "LOT-0001"
+        ]
       }
     ]
   }
@@ -2877,9 +3187,22 @@ If the value of the field is `1A0` (Kosovo), add 'XK' to the bid's `.countriesOf
   - Set its `.name` to "Cross Border Law".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">cro-bor-law</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cbc:ContractFolderID>18d27a53-0109-4f93-9231-6659d931bce0</cbc:ContractFolderID>
+<cac:TenderingTerms>
+  <cac:ProcurementLegislationDocumentReference>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:FieldsPrivacy>
+              <efbc:FieldIdentifierCode listName="non-publication-identifier">cro-bor-law</efbc:FieldIdentifierCode>
+            </efac:FieldsPrivacy>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:ProcurementLegislationDocumentReference>
+</cac:TenderingTerms>
 ```
 
 ```json
@@ -2909,9 +3232,22 @@ If the value of the field is `1A0` (Kosovo), add 'XK' to the bid's `.countriesOf
   - Set its `.name` to "Procedure Type".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">pro-typ</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cbc:ContractFolderID>18d27a53-0109-4f93-9231-6659d931bce0</cbc:ContractFolderID>
+<cac:TenderingProcess>
+  <cac:ProcessJustification>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:FieldsPrivacy>
+              <efbc:FieldIdentifierCode listName="non-publication-identifier">pro-typ</efbc:FieldIdentifierCode>
+            </efac:FieldsPrivacy>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:ProcessJustification>
+</cac:TenderingProcess>
 ```
 
 ```json
@@ -2941,9 +3277,22 @@ If the value of the field is `1A0` (Kosovo), add 'XK' to the bid's `.countriesOf
   - Set its `.name` to "Procedure Accelerated".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">pro-acc</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cbc:ContractFolderID>18d27a53-0109-4f93-9231-6659d931bce0</cbc:ContractFolderID>
+<cac:TenderingProcess>
+  <cac:ProcessJustification>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:FieldsPrivacy>
+              <efbc:FieldIdentifierCode listName="non-publication-identifier">pro-acc</efbc:FieldIdentifierCode>
+            </efac:FieldsPrivacy>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:ProcessJustification>
+</cac:TenderingProcess>
 ```
 
 ```json
@@ -3011,9 +3360,22 @@ Discard.
   - Set its `.name` to "Direct Award Justification Previous Procedure Identifier".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">dir-awa-pre</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cbc:ContractFolderID>18d27a53-0109-4f93-9231-6659d931bce0</cbc:ContractFolderID>
+<cac:TenderingProcess>
+  <cac:ProcessJustification>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:FieldsPrivacy>
+              <efbc:FieldIdentifierCode listName="non-publication-identifier">dir-awa-pre</efbc:FieldIdentifierCode>
+            </efac:FieldsPrivacy>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:ProcessJustification>
+</cac:TenderingProcess>
 ```
 
 ```json
@@ -3043,9 +3405,22 @@ Discard.
   - Set its `.name` to "Direct Award Justification".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">dir-awa-tex</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cbc:ContractFolderID>18d27a53-0109-4f93-9231-6659d931bce0</cbc:ContractFolderID>
+<cac:TenderingProcess>
+  <cac:ProcessJustification>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:FieldsPrivacy>
+              <efbc:FieldIdentifierCode listName="non-publication-identifier">dir-awa-tex</efbc:FieldIdentifierCode>
+            </efac:FieldsPrivacy>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:ProcessJustification>
+</cac:TenderingProcess>
 ```
 
 ```json
@@ -3075,9 +3450,22 @@ Discard.
   - Set its `.name` to "Procedure Accelerated Justification".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">pro-acc-jus</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cbc:ContractFolderID>18d27a53-0109-4f93-9231-6659d931bce0</cbc:ContractFolderID>
+<cac:TenderingProcess>
+  <cac:ProcessJustification>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:FieldsPrivacy>
+              <efbc:FieldIdentifierCode listName="non-publication-identifier">pro-acc-jus</efbc:FieldIdentifierCode>
+            </efac:FieldsPrivacy>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:ProcessJustification>
+</cac:TenderingProcess>
 ```
 
 ```json
@@ -3107,9 +3495,22 @@ Discard.
   - Set its `.name` to "Direct Award Justification".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">dir-awa-jus</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cbc:ContractFolderID>18d27a53-0109-4f93-9231-6659d931bce0</cbc:ContractFolderID>
+<cac:TenderingProcess>
+  <cac:ProcessJustification>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:FieldsPrivacy>
+              <efbc:FieldIdentifierCode listName="non-publication-identifier">dir-awa-jus</efbc:FieldIdentifierCode>
+            </efac:FieldsPrivacy>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:ProcessJustification>
+</cac:TenderingProcess>
 ```
 
 ```json
@@ -3139,9 +3540,14 @@ Discard.
   - Set its `.name` to "Winner Chosen".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">win-cho</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efac:FieldsPrivacy>
+      <efbc:FieldIdentifierCode listName="non-publication-identifier">win-cho</efbc:FieldIdentifierCode>
+    </efac:FieldsPrivacy>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -3171,9 +3577,16 @@ Discard.
   - Set its `.name` to "Not Awarded Reason".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">no-awa-rea</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efac:DecisionReason>
+      <efac:FieldsPrivacy>
+        <efbc:FieldIdentifierCode listName="non-publication-identifier">no-awa-rea</efbc:FieldIdentifierCode>
+      </efac:FieldsPrivacy>
+    </efac:DecisionReason>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -3241,9 +3654,16 @@ Discard.
   - Set its `.name` to "Concession Revenue Buyer".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">con-rev-buy</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="result">TEN-0001</cbc:ID>
+    <efac:ConcessionRevenue>
+      <efac:FieldsPrivacy>
+        <efbc:FieldIdentifierCode listName="non-publication-identifier">con-rev-buy</efbc:FieldIdentifierCode>
+      </efac:FieldsPrivacy>
+    </efac:ConcessionRevenue>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -3292,9 +3712,16 @@ Discard.
   - Set its `.name` to "Concession Revenue User".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">con-rev-use</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="result">TEN-0001</cbc:ID>
+    <efac:ConcessionRevenue>
+      <efac:FieldsPrivacy>
+        <efbc:FieldIdentifierCode listName="non-publication-identifier">con-rev-use</efbc:FieldIdentifierCode>
+      </efac:FieldsPrivacy>
+    </efac:ConcessionRevenue>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -3324,9 +3751,16 @@ Discard.
   - Set its `.name` to "Concession Value Description".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">val-con-des</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="result">TEN-0001</cbc:ID>
+    <efac:ConcessionRevenue>
+      <efac:FieldsPrivacy>
+        <efbc:FieldIdentifierCode listName="non-publication-identifier">val-con-des</efbc:FieldIdentifierCode>
+      </efac:FieldsPrivacy>
+    </efac:ConcessionRevenue>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -3356,9 +3790,14 @@ Discard.
   - Set its `.name` to "Tender Rank".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">ten-ran</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="result">TEN-0001</cbc:ID>
+    <efac:FieldsPrivacy>
+      <efbc:FieldIdentifierCode listName="non-publication-identifier">ten-ran</efbc:FieldIdentifierCode>
+    </efac:FieldsPrivacy>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -3388,9 +3827,16 @@ Discard.
   - Set its `.name` to "Country Origin".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">cou-ori</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="result">TEN-0001</cbc:ID>
+    <efac:Origin>
+      <efac:FieldsPrivacy>
+        <efbc:FieldIdentifierCode listName="non-publication-identifier">cou-ori</efbc:FieldIdentifierCode>
+      </efac:FieldsPrivacy>
+    </efac:Origin>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -3420,9 +3866,14 @@ Discard.
   - Set its `.name` to "Winning Tender Variant".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">win-ten-var</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="result">TEN-0001</cbc:ID>
+    <efac:FieldsPrivacy>
+      <efbc:FieldIdentifierCode listName="non-publication-identifier">won-ten-var</efbc:FieldIdentifierCode>
+    </efac:FieldsPrivacy>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -3452,9 +3903,28 @@ Discard.
   - Set its `.name` to "Award Criterion Type".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-typ</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:FieldsPrivacy>
+                    <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-typ</efbc:FieldIdentifierCode>
+                  </efac:FieldsPrivacy>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -3484,9 +3954,28 @@ Discard.
   - Set its `.name` to "Award Criterion Type".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-typ</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:FieldsPrivacy>
+                    <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-typ</efbc:FieldIdentifierCode>
+                  </efac:FieldsPrivacy>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -3516,9 +4005,28 @@ Discard.
   - Set its `.name` to "Award Criterion Description".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-des</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:FieldsPrivacy>
+                    <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-des</efbc:FieldIdentifierCode>
+                  </efac:FieldsPrivacy>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -3548,9 +4056,28 @@ Discard.
   - Set its `.name` to "Award Criterion Description".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-des</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:FieldsPrivacy>
+                    <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-des</efbc:FieldIdentifierCode>
+                  </efac:FieldsPrivacy>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -3567,22 +4094,44 @@ Discard.
 
 </td>
       </tr>
-      <tr id="BT-195(BT-541)-Lot">
+      <tr id="BT-195(BT-541)-Lot-Fixed">
         <td class="field break-all">
-            <p><b>BT-195(BT-541)-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Identifier</p><p><i>BT-195:</i> Identifier of the field that shall not be immediately published. Only fields concerning the Result value and groups of fields concerning the Tender and Procedure Lot Result can be unpublished. In the case of the European Parliament and Council Directive 2014/25/EU, the award criteria, the procurement procedure, certain dates and in certain cases information about the nature and quantity of a service can be unpublished as well.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:FieldIdentifierCode</span></code>
+            <p><b>BT-195(BT-541)-Lot-Fixed</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Identifier</p><p><i>BT-195:</i> Identifier of the field that shall not be immediately published. Only fields concerning the Result value and groups of fields concerning the Tender and Procedure Lot Result can be unpublished. In the case of the European Parliament and Council Directive 2014/25/EU, the award criteria, the procurement procedure, certain dates and in certain cases information about the nature and quantity of a service can be unpublished as well.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:FieldIdentifierCode</span></code>
         </td>
         <td class="mapping">
 
 - Add a `withheldInformationItem` to the `withheldInformation` array, and:
-  - Set its `.id` to `[efbc:FieldIdentifierCode]-[ancestor::cac:ProcurementProjectLot/cbc:ID schemeName="Lot"]`.
+  - Set its `.id` to `[efbc:FieldIdentifierCode]-fixed-[ancestor::cac:ProcurementProjectLot/cbc:ID schemeName="Lot"]`.
   - Set its `.field` to "awa-cri-num".
-  - Set its `.name` to "Award Criterion Number".
+  - Set its `.name` to "Award Criterion Number Fixed".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-num</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-fixed"/>
+                    <efac:FieldsPrivacy>
+                      <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-num</efbc:FieldIdentifierCode>
+                    </efac:FieldsPrivacy>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -3590,8 +4139,8 @@ Discard.
   "withheldInformation": [
     {
       "field": "awa-cri-num",
-      "id": "awa-cri-num-LOT-0001",
-      "name": "Award Criterion Number"
+      "id": "awa-cri-num-fixed-LOT-0001",
+      "name": "Award Criterion Number Fixed"
     }
   ]
 }
@@ -3599,22 +4148,44 @@ Discard.
 
 </td>
       </tr>
-      <tr id="BT-195(BT-541)-LotsGroup">
+      <tr id="BT-195(BT-541)-Lot-Threshold">
         <td class="field break-all">
-            <p><b>BT-195(BT-541)-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Identifier</p><p><i>BT-195:</i> Identifier of the field that shall not be immediately published. Only fields concerning the Result value and groups of fields concerning the Tender and Procedure Lot Result can be unpublished. In the case of the European Parliament and Council Directive 2014/25/EU, the award criteria, the procurement procedure, certain dates and in certain cases information about the nature and quantity of a service can be unpublished as well.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:FieldIdentifierCode</span></code>
+            <p><b>BT-195(BT-541)-Lot-Threshold</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Identifier</p><p><i>BT-195:</i> Identifier of the field that shall not be immediately published. Only fields concerning the Result value and groups of fields concerning the Tender and Procedure Lot Result can be unpublished. In the case of the European Parliament and Council Directive 2014/25/EU, the award criteria, the procurement procedure, certain dates and in certain cases information about the nature and quantity of a service can be unpublished as well.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:FieldIdentifierCode</span></code>
         </td>
         <td class="mapping">
 
 - Add a `withheldInformationItem` to the `withheldInformation` array, and:
-  - Set its `.id` to `[efbc:FieldIdentifierCode]-[ancestor::cac:ProcurementProjectLot/cbc:ID schemeName="LotsGroup"]`.
+  - Set its `.id` to `[efbc:FieldIdentifierCode]-threshold-[ancestor::cac:ProcurementProjectLot/cbc:ID schemeName="Lot"]`.
   - Set its `.field` to "awa-cri-num".
-  - Set its `.name` to "Award Criterion Number".
+  - Set its `.name` to "Award Criterion Number Threshold".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-num</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-threshold"/>
+                    <efac:FieldsPrivacy>
+                      <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-num</efbc:FieldIdentifierCode>
+                    </efac:FieldsPrivacy>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -3622,8 +4193,224 @@ Discard.
   "withheldInformation": [
     {
       "field": "awa-cri-num",
-      "id": "awa-cri-num-GLO-0001",
-      "name": "Award Criterion Number"
+      "id": "awa-cri-num-threshold-LOT-0001",
+      "name": "Award Criterion Number Threshold"
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-195(BT-541)-Lot-Weight">
+        <td class="field break-all">
+            <p><b>BT-195(BT-541)-Lot-Weight</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Identifier</p><p><i>BT-195:</i> Identifier of the field that shall not be immediately published. Only fields concerning the Result value and groups of fields concerning the Tender and Procedure Lot Result can be unpublished. In the case of the European Parliament and Council Directive 2014/25/EU, the award criteria, the procurement procedure, certain dates and in certain cases information about the nature and quantity of a service can be unpublished as well.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:FieldIdentifierCode</span></code>
+        </td>
+        <td class="mapping">
+
+- Add a `withheldInformationItem` to the `withheldInformation` array, and:
+  - Set its `.id` to `[efbc:FieldIdentifierCode]-weight-[ancestor::cac:ProcurementProjectLot/cbc:ID schemeName="Lot"]`.
+  - Set its `.field` to "awa-cri-num".
+  - Set its `.name` to "Award Criterion Number Weight".
+
+```xml
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-weight"/>
+                    <efac:FieldsPrivacy>
+                      <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-num</efbc:FieldIdentifierCode>
+                    </efac:FieldsPrivacy>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "field": "awa-cri-num",
+      "id": "awa-cri-num-weight-LOT-0001",
+      "name": "Award Criterion Number Weight"
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-195(BT-541)-LotsGroup-Fixed">
+        <td class="field break-all">
+            <p><b>BT-195(BT-541)-LotsGroup-Fixed</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Identifier</p><p><i>BT-195:</i> Identifier of the field that shall not be immediately published. Only fields concerning the Result value and groups of fields concerning the Tender and Procedure Lot Result can be unpublished. In the case of the European Parliament and Council Directive 2014/25/EU, the award criteria, the procurement procedure, certain dates and in certain cases information about the nature and quantity of a service can be unpublished as well.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:FieldIdentifierCode</span></code>
+        </td>
+        <td class="mapping">
+
+- Add a `withheldInformationItem` to the `withheldInformation` array, and:
+  - Set its `.id` to `[efbc:FieldIdentifierCode]-fixed-[ancestor::cac:ProcurementProjectLot/cbc:ID schemeName="LotsGroup"]`.
+  - Set its `.field` to "awa-cri-num".
+  - Set its `.name` to "Award Criterion Number Fixed".
+
+```xml
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-fixed"/>
+                    <efac:FieldsPrivacy>
+                      <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-num</efbc:FieldIdentifierCode>
+                    </efac:FieldsPrivacy>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "field": "awa-cri-num",
+      "id": "awa-cri-num-fixed-GLO-0001",
+      "name": "Award Criterion Number Fixed"
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-195(BT-541)-LotsGroup-Threshold">
+        <td class="field break-all">
+            <p><b>BT-195(BT-541)-LotsGroup-Threshold</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Identifier</p><p><i>BT-195:</i> Identifier of the field that shall not be immediately published. Only fields concerning the Result value and groups of fields concerning the Tender and Procedure Lot Result can be unpublished. In the case of the European Parliament and Council Directive 2014/25/EU, the award criteria, the procurement procedure, certain dates and in certain cases information about the nature and quantity of a service can be unpublished as well.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:FieldIdentifierCode</span></code>
+        </td>
+        <td class="mapping">
+
+- Add a `withheldInformationItem` to the `withheldInformation` array, and:
+  - Set its `.id` to `[efbc:FieldIdentifierCode]-threshold-[ancestor::cac:ProcurementProjectLot/cbc:ID schemeName="LotsGroup"]`.
+  - Set its `.field` to "awa-cri-num".
+  - Set its `.name` to "Award Criterion Number Threshold".
+
+```xml
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-threshold"/>
+                    <efac:FieldsPrivacy>
+                      <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-num</efbc:FieldIdentifierCode>
+                    </efac:FieldsPrivacy>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "field": "awa-cri-num",
+      "id": "awa-cri-num-threshold-GLO-0001",
+      "name": "Award Criterion Number Threshold"
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-195(BT-541)-LotsGroup-Weight">
+        <td class="field break-all">
+            <p><b>BT-195(BT-541)-LotsGroup-Weight</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Identifier</p><p><i>BT-195:</i> Identifier of the field that shall not be immediately published. Only fields concerning the Result value and groups of fields concerning the Tender and Procedure Lot Result can be unpublished. In the case of the European Parliament and Council Directive 2014/25/EU, the award criteria, the procurement procedure, certain dates and in certain cases information about the nature and quantity of a service can be unpublished as well.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:FieldIdentifierCode</span></code>
+        </td>
+        <td class="mapping">
+
+- Add a `withheldInformationItem` to the `withheldInformation` array, and:
+  - Set its `.id` to `[efbc:FieldIdentifierCode]-weight-[ancestor::cac:ProcurementProjectLot/cbc:ID schemeName="LotsGroup"]`.
+  - Set its `.field` to "awa-cri-num".
+  - Set its `.name` to "Award Criterion Number Weight".
+
+```xml
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-weight"/>
+                    <efac:FieldsPrivacy>
+                      <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-num</efbc:FieldIdentifierCode>
+                    </efac:FieldsPrivacy>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "field": "awa-cri-num",
+      "id": "awa-cri-num-weight-GLO-0001",
+      "name": "Award Criterion Number Weight"
     }
   ]
 }
@@ -3644,9 +4431,30 @@ Discard.
   - Set its `.name` to "Award Criterion Number Weight".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-wei</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efac:FieldsPrivacy>
+                      <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-wei</efbc:FieldIdentifierCode>
+                    </efac:FieldsPrivacy>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -3676,9 +4484,30 @@ Discard.
   - Set its `.name` to "Award Criterion Number Weight".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-wei</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efac:FieldsPrivacy>
+                      <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-wei</efbc:FieldIdentifierCode>
+                    </efac:FieldsPrivacy>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -3708,9 +4537,30 @@ Discard.
   - Set its `.name` to "Award Criterion Number Fixed".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-fix</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efac:FieldsPrivacy>
+                      <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-fix</efbc:FieldIdentifierCode>
+                    </efac:FieldsPrivacy>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -3740,9 +4590,30 @@ Discard.
   - Set its `.name` to "Award Criterion Number Fixed".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-fix</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efac:FieldsPrivacy>
+                      <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-fix</efbc:FieldIdentifierCode>
+                    </efac:FieldsPrivacy>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -3772,9 +4643,30 @@ Discard.
   - Set its `.name` to "Award Criterion Number Threshold".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-thr</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efac:FieldsPrivacy>
+                      <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-thr</efbc:FieldIdentifierCode>
+                    </efac:FieldsPrivacy>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -3804,9 +4696,30 @@ Discard.
   - Set its `.name` to "Award Criterion Number Threshold".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-thr</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efac:FieldsPrivacy>
+                      <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-thr</efbc:FieldIdentifierCode>
+                    </efac:FieldsPrivacy>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -3836,9 +4749,28 @@ Discard.
   - Set its `.name` to "Award Criteria Complicated".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-com</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:FieldsPrivacy>
+                    <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-com</efbc:FieldIdentifierCode>
+                  </efac:FieldsPrivacy>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -3868,9 +4800,28 @@ Discard.
   - Set its `.name` to "Award Criteria Complicated".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-com</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:FieldsPrivacy>
+                    <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-com</efbc:FieldIdentifierCode>
+                  </efac:FieldsPrivacy>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -3890,7 +4841,7 @@ Discard.
       <tr id="BT-195(BT-553)-Tender">
         <td class="field break-all">
             <p><b>BT-195(BT-553)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Identifier</p><p><i>BT-195:</i> Identifier of the field that shall not be immediately published. Only fields concerning the Result value and groups of fields concerning the Tender and Procedure Lot Result can be unpublished. In the case of the European Parliament and Council Directive 2014/25/EU, the award criteria, the procurement procedure, certain dates and in certain cases information about the nature and quantity of a service can be unpublished as well.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val']/efbc:FieldIdentifierCode</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val']/efbc:FieldIdentifierCode</span></code>
         </td>
         <td class="mapping">
 
@@ -3900,9 +4851,16 @@ Discard.
   - Set its `.name` to "Subcontracting Value".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">sub-val</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="result">TEN-0001</cbc:ID>
+    <efac:SubcontractingTerm>
+      <efac:FieldsPrivacy>
+        <efbc:FieldIdentifierCode listName="non-publication-identifier">sub-val</efbc:FieldIdentifierCode>
+      </efac:FieldsPrivacy>
+    </efac:SubcontractingTerm>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -3922,7 +4880,7 @@ Discard.
       <tr id="BT-195(BT-554)-Tender">
         <td class="field break-all">
             <p><b>BT-195(BT-554)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Identifier</p><p><i>BT-195:</i> Identifier of the field that shall not be immediately published. Only fields concerning the Result value and groups of fields concerning the Tender and Procedure Lot Result can be unpublished. In the case of the European Parliament and Council Directive 2014/25/EU, the award criteria, the procurement procedure, certain dates and in certain cases information about the nature and quantity of a service can be unpublished as well.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-des']/efbc:FieldIdentifierCode</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-des']/efbc:FieldIdentifierCode</span></code>
         </td>
         <td class="mapping">
 
@@ -3932,9 +4890,16 @@ Discard.
   - Set its `.name` to "Subcontracting Description".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">sub-des</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="result">TEN-0001</cbc:ID>
+    <efac:SubcontractingTerm>
+      <efac:FieldsPrivacy>
+        <efbc:FieldIdentifierCode listName="non-publication-identifier">sub-des</efbc:FieldIdentifierCode>
+      </efac:FieldsPrivacy>
+    </efac:SubcontractingTerm>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -3954,7 +4919,7 @@ Discard.
       <tr id="BT-195(BT-555)-Tender">
         <td class="field break-all">
             <p><b>BT-195(BT-555)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Identifier</p><p><i>BT-195:</i> Identifier of the field that shall not be immediately published. Only fields concerning the Result value and groups of fields concerning the Tender and Procedure Lot Result can be unpublished. In the case of the European Parliament and Council Directive 2014/25/EU, the award criteria, the procurement procedure, certain dates and in certain cases information about the nature and quantity of a service can be unpublished as well.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per']/efbc:FieldIdentifierCode</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per']/efbc:FieldIdentifierCode</span></code>
         </td>
         <td class="mapping">
 
@@ -3964,9 +4929,16 @@ Discard.
   - Set its `.name` to "Subcontracting Percentage".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">sub-per</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="result">TEN-0001</cbc:ID>
+    <efac:SubcontractingTerm>
+      <efac:FieldsPrivacy>
+        <efbc:FieldIdentifierCode listName="non-publication-identifier">sub-per</efbc:FieldIdentifierCode>
+      </efac:FieldsPrivacy>
+    </efac:SubcontractingTerm>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -4015,9 +4987,16 @@ Discard.
   - Set its `.name` to "Buyer Review Request Count".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">buy-rev-cou</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efac:AppealRequestsStatistics>
+      <efac:FieldsPrivacy>
+        <efbc:FieldIdentifierCode listName="non-publication-identifier">buy-rev-cou</efbc:FieldIdentifierCode>
+      </efac:FieldsPrivacy>
+    </efac:AppealRequestsStatistics>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -4047,9 +5026,16 @@ Discard.
   - Set its `.name` to "Buyer Review Requests Irregularity Type".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">buy-rev-typ</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efac:AppealRequestsStatistics>
+      <efac:FieldsPrivacy>
+        <efbc:FieldIdentifierCode listName="non-publication-identifier">buy-rev-typ</efbc:FieldIdentifierCode>
+      </efac:FieldsPrivacy>
+    </efac:AppealRequestsStatistics>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -4079,9 +5065,16 @@ Discard.
   - Set its `.name` to "Framework Re-estimated Value".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">ree-val</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efac:FrameworkAgreementValues>
+      <efac:FieldsPrivacy>
+        <efbc:FieldIdentifierCode listName="non-publication-identifier">ree-val</efbc:FieldIdentifierCode>
+      </efac:FieldsPrivacy>
+    </efac:FrameworkAgreementValues>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -4111,9 +5104,16 @@ Discard.
   - Set its `.name` to "Maximum Value".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">max-val</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efac:FrameworkAgreementValues>
+      <efac:FieldsPrivacy>
+        <efbc:FieldIdentifierCode listName="non-publication-identifier">max-val</efbc:FieldIdentifierCode>
+      </efac:FieldsPrivacy>
+    </efac:FrameworkAgreementValues>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -4143,9 +5143,14 @@ Discard.
   - Set its `.name` to "Tender Lowest Value".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">ten-val-low</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efac:FieldsPrivacy>
+      <efbc:FieldIdentifierCode listName="non-publication-identifier">ten-val-low</efbc:FieldIdentifierCode>
+    </efac:FieldsPrivacy>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -4175,9 +5180,14 @@ Discard.
   - Set its `.name` to "Tender Highest Value".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">ten-val-hig</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efac:FieldsPrivacy>
+      <efbc:FieldIdentifierCode listName="non-publication-identifier">ten-val-hig</efbc:FieldIdentifierCode>
+    </efac:FieldsPrivacy>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -4207,9 +5217,16 @@ Discard.
   - Set its `.name` to "Buyer Review Complainants".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">rev-req</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efac:AppealRequestsStatistics>
+      <efac:FieldsPrivacy>
+        <efbc:FieldIdentifierCode listName="non-publication-identifier">rev-rec</efbc:FieldIdentifierCode>
+      </efac:FieldsPrivacy>
+    </efac:AppealRequestsStatistics>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -4239,9 +5256,14 @@ Discard.
   - Set its `.name` to "Winning Tender Value".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">win-ten-val</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="result">TEN-0001</cbc:ID>
+    <efac:FieldsPrivacy>
+      <efbc:FieldIdentifierCode listName="non-publication-identifier">win-ten-val</efbc:FieldIdentifierCode>
+    </efac:FieldsPrivacy>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -4261,7 +5283,7 @@ Discard.
       <tr id="BT-195(BT-730)-Tender">
         <td class="field break-all">
             <p><b>BT-195(BT-730)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Identifier</p><p><i>BT-195:</i> Identifier of the field that shall not be immediately published. Only fields concerning the Result value and groups of fields concerning the Tender and Procedure Lot Result can be unpublished. In the case of the European Parliament and Council Directive 2014/25/EU, the award criteria, the procurement procedure, certain dates and in certain cases information about the nature and quantity of a service can be unpublished as well.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val-kno']/efbc:FieldIdentifierCode</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val-kno']/efbc:FieldIdentifierCode</span></code>
         </td>
         <td class="mapping">
 
@@ -4280,7 +5302,7 @@ Discard. BT-730 is discarded as it is implied by BT-553.
       <tr id="BT-195(BT-731)-Tender">
         <td class="field break-all">
             <p><b>BT-195(BT-731)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Identifier</p><p><i>BT-195:</i> Identifier of the field that shall not be immediately published. Only fields concerning the Result value and groups of fields concerning the Tender and Procedure Lot Result can be unpublished. In the case of the European Parliament and Council Directive 2014/25/EU, the award criteria, the procurement procedure, certain dates and in certain cases information about the nature and quantity of a service can be unpublished as well.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per-kno']/efbc:FieldIdentifierCode</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per-kno']/efbc:FieldIdentifierCode</span></code>
         </td>
         <td class="mapping">
 
@@ -4309,9 +5331,28 @@ Discard. BT-731 is discarded as it is implied by BT-555.
   - Set its `.name` to "Award Criteria Order Justification".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-ord</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:FieldsPrivacy>
+                    <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-ord</efbc:FieldIdentifierCode>
+                  </efac:FieldsPrivacy>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -4341,9 +5382,28 @@ Discard. BT-731 is discarded as it is implied by BT-555.
   - Set its `.name` to "Award Criteria Order Justification".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-ord</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:FieldsPrivacy>
+                    <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-ord</efbc:FieldIdentifierCode>
+                  </efac:FieldsPrivacy>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -4373,9 +5433,28 @@ Discard. BT-731 is discarded as it is implied by BT-555.
   - Set its `.name` to "Award Criterion Name".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-nam</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:FieldsPrivacy>
+                    <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-ord</efbc:FieldIdentifierCode>
+                  </efac:FieldsPrivacy>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -4405,9 +5484,28 @@ Discard. BT-731 is discarded as it is implied by BT-555.
   - Set its `.name` to "Award Criterion Name".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-nam</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:FieldsPrivacy>
+                    <efbc:FieldIdentifierCode listName="non-publication-identifier">awa-cri-ord</efbc:FieldIdentifierCode>
+                  </efac:FieldsPrivacy>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -4491,7 +5589,7 @@ Discard. BT-731 is discarded as it is implied by BT-555.
       <tr id="BT-195(BT-773)-Tender">
         <td class="field break-all">
             <p><b>BT-195(BT-773)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Identifier</p><p><i>BT-195:</i> Identifier of the field that shall not be immediately published. Only fields concerning the Result value and groups of fields concerning the Tender and Procedure Lot Result can be unpublished. In the case of the European Parliament and Council Directive 2014/25/EU, the award criteria, the procurement procedure, certain dates and in certain cases information about the nature and quantity of a service can be unpublished as well.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-con']/efbc:FieldIdentifierCode</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-con']/efbc:FieldIdentifierCode</span></code>
         </td>
         <td class="mapping">
 
@@ -4501,9 +5599,16 @@ Discard. BT-731 is discarded as it is implied by BT-555.
   - Set its `.name` to "Subcontracting".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">sub-con</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="result">TEN-0001</cbc:ID>
+    <efac:SubcontractingTerm>
+      <efac:FieldsPrivacy>
+        <efbc:FieldIdentifierCode listName="non-publication-identifier">sub-con</efbc:FieldIdentifierCode>
+      </efac:FieldsPrivacy>
+    </efac:SubcontractingTerm>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -4533,9 +5638,20 @@ Discard. BT-731 is discarded as it is implied by BT-555.
   - Set its `.name` to "Procedure Features".
 
 ```xml
-<efac:FieldsPrivacy>
-  <efbc:FieldIdentifierCode listName="non-publication-identifier">pro-fea</efbc:FieldIdentifierCode>
-</efac:FieldsPrivacy>
+<cbc:ContractFolderID>18d27a53-0109-4f93-9231-6659d931bce0</cbc:ContractFolderID>
+<cac:TenderingProcess>
+  <ext:UBLExtensions>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <efext:EformsExtension>
+          <efac:FieldsPrivacy>
+            <efbc:FieldIdentifierCode listName="non-publication-identifier">pro-fea</efbc:FieldIdentifierCode>
+          </efac:FieldsPrivacy>
+        </efext:EformsExtension>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+  </ext:UBLExtensions>
+</cac:TenderingProcess>
 ```
 
 ```json
@@ -5160,14 +6276,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-540)-LotsGroup an
 
 </td>
       </tr>
-      <tr id="BT-196(BT-541)-Lot">
+      <tr id="BT-196(BT-541)-Lot-Fixed">
         <td class="field break-all">
-            <p><b>BT-196(BT-541)-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Description</p><p><i>BT-196:</i> The justification for not immediately publishing a field and for the choice of a later date at which it can be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:ReasonDescription</span></code>
+            <p><b>BT-196(BT-541)-Lot-Fixed</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Description</p><p><i>BT-196:</i> The justification for not immediately publishing a field and for the choice of a later date at which it can be published.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:ReasonDescription</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]` and map to its `.rationale`.
+Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot-Fixed and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]` and map to its `.rationale`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -5187,14 +6303,122 @@ Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot and `anc
 
 </td>
       </tr>
-      <tr id="BT-196(BT-541)-LotsGroup">
+      <tr id="BT-196(BT-541)-Lot-Threshold">
         <td class="field break-all">
-            <p><b>BT-196(BT-541)-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Description</p><p><i>BT-196:</i> The justification for not immediately publishing a field and for the choice of a later date at which it can be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:ReasonDescription</span></code>
+            <p><b>BT-196(BT-541)-Lot-Threshold</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Description</p><p><i>BT-196:</i> The justification for not immediately publishing a field and for the choice of a later date at which it can be published.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:ReasonDescription</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]` and map to its `.rationale`.
+Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot-Threshold and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]` and map to its `.rationale`.
+
+```xml
+<efac:FieldsPrivacy>
+  <efbc:ReasonDescription languageID="ENG">Information delayed publication because of ...</efbc:ReasonDescription>
+</efac:FieldsPrivacy>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "rationale": "Information delayed publication because of ..."
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-196(BT-541)-Lot-Weight">
+        <td class="field break-all">
+            <p><b>BT-196(BT-541)-Lot-Weight</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Description</p><p><i>BT-196:</i> The justification for not immediately publishing a field and for the choice of a later date at which it can be published.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:ReasonDescription</span></code>
+        </td>
+        <td class="mapping">
+
+Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot-Weight and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]` and map to its `.rationale`.
+
+```xml
+<efac:FieldsPrivacy>
+  <efbc:ReasonDescription languageID="ENG">Information delayed publication because of ...</efbc:ReasonDescription>
+</efac:FieldsPrivacy>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "rationale": "Information delayed publication because of ..."
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-196(BT-541)-LotsGroup-Fixed">
+        <td class="field break-all">
+            <p><b>BT-196(BT-541)-LotsGroup-Fixed</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Description</p><p><i>BT-196:</i> The justification for not immediately publishing a field and for the choice of a later date at which it can be published.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:ReasonDescription</span></code>
+        </td>
+        <td class="mapping">
+
+Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup-Fixed and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]` and map to its `.rationale`.
+
+```xml
+<efac:FieldsPrivacy>
+  <efbc:ReasonDescription languageID="ENG">Information delayed publication because of ...</efbc:ReasonDescription>
+</efac:FieldsPrivacy>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "rationale": "Information delayed publication because of ..."
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-196(BT-541)-LotsGroup-Threshold">
+        <td class="field break-all">
+            <p><b>BT-196(BT-541)-LotsGroup-Threshold</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Description</p><p><i>BT-196:</i> The justification for not immediately publishing a field and for the choice of a later date at which it can be published.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:ReasonDescription</span></code>
+        </td>
+        <td class="mapping">
+
+Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup-Threshold and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]` and map to its `.rationale`.
+
+```xml
+<efac:FieldsPrivacy>
+  <efbc:ReasonDescription languageID="ENG">Information delayed publication because of ...</efbc:ReasonDescription>
+</efac:FieldsPrivacy>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "rationale": "Information delayed publication because of ..."
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-196(BT-541)-LotsGroup-Weight">
+        <td class="field break-all">
+            <p><b>BT-196(BT-541)-LotsGroup-Weight</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Description</p><p><i>BT-196:</i> The justification for not immediately publishing a field and for the choice of a later date at which it can be published.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:ReasonDescription</span></code>
+        </td>
+        <td class="mapping">
+
+Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup-Weight and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]` and map to its `.rationale`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -5433,7 +6657,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-543)-LotsGroup an
       <tr id="BT-196(BT-553)-Tender">
         <td class="field break-all">
             <p><b>BT-196(BT-553)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Description</p><p><i>BT-196:</i> The justification for not immediately publishing a field and for the choice of a later date at which it can be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val']/efbc:ReasonDescription</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val']/efbc:ReasonDescription</span></code>
         </td>
         <td class="mapping">
 
@@ -5460,7 +6684,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-553)-Tender and `
       <tr id="BT-196(BT-554)-Tender">
         <td class="field break-all">
             <p><b>BT-196(BT-554)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Description</p><p><i>BT-196:</i> The justification for not immediately publishing a field and for the choice of a later date at which it can be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-des']/efbc:ReasonDescription</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-des']/efbc:ReasonDescription</span></code>
         </td>
         <td class="mapping">
 
@@ -5487,7 +6711,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-554)-Tender and `
       <tr id="BT-196(BT-555)-Tender">
         <td class="field break-all">
             <p><b>BT-196(BT-555)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Description</p><p><i>BT-196:</i> The justification for not immediately publishing a field and for the choice of a later date at which it can be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per']/efbc:ReasonDescription</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per']/efbc:ReasonDescription</span></code>
         </td>
         <td class="mapping">
 
@@ -5749,7 +6973,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-720)-Tender and `
       <tr id="BT-196(BT-730)-Tender">
         <td class="field break-all">
             <p><b>BT-196(BT-730)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Description</p><p><i>BT-196:</i> The justification for not immediately publishing a field and for the choice of a later date at which it can be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val-kno']/efbc:ReasonDescription</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val-kno']/efbc:ReasonDescription</span></code>
         </td>
         <td class="mapping">
 
@@ -5768,7 +6992,7 @@ Discard. BT-730 is discarded as it is implied by BT-553.
       <tr id="BT-196(BT-731)-Tender">
         <td class="field break-all">
             <p><b>BT-196(BT-731)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Description</p><p><i>BT-196:</i> The justification for not immediately publishing a field and for the choice of a later date at which it can be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per-kno']/efbc:ReasonDescription</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per-kno']/efbc:ReasonDescription</span></code>
         </td>
         <td class="mapping">
 
@@ -5949,7 +7173,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-760)-LotResult an
       <tr id="BT-196(BT-773)-Tender">
         <td class="field break-all">
             <p><b>BT-196(BT-773)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Description</p><p><i>BT-196:</i> The justification for not immediately publishing a field and for the choice of a later date at which it can be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-con']/efbc:ReasonDescription</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-con']/efbc:ReasonDescription</span></code>
         </td>
         <td class="mapping">
 
@@ -6002,12 +7226,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-88)-Procedure and
       </tr>
       <tr id="BT-197(BT-09)-Procedure">
         <td class="field break-all">
-            <p><b>BT-197(BT-09)-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-09)-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[cbc:ID/text()='CrossBorderLaw']/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='cro-bor-law']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-09)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-09)-Procedure. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6019,12 +7243,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-09)-Procedure. Ad
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6034,12 +7260,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-09)-Procedure. Ad
       </tr>
       <tr id="BT-197(BT-105)-Procedure">
         <td class="field break-all">
-            <p><b>BT-197(BT-105)-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-105)-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='pro-typ']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-105)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-105)-Procedure. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6051,12 +7277,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-105)-Procedure. A
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6066,12 +7294,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-105)-Procedure. A
       </tr>
       <tr id="BT-197(BT-106)-Procedure">
         <td class="field break-all">
-            <p><b>BT-197(BT-106)-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-106)-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='accelerated-procedure']/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='pro-acc']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-106)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-106)-Procedure. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6083,12 +7311,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-106)-Procedure. A
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6098,7 +7328,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-106)-Procedure. A
       </tr>
       <tr id="BT-197(BT-1118)-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-1118)-NoticeResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-1118)-NoticeResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='not-app-val']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
@@ -6117,7 +7347,7 @@ Discard.
       </tr>
       <tr id="BT-197(BT-118)-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-118)-NoticeResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-118)-NoticeResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='not-max-val']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
@@ -6136,12 +7366,12 @@ Discard.
       </tr>
       <tr id="BT-197(BT-1252)-Procedure">
         <td class="field break-all">
-            <p><b>BT-197(BT-1252)-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-1252)-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='direct-award-justification']/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='dir-awa-pre']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6153,12 +7383,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. 
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6168,12 +7400,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. 
       </tr>
       <tr id="BT-197(BT-135)-Procedure">
         <td class="field break-all">
-            <p><b>BT-197(BT-135)-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-135)-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='direct-award-justification']/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='dir-awa-tex']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6185,12 +7417,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. 
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6200,12 +7434,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-1252)-Procedure. 
       </tr>
       <tr id="BT-197(BT-1351)-Procedure">
         <td class="field break-all">
-            <p><b>BT-197(BT-1351)-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-1351)-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='accelerated-procedure']/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='pro-acc-jus']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-1351)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-1351)-Procedure. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6217,12 +7451,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-1351)-Procedure. 
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6232,12 +7468,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-1351)-Procedure. 
       </tr>
       <tr id="BT-197(BT-136)-Procedure">
         <td class="field break-all">
-            <p><b>BT-197(BT-136)-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-136)-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='direct-award-justification']/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='dir-awa-jus']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-136)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-136)-Procedure. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6249,12 +7485,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-136)-Procedure. A
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6264,12 +7502,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-136)-Procedure. A
       </tr>
       <tr id="BT-197(BT-142)-LotResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-142)-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-142)-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='win-cho']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-142)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-142)-LotResult and `ancestor::efac:LotResult`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6281,12 +7519,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-142)-LotResult an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6296,12 +7536,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-142)-LotResult an
       </tr>
       <tr id="BT-197(BT-144)-LotResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-144)-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-144)-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:DecisionReason/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='no-awa-rea']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-144)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-144)-LotResult and `ancestor::efac:LotResult`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6313,12 +7553,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-144)-LotResult an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6328,7 +7570,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-144)-LotResult an
       </tr>
       <tr id="BT-197(BT-156)-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-156)-NoticeResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-156)-NoticeResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:GroupFramework/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='gro-max-val']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
@@ -6347,7 +7589,7 @@ Discard.
       </tr>
       <tr id="BT-197(BT-1561)-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-1561)-NoticeResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-1561)-NoticeResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:GroupFramework/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='gro-ree-val']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
@@ -6366,12 +7608,12 @@ Discard.
       </tr>
       <tr id="BT-197(BT-160)-Tender">
         <td class="field break-all">
-            <p><b>BT-197(BT-160)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-160)-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:ConcessionRevenue/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='con-rev-buy']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-160)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-160)-Tender and `ancestor::efac:LotTender`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6383,12 +7625,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-160)-Tender and `
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6398,7 +7642,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-160)-Tender and `
       </tr>
       <tr id="BT-197(BT-161)-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-161)-NoticeResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-161)-NoticeResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='not-val']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
@@ -6417,12 +7661,12 @@ Discard.
       </tr>
       <tr id="BT-197(BT-162)-Tender">
         <td class="field break-all">
-            <p><b>BT-197(BT-162)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-162)-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:ConcessionRevenue/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='con-rev-use']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-162)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-162)-Tender and `ancestor::efac:LotTender`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6434,12 +7678,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-162)-Tender and `
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6449,12 +7695,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-162)-Tender and `
       </tr>
       <tr id="BT-197(BT-163)-Tender">
         <td class="field break-all">
-            <p><b>BT-197(BT-163)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-163)-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:ConcessionRevenue/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='val-con-des']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-163)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-163)-Tender and `ancestor::efac:LotTender`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6466,12 +7712,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-163)-Tender and `
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6481,12 +7729,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-163)-Tender and `
       </tr>
       <tr id="BT-197(BT-171)-Tender">
         <td class="field break-all">
-            <p><b>BT-197(BT-171)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-171)-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='ten-ran']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-171)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-171)-Tender and `ancestor::efac:LotTender`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6498,12 +7746,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-171)-Tender and `
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6513,12 +7763,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-171)-Tender and `
       </tr>
       <tr id="BT-197(BT-191)-Tender">
         <td class="field break-all">
-            <p><b>BT-197(BT-191)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-191)-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:Origin/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='cou-ori']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-191)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-191)-Tender and `ancestor::efac:LotTender`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6530,12 +7780,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-191)-Tender and `
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6545,12 +7797,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-191)-Tender and `
       </tr>
       <tr id="BT-197(BT-193)-Tender">
         <td class="field break-all">
-            <p><b>BT-197(BT-193)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-193)-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='win-ten-var']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-193)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-193)-Tender and `ancestor::efac:LotTender`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6562,12 +7814,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-193)-Tender and `
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6577,12 +7831,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-193)-Tender and `
       </tr>
       <tr id="BT-197(BT-539)-Lot">
         <td class="field break-all">
-            <p><b>BT-197(BT-539)-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-539)-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-typ']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-539)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-539)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6594,12 +7848,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-539)-Lot and `anc
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6609,12 +7865,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-539)-Lot and `anc
       </tr>
       <tr id="BT-197(BT-539)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-197(BT-539)-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-539)-LotsGroup</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-typ']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-539)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-539)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6626,12 +7882,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-539)-LotsGroup an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6641,12 +7899,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-539)-LotsGroup an
       </tr>
       <tr id="BT-197(BT-540)-Lot">
         <td class="field break-all">
-            <p><b>BT-197(BT-540)-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-540)-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-des']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-540)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-540)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6658,12 +7916,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-540)-Lot and `anc
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6673,12 +7933,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-540)-Lot and `anc
       </tr>
       <tr id="BT-197(BT-540)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-197(BT-540)-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-540)-LotsGroup</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-des']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-540)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-540)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6690,12 +7950,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-540)-LotsGroup an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6703,14 +7965,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-540)-LotsGroup an
 
 </td>
       </tr>
-      <tr id="BT-197(BT-541)-Lot">
+      <tr id="BT-197(BT-541)-Lot-Fixed">
         <td class="field break-all">
-            <p><b>BT-197(BT-541)-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/cbc:ReasonCode</span></code>
+            <p><b>BT-197(BT-541)-Lot-Fixed</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot-Fixed and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6722,12 +7984,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot and `anc
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6735,14 +7999,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot and `anc
 
 </td>
       </tr>
-      <tr id="BT-197(BT-541)-LotsGroup">
+      <tr id="BT-197(BT-541)-Lot-Threshold">
         <td class="field break-all">
-            <p><b>BT-197(BT-541)-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/cbc:ReasonCode</span></code>
+            <p><b>BT-197(BT-541)-Lot-Threshold</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot-Threshold and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6754,12 +8018,150 @@ Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-197(BT-541)-Lot-Weight">
+        <td class="field break-all">
+            <p><b>BT-197(BT-541)-Lot-Weight</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/cbc:ReasonCode</span></code>
+        </td>
+        <td class="mapping">
+
+Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot-Weight and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+
+```xml
+<efac:FieldsPrivacy>
+  <cbc:ReasonCode listName="non-publication-justification">oth-int</cbc:ReasonCode>
+</efac:FieldsPrivacy>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-197(BT-541)-LotsGroup-Fixed">
+        <td class="field break-all">
+            <p><b>BT-197(BT-541)-LotsGroup-Fixed</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/cbc:ReasonCode</span></code>
+        </td>
+        <td class="mapping">
+
+Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup-Fixed and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+
+```xml
+<efac:FieldsPrivacy>
+  <cbc:ReasonCode listName="non-publication-justification">oth-int</cbc:ReasonCode>
+</efac:FieldsPrivacy>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-197(BT-541)-LotsGroup-Threshold">
+        <td class="field break-all">
+            <p><b>BT-197(BT-541)-LotsGroup-Threshold</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/cbc:ReasonCode</span></code>
+        </td>
+        <td class="mapping">
+
+Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup-Threshold and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+
+```xml
+<efac:FieldsPrivacy>
+  <cbc:ReasonCode listName="non-publication-justification">oth-int</cbc:ReasonCode>
+</efac:FieldsPrivacy>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-197(BT-541)-LotsGroup-Weight">
+        <td class="field break-all">
+            <p><b>BT-197(BT-541)-LotsGroup-Weight</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/cbc:ReasonCode</span></code>
+        </td>
+        <td class="mapping">
+
+Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup-Weight and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+
+```xml
+<efac:FieldsPrivacy>
+  <cbc:ReasonCode listName="non-publication-justification">oth-int</cbc:ReasonCode>
+</efac:FieldsPrivacy>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6769,12 +8171,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup an
       </tr>
       <tr id="BT-197(BT-5421)-Lot">
         <td class="field break-all">
-            <p><b>BT-197(BT-5421)-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-5421)-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-wei']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5421)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-5421)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6786,12 +8188,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-5421)-Lot and `an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6801,12 +8205,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-5421)-Lot and `an
       </tr>
       <tr id="BT-197(BT-5421)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-197(BT-5421)-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-5421)-LotsGroup</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-wei']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5421)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-5421)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6818,12 +8222,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-5421)-LotsGroup a
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6833,12 +8239,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-5421)-LotsGroup a
       </tr>
       <tr id="BT-197(BT-5422)-Lot">
         <td class="field break-all">
-            <p><b>BT-197(BT-5422)-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-5422)-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-fix']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5422)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-5422)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6850,12 +8256,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-5422)-Lot and `an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6865,12 +8273,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-5422)-Lot and `an
       </tr>
       <tr id="BT-197(BT-5422)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-197(BT-5422)-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-5422)-LotsGroup</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-fix']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5422)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-5422)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6882,12 +8290,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-5422)-LotsGroup a
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6897,12 +8307,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-5422)-LotsGroup a
       </tr>
       <tr id="BT-197(BT-5423)-Lot">
         <td class="field break-all">
-            <p><b>BT-197(BT-5423)-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-5423)-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-thr']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5423)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-5423)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6914,12 +8324,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-5423)-Lot and `an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6929,12 +8341,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-5423)-Lot and `an
       </tr>
       <tr id="BT-197(BT-5423)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-197(BT-5423)-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-5423)-LotsGroup</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-thr']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-5423)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-5423)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6946,12 +8358,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-5423)-LotsGroup a
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6961,12 +8375,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-5423)-LotsGroup a
       </tr>
       <tr id="BT-197(BT-543)-Lot">
         <td class="field break-all">
-            <p><b>BT-197(BT-543)-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-543)-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-com']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-543)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-543)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -6978,12 +8392,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-543)-Lot and `anc
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -6993,12 +8409,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-543)-Lot and `anc
       </tr>
       <tr id="BT-197(BT-543)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-197(BT-543)-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-543)-LotsGroup</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-com']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-543)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-543)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7010,12 +8426,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-543)-LotsGroup an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7025,12 +8443,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-543)-LotsGroup an
       </tr>
       <tr id="BT-197(BT-553)-Tender">
         <td class="field break-all">
-            <p><b>BT-197(BT-553)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val']/cbc:ReasonCode</span></code>
+            <p><b>BT-197(BT-553)-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-553)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-553)-Tender and `ancestor::efac:LotTender`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7042,12 +8460,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-553)-Tender and `
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7057,12 +8477,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-553)-Tender and `
       </tr>
       <tr id="BT-197(BT-554)-Tender">
         <td class="field break-all">
-            <p><b>BT-197(BT-554)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-des']/cbc:ReasonCode</span></code>
+            <p><b>BT-197(BT-554)-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-des']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-554)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-554)-Tender and `ancestor::efac:LotTender`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7074,12 +8494,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-554)-Tender and `
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7089,12 +8511,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-554)-Tender and `
       </tr>
       <tr id="BT-197(BT-555)-Tender">
         <td class="field break-all">
-            <p><b>BT-197(BT-555)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per']/cbc:ReasonCode</span></code>
+            <p><b>BT-197(BT-555)-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-555)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-555)-Tender and `ancestor::efac:LotTender`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7106,12 +8528,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-555)-Tender and `
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7121,7 +8545,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-555)-Tender and `
       </tr>
       <tr id="BT-197(BT-556)-NoticeResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-556)-NoticeResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-556)-NoticeResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#_notice_result_level"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:GroupFramework/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='gro-max-ide']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
@@ -7140,12 +8564,12 @@ Discard.
       </tr>
       <tr id="BT-197(BT-635)-LotResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-635)-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-635)-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:AppealRequestsStatistics[efbc:StatisticsCode/@listName='irregularity-type']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='buy-rev-cou']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-635)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-635)-LotResult and `ancestor::efac:LotResult`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7157,12 +8581,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-635)-LotResult an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7172,12 +8598,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-635)-LotResult an
       </tr>
       <tr id="BT-197(BT-636)-LotResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-636)-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-636)-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:AppealRequestsStatistics[efbc:StatisticsCode/@listName='irregularity-type']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='buy-rev-typ']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-636)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-636)-LotResult and `ancestor::efac:LotResult`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7189,12 +8615,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-636)-LotResult an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7204,12 +8632,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-636)-LotResult an
       </tr>
       <tr id="BT-197(BT-660)-LotResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-660)-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-660)-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:FrameworkAgreementValues/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='ree-val']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-660)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-660)-LotResult and `ancestor::efac:LotResult`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7221,12 +8649,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-660)-LotResult an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7236,12 +8666,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-660)-LotResult an
       </tr>
       <tr id="BT-197(BT-709)-LotResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-709)-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-709)-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:FrameworkAgreementValues/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='max-val']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-709)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-709)-LotResult and `ancestor::efac:LotResult`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7253,12 +8683,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-709)-LotResult an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7268,12 +8700,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-709)-LotResult an
       </tr>
       <tr id="BT-197(BT-710)-LotResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-710)-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-710)-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='ten-val-low']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-710)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-710)-LotResult and `ancestor::efac:LotResult`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7285,12 +8717,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-710)-LotResult an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7300,12 +8734,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-710)-LotResult an
       </tr>
       <tr id="BT-197(BT-711)-LotResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-711)-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-711)-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='ten-val-hig']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-711)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-711)-LotResult and `ancestor::efac:LotResult`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7317,12 +8751,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-711)-LotResult an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7332,12 +8768,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-711)-LotResult an
       </tr>
       <tr id="BT-197(BT-712)-LotResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-712)-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-712)-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:AppealRequestsStatistics[efbc:StatisticsCode/@listName='review-type']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='rev-req']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-712)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-712)-LotResult and `ancestor::efac:LotResult`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7349,12 +8785,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-712)-LotResult an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7364,12 +8802,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-712)-LotResult an
       </tr>
       <tr id="BT-197(BT-720)-Tender">
         <td class="field break-all">
-            <p><b>BT-197(BT-720)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-720)-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='win-ten-val']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-720)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-720)-Tender and `ancestor::efac:LotTender`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7381,12 +8819,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-720)-Tender and `
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7396,8 +8836,8 @@ Get the `withheldInformationItem` object created for BT-195(BT-720)-Tender and `
       </tr>
       <tr id="BT-197(BT-730)-Tender">
         <td class="field break-all">
-            <p><b>BT-197(BT-730)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val-kno']/cbc:ReasonCode</span></code>
+            <p><b>BT-197(BT-730)-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val-kno']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
@@ -7415,8 +8855,8 @@ Discard. BT-730 is discarded as it is implied by BT-553.
       </tr>
       <tr id="BT-197(BT-731)-Tender">
         <td class="field break-all">
-            <p><b>BT-197(BT-731)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per-kno']/cbc:ReasonCode</span></code>
+            <p><b>BT-197(BT-731)-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per-kno']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
@@ -7434,12 +8874,12 @@ Discard. BT-731 is discarded as it is implied by BT-555.
       </tr>
       <tr id="BT-197(BT-733)-Lot">
         <td class="field break-all">
-            <p><b>BT-197(BT-733)-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-733)-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-ord']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-733)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-733)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7451,12 +8891,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-733)-Lot and `anc
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7466,12 +8908,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-733)-Lot and `anc
       </tr>
       <tr id="BT-197(BT-733)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-197(BT-733)-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-733)-LotsGroup</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-ord']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-733)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-733)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7483,12 +8925,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-733)-LotsGroup an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7498,12 +8942,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-733)-LotsGroup an
       </tr>
       <tr id="BT-197(BT-734)-Lot">
         <td class="field break-all">
-            <p><b>BT-197(BT-734)-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-734)-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-nam']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-734)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-734)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7515,12 +8959,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-734)-Lot and `anc
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7530,12 +8976,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-734)-Lot and `anc
       </tr>
       <tr id="BT-197(BT-734)-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-197(BT-734)-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-734)-LotsGroup</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-nam']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-734)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-734)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7547,12 +8993,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-734)-LotsGroup an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7562,12 +9010,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-734)-LotsGroup an
       </tr>
       <tr id="BT-197(BT-759)-LotResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-759)-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-759)-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:ReceivedSubmissionsStatistics/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='rec-sub-cou']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-759)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-759)-LotResult and `ancestor::efac:LotResult`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7579,12 +9027,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-759)-LotResult an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7594,12 +9044,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-759)-LotResult an
       </tr>
       <tr id="BT-197(BT-760)-LotResult">
         <td class="field break-all">
-            <p><b>BT-197(BT-760)-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-760)-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotResultLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:ReceivedSubmissionsStatistics/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='rec-sub-typ']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-760)-LotResult and `ancestor::efac:LotResult`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-760)-LotResult and `ancestor::efac:LotResult`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7611,12 +9061,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-760)-LotResult an
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7626,12 +9078,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-760)-LotResult an
       </tr>
       <tr id="BT-197(BT-773)-Tender">
         <td class="field break-all">
-            <p><b>BT-197(BT-773)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-con']/cbc:ReasonCode</span></code>
+            <p><b>BT-197(BT-773)-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-con']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-773)-Tender and `ancestor::efac:LotTender`. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-773)-Tender and `ancestor::efac:LotTender`. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7643,12 +9095,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-773)-Tender and `
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -7658,12 +9112,12 @@ Get the `withheldInformationItem` object created for BT-195(BT-773)-Tender and `
       </tr>
       <tr id="BT-197(BT-88)-Procedure">
         <td class="field break-all">
-            <p><b>BT-197(BT-88)-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
+            <p><b>BT-197(BT-88)-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#procedureLevelSection"></a><br>Unpublished Justification Code</p><p><i>BT-197:</i> The justification for not immediately publishing a field.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingProcess/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='pro-fea']/cbc:ReasonCode</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-88)-Procedure. Add a `.rationaleClassification` object to it and map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
+Get the `withheldInformationItem` object created for BT-195(BT-88)-Procedure. Add a `Classification` object to the withheld information item's `.rationalClassifications` array, map the value of the `cbc:ReasonCode` to `.id`, and set `.scheme` to 'eu-non-publication-justification'. Look up the code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/non-publication-justification), map its label to `.description` and its URI to `.uri`.
 
 ```xml
 <efac:FieldsPrivacy>
@@ -7675,12 +9129,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-88)-Procedure. Ad
 {
   "withheldInformation": [
     {
-      "rationaleClassification": {
-        "scheme": "non-publication-justification",
-        "id": "oth-int",
-        "description": "Other public interest",
-        "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
-      }
+      "rationaleClassifications": [
+        {
+          "scheme": "non-publication-justification",
+          "id": "oth-int",
+          "description": "Other public interest",
+          "uri": "http://publications.europa.eu/resource/authority/non-publication-justification/oth-int"
+        }
+      ]
     }
   ]
 }
@@ -8296,14 +9752,14 @@ Get the `withheldInformationItem` object created for BT-195(BT-540)-LotsGroup an
 
 </td>
       </tr>
-      <tr id="BT-198(BT-541)-Lot">
+      <tr id="BT-198(BT-541)-Lot-Fixed">
         <td class="field break-all">
-            <p><b>BT-198(BT-541)-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:PublicationDate</span></code>
+            <p><b>BT-198(BT-541)-Lot-Fixed</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot-Fixed and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8323,14 +9779,122 @@ Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot and `anc
 
 </td>
       </tr>
-      <tr id="BT-198(BT-541)-LotsGroup">
+      <tr id="BT-198(BT-541)-Lot-Threshold">
         <td class="field break-all">
-            <p><b>BT-198(BT-541)-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:PublicationDate</span></code>
+            <p><b>BT-198(BT-541)-Lot-Threshold</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
 
-Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
+Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot-Threshold and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
+
+```xml
+<efac:FieldsPrivacy>
+  <efbc:PublicationDate>2025-03-31+01:00</efbc:PublicationDate>
+</efac:FieldsPrivacy>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "availabilityDate": "2025-03-31T00:00:00+01:00"
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-198(BT-541)-Lot-Weight">
+        <td class="field break-all">
+            <p><b>BT-198(BT-541)-Lot-Weight</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:PublicationDate</span></code>
+        </td>
+        <td class="mapping">
+
+Get the `withheldInformationItem` object created for BT-195(BT-541)-Lot-Weight and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="Lot"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
+
+```xml
+<efac:FieldsPrivacy>
+  <efbc:PublicationDate>2025-03-31+01:00</efbc:PublicationDate>
+</efac:FieldsPrivacy>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "availabilityDate": "2025-03-31T00:00:00+01:00"
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-198(BT-541)-LotsGroup-Fixed">
+        <td class="field break-all">
+            <p><b>BT-198(BT-541)-LotsGroup-Fixed</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:PublicationDate</span></code>
+        </td>
+        <td class="mapping">
+
+Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup-Fixed and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
+
+```xml
+<efac:FieldsPrivacy>
+  <efbc:PublicationDate>2025-03-31+01:00</efbc:PublicationDate>
+</efac:FieldsPrivacy>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "availabilityDate": "2025-03-31T00:00:00+01:00"
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-198(BT-541)-LotsGroup-Threshold">
+        <td class="field break-all">
+            <p><b>BT-198(BT-541)-LotsGroup-Threshold</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:PublicationDate</span></code>
+        </td>
+        <td class="mapping">
+
+Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup-Threshold and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
+
+```xml
+<efac:FieldsPrivacy>
+  <efbc:PublicationDate>2025-03-31+01:00</efbc:PublicationDate>
+</efac:FieldsPrivacy>
+```
+
+```json
+{
+  "withheldInformation": [
+    {
+      "availabilityDate": "2025-03-31T00:00:00+01:00"
+    }
+  ]
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-198(BT-541)-LotsGroup-Weight">
+        <td class="field break-all">
+            <p><b>BT-198(BT-541)-LotsGroup-Weight</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotsGroupOfLotsLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='awa-cri-num']/efbc:PublicationDate</span></code>
+        </td>
+        <td class="mapping">
+
+Get the `withheldInformationItem` object created for BT-195(BT-541)-LotsGroup-Threshold and `ancestor::cac:ProcurementProjectLot[cbc:ID schemeName="LotsGroup"]`. [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.availabilityDate`
 
 ```xml
 <efac:FieldsPrivacy>
@@ -8569,7 +10133,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-543)-LotsGroup an
       <tr id="BT-198(BT-553)-Tender">
         <td class="field break-all">
             <p><b>BT-198(BT-553)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val']/efbc:PublicationDate</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
 
@@ -8596,7 +10160,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-553)-Tender and `
       <tr id="BT-198(BT-554)-Tender">
         <td class="field break-all">
             <p><b>BT-198(BT-554)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-des']/efbc:PublicationDate</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-des']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
 
@@ -8623,7 +10187,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-554)-Tender and `
       <tr id="BT-198(BT-555)-Tender">
         <td class="field break-all">
             <p><b>BT-198(BT-555)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per']/efbc:PublicationDate</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
 
@@ -8885,7 +10449,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-720)-Tender and `
       <tr id="BT-198(BT-730)-Tender">
         <td class="field break-all">
             <p><b>BT-198(BT-730)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val-kno']/efbc:PublicationDate</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-val-kno']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
 
@@ -8904,7 +10468,7 @@ Discard. BT-730 is discarded as it is implied by BT-553.
       <tr id="BT-198(BT-731)-Tender">
         <td class="field break-all">
             <p><b>BT-198(BT-731)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per-kno']/efbc:PublicationDate</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-per-kno']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
 
@@ -9083,7 +10647,7 @@ Get the `withheldInformationItem` object created for BT-195(BT-760)-LotResult an
       <tr id="BT-198(BT-773)-Tender">
         <td class="field break-all">
             <p><b>BT-198(BT-773)-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/withheld-publication.html#lotTenderLevelSection"></a><br>Unpublished Access Date</p><p><i>BT-198:</i> The later date at which the originally unpublished field shall be published.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-con']/efbc:PublicationDate</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efac:FieldsPrivacy[efbc:FieldIdentifierCode/text()='sub-con']/efbc:PublicationDate</span></code>
         </td>
         <td class="mapping">
 
@@ -9143,20 +10707,43 @@ Get the `withheldInformationItem` object created for BT-195(BT-88)-Procedure. [C
 
 This field maps to the same `Amendment` objects as created for BT-201-Contract and BT-202-Contract.
 
-For each `efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The `.id` can be any value guaranteed to be globally unique. For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
+Get the `contract` whose `id` is equal to `ancestor::efac:Change/efac:ChangedSection/efbc:ChangeSectionIdentifier`. If none exists yet:
+
+- Add a `Contract` to `contracts` and set its `.id` to the value of `ancestor::efac:Change/efac:ChangedSection/efbc:ChangeSectionIdentifier`
+- Get all LotResults (`ancestor::efac:NoticeResult/efac:LotResult`) with an `/efac:SettledContract/cbc:ID` equal to `ancestor::efac:Change/efac:ChangedSection/efbc:ChangeSectionIdentifier`
+- If there is exactly one, add its `/cbc:ID` to the contract's `.awardID`
+- If there is more than one, add each LotResult's `/cbc:ID` to the contract's `.awardIDs`
+
+For each `efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The .id can be any value guaranteed to be unique within the scope of the procedure.
 
 Map the value of this field to the amendment's `.rationaleClassifications.id`. Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/modification-justification) and map it to `.rationaleClassifications.description`, and set `.rationaleClassifications.scheme` to 'modification justification'.
 
 ```xml
-<efac:ChangeReason>
-  <cbc:ReasonCode listName="modification-justification">add-wss</cbc:ReasonCode>
-</efac:ChangeReason>
+<efac:ContractModification>
+  <efac:Change>
+    <efac:ChangedSection>
+      <efbc:ChangedSectionIdentifier>CON-0001</efbc:ChangedSectionIdentifier>
+    </efac:ChangedSection>
+  </efac:Change>
+  <efac:ChangeReason>
+    <cbc:ReasonCode listName="modification-justification">add-wss</cbc:ReasonCode>
+  </efac:ChangeReason>
+</efac:ContractModification>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "contracts": [
     {
+      "id": "CON-0001",
       "amendments": [
         {
           "id": "1",
@@ -9168,7 +10755,8 @@ Map the value of this field to the amendment's `.rationaleClassifications.id`. L
             }
           ]
         }
-      ]
+      ],
+      "awardID": "RES-0001"
     }
   ]
 }
@@ -9184,25 +10772,51 @@ Map the value of this field to the amendment's `.rationaleClassifications.id`. L
         <td class="mapping">
 
 This field maps to the same `Amendment` objects as created for BT-200-Contract and BT-202-Contract.
-For each `efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The `.id` can be any value guaranteed to be globally unique. For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
+
+Get the `contract` whose `id` is equal to `ancestor::efac:Change/efac:ChangedSection/efbc:ChangeSectionIdentifier`. If none exists yet:
+
+- Add a `Contract` to `contracts` and set its `.id` to the value of `ancestor::efac:Change/efac:ChangedSection/efbc:ChangeSectionIdentifier`
+- Get all LotResults (`ancestor::efac:NoticeResult/efac:LotResult`) with an `/efac:SettledContract/cbc:ID` equal to `ancestor::efac:Change/efac:ChangedSection/efbc:ChangeSectionIdentifier`
+- If there is exactly one, add its `/cbc:ID` to the contract's `.awardID`
+- If there is more than one, add each LotResult's `/cbc:ID` to the contract's `.awardIDs`
+
+For each `efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The .id can be any value guaranteed to be unique within the scope of the procedure.
+
 Map the value of this field to the amendment's `.rationale`
 
 ```xml
-<efac:ChangeReason>
-  <efbc:ReasonDescription languageID="ENG">The original business case was scoped as a technology replacement programme for a single system. It was agreed that the organisation should consider people and process in addition to systems replacement, and work has been re-scoped to accommodate this.</efbc:ReasonDescription>
-</efac:ChangeReason>
+<efac:ContractModification>
+  <efac:Change>
+    <efac:ChangedSection>
+      <efbc:ChangedSectionIdentifier>CON-0001</efbc:ChangedSectionIdentifier>
+    </efac:ChangedSection>
+  </efac:Change>
+  <efac:ChangeReason>
+    <efbc:ReasonDescription languageID="ENG">The original business case was scoped as a technology replacement programme for a single system. Analysis in the early stages of the programme indicated that two core enterprise systems should be replaced. In order to maximise benefit for these systems replacement activities, it was agreed that the organisation should consider people and process in addition to systems replacement, and work has been re-scoped to accommodate this.</efbc:ReasonDescription>
+  </efac:ChangeReason>
+</efac:ContractModification>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "contracts": [
     {
+      "id": "CON-0001",
       "amendments": [
         {
           "id": "1",
           "rationale": "The original business case was scoped as a technology replacement programme for a single system. It was agreed that the organisation should consider people and process in addition to systems replacement, and work has been re-scoped to accommodate this."
         }
-      ]
+      ],
+      "awardID": "RES-0001"
     }
   ]
 }
@@ -9218,25 +10832,49 @@ Map the value of this field to the amendment's `.rationale`
         <td class="mapping">
 
 This field maps to the same `Amendment` objects as created for BT-200-Contract and BT-201-Contract.
-For each `ancestor::efac:ContractModification/efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The `.id` can be any value guaranteed to be globally unique. For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
+
+Get the `contract` whose `id` is equal to `ancestor::efac:ChangedSection/efbc:ChangeSectionIdentifier`. If none exists yet:
+
+- Add a `Contract` to `contracts` and set its `.id` to the value of `ancestor::efac:ChangedSection/efbc:ChangeSectionIdentifier`
+- Get all LotResults (`ancestor::efac:NoticeResult/efac:LotResult`) with an `/efac:SettledContract/cbc:ID` equal to `ancestor::efac:ChangedSection/efbc:ChangeSectionIdentifier`
+- If there is exactly one, add its `/cbc:ID` to the contract's `.awardID`
+- If there is more than one, add each LotResult's `/cbc:ID` to the contract's `.awardIDs`
+
+For each `ancestor::efac:ContractModification/efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The .id can be any value guaranteed to be unique within the scope of the procedure.
+
 Map the value of this field to the amendment's `.description`.
 
 ```xml
-<efac:Change>
-  <efbc:ChangeDescription languageID="ENG">Increase in framework value</efbc:ChangeDescription>
-</efac:Change>
+<efac:ContractModification>
+  <efac:Change>
+    <efbc:ChangeDescription languageID="ENG">Increase in framework value</efbc:ChangeDescription>
+    <efac:ChangedSection>
+      <efbc:ChangedSectionIdentifier>CON-0001</efbc:ChangedSectionIdentifier>
+    </efac:ChangedSection>
+  </efac:Change>
+</efac:ContractModification>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "contracts": [
     {
+      "id": "CON-0001",
       "amendments": [
         {
           "id": "1",
           "description": "Increase in framework value."
         }
-      ]
+      ],
+      "awardID": "RES-0001"
     }
   ]
 }
@@ -9254,7 +10892,12 @@ Map the value of this field to the amendment's `.description`.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.title`.
 
 ```xml
-<cbc:Name languageID="ENG">Computer Network extension</cbc:Name>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cbc:Name languageID="ENG">Computer Network extension</cbc:Name>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -9262,6 +10905,7 @@ Map the value of this field to the amendment's `.description`.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "title": "Computer Network extension"
       }
     ]
@@ -9281,7 +10925,12 @@ Map the value of this field to the amendment's `.description`.
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot) and map to its `.title`.
 
 ```xml
-<cbc:Name languageID="ENG">Computer Network extension</cbc:Name>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">GLO-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cbc:Name languageID="ENG">Computer Network extension</cbc:Name>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -9289,6 +10938,7 @@ Map the value of this field to the amendment's `.description`.
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "title": "Computer Network extension"
       }
     ]
@@ -9351,10 +11001,15 @@ Map to `tender.title`
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.identifiers.id`, and set `.identifiers.scheme` to "internal".
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.identifiers.id`, and set `.identifiers.scheme` to 'internal'.
 
 ```xml
-<cbc:ID schemeName="InternalID">PROC/2020/0024-ABC-FGHI</cbc:ID>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cbc:ID schemeName="InternalID">PROC/2020/0024-ABC-FGHI</cbc:ID>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -9362,6 +11017,7 @@ Map to `tender.title`
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "identifiers": [
           {
             "id": "PROC/2020/0024-ABC-FGHI",
@@ -9383,10 +11039,15 @@ Map to `tender.title`
         </td>
         <td class="mapping">
 
-[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot) and map to its `.identifiers.id`, and set `.identifiers.scheme` to "internal".
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot) and map to its `.identifiers.id`, and set `.identifiers.scheme` to 'internal'.
 
 ```xml
-<cbc:ID schemeName="InternalID">PROC/2020/0024-ABC-FGHI</cbc:ID>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">GLO-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cbc:ID schemeName="InternalID">PROC/2020/0024-ABC-FGHI</cbc:ID>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -9394,6 +11055,7 @@ Map to `tender.title`
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "identifiers": [
           {
             "id": "PROC/2020/0024-ABC-FGHI",
@@ -9415,7 +11077,7 @@ Map to `tender.title`
         </td>
         <td class="mapping">
 
-Map to `tender.identifiers.id`, and set `identifiers.scheme` to "internal".
+Map to `tender.identifiers.id`, and set `identifiers.scheme` to 'internal'.
 
 ```xml
 <cbc:ID schemeName="InternalID">PROC/2020/0024-ABC-FGHI</cbc:ID>
@@ -9443,7 +11105,7 @@ Map to `tender.identifiers.id`, and set `identifiers.scheme` to "internal".
         </td>
         <td class="mapping">
 
-Map to `tender.identifiers.id`, and set `identifiers.scheme` to "internal".
+Map to `tender.identifiers.id`, and set `identifiers.scheme` to 'internal'.
 
 ```xml
 <cbc:ID schemeName="InternalID">PROC/2020/0024-ABC-FGHI</cbc:ID>
@@ -9471,10 +11133,15 @@ Map to `tender.identifiers.id`, and set `identifiers.scheme` to "internal".
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). If the vaLue of this field equals "works" or "services", map it to the lot's `.mainProcurementCategory`. If it equals "supplies", set the lot's `.mainProcurementCategory` to 'goods'. If it equals "combined", add to the lot's `.additionalProcurementCategories` array.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). If the value of this field equals "works" or "services", map it to the lot's `.mainProcurementCategory`. If it equals "supplies", set the lot's `.mainProcurementCategory` to 'goods'.
 
 ```xml
-<cbc:ProcurementTypeCode listName="contract-nature">works</cbc:ProcurementTypeCode>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cbc:ProcurementTypeCode listName="contract-nature">works</cbc:ProcurementTypeCode>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -9482,6 +11149,7 @@ Map to `tender.identifiers.id`, and set `identifiers.scheme` to "internal".
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "mainProcurementCategory": "works"
       }
     ]
@@ -9498,7 +11166,7 @@ Map to `tender.identifiers.id`, and set `identifiers.scheme` to "internal".
         </td>
         <td class="mapping">
 
-If the value of this field equals "works" or "services", map to `tender.mainProcurementCategory`. If it equals "supplies", set `tender.mainProcurementCategory` to 'goods'. If it equals "combined", add to the `tender.additionalProcurementCategories` array.
+If the value of this field equals "works" or "services", map to `tender.mainProcurementCategory`. If it equals "supplies", set `tender.mainProcurementCategory` to 'goods'.
 
 ```xml
 <cbc:ProcurementTypeCode listName="contract-nature">works</cbc:ProcurementTypeCode>
@@ -9521,7 +11189,7 @@ If the value of this field equals "works" or "services", map to `tender.mainProc
         </td>
         <td class="mapping">
 
-If the value of this field equals "works" or "services", map to `tender.mainProcurementCategory`. If it equals "supplies", set `tender.mainProcurementCategory` to 'goods'. If it equals "combined", add to the `tender.additionalProcurementCategories` array.
+If the value of this field equals "works" or "services", map to `tender.mainProcurementCategory`. If it equals "supplies", set `tender.mainProcurementCategory` to 'goods'.
 
 ```xml
 <cbc:ProcurementTypeCode listName="contract-nature">works</cbc:ProcurementTypeCode>
@@ -9547,7 +11215,12 @@ If the value of this field equals "works" or "services", map to `tender.mainProc
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.description`.
 
 ```xml
-<cbc:Description languageID="ENG">Procedure for the procurement of ...</cbc:Description>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cbc:Description languageID="ENG">Procedure for the procurement of ...</cbc:Description>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -9555,6 +11228,7 @@ If the value of this field equals "works" or "services", map to `tender.mainProc
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "description": "Procedure for the procurement of ..."
       }
     ]
@@ -9574,7 +11248,12 @@ If the value of this field equals "works" or "services", map to `tender.mainProc
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot) and map to its `.description`.
 
 ```xml
-<cbc:Description languageID="ENG">Procedure for the procurement of ...</cbc:Description>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">GLO-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cbc:Description languageID="ENG">Procedure for the procurement of ...</cbc:Description>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -9582,6 +11261,7 @@ If the value of this field equals "works" or "services", map to `tender.mainProc
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "description": "Procedure for the procurement of ..."
       }
     ]
@@ -9647,7 +11327,12 @@ Map to `tender.description`.
 [Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot) and map to its `.quantity`.
 
 ```xml
-<cbc:EstimatedOverallContractQuantity unitCode="TNE">45000</cbc:EstimatedOverallContractQuantity>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cbc:EstimatedOverallContractQuantity unitCode="TNE">45000</cbc:EstimatedOverallContractQuantity>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -9655,6 +11340,7 @@ Map to `tender.description`.
   "tender": {
     "items": [
       {
+        "id": "1",
         "quantity": 45000,
         "relatedLot": "LOT-0001"
       }
@@ -9679,9 +11365,14 @@ This field maps to the same objects as created for BT-263-Lot.
 Capitalize the value of `cbc:ItemClassificationCode[@listName]` and map to the classification's `.scheme`.
 
 ```xml
-<cac:AdditionalCommodityClassification>
-  <cbc:ItemClassificationCode listName="cpv">15311200</cbc:ItemClassificationCode>
-</cac:AdditionalCommodityClassification>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:AdditionalCommodityClassification>
+      <cbc:ItemClassificationCode listName="cpv">15311200</cbc:ItemClassificationCode>
+    </cac:AdditionalCommodityClassification>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -9689,6 +11380,7 @@ Capitalize the value of `cbc:ItemClassificationCode[@listName]` and map to the c
   "tender": {
     "items": [
       {
+        "id": "1",
         "additionalClassifications": [
           {
             "scheme": "CPV"
@@ -9727,6 +11419,7 @@ This field maps to the same objects as created for BT-263-Part. If no `Item` obj
   "tender": {
     "items": [
       {
+        "id": "1",
         "additionalClassifications": [
           {
             "scheme": "CPV"
@@ -9764,6 +11457,7 @@ This field maps to the same objects as created for BT-263-Procedure. If no `Item
   "tender": {
     "items": [
       {
+        "id": "1",
         "additionalClassifications": [
           {
             "scheme": "CPV"
@@ -9788,9 +11482,14 @@ This field maps to the same object as created for BT-262-Lot.
 [Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot). Capitalize the value of `cbc:ItemClassificationCode[@listName]` and map to the item's `.classification.scheme`.
 
 ```xml
-<cac:MainCommodityClassification>
-  <cbc:ItemClassificationCode listName="cpv">15311100</cbc:ItemClassificationCode>
-</cac:MainCommodityClassification>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:MainCommodityClassification>
+      <cbc:ItemClassificationCode listName="cpv">15311100</cbc:ItemClassificationCode>
+    </cac:MainCommodityClassification>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -9798,6 +11497,7 @@ This field maps to the same object as created for BT-262-Lot.
   "tender": {
     "items": [
       {
+        "id": "1",
         "classification": {
           "scheme": "CPV"
         },
@@ -9834,6 +11534,7 @@ This field maps to the same object as created for BT-262-Part. If no `Item` obje
   "tender": {
     "items": [
       {
+        "id": "1",
         "classification": {
           "scheme": "CPV"
         }
@@ -9869,6 +11570,7 @@ This field maps to the same object as created for BT-262-Procedure. If no `Item`
   "tender": {
     "items": [
       {
+        "id": "1",
         "classification": {
           "scheme": "CPV"
         }
@@ -9896,9 +11598,14 @@ This field maps to the same object as created for BT-26(m)-Lot. If no `Item` obj
 Map to the item's `.classification.id`.'
 
 ```xml
-<cac:MainCommodityClassification>
-  <cbc:ItemClassificationCode listName="cpv">15311100</cbc:ItemClassificationCode>
-</cac:MainCommodityClassification>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:MainCommodityClassification>
+      <cbc:ItemClassificationCode listName="cpv">15311100</cbc:ItemClassificationCode>
+    </cac:MainCommodityClassification>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10008,9 +11715,14 @@ This field maps to the same `Classification` objects as created for BT-26(a)-Lot
 For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add or update a corresponding `Classification` object in the item's `.additionalClassifications` array and map the value of this field to the classification's `.id`.
 
 ```xml
-<cac:AdditionalCommodityClassification>
-  <cbc:ItemClassificationCode listName="cpv">15311200</cbc:ItemClassificationCode>
-</cac:AdditionalCommodityClassification>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:AdditionalCommodityClassification>
+      <cbc:ItemClassificationCode listName="cpv">15311200</cbc:ItemClassificationCode>
+    </cac:AdditionalCommodityClassification>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10023,7 +11735,8 @@ For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add
           {
             "id": "15311200"
           }
-        ]
+        ],
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -10120,9 +11833,14 @@ For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), map to its `.value.amount` and map `@currencyID` to its `value.currency`.
 
 ```xml
-<cac:RequestedTenderTotal>
-  <cbc:EstimatedOverallContractAmount currencyID="EUR">250000</cbc:EstimatedOverallContractAmount>
-</cac:RequestedTenderTotal>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:RequestedTenderTotal>
+      <cbc:EstimatedOverallContractAmount currencyID="EUR">250000</cbc:EstimatedOverallContractAmount>
+    </cac:RequestedTenderTotal>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10130,6 +11848,7 @@ For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "value": {
           "amount": 250000,
           "currency": "EUR"
@@ -10152,9 +11871,14 @@ For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot), map to its `.maximumValue.amount` and map `@currencyID` to its `maximumValue.currency`.
 
 ```xml
-<cac:RequestedTenderTotal>
-  <cbc:EstimatedOverallContractAmount currencyID="EUR">250000</cbc:EstimatedOverallContractAmount>
-</cac:RequestedTenderTotal>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">GLO-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:RequestedTenderTotal>
+      <cbc:EstimatedOverallContractAmount currencyID="EUR">250000</cbc:EstimatedOverallContractAmount>
+    </cac:RequestedTenderTotal>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10162,6 +11886,7 @@ For each `cac:AdditionalCommodityClassification/cbc:ItemClassificationCode`, add
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "maximumValue": {
           "amount": 250000,
           "currency": "EUR"
@@ -10240,9 +11965,22 @@ Map to `tender.value.amount` and map `@currencyID` to `tender.value.currency`.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), map to its `.techniques.frameworkAgreement.value.amount` and map `@currencyID` to its `techniques.frameworkAgreement.value.currency`.
 
 ```xml
-<efext:EformsExtension>
-  <efbc:FrameworkMaximumAmount currencyID="EUR">120000</efbc:FrameworkMaximumAmount>
-</efext:EformsExtension>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:RequestedTenderTotal>
+      <ext:UBLExtensions>
+        <ext:UBLExtension>
+          <ext:ExtensionContent>
+            <efext:EformsExtension>
+              <efbc:FrameworkMaximumAmount currencyID="EUR">120000</efbc:FrameworkMaximumAmount>
+            </efext:EformsExtension>
+          </ext:ExtensionContent>
+        </ext:UBLExtension>
+      </ext:UBLExtensions>
+    </cac:RequestedTenderTotal>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10250,6 +11988,7 @@ Map to `tender.value.amount` and map `@currencyID` to `tender.value.currency`.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "techniques": {
           "frameworkAgreement": {
             "value": {
@@ -10276,9 +12015,22 @@ Map to `tender.value.amount` and map `@currencyID` to `tender.value.currency`.
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot), map to its `.techniques.frameworkAgreement.value.amount` and map `@currencyID` to its `techniques.frameworkAgreement.value.currency`.
 
 ```xml
-<efext:EformsExtension>
-  <efbc:FrameworkMaximumAmount currencyID="EUR">120000</efbc:FrameworkMaximumAmount>
-</efext:EformsExtension>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">GLO-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:RequestedTenderTotal>
+      <ext:UBLExtensions>
+        <ext:UBLExtension>
+          <ext:ExtensionContent>
+            <efext:EformsExtension>
+              <efbc:FrameworkMaximumAmount currencyID="EUR">120000</efbc:FrameworkMaximumAmount>
+            </efext:EformsExtension>
+          </ext:ExtensionContent>
+        </ext:UBLExtension>
+      </ext:UBLExtensions>
+    </cac:RequestedTenderTotal>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10286,6 +12038,7 @@ Map to `tender.value.amount` and map `@currencyID` to `tender.value.currency`.
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "techniques": {
           "frameworkAgreement": {
             "value": {
@@ -10346,7 +12099,12 @@ Map to `tender.techniques.frameworkAgreement.value.amount`. Map `@currencyID` to
 This results in a loss of structure.
 
 ```xml
-<cbc:Note languageID="ENG">For the current procedure ...</cbc:Note>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cbc:Note languageID="ENG">For the current procedure ...</cbc:Note>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10354,6 +12112,7 @@ This results in a loss of structure.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "description": "For the current procedure ..."
       }
     ]
@@ -10375,7 +12134,12 @@ This results in a loss of structure.
 This results in a loss of structure.
 
 ```xml
-<cbc:Note languageID="ENG">For the current procedure ...</cbc:Note>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cbc:Note languageID="ENG">For the current procedure ...</cbc:Note>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10383,6 +12147,7 @@ This results in a loss of structure.
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "description": "For the current procedure ..."
       }
     ]
@@ -10475,9 +12240,14 @@ Map to `tender.lotDetails.maximumLotsBidPerSupplier`
 - If the scope of the list, register or scheme from which the contract identifier is drawn is subnational, set the simple identifier's `.scheme` to `{ISO 3166-1 alpha-2}-{system}`. Otherwise, set it to `{ISO 3166-2}-{system}`.
 
 ```xml
-<efac:TenderReference>
-  <cbc:ID>BID ABD/GHI-NL/2020-002</cbc:ID>
-</efac:TenderReference>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    <efac:TenderReference>
+      <cbc:ID>BID ABD/GHI-NL/2020-002</cbc:ID>
+    </efac:TenderReference>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -10502,7 +12272,7 @@ Map to `tender.lotDetails.maximumLotsBidPerSupplier`
       </tr>
       <tr id="BT-3202-Contract">
         <td class="field break-all">
-            <p><b>BT-3202-Contract</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#settledContractSection"></a><br>Contract Tender ID (Reference)</p><p><i>BT-3202:</i> An identifier of the tender or another result that led to this contract.</p>
+            <p><b>BT-3202-Contract</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#settledContractSection"></a><br>Contract Tender ID (Reference)</p><p><i>BT-3202:</i> An identifier of the tender or another result that led to this contract.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:SettledContract/efac:LotTender/cbc:ID</span></code>
         </td>
         <td class="mapping">
@@ -10518,9 +12288,35 @@ Map to `tender.lotDetails.maximumLotsBidPerSupplier`
       - Set the organization reference's `.id` to the organization's `.id`.
 
 ```xml
-<efac:LotTender>
-  <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
-</efac:LotTender>
+<efac:NoticeResult>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <efac:LotTender>
+      <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    </efac:LotTender>
+  </efac:SettledContract>
+  <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    <efac:TenderingParty>
+      <cbc:ID schemeName="tendering-party">TPA-0001</cbc:ID>
+    </efac:TenderingParty>
+  </efac:LotTender>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+  <efac:TenderingParty>
+    <cbc:ID schemeName="tendering-party">TPA-0001</cbc:ID>
+    <efac:Tenderer>
+      <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+    </efac:Tenderer>
+  </efac:TenderingParty>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -10535,15 +12331,20 @@ Map to `tender.lotDetails.maximumLotsBidPerSupplier`
   ],
   "awards": [
     {
+      "id": "RES-0001",
       "suppliers": [
         {
           "id": "ORG-0001"
         }
+      ],
+      "relatedLots": [
+        "LOT-0001"
       ]
     }
   ],
   "contracts": [
     {
+      "id": "CON-0001",
       "relatedBids": [
         "TEN-0001"
       ]
@@ -10624,9 +12425,14 @@ If `@unitCode` is set to "DAY", map to the lot's `.contractPeriod.durationInDays
 Otherwise, if `@unitCode` is set to "MONTH", multiply by 30, or, if `@unitCode` is set to "YEAR", multiply by 365. In either case, map the result to the lot's `.contractPeriod.durationInDays`.
 
 ```xml
-<cac:PlannedPeriod>
-  <cbc:DurationMeasure unitCode="DAY">3</cbc:DurationMeasure>
-</cac:PlannedPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:PlannedPeriod>
+      <cbc:DurationMeasure unitCode="DAY">3</cbc:DurationMeasure>
+    </cac:PlannedPeriod>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10634,6 +12440,7 @@ Otherwise, if `@unitCode` is set to "MONTH", multiply by 30, or, if `@unitCode` 
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractPeriod": {
           "durationInDays": 3
         }
@@ -10688,9 +12495,22 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
 - Set the criterion's `.forReduction` to `true`.
 
 ```xml
-<efac:SelectionCriteria>
-  <efbc:SecondStageIndicator>true</efbc:SecondStageIndicator>
-</efac:SelectionCriteria>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:SelectionCriteria>
+              <efbc:SecondStageIndicator>true</efbc:SecondStageIndicator>
+            </efac:SelectionCriteria>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10698,6 +12518,7 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "selectionCriteria": {
           "criteria": [
             {
@@ -10723,7 +12544,14 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.designContest.followUpContracts` to `true`.
 
 ```xml
-<cbc:FollowupContractIndicator>true</cbc:FollowupContractIndicator>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cbc:FollowupContractIndicator>true</cbc:FollowupContractIndicator>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10731,6 +12559,7 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "designContest": {
           "followUpContracts": true
         }
@@ -10752,7 +12581,14 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.designContest.bindingJuryDecision` to `true`.
 
 ```xml
-<cbc:BindingOnBuyerIndicator>true</cbc:BindingOnBuyerIndicator>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cbc:BindingOnBuyerIndicator>true</cbc:BindingOnBuyerIndicator>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10760,6 +12596,7 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "designContest": {
           "bindingJuryDecision": true
         }
@@ -10785,9 +12622,16 @@ This field maps to the same `Prize` objects as created for BT-45-Lot and BT-644-
 For each `cac:Prize`, add or update the corresponding `Prize` object in the lot's `.designContest.prizes.details` array, and set its `.id` incrementally. The position of the prize object in the `.details` array determines the rank of the prize. Example: `.details[0]` should return the highest ranking prize, `.details[1]` the second highest ranking prize, etc.
 
 ```xml
-<cac:Prize>
-  <cbc:RankCode>1</cbc:RankCode>
-</cac:Prize>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:Prize>
+        <cbc:RankCode>1</cbc:RankCode>
+      </cac:Prize>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10795,6 +12639,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "designContest": {
           "prizes": {
             "details": [
@@ -10825,9 +12670,16 @@ This field maps to the same `Prize` objects as created for BT-44-Lot and BT-644-
 For each `cac:Prize`, add or update the corresponding `Prize` object in the lot's `.designContest.prizes.details` array and map to its `description`.
 
 ```xml
-<cac:Prize>
-  <cbc:Description languageID="ENG">The first prize winner will be awarded ...</cbc:Description>
-</cac:Prize>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:Prize>
+        <cbc:Description languageID="ENG">The first prize winner will be awarded ...</cbc:Description>
+      </cac:Prize>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10835,6 +12687,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "designContest": {
           "prizes": {
             "details": [
@@ -10863,9 +12716,16 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), add a `JuryMember` object to its `.designContest.juryMembers` array, and map to the jury member's `.name`
 
 ```xml
-<cac:TechnicalCommitteePerson>
-  <cbc:FamilyName>Mrs Pamela Smith</cbc:FamilyName>
-</cac:TechnicalCommitteePerson>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:TechnicalCommitteePerson>
+        <cbc:FamilyName>Mrs Pamela Smith</cbc:FamilyName>
+      </cac:TechnicalCommitteePerson>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10873,6 +12733,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "designContest": {
           "juryMembers": [
             {
@@ -10899,9 +12760,18 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 - [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), add an `OrganizationReference` object to its `.designContest.selectedParticipants` array, and set the organization reference's `.id` to the party's `.id`.
 
 ```xml
-<cac:PartyName>
-  <cbc:Name>Mr P. Sanchez</cbc:Name>
-</cac:PartyName>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:EconomicOperatorShortList>
+      <cac:PreSelectedParty>
+        <cac:PartyName>
+          <cbc:Name>Mr P. Sanchez</cbc:Name>
+        </cac:PartyName>
+      </cac:PreSelectedParty>
+    </cac:EconomicOperatorShortList>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10918,6 +12788,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "designContest": {
           "selectedParticipants": [
             {
@@ -10944,9 +12815,14 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.secondStage.minimumCandidates`.
 
 ```xml
-<cac:EconomicOperatorShortList>
-  <cbc:MinimumQuantity>3</cbc:MinimumQuantity>
-</cac:EconomicOperatorShortList>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:EconomicOperatorShortList>
+      <cbc:MinimumQuantity>3</cbc:MinimumQuantity>
+    </cac:EconomicOperatorShortList>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -10954,6 +12830,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "secondStage": {
           "minimumCandidates": 3
         }
@@ -10975,15 +12852,25 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.name`.
 
 ```xml
-<cac:PartyName>
-  <cbc:Name languageID="ENG">Ministry of Education</cbc:Name>
-</cac:PartyName>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name languageID="ENG">Ministry of Education</cbc:Name>
+      </cac:PartyName>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "name": "Ministry of Education"
     }
   ]
@@ -11002,16 +12889,35 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.name`.
 
 ```xml
-<cac:PartyName>
-  <cbc:Name languageID="ENG">Ministry of Education</cbc:Name>
-</cac:PartyName>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>998298</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+    <efac:TouchPoint>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name languageID="ENG">Ministry of Education</cbc:Name>
+      </cac:PartyName>
+    </efac:TouchPoint>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
-      "name": "Ministry of Education"
+      "id": "TPO-0001",
+      "name": "Ministry of Education",
+      "identifier": {
+        "id": "998298",
+        "scheme": "internal"
+      }
     }
   ]
 }
@@ -11029,17 +12935,29 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.name`.
 
 ```xml
-<efac:UltimateBeneficialOwner>
-  <cbc:FamilyName>Mouse</cbc:FamilyName>
-</efac:UltimateBeneficialOwner>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+  <efac:UltimateBeneficialOwner>
+    <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
+    <cbc:FamilyName>Mouse</cbc:FamilyName>
+  </efac:UltimateBeneficialOwner>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "beneficialOwners": [
         {
+          "id": "UBO-0001",
           "name": "Mouse"
         }
       ]
@@ -11057,26 +12975,34 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-[Get the organization for the company](operations.md#get-the-organization-for-a-company), map to the organization's `.identifier.id`, and [set `.identifier.scheme`](https://standard.open-contracting.org/1.1/en/schema/identifiers/#organization-ids).
+[Get the organization for the company](operations.md#get-the-organization-for-a-company). Add an `Identifier` object to the organization's `.additionalIdentifiers` array, map to the identifier's `.id`, and [set `.scheme`](https://standard.open-contracting.org/1.1/en/schema/identifiers/#organization-ids).
 
 ```xml
-<efac:Organization>
-  <efac:Company>
-    <cac:PartyLegalEntity>
-      <cbc:CompanyID>09506232</cbc:CompanyID>
-    </cac:PartyLegalEntity>
-  </efac:Company>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>09506232</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
-      "identifier": {
-        "id": "09506232",
-        "scheme": "GB-COH"
-      }
+      "id": "ORG-0001",
+      "additionalIdentifiers": [
+        {
+          "id": "09506232",
+          "scheme": "GB-COH"
+        }
+      ]
     }
   ]
 }
@@ -11104,9 +13030,22 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
   - Set its `.financingParty.id` to the party's `.id`.
 
 ```xml
-<efac:Funding>
-  <efbc:FinancingIdentifier>CON_PRO-123/ABC</efbc:FinancingIdentifier>
-</efac:Funding>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:Funding>
+              <efbc:FinancingIdentifier>CON_PRO-123/ABC</efbc:FinancingIdentifier>
+            </efac:Funding>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -11128,7 +13067,10 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
           "financingParty": {
             "id": "1",
             "name": "European Union"
-          }
+          },
+          "relatedLots": [
+            "LOT-0001"
+          ]
         }
       ]
     }
@@ -11157,9 +13099,20 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
   - Set its `.financingParty.id` to the party's `.id`.
 
 ```xml
-<efac:Funding>
-  <efbc:FinancingIdentifier>2021/1234</efbc:FinancingIdentifier>
-</efac:Funding>
+<efac:NoticeResult>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <efac:Funding>
+      <efbc:FinancingIdentifier>2021/1234</efbc:FinancingIdentifier>
+    </efac:Funding>
+  </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -11175,6 +13128,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
   ],
   "contracts": [
     {
+      "id": "CON-0001",
       "finance": [
         {
           "id": "2021/1234",
@@ -11201,15 +13155,25 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.contactPoint.name`
 
 ```xml
-<cac:Contact>
-  <cbc:Name>Press Department</cbc:Name>
-</cac:Contact>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:Contact>
+        <cbc:Name>Press Department</cbc:Name>
+      </cac:Contact>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "contactPoint": {
         "name": "Press Department"
       }
@@ -11230,17 +13194,36 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.contactPoint.name`.
 
 ```xml
-<cac:Contact>
-  <cbc:Name>Head of Legal Department</cbc:Name>
-</cac:Contact>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>998298</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+    <efac:TouchPoint>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:Contact>
+        <cbc:Name>Head of Legal Department</cbc:Name>
+      </cac:Contact>
+    </efac:TouchPoint>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "TPO-0001",
       "contactPoint": {
         "name": "Head of Legal Department"
+      },
+      "identifier": {
+        "id": "998298",
+        "scheme": "internal"
       }
     }
   ]
@@ -11259,15 +13242,25 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.contactPoint.telephone`
 
 ```xml
-<cac:Contact>
-  <cbc:Telephone>+123 45678</cbc:Telephone>
-</cac:Contact>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:Contact>
+        <cbc:Telephone>+123 45678</cbc:Telephone>
+      </cac:Contact>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "contactPoint": {
         "telephone": "+123 45678"
       }
@@ -11288,17 +13281,36 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.contactPoint.telephone`
 
 ```xml
-<cac:Contact>
-  <cbc:Telephone>+123 45678</cbc:Telephone>
-</cac:Contact>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>998298</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+    <efac:TouchPoint>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:Contact>
+        <cbc:Telephone>+123 45678</cbc:Telephone>
+      </cac:Contact>
+    </efac:TouchPoint>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "TPO-0001",
       "contactPoint": {
         "telephone": "+123 45678"
+      },
+      "identifier": {
+        "id": "998298",
+        "scheme": "internal"
       }
     }
   ]
@@ -11317,19 +13329,29 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.telephone`.
 
 ```xml
-<efac:UltimateBeneficialOwner>
-  <cac:Contact>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+  <efac:UltimateBeneficialOwner>
+    <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
     <cbc:Telephone>+123 4567890</cbc:Telephone>
-  </cac:Contact>
-</efac:UltimateBeneficialOwner>
+  </efac:UltimateBeneficialOwner>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "beneficialOwners": [
         {
+          "id": "UBO-0001",
           "telephone": "+123 456789"
         }
       ]
@@ -11350,15 +13372,23 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.details.url`.
 
 ```xml
-<efac:Company>
-  <cbc:WebsiteURI>http://xyz.europa.eu/</cbc:WebsiteURI>
-</efac:Company>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cbc:WebsiteURI>http://xyz.europa.eu/</cbc:WebsiteURI>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "details": {
         "url": "http://xyz.europa.eu/"
       }
@@ -11379,17 +13409,34 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.details.url`.
 
 ```xml
-<efac:TouchPoint>
-  <cbc:WebsiteURI>http://abc.europa.eu/</cbc:WebsiteURI>
-</efac:TouchPoint>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>998298</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+    <efac:TouchPoint>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cbc:WebsiteURI>http://abc.europa.eu/</cbc:WebsiteURI>
+    </efac:TouchPoint>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "TPO-0001",
       "details": {
         "url": "http://abc.europa.eu/"
+      },
+      "identifier": {
+        "id": "998298",
+        "scheme": "internal"
       }
     }
   ]
@@ -11408,19 +13455,25 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.contactPoint.email`
 
 ```xml
-<efac:Organization>
-  <efac:Company>
-    <cac:Contact>
-      <cbc:ElectronicMail>press@xyz.europa.eu</cbc:ElectronicMail>
-    </cac:Contact>
-  </efac:Company>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:Contact>
+        <cbc:ElectronicMail>press@xyz.europa.eu</cbc:ElectronicMail>
+      </cac:Contact>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "contactPoint": {
         "email": "press@xyz.europa.eu"
       }
@@ -11441,20 +13494,36 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.contactPoint.email`
 
 ```xml
-<efac:Organization>
-  <efac:TouchPoint>
-    <cac:Contact>
-      <cbc:ElectronicMail>abc@xyz.europa.eu</cbc:ElectronicMail>
-    </cac:Contact>
-  </efac:TouchPoint>a</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>998298</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+    <efac:TouchPoint>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:Contact>
+        <cbc:ElectronicMail>abc@xyz.europa.eu</cbc:ElectronicMail>
+      </cac:Contact>
+    </efac:TouchPoint>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "TPO-0001",
       "contactPoint": {
         "email": "press@xyz.europa.eu"
+      },
+      "identifier": {
+        "id": "998298",
+        "scheme": "internal"
       }
     }
   ]
@@ -11473,19 +13542,29 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.email`.
 
 ```xml
-<efac:UltimateBeneficialOwner>
-  <cac:Contact>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+  <efac:UltimateBeneficialOwner>
+    <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
     <cbc:ElectronicMail>mickey.mouse@cheese-universe.com</cbc:ElectronicMail>
-  </cac:Contact>
-</efac:UltimateBeneficialOwner>
+  </efac:UltimateBeneficialOwner>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "beneficialOwners": [
         {
+          "id": "UBO-0001",
           "email": "mickey.mouse@cheese-universe.com"
         }
       ]
@@ -11506,19 +13585,25 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.address.region`.
 
 ```xml
-<efac:Organization>
-  <efac:Company>
-    <cac:PostalAddress>
-      <cbc:CountrySubentityCode listName="nuts-lvl3">XY374</cbc:CountrySubentityCode>
-    </cac:PostalAddress>
-  </efac:Company>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PostalAddress>
+        <cbc:CountrySubentityCode listName="nuts-lvl3">XY374</cbc:CountrySubentityCode>
+      </cac:PostalAddress>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "address": {
         "region": "XY374"
       }
@@ -11539,21 +13624,36 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.address.region`.
 
 ```xml
-<efac:Organization>
-  <efac:TouchPoint>
-    <cac:PostalAddress>
-      <cbc:CountrySubentityCode listName="nuts-lvl3">XY374</cbc:CountrySubentityCode>
-    </cac:PostalAddress>
-  </efac:TouchPoint>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>998298</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+    <efac:TouchPoint>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PostalAddress>
+        <cbc:CountrySubentityCode listName="nuts-lvl3">XY374</cbc:CountrySubentityCode>
+      </cac:PostalAddress>
+    </efac:TouchPoint>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "TPO-0001",
       "address": {
         "region": "XY374"
+      },
+      "identifier": {
+        "id": "998298",
+        "scheme": "internal"
       }
     }
   ]
@@ -11572,19 +13672,31 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
 [Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.address.region`.
 
 ```xml
-<efac:UltimateBeneficialOwner>
-  <cac:ResidenceAddress>
-    <cbc:CountrySubentityCode listName="nuts-lvl3">GBK62</cbc:CountrySubentityCode>
-  </cac:ResidenceAddress>
-</efac:UltimateBeneficialOwner>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+  <efac:UltimateBeneficialOwner>
+    <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
+    <cac:ResidenceAddress>
+      <cbc:CountrySubentityCode listName="nuts-lvl3">GBK62</cbc:CountrySubentityCode>
+    </cac:ResidenceAddress>
+  </efac:UltimateBeneficialOwner>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "beneficialOwners": [
         {
+          "id": "UBO-0001",
           "address": {
             "region": "GBK62"
           }
@@ -11599,7 +13711,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
       </tr>
       <tr id="BT-5071-Lot">
         <td class="field break-all">
-            <p><b>BT-5071-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Country Subdivision</p><p><i>BT-5071:</i> The location according to the common classification of territorial units for statistics (NUTS). The NUTS3 classification code shall be used.</p>
+            <p><b>BT-5071-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Country Subdivision</p><p><i>BT-5071:</i> The location according to the common classification of territorial units for statistics (NUTS). The NUTS3 classification code shall be used.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CountrySubentityCode</span></code>
         </td>
         <td class="mapping">
@@ -11610,11 +13722,16 @@ This field maps to the same `Address` objects as created for BT-728-Lot, BT-5131
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array and map the value of this field to its `.region`.
 
 ```xml
-<cac:RealizedLocation>
-  <cac:Address>
-    <cbc:CountrySubentityCode listName="nuts=lvl3">UKG23</cbc:CountrySubentityCode>
-  </cac:Address>
-</cac:RealizedLocation>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:RealizedLocation>
+      <cac:Address>
+        <cbc:CountrySubentityCode listName="nuts=lvl3">UKG23</cbc:CountrySubentityCode>
+      </cac:Address>
+    </cac:RealizedLocation>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -11622,10 +13739,14 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
   "tender": {
     "items": [
       {
+        "id": "1",
         "deliveryAddresses": [
           {
             "region": "UKG23"
           }
+        ],
+        "relatedLots": [
+          "LOT-0001"
         ]
       }
     ]
@@ -11637,7 +13758,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
       </tr>
       <tr id="BT-5071-Part">
         <td class="field break-all">
-            <p><b>BT-5071-Part</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Country Subdivision</p><p><i>BT-5071:</i> The location according to the common classification of territorial units for statistics (NUTS). The NUTS3 classification code shall be used.</p>
+            <p><b>BT-5071-Part</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Country Subdivision</p><p><i>BT-5071:</i> The location according to the common classification of territorial units for statistics (NUTS). The NUTS3 classification code shall be used.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CountrySubentityCode</span></code>
         </td>
         <td class="mapping">
@@ -11669,7 +13790,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
       </tr>
       <tr id="BT-5071-Procedure">
         <td class="field break-all">
-            <p><b>BT-5071-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Country Subdivision</p><p><i>BT-5071:</i> The location according to the common classification of territorial units for statistics (NUTS). The NUTS3 classification code shall be used.</p>
+            <p><b>BT-5071-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Country Subdivision</p><p><i>BT-5071:</i> The location according to the common classification of territorial units for statistics (NUTS). The NUTS3 classification code shall be used.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CountrySubentityCode</span></code>
         </td>
         <td class="mapping">
@@ -11711,6 +13832,11 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```xml
 <cac:ContractingParty>
   <cbc:BuyerProfileURI>https://admin-abc.com/public-procurements/</cbc:BuyerProfileURI>
+  <cac:Party>
+    <cac:PartyIdentification>
+      <cbc:ID>ORG-0001</cbc:ID>
+    </cac:PartyIdentification>
+  </cac:Party>
 </cac:ContractingParty>
 ```
 
@@ -11718,9 +13844,13 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "details": {
         "buyerProfile": "https://admin-abc.com/public-procurements/"
-      }
+      },
+      "roles": [
+        "buyer"
+      ]
     }
   ]
 }
@@ -11738,17 +13868,23 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.eDeliveryGateway`.
 
 ```xml
-<efac:Organization>
-  <efac:Company>
-    <cbc:EndpointID>https://drive.xpertpro.eu/</cbc:EndpointID>
-  </efac:Company>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cbc:EndpointID>https://drive.xpertpro.eu/</cbc:EndpointID>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "eDeliveryGateway": "https://drive.xpertpro.eu"
     }
   ]
@@ -11767,18 +13903,33 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.eDeliveryGateway`.
 
 ```xml
-<efac:Organization>
-  <efac:TouchPoint>
-    <cbc:EndpointID>https://drive.xpertpro.eu/</cbc:EndpointID>
-  </efac:TouchPoint>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>998298</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+    <efac:TouchPoint>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cbc:EndpointID>https://drive.xpertpro.eu/</cbc:EndpointID>
+    </efac:TouchPoint>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
-      "eDeliveryGateway": "https://drive.xpertpro.eu"
+      "id": "TPO-0001",
+      "eDeliveryGateway": "https://drive.xpertpro.eu",
+      "identifier": {
+        "id": "998298",
+        "scheme": "internal"
+      }
     }
   ]
 }
@@ -11796,9 +13947,14 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.secondStage.maximumCandidates`.
 
 ```xml
-<cac:EconomicOperatorShortList>
-  <cbc:MaximumQuantity>10</cbc:MaximumQuantity>
-</cac:EconomicOperatorShortList>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:EconomicOperatorShortList>
+      <cbc:MaximumQuantity>10</cbc:MaximumQuantity>
+    </cac:EconomicOperatorShortList>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -11806,6 +13962,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "secondStage": {
           "maximumCandidates": 10
         }
@@ -11827,19 +13984,29 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the organization for the company](operations.md#get-the-organization-for-a-company), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map the result to the organization's `address.streetAddress`.
 
 ```xml
-<efac:Organization>
-  <efac:Company>
-    <cac:PostalAddress>
-      <cbc:StreetName>2, rue de Europe</cbc:StreetName>
-    </cac:PostalAddress>
-  </efac:Company>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PostalAddress>
+        <cbc:StreetName>2, rue de Europe</cbc:StreetName>
+        <cbc:AdditionalStreetName>Building A</cbc:AdditionalStreetName>
+        <cac:AddressLine>
+          <cbc:Line>3rd Floor</cbc:Line>
+        </cac:AddressLine>
+      </cac:PostalAddress>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "address": {
         "streetAddress": "2, rue de Europe, Building A, 3rd Floor"
       }
@@ -11860,21 +14027,40 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map the result to the organization's `address.streetAddress`.
 
 ```xml
-<efac:Organization>
-  <efac:TouchPoint>
-    <cac:PostalAddress>
-      <cbc:StreetName>2, rue de Europe</cbc:StreetName>
-    </cac:PostalAddress>
-  </efac:TouchPoint>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>998298</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+    <efac:TouchPoint>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PostalAddress>
+        <cbc:StreetName>2, rue de Europe</cbc:StreetName>
+        <cbc:AdditionalStreetName>Building A</cbc:AdditionalStreetName>
+        <cac:AddressLine>
+          <cbc:Line>3rd Floor</cbc:Line>
+        </cac:AddressLine>
+      </cac:PostalAddress>
+    </efac:TouchPoint>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "TPO-0001",
       "address": {
         "streetAddress": "2, rue de Europe, Building A, 3rd Floor"
+      },
+      "identifier": {
+        "id": "998298",
+        "scheme": "internal"
       }
     }
   ]
@@ -11893,19 +14079,35 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map the result to the person's `address.streetAddress`.
 
 ```xml
-<efac:UltimateBeneficialOwner>
-  <cac:ResidenceAddress>
-    <cbc:StreetName>2 CheeseStreet</cbc:StreetName>
-  </cac:ResidenceAddress>
-</efac:UltimateBeneficialOwner>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+  <efac:UltimateBeneficialOwner>
+    <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
+    <cac:ResidenceAddress>
+      <cbc:StreetName>2 CheeseStreet</cbc:StreetName>
+      <cbc:AdditionalStreetName>Nelson Building</cbc:AdditionalStreetName>
+      <cac:AddressLine>
+        <cbc:Line>2nd floor</cbc:Line>
+      </cac:AddressLine>
+    </cac:ResidenceAddress>
+  </efac:UltimateBeneficialOwner>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "beneficialOwners": [
         {
+          "id": "UBO-0001",
           "address": {
             "streetAddress": "2 CheeseStreet, Nelson Building, 2nd floor"
           }
@@ -11928,19 +14130,29 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the organization for the company](operations.md#get-the-organization-for-a-company), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map the result to the organization's `address.streetAddress`.
 
 ```xml
-<efac:Organization>
-  <efac:Company>
-    <cac:PostalAddress>
-      <cbc:AdditionalStreetName>Building A</cbc:AdditionalStreetName>
-    </cac:PostalAddress>
-  </efac:Company>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PostalAddress>
+        <cbc:StreetName>2, rue de Europe</cbc:StreetName>
+        <cbc:AdditionalStreetName>Building A</cbc:AdditionalStreetName>
+        <cac:AddressLine>
+          <cbc:Line>3rd Floor</cbc:Line>
+        </cac:AddressLine>
+      </cac:PostalAddress>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "address": {
         "streetAddress": "2, rue de Europe, Building A, 3rd Floor"
       }
@@ -11961,21 +14173,40 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map the result to the organization's `address.streetAddress`.
 
 ```xml
-<efac:Organization>
-  <efac:TouchPoint>
-    <cac:PostalAddress>
-      <cbc:AdditionalStreetName>Building A</cbc:AdditionalStreetName>
-    </cac:PostalAddress>
-  </efac:TouchPoint>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>998298</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+    <efac:TouchPoint>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PostalAddress>
+        <cbc:StreetName>2, rue de Europe</cbc:StreetName>
+        <cbc:AdditionalStreetName>Building A</cbc:AdditionalStreetName>
+        <cac:AddressLine>
+          <cbc:Line>3rd Floor</cbc:Line>
+        </cac:AddressLine>
+      </cac:PostalAddress>
+    </efac:TouchPoint>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "TPO-0001",
       "address": {
         "streetAddress": "2, rue de Europe, Building A, 3rd Floor"
+      },
+      "identifier": {
+        "id": "998298",
+        "scheme": "internal"
       }
     }
   ]
@@ -11994,19 +14225,35 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map the result to the person's `address.streetAddress`.
 
 ```xml
-<efac:UltimateBeneficialOwner>
-  <cac:ResidenceAddress>
-    <cbc:AdditionalStreetName>Nelson Building</cbc:AdditionalStreetName>
-  </cac:ResidenceAddress>
-</efac:UltimateBeneficialOwner>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+  <efac:UltimateBeneficialOwner>
+    <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
+    <cac:ResidenceAddress>
+      <cbc:StreetName>2 CheeseStreet</cbc:StreetName>
+      <cbc:AdditionalStreetName>Nelson Building</cbc:AdditionalStreetName>
+      <cac:AddressLine>
+        <cbc:Line>2nd floor</cbc:Line>
+      </cac:AddressLine>
+    </cac:ResidenceAddress>
+  </efac:UltimateBeneficialOwner>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "beneficialOwners": [
         {
+          "id": "UBO-0001",
           "address": {
             "streetAddress": "2 CheeseStreet, Nelson Building, 2nd floor"
           }
@@ -12029,21 +14276,29 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the organization for the company](operations.md#get-the-organization-for-a-company), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map the result to the organization's `address.streetAddress`.
 
 ```xml
-<efac:Organization>
-  <efac:Company>
-    <cac:PostalAddress>
-      <cac:AddressLine>
-        <cbc:Line>3rd Floor</cbc:Line>
-      </cac:AddressLine>
-    </cac:PostalAddress>
-  </efac:Company>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PostalAddress>
+        <cbc:StreetName>2, rue de Europe</cbc:StreetName>
+        <cbc:AdditionalStreetName>Building A</cbc:AdditionalStreetName>
+        <cac:AddressLine>
+          <cbc:Line>3rd Floor</cbc:Line>
+        </cac:AddressLine>
+      </cac:PostalAddress>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "address": {
         "streetAddress": "2, rue de Europe, Building A, 3rd Floor"
       }
@@ -12064,23 +14319,40 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map the result to the organization's `address.streetAddress`.
 
 ```xml
-<efac:Organization>
-  <efac:TouchPoint>
-    <cac:PostalAddress>
-      <cac:AddressLine>
-        <cbc:Line>3rd Floor</cbc:Line>
-      </cac:AddressLine>
-    </cac:PostalAddress>
-  </efac:TouchPoint>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>998298</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+    <efac:TouchPoint>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PostalAddress>
+        <cbc:StreetName>2, rue de Europe</cbc:StreetName>
+        <cbc:AdditionalStreetName>Building A</cbc:AdditionalStreetName>
+        <cac:AddressLine>
+          <cbc:Line>3rd Floor</cbc:Line>
+        </cac:AddressLine>
+      </cac:PostalAddress>
+    </efac:TouchPoint>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "TPO-0001",
       "address": {
         "streetAddress": "2, rue de Europe, Building A, 3rd Floor"
+      },
+      "identifier": {
+        "id": "998298",
+        "scheme": "internal"
       }
     }
   ]
@@ -12099,21 +14371,35 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner), combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map the result to the person's `address.streetAddress`.
 
 ```xml
-<efac:UltimateBeneficialOwner>
-  <cac:ResidenceAddress>
-    <cac:AddressLine>
-      <cbc:Line>2nd floor</cbc:Line>
-    </cac:AddressLine>
-  </cac:ResidenceAddress>
-</efac:UltimateBeneficialOwner>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+  <efac:UltimateBeneficialOwner>
+    <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
+    <cac:ResidenceAddress>
+      <cbc:StreetName>2 CheeseStreet</cbc:StreetName>
+      <cbc:AdditionalStreetName>Nelson Building</cbc:AdditionalStreetName>
+      <cac:AddressLine>
+        <cbc:Line>2nd floor</cbc:Line>
+      </cac:AddressLine>
+    </cac:ResidenceAddress>
+  </efac:UltimateBeneficialOwner>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "beneficialOwners": [
         {
+          "id": "UBO-0001",
           "address": {
             "streetAddress": "2 CheeseStreet, Nelson Building, 2nd floor"
           }
@@ -12139,11 +14425,20 @@ This field maps to the same `Address` objects as created for BT-728-Lot, BT-5131
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map the result to the address's `.streetAddress`.
 
 ```xml
-<cac:RealizedLocation>
-  <cac:Address>
-    <cbc:AdditionalStreetName>Building B1</cbc:AdditionalStreetName>
-  </cac:Address>
-</cac:RealizedLocation>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:RealizedLocation>
+      <cac:Address>
+        <cbc:StreetName>Main Street</cbc:StreetName>
+        <cbc:AdditionalStreetName>Building B1</cbc:AdditionalStreetName>
+        <cac:AddressLine>
+          <cbc:Line>3rd floor</cbc:Line>
+        </cac:AddressLine>
+      </cac:Address>
+    </cac:RealizedLocation>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -12151,10 +14446,14 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
   "tender": {
     "items": [
       {
+        "id": "1",
         "deliveryAddresses": [
           {
             "streetAddress": "Main Street, 2, Building B1, 3rd floor"
           }
+        ],
+        "relatedLots": [
+          "LOT-0001"
         ]
       }
     ]
@@ -12177,7 +14476,11 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```xml
 <cac:RealizedLocation>
   <cac:Address>
+    <cbc:StreetName>Main Street</cbc:StreetName>
     <cbc:AdditionalStreetName>Building B1</cbc:AdditionalStreetName>
+    <cac:AddressLine>
+      <cbc:Line>3rd floor</cbc:Line>
+    </cac:AddressLine>
   </cac:Address>
 </cac:RealizedLocation>
 ```
@@ -12209,7 +14512,11 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```xml
 <cac:RealizedLocation>
   <cac:Address>
+    <cbc:StreetName>Main Street</cbc:StreetName>
     <cbc:AdditionalStreetName>Building B1</cbc:AdditionalStreetName>
+    <cac:AddressLine>
+      <cbc:Line>3rd floor</cbc:Line>
+    </cac:AddressLine>
   </cac:Address>
 </cac:RealizedLocation>
 ```
@@ -12241,19 +14548,36 @@ This field maps to the same `Address` objects as created for BT-728-Lot, BT-5131
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map the result to the address's `.streetAddress`.
 
 ```xml
-<cac:RealizedLocation>
-  <cac:Address>
-    <cbc:AdditionalStreetName>Building B1</cbc:AdditionalStreetName>
-  </cac:Address>
-</cac:RealizedLocation>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:RealizedLocation>
+      <cac:Address>
+        <cbc:StreetName>Main Street</cbc:StreetName>
+        <cbc:AdditionalStreetName>Building B1</cbc:AdditionalStreetName>
+        <cac:AddressLine>
+          <cbc:Line>3rd floor</cbc:Line>
+        </cac:AddressLine>
+      </cac:Address>
+    </cac:RealizedLocation>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
 {
   "tender": {
-    "deliveryAddresses": [
+    "items": [
       {
-        "streetAddress": "Main Street, 2, Building B1, 3rd floor"
+        "id": "1",
+        "deliveryAddresses": [
+          {
+            "streetAddress": "Main Street, 2, Building B1, 3rd floor"
+          }
+        ],
+        "relatedLots": [
+          "LOT-0001"
+        ]
       }
     ]
   }
@@ -12275,7 +14599,11 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```xml
 <cac:RealizedLocation>
   <cac:Address>
+    <cbc:StreetName>Main Street</cbc:StreetName>
     <cbc:AdditionalStreetName>Building B1</cbc:AdditionalStreetName>
+    <cac:AddressLine>
+      <cbc:Line>3rd floor</cbc:Line>
+    </cac:AddressLine>
   </cac:Address>
 </cac:RealizedLocation>
 ```
@@ -12307,7 +14635,11 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```xml
 <cac:RealizedLocation>
   <cac:Address>
+    <cbc:StreetName>Main Street</cbc:StreetName>
     <cbc:AdditionalStreetName>Building B1</cbc:AdditionalStreetName>
+    <cac:AddressLine>
+      <cbc:Line>3rd floor</cbc:Line>
+    </cac:AddressLine>
   </cac:Address>
 </cac:RealizedLocation>
 ```
@@ -12339,11 +14671,20 @@ This field maps to the same `Address` objects as created for BT-728-Lot, BT-5131
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array, combine the values of `cbc:StreetName`, `cbc:AdditionalStreetName` and each `cac:AddressLine/cbc:Line` in that order, separating each string with ', ' (comma and space) and map the result to the address's `.streetAddress`.
 
 ```xml
-<cac:RealizedLocation>
-  <cac:Address>
-    <cbc:AdditionalStreetName>Building B1</cbc:AdditionalStreetName>
-  </cac:Address>
-</cac:RealizedLocation>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:RealizedLocation>
+      <cac:Address>
+        <cbc:StreetName>Main Street</cbc:StreetName>
+        <cbc:AdditionalStreetName>Building B1</cbc:AdditionalStreetName>
+        <cac:AddressLine>
+          <cbc:Line>3rd floor</cbc:Line>
+        </cac:AddressLine>
+      </cac:Address>
+    </cac:RealizedLocation>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -12351,10 +14692,14 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
   "tender": {
     "items": [
       {
+        "id": "1",
         "deliveryAddresses": [
           {
             "streetAddress": "Main Street, 2, Building B1, 3rd floor"
           }
+        ],
+        "relatedLots": [
+          "LOT-0001"
         ]
       }
     ]
@@ -12377,7 +14722,11 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```xml
 <cac:RealizedLocation>
   <cac:Address>
+    <cbc:StreetName>Main Street</cbc:StreetName>
     <cbc:AdditionalStreetName>Building B1</cbc:AdditionalStreetName>
+    <cac:AddressLine>
+      <cbc:Line>3rd floor</cbc:Line>
+    </cac:AddressLine>
   </cac:Address>
 </cac:RealizedLocation>
 ```
@@ -12409,7 +14758,11 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```xml
 <cac:RealizedLocation>
   <cac:Address>
+    <cbc:StreetName>Main Street</cbc:StreetName>
     <cbc:AdditionalStreetName>Building B1</cbc:AdditionalStreetName>
+    <cac:AddressLine>
+      <cbc:Line>3rd floor</cbc:Line>
+    </cac:AddressLine>
   </cac:Address>
 </cac:RealizedLocation>
 ```
@@ -12438,19 +14791,25 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.address.postalCode`
 
 ```xml
-<efac:Organization>
-  <efac:Company>
-    <cac:PostalAddress>
-      <cbc:PostalZone>2345</cbc:PostalZone>
-    </cac:PostalAddress>
-  </efac:Company>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PostalAddress>
+        <cbc:PostalZone>2345</cbc:PostalZone>
+      </cac:PostalAddress>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "address": {
         "postalCode": "2345"
       }
@@ -12471,21 +14830,36 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the touchpoint's `.address.postalCode`
 
 ```xml
-<efac:Organization>
-  <efac:TouchPoint>
-    <cac:PostalAddress>
-      <cbc:PostalZone>2345</cbc:PostalZone>
-    </cac:PostalAddress>
-  </efac:TouchPoint>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>998298</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+    <efac:TouchPoint>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PostalAddress>
+        <cbc:PostalZone>2345</cbc:PostalZone>
+      </cac:PostalAddress>
+    </efac:TouchPoint>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "TPO-0001",
       "address": {
         "postalCode": "2345"
+      },
+      "identifier": {
+        "id": "998298",
+        "scheme": "internal"
       }
     }
   ]
@@ -12504,19 +14878,31 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.address.postalCode`.
 
 ```xml
-<efac:UltimateBeneficialOwner>
-  <cac:ResidenceAddress>
-    <cbc:PostalZone>C6HA782</cbc:PostalZone>
-  </cac:ResidenceAddress>
-</efac:UltimateBeneficialOwner>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+  <efac:UltimateBeneficialOwner>
+    <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
+    <cac:ResidenceAddress>
+      <cbc:PostalZone>C6HA782</cbc:PostalZone>
+    </cac:ResidenceAddress>
+  </efac:UltimateBeneficialOwner>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "beneficialOwners": [
         {
+          "id": "UBO-0001",
           "address": {
             "postalCode": "C6HA78"
           }
@@ -12531,7 +14917,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
       </tr>
       <tr id="BT-5121-Lot">
         <td class="field break-all">
-            <p><b>BT-5121-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Post Code</p><p><i>BT-5121:</i> The postcode of the place of performance.</p>
+            <p><b>BT-5121-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Post Code</p><p><i>BT-5121:</i> The postcode of the place of performance.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:PostalZone</span></code>
         </td>
         <td class="mapping">
@@ -12542,11 +14928,16 @@ This field maps to the same `Address` objects as created for BT-728-Lot, BT-5131
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array and map the value of this field to its `.postalCode`.
 
 ```xml
-<cac:RealizedLocation>
-  <cac:Address>
-    <cbc:PostalZone>XY14 2LG</cbc:PostalZone>
-  </cac:Address>
-</cac:RealizedLocation>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:RealizedLocation>
+      <cac:Address>
+        <cbc:PostalZone>XY14 2LG</cbc:PostalZone>
+      </cac:Address>
+    </cac:RealizedLocation>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -12554,10 +14945,14 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
   "tender": {
     "items": [
       {
+        "id": "1",
         "deliveryAddresses": [
           {
             "postalCode": "XY14 2LG"
           }
+        ],
+        "relatedLots": [
+          "LOT-0001"
         ]
       }
     ]
@@ -12569,7 +14964,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
       </tr>
       <tr id="BT-5121-Part">
         <td class="field break-all">
-            <p><b>BT-5121-Part</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Post Code</p><p><i>BT-5121:</i> The postcode of the place of performance.</p>
+            <p><b>BT-5121-Part</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Post Code</p><p><i>BT-5121:</i> The postcode of the place of performance.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:PostalZone</span></code>
         </td>
         <td class="mapping">
@@ -12601,7 +14996,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
       </tr>
       <tr id="BT-5121-Procedure">
         <td class="field break-all">
-            <p><b>BT-5121-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Post Code</p><p><i>BT-5121:</i> The postcode of the place of performance.</p>
+            <p><b>BT-5121-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Post Code</p><p><i>BT-5121:</i> The postcode of the place of performance.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:PostalZone</span></code>
         </td>
         <td class="mapping">
@@ -12641,19 +15036,25 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.address.locality`.
 
 ```xml
-<efac:Organization>
-  <efac:Company>
-    <cac:PostalAddress>
-      <cbc:CityName>SmallCity</cbc:CityName>
-    </cac:PostalAddress>
-  </efac:Company>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PostalAddress>
+        <cbc:CityName>SmallCity</cbc:CityName>
+      </cac:PostalAddress>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "address": {
         "locality": "SmallCity"
       }
@@ -12674,21 +15075,36 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint) and map to the organization's `.address.locality`.
 
 ```xml
-<efac:Organization>
-  <efac:TouchPoint>
-    <cac:PostalAddress>
-      <cbc:CityName>SmallCity</cbc:CityName>
-    </cac:PostalAddress>
-  </efac:TouchPoint>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>998298</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+    <efac:TouchPoint>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PostalAddress>
+        <cbc:CityName>SmallCity</cbc:CityName>
+      </cac:PostalAddress>
+    </efac:TouchPoint>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "TPO-0001",
       "address": {
         "locality": "SmallCity"
+      },
+      "identifier": {
+        "id": "998298",
+        "scheme": "internal"
       }
     }
   ]
@@ -12707,19 +15123,31 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.address.postalCode`.
 
 ```xml
-<efac:UltimateBeneficialOwner>
-  <cac:ResidenceAddress>
-    <cbc:CityName>MouseTown</cbc:CityName>
-  </cac:ResidenceAddress>
-</efac:UltimateBeneficialOwner>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+  <efac:UltimateBeneficialOwner>
+    <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
+    <cac:ResidenceAddress>
+      <cbc:CityName>MouseTown</cbc:CityName>
+    </cac:ResidenceAddress>
+  </efac:UltimateBeneficialOwner>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "beneficialOwners": [
         {
+          "id": "UBO-0001",
           "address": {
             "locality": "MouseTown"
           }
@@ -12745,11 +15173,16 @@ This field maps to the same `Address` objects as created for BT-728-Lot, BT-5121
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array and map the value of this field to its `.locality`.
 
 ```xml
-<cac:RealizedLocation>
-  <cac:Address>
-    <cbc:CityName>BigCity</cbc:CityName>
-  </cac:Address>
-</cac:RealizedLocation>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:RealizedLocation>
+      <cac:Address>
+        <cbc:CityName>BigCity</cbc:CityName>
+      </cac:Address>
+    </cac:RealizedLocation>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -12757,10 +15190,14 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
   "tender": {
     "items": [
       {
+        "id": "1",
         "deliveryAddresses": [
           {
             "locality": "BigCity"
           }
+        ],
+        "relatedLots": [
+          "LOT-0001"
         ]
       }
     ]
@@ -12844,21 +15281,27 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the organization for the company](operations.md#get-the-organization-for-a-company), look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and map it to the organization's `.address.country`.
 
 ```xml
-<efac:Organization>
-  <efac:Company>
-    <cac:PostalAddress>
-      <cac:Country>
-        <cbc:IdentificationCode listName="eforms-country">GBR</cbc:IdentificationCode>
-      </cac:Country>
-    </cac:PostalAddress>
-  </efac:Company>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PostalAddress>
+        <cac:Country>
+          <cbc:IdentificationCode listName="eforms-country">GBR</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:PostalAddress>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "address": {
         "country": "GB"
       }
@@ -12879,23 +15322,38 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the organization for the touchpoint](operations.md#get-the-organization-for-a-touchpoint), look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and map it to the organization's `.address.country`.
 
 ```xml
-<efac:Organization>
-  <efac:TouchPoint>
-    <cac:PostalAddress>
-      <cac:Country>
-        <cbc:IdentificationCode listName="eforms-country">GBR</cbc:IdentificationCode>
-      </cac:Country>
-    </cac:PostalAddress>
-  </efac:TouchPoint>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>998298</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+    </efac:Company>
+    <efac:TouchPoint>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PostalAddress>
+        <cac:Country>
+          <cbc:IdentificationCode listName="eforms-country">GBR</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:PostalAddress>
+    </efac:TouchPoint>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "TPO-0001",
       "address": {
         "country": "GB"
+      },
+      "identifier": {
+        "id": "998298",
+        "scheme": "internal"
       }
     }
   ]
@@ -12914,21 +15372,33 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner), look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and map it to the person's `.address.country`.
 
 ```xml
-<efac:UltimateBeneficialOwner>
-  <cac:ResidenceAddress>
-    <cac:Country>
-      <cbc:IdentificationCode listName="eforms-country">GBR</cbc:IdentificationCode>
-    </cac:Country>
-  </cac:ResidenceAddress>
-</efac:UltimateBeneficialOwner>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+  <efac:UltimateBeneficialOwner>
+    <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
+    <cac:ResidenceAddress>
+      <cac:Country>
+        <cbc:IdentificationCode listName="eforms-country">GBR</cbc:IdentificationCode>
+      </cac:Country>
+    </cac:ResidenceAddress>
+  </efac:UltimateBeneficialOwner>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "beneficialOwners": [
         {
+          "id": "UBO-0001",
           "address": {
             "country": "GB"
           }
@@ -12943,7 +15413,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
       </tr>
       <tr id="BT-5141-Lot">
         <td class="field break-all">
-            <p><b>BT-5141-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Country Code</p><p><i>BT-5141:</i> The country of the place of performance.</p>
+            <p><b>BT-5141-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Country Code</p><p><i>BT-5141:</i> The country of the place of performance.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cac:Country/cbc:IdentificationCode</span></code>
         </td>
         <td class="mapping">
@@ -12954,13 +15424,18 @@ This field maps to the same `Address` objects as created for BT-728-Lot, BT-5131
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array, look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and map it to the address's `.country`.
 
 ```xml
-<cac:RealizedLocation>
-  <cac:Address>
-    <cac:Country>
-      <cbc:IdentificationCode listName="eforms-country">GBR</cbc:IdentificationCode>
-    </cac:Country>
-  </cac:Address>
-</cac:RealizedLocation>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:RealizedLocation>
+      <cac:Address>
+        <cac:Country>
+          <cbc:IdentificationCode listName="eforms-country">GBR</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:Address>
+    </cac:RealizedLocation>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -12968,10 +15443,14 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
   "tender": {
     "items": [
       {
+        "id": "1",
         "deliveryAddresses": [
           {
             "country": "GB"
           }
+        ],
+        "relatedLots": [
+          "LOT-0001"
         ]
       }
     ]
@@ -12983,7 +15462,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
       </tr>
       <tr id="BT-5141-Part">
         <td class="field break-all">
-            <p><b>BT-5141-Part</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Country Code</p><p><i>BT-5141:</i> The country of the place of performance.</p>
+            <p><b>BT-5141-Part</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Country Code</p><p><i>BT-5141:</i> The country of the place of performance.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cac:Country/cbc:IdentificationCode</span></code>
         </td>
         <td class="mapping">
@@ -13017,7 +15496,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
       </tr>
       <tr id="BT-5141-Procedure">
         <td class="field break-all">
-            <p><b>BT-5141-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Country Code</p><p><i>BT-5141:</i> The country of the place of performance.</p>
+            <p><b>BT-5141-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Country Code</p><p><i>BT-5141:</i> The country of the place of performance.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cac:Country/cbc:IdentificationCode</span></code>
         </td>
         <td class="mapping">
@@ -13059,7 +15538,12 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `secondStage.successiveReduction` to `true`.
 
 ```xml
-<cbc:CandidateReductionConstraintIndicator>true</cbc:CandidateReductionConstraintIndicator>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cbc:CandidateReductionConstraintIndicator>true</cbc:CandidateReductionConstraintIndicator>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13067,6 +15551,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "secondStage": {
           "successiveReduction": true
         }
@@ -13081,16 +15566,21 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
       <tr id="BT-531-Lot">
         <td class="field break-all">
             <p><b>BT-531-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#natureSection"></a><br>Additional Nature (different from Main)</p><p><i>BT-531:</i> The nature (e.g. services) of what is being bought, additional to Main Nature.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType/cbc:ProcurementTypeCode[@listName='contract-nature']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='contract-nature']/cbc:ProcurementTypeCode</span></code>
         </td>
         <td class="mapping">
 
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and add to its `.additionalProcurementCategories` array.
 
 ```xml
-<cac:ProcurementAdditionalType>
-  <cbc:ProcurementTypeCode listName="contract-nature">works</cbc:ProcurementTypeCode>
-</cac:ProcurementAdditionalType>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:ProcurementAdditionalType>
+      <cbc:ProcurementTypeCode listName="contract-nature">works</cbc:ProcurementTypeCode>
+    </cac:ProcurementAdditionalType>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13098,6 +15588,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "additionalProcurementCategories": [
           "works"
         ]
@@ -13112,7 +15603,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
       <tr id="BT-531-Part">
         <td class="field break-all">
             <p><b>BT-531-Part</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#natureSection"></a><br>Additional Nature (different from Main)</p><p><i>BT-531:</i> The nature (e.g. services) of what is being bought, additional to Main Nature.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:ProcurementProject/cac:ProcurementAdditionalType/cbc:ProcurementTypeCode[@listName='contract-nature']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='contract-nature']/cbc:ProcurementTypeCode</span></code>
         </td>
         <td class="mapping">
 
@@ -13139,7 +15630,7 @@ Add to `tender.additionalProcurementCategories` array.
       <tr id="BT-531-Procedure">
         <td class="field break-all">
             <p><b>BT-531-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#natureSection"></a><br>Additional Nature (different from Main)</p><p><i>BT-531:</i> The nature (e.g. services) of what is being bought, additional to Main Nature.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProject/cac:ProcurementAdditionalType/cbc:ProcurementTypeCode[not(@listName='transport-service')]</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='contract-nature']/cbc:ProcurementTypeCode</span></code>
         </td>
         <td class="mapping">
 
@@ -13165,7 +15656,7 @@ Add to `tender.additionalProcurementCategories` array.
       </tr>
       <tr id="BT-536-Lot">
         <td class="field break-all">
-            <p><b>BT-536-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#plannedPeriodSection"></a><br>Duration Start Date</p><p><i>BT-536:</i> The (estimated) date when the contract, framework agreement, dynamic purchasing system or qualification system will start.</p>
+            <p><b>BT-536-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#plannedPeriodSection"></a><br>Duration Start Date</p><p><i>BT-536:</i> The (estimated) date when the contract, framework agreement, dynamic purchasing system or qualification system will start.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:PlannedPeriod/cbc:StartDate</span></code>
         </td>
         <td class="mapping">
@@ -13173,9 +15664,14 @@ Add to `tender.additionalProcurementCategories` array.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.contractPeriod.startDate`.
 
 ```xml
-<cac:PlannedPeriod>
-  <cbc:StartDate>2019-11-15+01:00</cbc:StartDate>
-</cac:PlannedPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:PlannedPeriod>
+      <cbc:StartDate>2019-11-15+01:00</cbc:StartDate>
+    </cac:PlannedPeriod>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13183,6 +15679,7 @@ Add to `tender.additionalProcurementCategories` array.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractPeriod": {
           "startDate": "2019-11-15T00:00:00+01:00"
         }
@@ -13223,7 +15720,7 @@ Add to `tender.additionalProcurementCategories` array.
       </tr>
       <tr id="BT-537-Lot">
         <td class="field break-all">
-            <p><b>BT-537-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#plannedPeriodSection"></a><br>Duration End Date</p><p><i>BT-537:</i> The (estimated) date when the contract, framework agreement, dynamic purchasing system or qualification system will finish.</p>
+            <p><b>BT-537-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#plannedPeriodSection"></a><br>Duration End Date</p><p><i>BT-537:</i> The (estimated) date when the contract, framework agreement, dynamic purchasing system or qualification system will finish.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:PlannedPeriod/cbc:EndDate</span></code>
         </td>
         <td class="mapping">
@@ -13231,9 +15728,14 @@ Add to `tender.additionalProcurementCategories` array.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.contractPeriod.endDate`.
 
 ```xml
-<cac:PlannedPeriod>
-  <cbc:EndDate>2019-11-19+01:00</cbc:EndDate>
-</cac:PlannedPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:PlannedPeriod>
+      <cbc:EndDate>2019-11-19+01:00</cbc:EndDate>
+    </cac:PlannedPeriod>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13241,6 +15743,7 @@ Add to `tender.additionalProcurementCategories` array.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractPeriod": {
           "endDate": "2019-11-19T23:59:59+01:00"
         }
@@ -13281,7 +15784,7 @@ Add to `tender.additionalProcurementCategories` array.
       </tr>
       <tr id="BT-538-Lot">
         <td class="field break-all">
-            <p><b>BT-538-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#plannedPeriodSection"></a><br>Duration Other</p><p><i>BT-538:</i> The duration is unknown, unlimited, etc.</p>
+            <p><b>BT-538-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#plannedPeriodSection"></a><br>Duration Other</p><p><i>BT-538:</i> The duration is unknown, unlimited, etc.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:PlannedPeriod/cbc:DescriptionCode</span></code>
         </td>
         <td class="mapping">
@@ -13289,9 +15792,14 @@ Add to `tender.additionalProcurementCategories` array.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractPeriod.description`.
 
 ```xml
-<cac:PlannedPeriod>
-  <cbc:DescriptionCode listName="timeperiod">UNLIMITED</cbc:DescriptionCode>
-</cac:PlannedPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:PlannedPeriod>
+      <cbc:DescriptionCode listName="timeperiod">UNLIMITED</cbc:DescriptionCode>
+    </cac:PlannedPeriod>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13299,6 +15807,7 @@ Add to `tender.additionalProcurementCategories` array.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractPeriod": {
           "description": "UNLIMITED"
         }
@@ -13350,9 +15859,18 @@ This field maps to the same `AwardCriterion` objects as created for BT-540-Lot, 
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array and map the value of this field to the award critereon's `.type`.
 
 ```xml
-<cac:SubordinateAwardingCriterion>
-  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
-</cac:SubordinateAwardingCriterion>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13360,6 +15878,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "awardCriteria": {
           "criteria": [
             {
@@ -13377,7 +15896,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
       </tr>
       <tr id="BT-539-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-539-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Type</p><p><i>BT-539:</i> Whether the criterion concerns the price, the cost, or a non-price non-cost attribute of the tender. (Price is the acquisition price; cost is any other non-price monetary criterion.)</p>
+            <p><b>BT-539-LotsGroup</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Type</p><p><i>BT-539:</i> Whether the criterion concerns the price, the cost, or a non-price non-cost attribute of the tender. (Price is the acquisition price; cost is any other non-price monetary criterion.)</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/cbc:AwardingCriterionTypeCode[@listName='award-criterion-type']</span></code>
         </td>
         <td class="mapping">
@@ -13388,9 +15907,18 @@ This field maps to the same `AwardCriterion` objects as created for BT-540-LotsG
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot group's `.awardCriteria.criteria` array and map the value of this field to the award critereon's `.type`.
 
 ```xml
-<cac:SubordinateAwardingCriterion>
-  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
-</cac:SubordinateAwardingCriterion>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13398,6 +15926,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "awardCriteria": {
           "criteria": [
             {
@@ -13423,9 +15952,14 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.options.description`.
 
 ```xml
-<cac:ContractExtension>
-  <cbc:OptionsDescription languageID="ENG">The buyer reserves the right to ...</cbc:OptionsDescription>
-</cac:ContractExtension>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:ContractExtension>
+      <cbc:OptionsDescription languageID="ENG">The buyer reserves the right to ...</cbc:OptionsDescription>
+    </cac:ContractExtension>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13433,6 +15967,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "options": {
           "description": "The buyer reserves the right to..."
         }
@@ -13446,7 +15981,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
       </tr>
       <tr id="BT-540-Lot">
         <td class="field break-all">
-            <p><b>BT-540-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Description</p><p><i>BT-540:</i> The description of the award criterion.</p>
+            <p><b>BT-540-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Description</p><p><i>BT-540:</i> The description of the award criterion.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/cbc:Description</span></code>
         </td>
         <td class="mapping">
@@ -13457,9 +15992,18 @@ This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, 
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array and map the value of this field to the award criterion's `.description`.
 
 ```xml
-<cac:SubordinateAwardingCriterion>
-  <cbc:Description languageID="ENG">Tenders with a quality score less than 65...</cbc:Description>
-</cac:SubordinateAwardingCriterion>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <cbc:Description languageID="ENG">Tenders with a quality score less than 65...</cbc:Description>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13467,6 +16011,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "awardCriteria": {
           "criteria": [
             {
@@ -13495,9 +16040,18 @@ This field maps to the same `AwardCriterion` objects as created for BT-539-LotsG
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot group's `.awardCriteria.criteria` array and map the value of this field to the award criterion's `.description`.
 
 ```xml
-<cac:SubordinateAwardingCriterion>
-  <cbc:Description languageID="ENG">Tenders with a quality score less than 65...</cbc:Description>
-</cac:SubordinateAwardingCriterion>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <cbc:Description languageID="ENG">Tenders with a quality score less than 65...</cbc:Description>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13505,6 +16059,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "awardCriteria": {
           "criteria": [
             {
@@ -13520,23 +16075,43 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 
 </td>
       </tr>
-      <tr id="BT-541-Lot">
+      <tr id="BT-541-Lot-FixedNumber">
         <td class="field break-all">
-            <p><b>BT-541-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Number</p><p><i>BT-541:</i> A number linked to an award criterion.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efbc:ParameterNumeric</span></code>
+            <p><b>BT-541-Lot-FixedNumber</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Fixed Number</p><p><i>BT-541:</i> A number linked to an award criterion.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efbc:ParameterNumeric</span></code>
         </td>
         <td class="mapping">
 
-This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-5421-Lot, BT-5422-Lot, BT-5423-Lot and BT-734-Lot and to the same `CriterionNumber` objects as created for BT-5421-Lot, BT-5422-Lot and BT-5423-Lot.
+This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-5421-Lot, BT-5422-Lot, BT-5423-Lot and BT-734-Lot and to the same `CriterionNumber` objects as created for BT-5422-Lot.
 
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array.
-For each `efac:AwardCriterionParameter`, add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criteron number's `.number`.
+Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criteron number's `.number`.
 
 ```xml
-<efac:AwardCriterionParameter>
-  <efbc:ParameterNumeric>50</efbc:ParameterNumeric>
-</efac:AwardCriterionParameter>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-fixed"/>
+                    <efbc:ParameterNumeric>50</efbc:ParameterNumeric>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13544,6 +16119,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "awardCriteria": {
           "criteria": [
             {
@@ -13563,23 +16139,171 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
 
 </td>
       </tr>
-      <tr id="BT-541-LotsGroup">
+      <tr id="BT-541-Lot-ThresholdNumber">
         <td class="field break-all">
-            <p><b>BT-541-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Number</p><p><i>BT-541:</i> A number linked to an award criterion.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efbc:ParameterNumeric</span></code>
+            <p><b>BT-541-Lot-ThresholdNumber</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Threshold Number</p><p><i>BT-541:</i> A number linked to an award criterion.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efbc:ParameterNumeric</span></code>
         </td>
         <td class="mapping">
 
-This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-541-LotsGroup, BT-5421-LotsGroup, BT-5422-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup and to the same `CriterionNumber` objects as created for BT-5421-LotsGroup, BT-5422-LotsGroup and BT-5423-LotsGroup.
+This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-5421-Lot, BT-5422-Lot, BT-5423-Lot and BT-734-Lot and to the same `CriterionNumber` objects as created for BT-5423-Lot.
 
-[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
-For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot group's `.awardCriteria.criteria` array.
-For each `efac:AwardCriterionParameter`, add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criteron number's `.number`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
+For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array.
+Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criteron number's `.number`.
 
 ```xml
-<efac:AwardCriterionParameter>
-  <efbc:ParameterNumeric>50</efbc:ParameterNumeric>
-</efac:AwardCriterionParameter>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-threshold"/>
+                    <efbc:ParameterNumeric>50</efbc:ParameterNumeric>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
+```
+
+```json
+{
+  "tender": {
+    "lots": [
+      {
+        "id": "LOT-0001",
+        "awardCriteria": {
+          "criteria": [
+            {
+              "numbers": [
+                {
+                  "number": 50
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-541-Lot-WeightNumber">
+        <td class="field break-all">
+            <p><b>BT-541-Lot-WeightNumber</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Weight Number</p><p><i>BT-541:</i> A number linked to an award criterion.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efbc:ParameterNumeric</span></code>
+        </td>
+        <td class="mapping">
+
+This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-5421-Lot, BT-5422-Lot, BT-5423-Lot and BT-734-Lot and to the same `CriterionNumber` objects as created for BT-5421-Lot.
+
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
+For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array.
+Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criteron number's `.number`.
+
+```xml
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-weight"/>
+                    <efbc:ParameterNumeric>50</efbc:ParameterNumeric>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
+```
+
+```json
+{
+  "tender": {
+    "lots": [
+      {
+        "id": "LOT-0001",
+        "awardCriteria": {
+          "criteria": [
+            {
+              "numbers": [
+                {
+                  "number": 50
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-541-LotsGroup-FixedNumber">
+        <td class="field break-all">
+            <p><b>BT-541-LotsGroup-FixedNumber</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Fixed Number</p><p><i>BT-541:</i> A number linked to an award criterion.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efbc:ParameterNumeric</span></code>
+        </td>
+        <td class="mapping">
+
+This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-5421-LotsGroup, BT-5422-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup and to the same `CriterionNumber` objects as created for BT-5422-LotsGroup.
+
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
+For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot gorup's `.awardCriteria.criteria` array.
+Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criteron number's `.number`.
+
+```xml
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-fixed"/>
+                    <efbc:ParameterNumeric>50</efbc:ParameterNumeric>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13587,6 +16311,135 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
+        "awardCriteria": {
+          "criteria": [
+            {
+              "numbers": [
+                {
+                  "number": 50
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-541-LotsGroup-ThresholdNumber">
+        <td class="field break-all">
+            <p><b>BT-541-LotsGroup-ThresholdNumber</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Threshold Number</p><p><i>BT-541:</i> A number linked to an award criterion.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efbc:ParameterNumeric</span></code>
+        </td>
+        <td class="mapping">
+
+This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-5421-LotsGroup, BT-5422-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup and to the same `CriterionNumber` objects as created for BT-5423-LotsGroup.
+
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
+For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot gorup's `.awardCriteria.criteria` array.
+Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criteron number's `.number`.
+
+```xml
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-threshold"/>
+                    <efbc:ParameterNumeric>50</efbc:ParameterNumeric>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
+```
+
+```json
+{
+  "tender": {
+    "lotGroups": [
+      {
+        "id": "GLO-0001",
+        "awardCriteria": {
+          "criteria": [
+            {
+              "numbers": [
+                {
+                  "number": 50
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-541-LotsGroup-WeightNumber">
+        <td class="field break-all">
+            <p><b>BT-541-LotsGroup-WeightNumber</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Weight Number</p><p><i>BT-541:</i> A number linked to an award criterion.</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efbc:ParameterNumeric</span></code>
+        </td>
+        <td class="mapping">
+
+This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-5421-LotsGroup, BT-5422-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup and to the same `CriterionNumber` objects as created for BT-5421-LotsGroup.
+
+[Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
+For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot gorup's `.awardCriteria.criteria` array.
+Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criteron number's `.number`.
+
+```xml
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-weight"/>
+                    <efbc:ParameterNumeric>50</efbc:ParameterNumeric>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
+```
+
+```json
+{
+  "tender": {
+    "lotGroups": [
+      {
+        "id": "GLO-0001",
         "awardCriteria": {
           "criteria": [
             {
@@ -13608,8 +16461,8 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
       </tr>
       <tr id="BT-5421-Lot">
         <td class="field break-all">
-            <p><b>BT-5421-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Number Weight</p><p><i>BT-5421:</i> Whether the number linked to an award criterion is a type of weight (e.g. a percentage).</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efbc:ParameterCode[@listName='number-weight']</span></code>
+            <p><b>BT-5421-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Number Weight</p><p><i>BT-5421:</i> Whether the number linked to an award criterion is a type of weight (e.g. a percentage).</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efbc:ParameterCode</span></code>
         </td>
         <td class="mapping">
 
@@ -13622,9 +16475,28 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 For each `efac:AwardCriterionParameter`, add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map value of the code to the award criterion number's `.weight` according to the [number weight mapping table](codelists/number-weight).
 
 ```xml
-<efac:AwardCriterionParameter>
-  <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
-</efac:AwardCriterionParameter>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13632,6 +16504,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "awardCriteria": {
           "criteria": [
             {
@@ -13653,8 +16526,8 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
       </tr>
       <tr id="BT-5421-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-5421-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Number Weight</p><p><i>BT-5421:</i> Whether the number linked to an award criterion is a type of weight (e.g. a percentage).</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efbc:ParameterCode[@listName='number-weight']</span></code>
+            <p><b>BT-5421-LotsGroup</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Number Weight</p><p><i>BT-5421:</i> Whether the number linked to an award criterion is a type of weight (e.g. a percentage).</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-weight']/efbc:ParameterCode</span></code>
         </td>
         <td class="mapping">
 
@@ -13667,9 +16540,28 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 For each `efac:AwardCriterionParameter`, add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.weight` according to the [number weight mapping table](codelists/number-weight).
 
 ```xml
-<efac:AwardCriterionParameter>
-  <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
-</efac:AwardCriterionParameter>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13677,6 +16569,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "awardCriteria": {
           "criteria": [
             {
@@ -13698,8 +16591,8 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
       </tr>
       <tr id="BT-5422-Lot">
         <td class="field break-all">
-            <p><b>BT-5422-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Number Fixed</p><p><i>BT-5422:</i> Whether the number linked to an award criterion is a fixed value (e.g. a fixed price, a fixed cost).</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efbc:ParameterCode[@listName='number-fixed']</span></code>
+            <p><b>BT-5422-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Number Fixed</p><p><i>BT-5422:</i> Whether the number linked to an award criterion is a fixed value (e.g. a fixed price, a fixed cost).</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efbc:ParameterCode</span></code>
         </td>
         <td class="mapping">
 
@@ -13712,9 +16605,28 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 For each `efac:AwardCriterionParameter`, add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.fixed` according to the [number fixed mapping table](codelists/number-fixed).
 
 ```xml
-<efac:AwardCriterionParameter>
-  <efbc:ParameterCode listName="number-fixed">fix-tot</efbc:ParameterCode>
-</efac:AwardCriterionParameter>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-fixed">total</efbc:ParameterCode>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13722,6 +16634,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "awardCriteria": {
           "criteria": [
             {
@@ -13743,8 +16656,8 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
       </tr>
       <tr id="BT-5422-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-5422-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Number Fixed</p><p><i>BT-5422:</i> Whether the number linked to an award criterion is a fixed value (e.g. a fixed price, a fixed cost).</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efbc:ParameterCode[@listName='number-fixed']</span></code>
+            <p><b>BT-5422-LotsGroup</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Number Fixed</p><p><i>BT-5422:</i> Whether the number linked to an award criterion is a fixed value (e.g. a fixed price, a fixed cost).</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-fixed']/efbc:ParameterCode</span></code>
         </td>
         <td class="mapping">
 
@@ -13757,9 +16670,28 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 For each `efac:AwardCriterionParameter`, add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.fixed` according to the [number fixed mapping table](codelists/number-fixed).
 
 ```xml
-<efac:AwardCriterionParameter>
-  <efbc:ParameterCode listName="number-fixed">fix-tot</efbc:ParameterCode>
-</efac:AwardCriterionParameter>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-fixed">total</efbc:ParameterCode>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13788,8 +16720,8 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
       </tr>
       <tr id="BT-5423-Lot">
         <td class="field break-all">
-            <p><b>BT-5423-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Number Threshold</p><p><i>BT-5423:</i> Whether the number linked to an award criterion is a type of threshold (e.g. a minimum score, a maximum number of tenders with the highest score passing).</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efbc:ParameterCode[@listName='number-threshold']</span></code>
+            <p><b>BT-5423-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Number Threshold</p><p><i>BT-5423:</i> Whether the number linked to an award criterion is a type of threshold (e.g. a minimum score, a maximum number of tenders with the highest score passing).</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efbc:ParameterCode</span></code>
         </td>
         <td class="mapping">
 
@@ -13802,9 +16734,28 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 For each `efac:AwardCriterionParameter`, add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.threshold` according to the [number threshold mapping table](codelists/number-threshold).
 
 ```xml
-<efac:AwardCriterionParameter>
-  <efbc:ParameterCode listName="number-threshold">max-pass</efbc:ParameterCode>
-</efac:AwardCriterionParameter>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-threshold">max-pass</efbc:ParameterCode>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13812,6 +16763,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "awardCriteria": {
           "criteria": [
             {
@@ -13833,8 +16785,8 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
       </tr>
       <tr id="BT-5423-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-5423-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Number Threshold</p><p><i>BT-5423:</i> Whether the number linked to an award criterion is a type of threshold (e.g. a minimum score, a maximum number of tenders with the highest score passing).</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efbc:ParameterCode[@listName='number-threshold']</span></code>
+            <p><b>BT-5423-LotsGroup</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criterion Number Threshold</p><p><i>BT-5423:</i> Whether the number linked to an award criterion is a type of threshold (e.g. a minimum score, a maximum number of tenders with the highest score passing).</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efbc:ParameterCode</span></code>
         </td>
         <td class="mapping">
 
@@ -13847,9 +16799,28 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 For each `efac:AwardCriterionParameter`, add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the code to the award criterion number's `.threshold` according to the [number threshold mapping table](codelists/number-threshold).
 
 ```xml
-<efac:AwardCriterionParameter>
-  <efbc:ParameterCode listName="number-threshold">max-pass</efbc:ParameterCode>
-</efac:AwardCriterionParameter>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <ext:UBLExtensions>
+            <ext:UBLExtension>
+              <ext:ExtensionContent>
+                <efext:EformsExtension>
+                  <efac:AwardCriterionParameter>
+                    <efbc:ParameterCode listName="number-threshold">max-pass</efbc:ParameterCode>
+                  </efac:AwardCriterionParameter>
+                </efext:EformsExtension>
+              </ext:ExtensionContent>
+            </ext:UBLExtension>
+          </ext:UBLExtensions>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13857,6 +16828,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "awardCriteria": {
           "criteria": [
             {
@@ -13878,7 +16850,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
       </tr>
       <tr id="BT-543-Lot">
         <td class="field break-all">
-            <p><b>BT-543-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criteria Complicated</p><p><i>BT-543:</i> The mathematical equation or any other description used for complicated weighing of criteria (e.g. non-linear weighing, the analytic hierarchy process) when a weighing cannot be expressed per criterion. </p>
+            <p><b>BT-543-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criteria Complicated</p><p><i>BT-543:</i> The mathematical equation or any other description used for complicated weighing of criteria (e.g. non-linear weighing, the analytic hierarchy process) when a weighing cannot be expressed per criterion. </p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cbc:CalculationExpression</span></code>
         </td>
         <td class="mapping">
@@ -13886,9 +16858,16 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.awardCriteria.weightingDescription`.
 
 ```xml
-<cac:AwardingCriterion>
-  <cbc:CalculationExpression languageID="ENG">Price-quality score calculation is based on &#8230;</cbc:CalculationExpression>
-</cac:AwardingCriterion>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cbc:CalculationExpression languageID="ENG">Price-quality score calculation is based on &#8230;</cbc:CalculationExpression>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13896,6 +16875,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "awardCriteria": {
           "weightingDescription": "Price-quality score calculation is based on …"
         }
@@ -13909,7 +16889,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
       </tr>
       <tr id="BT-543-LotsGroup">
         <td class="field break-all">
-            <p><b>BT-543-LotsGroup</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criteria Complicated</p><p><i>BT-543:</i> The mathematical equation or any other description used for complicated weighing of criteria (e.g. non-linear weighing, the analytic hierarchy process) when a weighing cannot be expressed per criterion. </p>
+            <p><b>BT-543-LotsGroup</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#awardCriteriaSection"></a><br>Award Criteria Complicated</p><p><i>BT-543:</i> The mathematical equation or any other description used for complicated weighing of criteria (e.g. non-linear weighing, the analytic hierarchy process) when a weighing cannot be expressed per criterion. </p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cbc:CalculationExpression</span></code>
         </td>
         <td class="mapping">
@@ -13917,9 +16897,16 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot) and map to its `.awardCriteria.weightingDescription`.
 
 ```xml
-<cac:AwardingCriterion>
-  <cbc:CalculationExpression languageID="ENG">Price-quality score calculation is based on &#8230;</cbc:CalculationExpression>
-</cac:AwardingCriterion>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cbc:CalculationExpression languageID="ENG">Price-quality score calculation is based on &#8230;</cbc:CalculationExpression>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -13927,6 +16914,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "awardCriteria": {
           "weightingDescription": "Price-quality score calculation is based on …"
         }
@@ -13941,7 +16929,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
       <tr id="BT-553-Tender">
         <td class="field break-all">
             <p><b>BT-553-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Subcontracting Value</p><p><i>BT-553:</i> The estimated value of the part of the contract that the contractor will subcontract to third parties.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efbc:TermAmount</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efbc:TermAmount</span></code>
         </td>
         <td class="mapping">
 
@@ -13975,7 +16963,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
       <tr id="BT-554-Tender">
         <td class="field break-all">
             <p><b>BT-554-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Subcontracting Description</p><p><i>BT-554:</i> The description of the part of the contract that the contractor will subcontract to third parties.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efbc:TermDescription</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efbc:TermDescription</span></code>
         </td>
         <td class="mapping">
 
@@ -14006,7 +16994,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
       <tr id="BT-555-Tender">
         <td class="field break-all">
             <p><b>BT-555-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Subcontracting Percentage</p><p><i>BT-555:</i> The estimated percentage of the contract that the contractor will subcontract to third parties compared to the whole contract.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efbc:TermPercent</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efbc:TermPercent</span></code>
         </td>
         <td class="mapping">
 
@@ -14480,7 +17468,7 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.communication.invitationToConfirmInterest`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.communication.invitationToConfirmInterestDispatchDate`.
 
 ```xml
 <cac:ParticipationInvitationPeriod>
@@ -14494,7 +17482,7 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
     "lots": [
       {
         "communication": {
-          "invitationToConfirmInterest": "2019-11-15T09:00:00+01:00"
+          "invitationToConfirmInterestDispatchDate": "2019-11-15T09:00:00+01:00"
         }
       }
     ]
@@ -14650,7 +17638,7 @@ For each `AppealRequestStatistics`, [add a complaints statistic](operations.md#a
   "statistics": [
     {
       "id": "1",
-      "value": "2",
+      "value": 2,
       "scope": "complaints"
     }
   ]
@@ -14693,7 +17681,7 @@ For each `AppealRequestStatistics`, [add a complaints statistic](operations.md#a
       <tr id="BT-64-Lot">
         <td class="field break-all">
             <p><b>BT-64-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#subcontractingObligationSection"></a><br>Subcontracting Obligation Minimum</p><p><i>BT-64:</i> The minimum percentage of the contract value that the contractor must subcontract using the competitive procedure described in Title III of European Parliament and Council Directive 2009/81/EC.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AllowedSubcontractTerms/cbc:MinimumPercent</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AllowedSubcontractTerms[cbc:SubcontractingConditionsCode/@listName='subcontracting-obligation']/cbc:MinimumPercent</span></code>
         </td>
         <td class="mapping">
 
@@ -14772,7 +17760,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
         </td>
         <td class="mapping">
 
-If different from 'none':
+If different from "none":
 
 - [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 - Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/subcontracting-obligation) and map it to the lot's `.subcontractingTerms.description`.
@@ -14915,7 +17903,7 @@ Add an `ExclusionCriterion` object to the `tender.exclusionGrounds.criteria` arr
       </tr>
       <tr id="BT-67(b)-Procedure">
         <td class="field break-all">
-            <p><b>BT-67(b)-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#exclusionGrounds"></a><br>Exclusion Grounds</p><p><i>BT-67:</i> The brief description of criteria regarding the personal situation of tenderers that may lead to their exclusion. This shall include a list of all such criteria and indicate required information (e.g. self-declaration, documentation). This may also include specific national exclusion grounds. </p>
+            <p><b>BT-67(b)-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#exclusionGrounds"></a><br>Exclusion Grounds</p><p><i>BT-67:</i> The brief description of criteria regarding the personal situation of tenderers that may lead to their exclusion. This shall include a list of all such criteria and indicate required information (e.g. self-declaration, documentation). This may also include specific national exclusion grounds. </p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:TenderingTerms/cac:TendererQualificationRequest/cac:SpecificTendererRequirement/cbc:Description</span></code>
         </td>
         <td class="mapping">
@@ -15044,7 +18032,7 @@ Discard `/*/cac:AdditionalNoticeLanguage/cbc:ID`.
         </td>
         <td class="mapping">
 
-[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner), look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and map to the person's `.nationality`.
+[Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner), look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and add to the person's `.nationalities` array.
 
 ```xml
 <efac:UltimateBeneficialOwner>
@@ -15060,7 +18048,9 @@ Discard `/*/cac:AdditionalNoticeLanguage/cbc:ID`.
     {
       "beneficialOwners": [
         {
-          "nationality": "DE"
+          "nationalities": [
+            "DE"
+          ]
         }
       ]
     }
@@ -15139,7 +18129,7 @@ Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu
       <tr id="BT-708-Lot">
         <td class="field break-all">
             <p><b>BT-708-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#procurementDocsSection"></a><br>Documents Official Language</p><p><i>BT-708:</i> The language(s) in which the procurement documents are officially available. These linguistic versions are equally legally valid.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:CallForTendersDocumentReference/cbc:LanguageID[not(../cbc:DocumentStatusCode/text()='non-official')]</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:CallForTendersDocumentReference/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:OfficialLanguages/cac:Language/cbc:ID</span></code>
         </td>
         <td class="mapping">
 
@@ -15184,7 +18174,7 @@ Lowercase and convert the code into a two-letter [ISO 639-1 code](https://en.wik
       <tr id="BT-708-Part">
         <td class="field break-all">
             <p><b>BT-708-Part</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#procurementDocsSection"></a><br>Documents Official Language</p><p><i>BT-708:</i> The language(s) in which the procurement documents are officially available. These linguistic versions are equally legally valid.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingTerms/cac:CallForTendersDocumentReference/cbc:LanguageID[not(../cbc:DocumentStatusCode/text()='non-official')]</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingTerms/cac:CallForTendersDocumentReference/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:OfficialLanguages/cac:Language/cbc:ID</span></code>
         </td>
         <td class="mapping">
 
@@ -15251,7 +18241,7 @@ Add it to the document's `.languages` array.
       <tr id="BT-71-Lot">
         <td class="field break-all">
             <p><b>BT-71-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#reservedParticipationSection"></a><br>Reserved Participation</p><p><i>BT-71:</i> Whether participation is reserved for specific organisations (e.g. sheltered workshops, organisations pursuing a public service mission).</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:TendererQualificationRequest[not(cbc:CompanyLegalFormCode)][not(cac:SpecificTendererRequirement/cbc:TendererRequirementTypeCode[@listName='missing-info-submission'])]/cac:SpecificTendererRequirement[cbc:TendererRequirementTypeCode/@listName='reserved-procurement']/cbc:TendererRequirementTypeCode[@listName='reserved-procurement']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:TendererQualificationRequest[not(cbc:CompanyLegalFormCode)][not(cac:SpecificTendererRequirement/cbc:TendererRequirementTypeCode[@listName='missing-info-submission'])]/cac:SpecificTendererRequirement[cbc:TendererRequirementTypeCode/@listName='reserved-procurement']/cbc:TendererRequirementTypeCode</span></code>
         </td>
         <td class="mapping">
 
@@ -15286,7 +18276,7 @@ If "res-pub-ser", add 'publicServiceMissionOrganization' to the lot's `.otherReq
       <tr id="BT-71-Part">
         <td class="field break-all">
             <p><b>BT-71-Part</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#reservedParticipationSection"></a><br>Reserved Participation</p><p><i>BT-71:</i> Whether participation is reserved for specific organisations (e.g. sheltered workshops, organisations pursuing a public service mission).</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingTerms/cac:TendererQualificationRequest[not(cbc:CompanyLegalFormCode)][not(cac:SpecificTendererRequirement/cbc:TendererRequirementTypeCode[@listName='missing-info-submission'])]/cac:SpecificTendererRequirement[cbc:TendererRequirementTypeCode/@listName='reserved-procurement']/cbc:TendererRequirementTypeCode[@listName='reserved-procurement']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingTerms/cac:TendererQualificationRequest[not(cbc:CompanyLegalFormCode)][not(cac:SpecificTendererRequirement/cbc:TendererRequirementTypeCode[@listName='missing-info-submission'])]/cac:SpecificTendererRequirement[cbc:TendererRequirementTypeCode/@listName='reserved-procurement']/cbc:TendererRequirementTypeCode</span></code>
         </td>
         <td class="mapping">
 
@@ -15408,8 +18398,8 @@ For each `ancestor::AppealRequestStatistics`, [add a complaints statistic](opera
   "statistics": [
     {
       "id": "1",
-      "value": "2",
-      "scope": "complaints"
+      "value": 2,
+      "measure": "complainants"
     }
   ]
 }
@@ -15441,7 +18431,7 @@ For each `ancestor::AppealRequestStatistics`, [add a complaints statistic](opera
   "statistics": [
     {
       "id": "1",
-      "value": "2",
+      "value": 2,
       "measure": "complainants",
       "scope": "complaints"
     }
@@ -15708,7 +18698,7 @@ This field maps to the same `Item` objects as created for OPT-155-LotResult, OPT
 For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/efbc:StatisticsCode` add a `Classification` object to the corresponding item's `additionalClassifications` array.
 
 - Map the value of this field to the classification's `.id`.
-- Set the classification's `.scheme` to "eu-vehicle-category".
+- Set the classification's `.scheme` to 'eu-vehicle-category'.
 - Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/vehicle-category) and map it to the classification's `.description`.
 
 ```xml
@@ -15924,7 +18914,7 @@ Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu
       </tr>
       <tr id="BT-728-Lot">
         <td class="field break-all">
-            <p><b>BT-728-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Additional Information</p><p><i>BT-728:</i> Additional information about the place of performance.</p>
+            <p><b>BT-728-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Additional Information</p><p><i>BT-728:</i> Additional information about the place of performance.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:RealizedLocation/cbc:Description</span></code>
         </td>
         <td class="mapping">
@@ -15945,9 +18935,11 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
   "tender": {
     "items": [
       {
-        "deliveryLocation": {
-          "description": "Further realizations..."
-        }
+        "deliveryAddresses": [
+          {
+            "description": "Further realizations..."
+          }
+        ]
       }
     ]
   }
@@ -15958,7 +18950,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
       </tr>
       <tr id="BT-728-Part">
         <td class="field break-all">
-            <p><b>BT-728-Part</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Additional Information</p><p><i>BT-728:</i> Additional information about the place of performance.</p>
+            <p><b>BT-728-Part</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Additional Information</p><p><i>BT-728:</i> Additional information about the place of performance.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:ProcurementProject/cac:RealizedLocation/cbc:Description</span></code>
         </td>
         <td class="mapping">
@@ -15975,7 +18967,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```json
 {
   "tender": {
-    "deliveryLocations": [
+    "deliveryAddresses": [
       {
         "description": "Further realizations ..."
       }
@@ -15988,7 +18980,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
       </tr>
       <tr id="BT-728-Procedure">
         <td class="field break-all">
-            <p><b>BT-728-Procedure</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Additional Information</p><p><i>BT-728:</i> Additional information about the place of performance.</p>
+            <p><b>BT-728-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#performancePlaceSection"></a><br>Place Performance Additional Information</p><p><i>BT-728:</i> Additional information about the place of performance.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProject/cac:RealizedLocation/cbc:Description</span></code>
         </td>
         <td class="mapping">
@@ -16005,7 +18997,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 ```json
 {
   "tender": {
-    "deliveryLocations": [
+    "deliveryAddresses": [
       {
         "description": "Further realizations ..."
       }
@@ -16019,7 +19011,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
       <tr id="BT-729-Lot">
         <td class="field break-all">
             <p><b>BT-729-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#subcontractingObligationSection"></a><br>Subcontracting Obligation Maximum</p><p><i>BT-729:</i> The maximum percentage of the contract value that the contractor must subcontract using the competitive procedure described in Title III of Directive 2009/81/EC.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AllowedSubcontractTerms/cbc:MaximumPercent</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AllowedSubcontractTerms[cbc:SubcontractingConditionsCode/@listName='subcontracting-obligation']/cbc:MaximumPercent</span></code>
         </td>
         <td class="mapping">
 
@@ -16050,7 +19042,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
       <tr id="BT-730-Tender">
         <td class="field break-all">
             <p><b>BT-730-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Subcontracting Value Known</p><p><i>BT-730:</i> The buyer knows at least the estimated value of the part of the contract that the contractor will subcontract to third parties.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efbc:ValueKnownIndicator</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efbc:ValueKnownIndicator</span></code>
         </td>
         <td class="mapping">
 
@@ -16069,7 +19061,7 @@ Discard. If the award's `.subcontracting.value` is not empty, the buyer knows th
       <tr id="BT-731-Tender">
         <td class="field break-all">
             <p><b>BT-731-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Subcontracting Percentage Known</p><p><i>BT-731:</i> The buyer knows at least the estimated percentage of the contract that the contractor will subcontract to third parties compared to the whole contract.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efbc:PercentageKnownIndicator</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efbc:PercentageKnownIndicator</span></code>
         </td>
         <td class="mapping">
 
@@ -16308,7 +19300,7 @@ This field maps to the same `Item` objects as created for OPT-155-LotResult and 
 For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/efbc:StatisticsCode` add a `Classification` object to the corresponding item's `additionalClassifications` array.
 
 - Map the value of this field to the classification's `.id`.
-- Set the classification's `.scheme` to "eu-cvd-contract-type".
+- Set the classification's `.scheme` to 'eu-cvd-contract-type'.
 - Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/cvd-contract-type) and map it to the classification's `.description`.
 
 ```xml
@@ -16343,7 +19335,7 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
       <tr id="BT-736-Lot">
         <td class="field break-all">
             <p><b>BT-736-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#reservedExecutionSection"></a><br>Reserved Execution</p><p><i>BT-736:</i> Whether the execution of the contract must be performed in the framework of sheltered employment programmes.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:ContractExecutionRequirement/cbc:ExecutionRequirementCode[@listName='reserved-execution']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:ContractExecutionRequirement[cbc:ExecutionRequirementCode/@listName='reserved-execution']/cbc:ExecutionRequirementCode</span></code>
         </td>
         <td class="mapping">
 
@@ -16374,7 +19366,7 @@ If "yes", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-
       <tr id="BT-736-Part">
         <td class="field break-all">
             <p><b>BT-736-Part</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#reservedExecutionSection"></a><br>Reserved Execution</p><p><i>BT-736:</i> Whether the execution of the contract must be performed in the framework of sheltered employment programmes.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingTerms/cac:ContractExecutionRequirement/cbc:ExecutionRequirementCode[@listName='reserved-execution']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingTerms/cac:ContractExecutionRequirement[cbc:ExecutionRequirementCode/@listName='reserved-execution']/cbc:ExecutionRequirementCode</span></code>
         </td>
         <td class="mapping">
 
@@ -16401,7 +19393,7 @@ Set `tender.contractTerms.reservedExecution` to `true` if `@ExecutionRequirement
       <tr id="BT-737-Lot">
         <td class="field break-all">
             <p><b>BT-737-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#procurementDocsSection"></a><br>Documents Unofficial Language</p><p><i>BT-737:</i> The language(s) in which the procurement documents (or their parts) are unofficially available. These linguistic versions are not an official translation, they are provided only for information.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:CallForTendersDocumentReference/cbc:LanguageID[../cbc:DocumentStatusCode/text()='non-official']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:CallForTendersDocumentReference/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NonOfficialLanguages/cac:Language/cbc:ID</span></code>
         </td>
         <td class="mapping">
 
@@ -16444,7 +19436,7 @@ Set the document's `.unofficialTranslation` to `true`.
       <tr id="BT-737-Part">
         <td class="field break-all">
             <p><b>BT-737-Part</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#procurementDocsSection"></a><br>Documents Unofficial Language</p><p><i>BT-737:</i> The language(s) in which the procurement documents (or their parts) are unofficially available. These linguistic versions are not an official translation, they are provided only for information.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingTerms/cac:CallForTendersDocumentReference/cbc:LanguageID[../cbc:DocumentStatusCode/text()='non-official']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingTerms/cac:CallForTendersDocumentReference/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NonOfficialLanguages/cac:Language/cbc:ID</span></code>
         </td>
         <td class="mapping">
 
@@ -16481,7 +19473,7 @@ Set the document's `.unofficialTranslation` to `true`.
         </td>
         <td class="mapping">
 
-[Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `tender.communication.noticeRequestedPublicationDate`.
+[Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to `tender.communication.noticePreferredPublicationDate`.
 
 ```xml
 <cbc:RequestedPublicationDate>2020-03-15+01:00</cbc:RequestedPublicationDate>
@@ -16491,7 +19483,7 @@ Set the document's `.unofficialTranslation` to `true`.
 {
   "tender": {
     "communication": {
-      "noticeRequestedPublicationDate": "2020-03-15T00:00:00+01:00"
+      "noticePreferredPublicationDate": "2020-03-15T00:00:00+01:00"
     }
   }
 }
@@ -16608,7 +19600,7 @@ Set the document's `.unofficialTranslation` to `true`.
 [Get the organization for the buyer](operations.md#get-the-organization-for-the-buyer), and add a `Classification` object to its `.details.classifications` array.
 
 - Map the value of this field to the classification's `.id`.
-- Set its `.description` according to the [buyer contracting type mapping table](codelists/buyer-contracting-type) and set its `.scheme` to 'buyer-contracting-type'.
+- Set its `.description` according to the [buyer contracting type mapping table](codelists/buyer-contracting-type) and set its `.scheme` to 'eu-buyer-contracting-type'.
 
 ```xml
 <cac:ContractingPartyType>
@@ -16624,7 +19616,7 @@ Set the document's `.unofficialTranslation` to `true`.
       "details": {
         "classifications": [
           {
-            "scheme": "buyer-contracting-type",
+            "scheme": "eu-buyer-contracting-type",
             "id": "cont-ent",
             "description": "Contracting Entity"
           }
@@ -16640,7 +19632,7 @@ Set the document's `.unofficialTranslation` to `true`.
       <tr id="BT-743-Lot">
         <td class="field break-all">
             <p><b>BT-743-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#eInvoicingSection"></a><br>Electronic Invoicing</p><p><i>BT-743:</i> Whether the buyer will require, allow or not allow electronic invoices.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:ContractExecutionRequirement/cbc:ExecutionRequirementCode[@listName='einvoicing']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:ContractExecutionRequirement[cbc:ExecutionRequirementCode/@listName='einvoicing']/cbc:ExecutionRequirementCode</span></code>
         </td>
         <td class="mapping">
 
@@ -16671,7 +19663,7 @@ Set the document's `.unofficialTranslation` to `true`.
       <tr id="BT-744-Lot">
         <td class="field break-all">
             <p><b>BT-744-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#eSignatureSubmissionSection"></a><br>Submission Electronic Signature</p><p><i>BT-744:</i> Advanced or qualified electronic signature or seal (as defined in European Parliament and Council Regulation (EU) No 910/2014) is required.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:ContractExecutionRequirement/cbc:ExecutionRequirementCode[@listName='esignature-submission']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:ContractExecutionRequirement[cbc:ExecutionRequirementCode/@listName='esignature-submission']/cbc:ExecutionRequirementCode</span></code>
         </td>
         <td class="mapping">
 
@@ -16701,7 +19693,7 @@ Set the document's `.unofficialTranslation` to `true`.
       </tr>
       <tr id="BT-745-Lot">
         <td class="field break-all">
-            <p><b>BT-745-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#nonelectronicSection"></a><br>Submission Nonelectronic Description</p><p><i>BT-745:</i> The description of how to submit tenders, requests to participate, or expressions of interest non-electronically.</p>
+            <p><b>BT-745-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#nonelectronicSection"></a><br>Submission Nonelectronic Description</p><p><i>BT-745:</i> The description of how to submit tenders, requests to participate, or expressions of interest non-electronically.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='no-esubmission-justification']/cbc:Description</span></code>
         </td>
         <td class="mapping">
@@ -16730,7 +19722,7 @@ Set the document's `.unofficialTranslation` to `true`.
       </tr>
       <tr id="BT-746-Organization">
         <td class="field break-all">
-            <p><b>BT-746-Organization</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/parties.html#_general_structure_of_an_organization_related_information"></a><br>Winner Listed</p><p><i>BT-746:</i> The nationality (or nationalities) of the beneficiary owner(s) of the winner, tenderer, or subcontractor is not published in the register(s) established by Directive (EU) 2018/843, because the winner is listed on a regulated market (e.g. a stock exchange) that ensures adequate transparency in line with anti-money laundering legislation.</p>
+            <p><b>BT-746-Organization</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/parties.html#_general_structure_of_an_organization_related_information"></a><br>Winner Listed</p><p><i>BT-746:</i> The nationality (or nationalities) of the beneficiary owner(s) of the winner, tenderer, or subcontractor is not published in the register(s) established by Directive (EU) 2018/843, because the winner is listed on a regulated market (e.g. a stock exchange) that ensures adequate transparency in line with anti-money laundering legislation.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efbc:ListedOnRegulatedMarketIndicator</span></code>
         </td>
         <td class="mapping">
@@ -16943,24 +19935,39 @@ Discard. If the lot's `.submissionTerms.depositsGuarantees` is not empty, a guar
 
 </td>
       </tr>
-      <tr id="BT-752-Lot">
+      <tr id="BT-752-Lot-ThresholdNumber">
         <td class="field break-all">
-            <p><b>BT-752-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#selectionCriteriaSection"></a><br>Selection Criteria Second Stage Invite Number</p><p><i>BT-752:</i> A number linked to the selection criteria (or criterion).</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:SelectionCriteria/efac:CriterionParameter/efbc:ParameterNumeric</span></code>
+            <p><b>BT-752-Lot-ThresholdNumber</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/all-in-one.html#selectionCriteriaSection"></a><br>Selection Criteria Second Stage Invite Threshold Number</p><p><i>BT-752:</i> A number linked to the selection criteria (or criterion).</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:SelectionCriteria/efac:CriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efbc:ParameterNumeric</span></code>
         </td>
         <td class="mapping">
 
-If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-750-Lot, BT-7531-Lot and BT-7532-Lot, and the same `SelectionCriterionNumber` objects as created for BT-7531-Lot and BT-7532-Lot.
+If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-750-Lot, BT-7531-Lot and BT-7532-Lot, and the same `SelectionCriterionNumber` objects as created for BT-7532-Lot.
 
 - [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 - For each `efac:SelectionCriteria`, add or update a corresponding `SelectionCriterion` object in the lot's `.selectionCriteria.criteria`.
-- For each `efac:CriterionParameter`, add or update a corresponding `SelectionCriterionNumber` object in the criterion's `.numbers`.
-- Map to the number's `.number`.
+- Add or update a corresponding `SelectionCriterionNumber` object in the criterion's `.numbers`
 
 ```xml
-<efac:CriterionParameter>
-  <efbc:ParameterNumeric>2</efbc:ParameterNumeric>
-</efac:CriterionParameter>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:SelectionCriteria>
+              <efac:CriterionParameter>
+                <efbc:ParameterCode listName="number-threshold"/>
+                <efbc:ParameterNumeric>3</efbc:ParameterNumeric>
+              </efac:CriterionParameter>
+            </efac:SelectionCriteria>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -16968,12 +19975,73 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "selectionCriteria": {
           "criteria": [
             {
               "numbers": [
                 {
-                  "number": 2
+                  "number": 3
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+</td>
+      </tr>
+      <tr id="BT-752-Lot-WeightNumber">
+        <td class="field break-all">
+            <p><b>BT-752-Lot-WeightNumber</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/all-in-one.html#selectionCriteriaSection"></a><br>Selection Criteria Second Stage Invite Weight Number</p><p><i>BT-752:</i> A number linked to the selection criteria (or criterion).</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:SelectionCriteria/efac:CriterionParameter[efbc:ParameterCode/@listName='number-weight']/efbc:ParameterNumeric</span></code>
+        </td>
+        <td class="mapping">
+
+If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-750-Lot, BT-7531-Lot and BT-7532-Lot, and the same `SelectionCriterionNumber` objects as created for BT-7531-Lot.
+
+- [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
+- For each `efac:SelectionCriteria`, add or update a corresponding `SelectionCriterion` object in the lot's `.selectionCriteria.criteria`.
+- Add or update a corresponding `SelectionCriterionNumber` object in the criterion's `.numbers`
+
+```xml
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:SelectionCriteria>
+              <efac:CriterionParameter>
+                <efbc:ParameterCode listName="number-weight"/>
+                <efbc:ParameterNumeric>3</efbc:ParameterNumeric>
+              </efac:CriterionParameter>
+            </efac:SelectionCriteria>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
+```
+
+```json
+{
+  "tender": {
+    "lots": [
+      {
+        "id": "LOT-0001",
+        "selectionCriteria": {
+          "criteria": [
+            {
+              "numbers": [
+                {
+                  "number": 3
                 }
               ]
             }
@@ -16990,7 +20058,7 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
       <tr id="BT-7531-Lot">
         <td class="field break-all">
             <p><b>BT-7531-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#selectionCriteriaSection"></a><br>Selection Criteria Second Stage Invite Number Weight</p><p><i>BT-7531:</i> Whether the number linked to a selection criterion (or selection criteria) is a type of weight (e.g. a percentage).</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:SelectionCriteria/efac:CriterionParameter/efbc:ParameterCode[@listName='number-weight']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:SelectionCriteria/efac:CriterionParameter[efbc:ParameterCode/@listName='number-weight']/efbc:ParameterCode</span></code>
         </td>
         <td class="mapping">
 
@@ -17034,7 +20102,7 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
       <tr id="BT-7532-Lot">
         <td class="field break-all">
             <p><b>BT-7532-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#selectionCriteriaSection"></a><br>Selection Criteria Second Stage Invite Number Threshold</p><p><i>BT-7532:</i> Whether the number linked to a selection criterion (or selection criteria) is a type of threshold (e.g. a minimum score, a maximum number of tenders with the highest score passing).</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:SelectionCriteria/efac:CriterionParameter/efbc:ParameterCode[@listName='number-threshold']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:SelectionCriteria/efac:CriterionParameter[efbc:ParameterCode/@listName='number-threshold']/efbc:ParameterCode</span></code>
         </td>
         <td class="mapping">
 
@@ -17078,11 +20146,11 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
       <tr id="BT-754-Lot">
         <td class="field break-all">
             <p><b>BT-754-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#accessibilitySection"></a><br>Accessibility</p><p><i>BT-754:</i> The use of accessibility criteria for persons with disabilities in the technical specifications.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='accessibility']/cbc:ProcurementTypeCode[@listName='accessibility']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='accessibility']/cbc:ProcurementTypeCode</span></code>
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). If "inc", set the lot's `.hasAccessibilityCriteria` to "true", otherwise, set to "false". If "n-inc", set the lot's `.noAccessibilityCriteriaRationale` to "Procurement is not intended for use by natural persons".
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). If "inc", set the lot's `.hasAccessibilityCriteria` to `true`, otherwise, set to `false`. If "n-inc", set the lot's `.noAccessibilityCriteriaRationale` to "Procurement is not intended for use by natural persons".
 
 ```xml
 <cac:ProcurementAdditionalType>
@@ -17095,7 +20163,7 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
   "tender": {
     "lots": [
       {
-        "hasAccessibilityCriteria": "false"
+        "hasAccessibilityCriteria": false
       }
     ]
   }
@@ -17365,7 +20433,7 @@ Set `tender.lotDetails.maximumLotsBidPerSupplier` to the number (not the string)
       <tr id="BT-764-Lot">
         <td class="field break-all">
             <p><b>BT-764-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#eCatalogueSubmissionSection"></a><br>Submission Electronic Catalogue</p><p><i>BT-764:</i> Whether it is required, allowed or not allowed to submit (parts of) tenders as electronic catalogues.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:ContractExecutionRequirement/cbc:ExecutionRequirementCode[@listName='ecatalog-submission']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:ContractExecutionRequirement[cbc:ExecutionRequirementCode/@listName='ecatalog-submission']/cbc:ExecutionRequirementCode</span></code>
         </td>
         <td class="mapping">
 
@@ -17396,11 +20464,11 @@ Set `tender.lotDetails.maximumLotsBidPerSupplier` to the number (not the string)
       <tr id="BT-765-Lot">
         <td class="field break-all">
             <p><b>BT-765-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#frameworkAgreementSection"></a><br>Framework Agreement</p><p><i>BT-765:</i> Whether a framework agreement with, without, or with and without the reopening of competition is involved.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:ContractingSystem/cbc:ContractingSystemTypeCode[@listName='framework-agreement']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:ContractingSystem[cbc:ContractingSystemTypeCode/@listName='framework-agreement']/cbc:ContractingSystemTypeCode</span></code>
         </td>
         <td class="mapping">
 
-If different from 'none', [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.techniques.hasFrameworkAgreement` to `true`. Map the code according to the [framework agreement method mapping table](codelists/framework-agreement-method) to the lot's `.techniques.frameworkAgreement.method`. Otherwise discard.
+If different from "none", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.techniques.hasFrameworkAgreement` to `true`. Map the code according to the [framework agreement method mapping table](codelists/framework-agreement-method) to the lot's `.techniques.frameworkAgreement.method`. Otherwise discard.
 
 ```xml
 <cac:ContractingSystem>
@@ -17430,11 +20498,11 @@ If different from 'none', [get the lot for the ProcurementProjectLot](operations
       <tr id="BT-765-Part">
         <td class="field break-all">
             <p><b>BT-765-Part</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#frameworkAgreementSection"></a><br>Framework Agreement</p><p><i>BT-765:</i> Whether a framework agreement with, without, or with and without the reopening of competition is involved.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingProcess/cac:ContractingSystem/cbc:ContractingSystemTypeCode[@listName='framework-agreement']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingProcess/cac:ContractingSystem[cbc:ContractingSystemTypeCode/@listName='framework-agreement']/cbc:ContractingSystemTypeCode</span></code>
         </td>
         <td class="mapping">
 
-If different from 'none', set `tender.techniques.hasFrameworkAgreement` to `true`. Map the code according to the [framework agreement method mapping table](codelists/framework-agreement-method) to `tender.techniques.frameworkAgreement.method`. Otherwise discard.
+If different from "none", set `tender.techniques.hasFrameworkAgreement` to `true`. Map the code according to the [framework agreement method mapping table](codelists/framework-agreement-method) to `tender.techniques.frameworkAgreement.method`. Otherwise discard.
 
 ```xml
 <cac:ContractingSystem>
@@ -17460,11 +20528,11 @@ If different from 'none', set `tender.techniques.hasFrameworkAgreement` to `true
       <tr id="BT-766-Lot">
         <td class="field break-all">
             <p><b>BT-766-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#DPSSection"></a><br>Dynamic Purchasing System</p><p><i>BT-766:</i> Whether a dynamic purchasing system is involved and, in case of central purchasing bodies, whether it may be used by buyers not listed in this notice.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:ContractingSystem/cbc:ContractingSystemTypeCode[@listName='dps-usage']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:ContractingSystem[cbc:ContractingSystemTypeCode/@listName='dps-usage']/cbc:ContractingSystemTypeCode</span></code>
         </td>
         <td class="mapping">
 
-If different from 'none', [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.techniques.hasDynamicPurchasingSystem` to `true`. Map the code according to the [DPS usage mapping table](codelists/dps-usage) to the lot's `.techniques.dynamicPurchasingSystem.type`. Otherwise discard.
+If different from "none", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.techniques.hasDynamicPurchasingSystem` to `true`. Map the code according to the [DPS usage mapping table](codelists/dps-usage) to the lot's `.techniques.dynamicPurchasingSystem.type`. Otherwise discard.
 
 ```xml
 <cac:ContractingSystem>
@@ -17494,11 +20562,11 @@ If different from 'none', [get the lot for the ProcurementProjectLot](operations
       <tr id="BT-766-Part">
         <td class="field break-all">
             <p><b>BT-766-Part</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#DPSSection"></a><br>Dynamic Purchasing System</p><p><i>BT-766:</i> Whether a dynamic purchasing system is involved and, in case of central purchasing bodies, whether it may be used by buyers not listed in this notice.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingProcess/cac:ContractingSystem/cbc:ContractingSystemTypeCode[@listName='dps-usage']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingProcess/cac:ContractingSystem[cbc:ContractingSystemTypeCode/@listName='dps-usage']/cbc:ContractingSystemTypeCode</span></code>
         </td>
         <td class="mapping">
 
-If different from 'none', set `tender.techniques.hasDynamicPurchasingSystem` to `true`. Map the code according to the [DPS usage mapping table](codelists/dps-usage) to `tender.techniques.dynamicPurchasingSystem.type`. Otherwise discard.
+If different from "none", set `tender.techniques.hasDynamicPurchasingSystem` to `true`. Map the code according to the [DPS usage mapping table](codelists/dps-usage) to `tender.techniques.dynamicPurchasingSystem.type`. Otherwise discard.
 
 ```xml
 <cac:ContractingSystem>
@@ -17634,7 +20702,7 @@ Discard. The contract is awarded within a framework agreement if the related lot
       <tr id="BT-771-Lot">
         <td class="field break-all">
             <p><b>BT-771-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#tendererReqsSection"></a><br>Late Tenderer Information</p><p><i>BT-771:</i> Whether tenderer-related information can be supplemented even after the submission deadline.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:TendererQualificationRequest[not(cbc:CompanyLegalFormCode)]/cac:SpecificTendererRequirement[not(cbc:TendererRequirementTypeCode[@listName='reserved-procurement'])]/cbc:TendererRequirementTypeCode[@listName='missing-info-submission']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:TendererQualificationRequest[not(cbc:CompanyLegalFormCode)]/cac:SpecificTendererRequirement[cbc:TendererRequirementTypeCode/@listName='missing-info-submission']/cbc:TendererRequirementTypeCode</span></code>
         </td>
         <td class="mapping">
 
@@ -17664,7 +20732,7 @@ Discard. The contract is awarded within a framework agreement if the related lot
       <tr id="BT-772-Lot">
         <td class="field break-all">
             <p><b>BT-772-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#tendererReqsSection"></a><br>Late Tenderer Information Description</p><p><i>BT-772:</i> Description of the tenderer-related information that can be supplemented even after the submission deadline.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:TendererQualificationRequest[not(cbc:CompanyLegalFormCode)]/cac:SpecificTendererRequirement[not(cbc:TendererRequirementTypeCode[@listName='reserved-procurement'])]/cbc:Description</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:TendererQualificationRequest[not(cbc:CompanyLegalFormCode)]/cac:SpecificTendererRequirement[cbc:TendererRequirementTypeCode/@listName='missing-info-submission']/cbc:Description</span></code>
         </td>
         <td class="mapping">
 
@@ -17692,7 +20760,7 @@ Discard. The contract is awarded within a framework agreement if the related lot
       </tr>
       <tr id="BT-773-Tender">
         <td class="field break-all">
-            <p><b>BT-773-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Subcontracting</p><p><i>BT-773:</i> Whether at least a part of the contract will be subcontracted.</p>
+            <p><b>BT-773-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Subcontracting</p><p><i>BT-773:</i> Whether at least a part of the contract will be subcontracted.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm[efbc:TermCode/@listName='applicability']/efbc:TermCode</span></code>
         </td>
         <td class="mapping">
@@ -17722,11 +20790,11 @@ Discard. The contract is awarded within a framework agreement if the related lot
       <tr id="BT-774-Lot">
         <td class="field break-all">
             <p><b>BT-774-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#strategicProcurementSection"></a><br>Green Procurement</p><p><i>BT-774:</i> A process to procure goods, services and works with reduced environmental impact throughout their life cycle.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType/cbc:ProcurementTypeCode[@listName='environmental-impact']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='environmental-impact']/cbc:ProcurementTypeCode</span></code>
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set the lot''s `.hasSustainability` to "true".
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set the lot''s `.hasSustainability` to `true`.
 
 For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` object to the lot''s `.sustainability` array.
 
@@ -17760,11 +20828,11 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
       <tr id="BT-775-Lot">
         <td class="field break-all">
             <p><b>BT-775-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#strategicProcurementSection"></a><br>Social Procurement</p><p><i>BT-775:</i> A social objective promoted by the works, supplies or services (e.g. fair working conditions).</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType/cbc:ProcurementTypeCode[@listName='social-objective']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='social-objective']/cbc:ProcurementTypeCode</span></code>
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set the lot's `.hasSustainability` to "true".
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set the lot's `.hasSustainability` to `true`.
 
 For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` object to the lot's `.sustainability` array.
 
@@ -17805,11 +20873,11 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
       <tr id="BT-776-Lot">
         <td class="field break-all">
             <p><b>BT-776-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#strategicProcurementSection"></a><br>Procurement of Innovation</p><p><i>BT-776:</i> An indication that innovative works, supplies or services are being bought. </p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType/cbc:ProcurementTypeCode[@listName='innovative-acquisition']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='innovative-acquisition']/cbc:ProcurementTypeCode</span></code>
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set the lot's `.hasSustainability` to "true".
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set the lot's `.hasSustainability` to `true`.
 
 For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` object to the lot's `.sustainability` array.
 
@@ -17852,9 +20920,14 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and for each `cbc:ProcurementTypeCode`, add or update the corresponding `Sustainability` object in the lot's `sustainability` array and map to its `.description`.
 
 ```xml
-<cac:ProcurementAdditionalType>
-  <cbc:ProcurementType languageID="ENG">This is a strategic procurement involving the innovative use of ...</cbc:ProcurementType>
-</cac:ProcurementAdditionalType>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:ProcurementAdditionalType>
+      <cbc:ProcurementType languageID="ENG">This is a strategic procurement involving the innovative use of ...</cbc:ProcurementType>
+    </cac:ProcurementAdditionalType>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17862,6 +20935,7 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "sustainability": [
           {
             "description": "This is a strategic procurement involving the innovative use of ..."
@@ -17944,7 +21018,7 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
       <tr id="BT-801-Lot">
         <td class="field break-all">
             <p><b>BT-801-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#nonDisclosureAgreementSection"></a><br>Non Disclosure Agreement</p><p><i>BT-801:</i> A non-disclosure agreement is required.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:ContractExecutionRequirement[cbc:ExecutionRequirementCode/@listName='nda']/cbc:ExecutionRequirementCode[@listName='nda']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:ContractExecutionRequirement[cbc:ExecutionRequirementCode/@listName='nda']/cbc:ExecutionRequirementCode</span></code>
         </td>
         <td class="mapping">
 
@@ -18022,7 +21096,7 @@ Discard.
       </tr>
       <tr id="BT-803(t)-notice">
         <td class="field break-all">
-            <p><b>BT-803(t)-notice</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/notice-information.html#dispatchDateEsender"></a><br>Notice Dispatch Date eSender (time)</p><p><i>BT-803:</i> The date and time the notice was transmitted electronically by the eSender to the Publications Office of the European Union</p>
+            <p><b>BT-803(t)-notice</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/notice-information.html#dispatchDateEsender"></a><br>Notice Dispatch Date eSender (time)</p><p><i>BT-803:</i> The date and time the notice was transmitted electronically by the eSender to the Publications Office of the European Union</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efbc:TransmissionTime</span></code>
         </td>
         <td class="mapping">
@@ -18040,13 +21114,13 @@ Discard.
       <tr id="BT-805-Lot">
         <td class="field break-all">
             <p><b>BT-805-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#strategicProcurementSection"></a><br>Green Procurement Criteria</p><p><i>BT-805:</i> The procurement procedure includes the use of established green public procurement criteria (selection criteria, technical specifications, award criteria and contract performance clauses), at national, Union or other level, if applicable. </p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='gpp-criteria']/cbc:ProcurementTypeCode[@listName='gpp-criteria']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='gpp-criteria']/cbc:ProcurementTypeCode</span></code>
         </td>
         <td class="mapping">
 
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 
-If "none" discard, otherwise, set the lot's `.hasSustainability` to "true".
+If "none" discard, otherwise, set the lot's `.hasSustainability` to `true`.
 
 For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` object to the lot's `.sustainability` array.
 
@@ -18326,67 +21400,9 @@ Map to the lot's `.submissionTerms.bidValidityPeriod.durationInDays`.
 
 </td>
       </tr>
-      <tr id="OPA-118-NoticeResult-Currency">
-        <td class="field break-all">
-            <p><b>OPA-118-NoticeResult-Currency</b>  <br>Currency of the notice framework value</p><p><i>BT-118:</i> The maximum value which can be spent within the framework agreement(s) announced in this notice over its/their whole duration, in all lots, including options and renewals, as calculated on the basis of the winner’s tender or winners’ tenders.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efbc:OverallMaximumFrameworkContractsAmount/@currencyID</span></code>
-        </td>
-        <td class="mapping">
-
-Discard
-
-
-
-
-
-</td>
-      </tr>
-      <tr id="OPA-161-NoticeResult-Currency">
-        <td class="field break-all">
-            <p><b>OPA-161-NoticeResult-Currency</b>  <br>Currency of the notice value</p><p><i>BT-161:</i> The value of all contracts awarded in this notice, including options and renewals.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/cbc:TotalAmount/@currencyID</span></code>
-        </td>
-        <td class="mapping">
-
-Discard
-
-
-
-
-
-</td>
-      </tr>
-      <tr id="OPA-27-Procedure-Currency">
-        <td class="field break-all">
-            <p><b>OPA-27-Procedure-Currency</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#estimatedValueSection"></a><br>Currency of the estimated value of the procedure</p><p><i>BT-27:</i> The estimated value of the procurement procedure or lot, over its whole duration, including options and renewals.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProject/cac:RequestedTenderTotal/cbc:EstimatedOverallContractAmount/@currencyID</span></code>
-        </td>
-        <td class="mapping">
-
-Follow guidance for BT-27-Procedure.
-
-```xml
-<cac:RequestedTenderTotal>
-  <cbc:EstimatedOverallContractAmount currencyID="EUR">250000</cbc:EstimatedOverallContractAmount>
-</cac:RequestedTenderTotal>
-```
-
-```json
-{
-  "tender": {
-    "value": {
-      "amount": 250000,
-      "currency": "EUR"
-    }
-  }
-}
-```
-
-</td>
-      </tr>
       <tr id="OPA-36-Lot-Number">
         <td class="field break-all">
-            <p><b>OPA-36-Lot-Number</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#plannedPeriodSection"></a><br>Numeric value of the duration period</p><p><i>BT-36:</i> The (estimated) period from the start to the end of the contract, framework agreement, dynamic purchasing system or qualification system. This shall include any options and renewals.</p>
+            <p><b>OPA-36-Lot-Number</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#plannedPeriodSection"></a><br>Numeric value of the duration period</p><p><i>BT-36:</i> The (estimated) period from the start to the end of the contract, framework agreement, dynamic purchasing system or qualification system. This shall include any options and renewals.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:PlannedPeriod/cbc:DurationMeasure</span></code>
         </td>
         <td class="mapping">
@@ -18534,7 +21550,7 @@ Discard.
       </tr>
       <tr id="OPP-020-Contract">
         <td class="field break-all">
-            <p><b>OPP-020-Contract</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#settledContractSection"></a><br>Assets related contract extension indicator</p>
+            <p><b>OPP-020-Contract</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#settledContractSection"></a><br>Assets related contract extension indicator</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:SettledContract/efac:DurationJustification/efbc:ExtendedDurationIndicator</span></code>
         </td>
         <td class="mapping">
@@ -18838,7 +21854,7 @@ This mapping assumes that the value of this field is consistent across all the L
       <tr id="OPP-040-Procedure">
         <td class="field break-all">
             <p><b>OPP-040-Procedure</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#natureSection"></a><br>Main Nature - Sub Type</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProject/cac:ProcurementAdditionalType/cbc:ProcurementTypeCode[@listName='transport-service']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='transport-service']/cbc:ProcurementTypeCode</span></code>
         </td>
         <td class="mapping">
 
@@ -18894,7 +21910,7 @@ If the value is "false" then discard. Otherwise [get the organization for the co
       </tr>
       <tr id="OPP-051-Organization">
         <td class="field break-all">
-            <p><b>OPP-051-Organization</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/parties.html#buyerSection"></a><br>Awarding CPB Buyer Indicator</p>
+            <p><b>OPP-051-Organization</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/parties.html#buyerSection"></a><br>Awarding CPB Buyer Indicator</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efbc:AwardingCPBIndicator</span></code>
         </td>
         <td class="mapping">
@@ -18929,7 +21945,7 @@ If the value is "false" then discard. Otherwise [get the organization for the co
         </td>
         <td class="mapping">
 
-If the value is "false" then discard. Otherwise [get the organization for the company](operations.md#get-the-organization-for-a-company), and add 'acquiringCentralPurchasingBody' to the organization's `.roles` array.
+If the value is "false" then discard. Otherwise [get the organization for the company](operations.md#get-the-organization-for-a-company), and add 'wholesaleBuyer' to the organization's `.roles` array.
 
 ```xml
 <efac:Organization>
@@ -18943,7 +21959,7 @@ If the value is "false" then discard. Otherwise [get the organization for the co
     {
       "id": "ORG-0001",
       "roles": [
-        "acquiringCentralPurchasingBody"
+        "wholesaleBuyer"
       ]
     }
   ]
@@ -19005,7 +22021,7 @@ Map to the contract's .publicPassengerTransportServicesKilometers
         </td>
         <td class="mapping">
 
-[Reference a previous publication](operations.md#reference-a-previous-publication). If OPP-090-Procedure is repeated, set the relatedProcess's `id` incrementally.
+[Reference a previous publication](operations.md#reference-a-previous-publication).
 
 ```xml
 <cac:NoticeDocumentReference>
@@ -19098,48 +22114,10 @@ If the value of the field is "serv-prov", add 'procurementServiceProvider' to th
 
 </td>
       </tr>
-      <tr id="OPT-050-Lot">
-        <td class="field break-all">
-            <p><b>OPT-050-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#procurementDocsSection"></a><br>Document Status</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:CallForTendersDocumentReference/cbc:DocumentStatusCode</span></code>
-        </td>
-        <td class="mapping">
-
-Discard. If "true" follow the guidance for <a href="#BT-708-Lot">BT-708-Lot</a>, if "false" follow the guidance for <a href="#BT-737-Lot">BT-737-Lot</a>
-
-```xml
-<cac:CallForTendersDocumentReference>
-  <cbc:DocumentStatusCode listName="linguistic-status">official</cbc:DocumentStatusCode>
-</cac:CallForTendersDocumentReference>
-```
-
-
-
-</td>
-      </tr>
-      <tr id="OPT-050-Part">
-        <td class="field break-all">
-            <p><b>OPT-050-Part</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#procurementDocsSection"></a><br>Document Status</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingTerms/cac:CallForTendersDocumentReference/cbc:DocumentStatusCode</span></code>
-        </td>
-        <td class="mapping">
-
-Discard. If "true" follow the guidance for <a href="#BT-708-Part">BT-708-Part</a>, if "false" follow the guidance for <a href="#BT-737-Part">BT-737-Part</a>
-
-```xml
-<cac:CallForTendersDocumentReference>
-  <cbc:DocumentStatusCode listName="linguistic-status">official</cbc:DocumentStatusCode>
-</cac:CallForTendersDocumentReference>
-```
-
-
-
-</td>
-      </tr>
       <tr id="OPT-060-Lot">
         <td class="field break-all">
             <p><b>OPT-060-Lot</b> <b>*</b> <br>Execution Requirements Factor</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:ContractExecutionRequirement/cbc:ExecutionRequirementCode[@listName='conditions']</span></code>
+            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:ContractExecutionRequirement[cbc:ExecutionRequirementCode/@listName='conditions']/cbc:ExecutionRequirementCode</span></code>
         </td>
         <td class="mapping">
 
@@ -19794,7 +22772,7 @@ Map to the document's `.url`.
       </tr>
       <tr id="OPT-140-Lot">
         <td class="field break-all">
-            <p><b>OPT-140-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#procurementDocsSection"></a><br>Procurement Documents ID</p>
+            <p><b>OPT-140-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#procurementDocsSection"></a><br>Procurement Documents ID</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:CallForTendersDocumentReference/cbc:ID</span></code>
         </td>
         <td class="mapping">
@@ -19828,7 +22806,7 @@ Map to the document's `.url`.
       </tr>
       <tr id="OPT-140-Part">
         <td class="field break-all">
-            <p><b>OPT-140-Part</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#procurementDocsSection"></a><br>Procurement Documents ID</p>
+            <p><b>OPT-140-Part</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#procurementDocsSection"></a><br>Procurement Documents ID</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:TenderingTerms/cac:CallForTendersDocumentReference/cbc:ID</span></code>
         </td>
         <td class="mapping">
@@ -19880,14 +22858,16 @@ This data element is underspecified in eForms. No mapping is available.
 This field maps to the same `Item` objects as created for BT-723-LotResult, BT-735-LotResult and OPT-156-LotResult.
 
 If the value of `ancestor::efac:StrategicProcurementStatistics/efbc:StatisticsNumeric` is 0 discard. Otherwise:
-\- [Get the award for the LotResult](operations.md#get-the-award-for-a-lotresult)
-\- Add an `Item` object to its `items` array.
-\- Set the item's `.id` incrementally.
 
-For each `efbc:StatisticsCode`, add a `Classification` object to the item's `additionalClassifications` array.
-\- Set the classification's `.scheme` to "vehicles".
-\- Map the value of the field to the classification's `.id`.
-\- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/vehicles) and map it to the classification's `.description`.
+- [Get the award for the LotResult.](operations.md#get-the-award-for-a-lotresult)
+- Add an `Item` object to its `items` array.
+- Set the item's `.id` incrementally.
+
+For each `efbc:StatisticsCode`, add a `Classification` object to the item's `additionalClassifications` array, and:
+
+- Set the classification's `.scheme` to "vehicles".
+- Map the value of the field to the classification's `.id`.
+- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/vehicles) and map it to the classification's `.description`.
 
 ```xml
 <efac:StrategicProcurementStatistics>
@@ -19929,8 +22909,8 @@ This field maps to the same `Item` objects as created for BT-723-LotResult, BT-7
 
 If the value of this field is 0 then discard. Otherwise:
 
-- If the value of the `ancestor::efbc:StrategicProcurementStatistics/efbc:StatisticsCode` is "vehicles-zero-emissions" or "vehicles-clean", get the corresponding item and map to it's `.quantity`.
-- If the value of `ancestor::efbc:StrategicProcurementStatistics/efbc:StatisticsCode` is "vehicles", get the value of `efbc:StatisticsNumeric` for each `ancestor::efbc:StrategicProcurementStatistics` with `efbc:StatisticsCode` equal to "vehicles-zero-emissions" or "vehicles-clean" and subtract the sum of the values from the value of this field. Get the corresponding item and map the resulting value to it's `.quantity`.
+- If the value of the `ancestor::efbc:StrategicProcurementStatistics/efbc:StatisticsCode` is "vehicles-zero-emission" or "vehicles-clean", get the corresponding item and map to it's `.quantity`.
+- If the value of `ancestor::efbc:StrategicProcurementStatistics/efbc:StatisticsCode` is "vehicles", get the value of `efbc:StatisticsNumeric` for each `ancestor::efbc:StrategicProcurementStatistics` with `efbc:StatisticsCode` equal to "vehicles-zero-emission" or "vehicles-clean" and subtract the sum of the values from the value of this field. Get the corresponding item and map the resulting value to it's `.quantity`.
 - If the value is 0 discard the item entirely. Otherwise map the the result to the item's `.quantity`.
 
 ```xml
@@ -20123,6 +23103,25 @@ Discard. Each tenderer in the tendering party is covered by OPT-310-Tenderer.
 ```xml
 <efac:TenderingParty>
   <cbc:ID schemeName="tendering-party">TPA-0003</cbc:ID>
+</efac:TenderingParty>
+```
+
+
+
+</td>
+      </tr>
+      <tr id="OPT-211-Tenderer">
+        <td class="field break-all">
+            <p><b>OPT-211-Tenderer</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#tenderingPartySection"></a><br>Tendering Party Name</p>
+            <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:TenderingParty/cbc:Name</span></code>
+        </td>
+        <td class="mapping">
+
+Discard. Each tenderer in the tendering party is covered by OPT-310-Tenderer.
+
+```xml
+<efac:TenderingParty>
+  <cbc:Name>Party of Tenderers</cbc:Name>
 </efac:TenderingParty>
 ```
 
@@ -21277,14 +24276,14 @@ eForms allows financing and payer parties to differ per lot. However, while this
       </tr>
       <tr id="OPT-301-Tenderer-MainCont">
         <td class="field break-all">
-            <p><b>OPT-301-Tenderer-MainCont</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#tenderingPartySection"></a><br>Main Contractor ID Reference</p>
+            <p><b>OPT-301-Tenderer-MainCont</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#tenderingPartySection"></a><br>Main Contractor ID Reference</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:TenderingParty/efac:SubContractor/efac:MainContractor/cbc:ID</span></code>
         </td>
         <td class="mapping">
 
 - [Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference), and add 'tenderer' to its `.roles` array.
 - [Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender), and get the `subcontracts` object whose `subcontractors.id` is equal to the value of `ancestor: efac:SubContractor/cbc:ID`.
-- Add an `OrganizationReference` object to the subcontract's `.tenderers` array, and set its `.id` to the value of this field.
+- Add an `OrganizationReference` object to the subcontract's `.mainContractors` array, and set its `.id` to the value of this field.
 
 ```xml
 <efac:NoticeResult>
@@ -21331,7 +24330,7 @@ eForms allows financing and payer parties to differ per lot. However, while this
               "subcontractor": {
                 "id": "ORG-0012"
               },
-              "tenderers": [
+              "mainContractors": [
                 {
                   "id": "ORG-0005",
                   "name": "Tendering Company Ltd"
@@ -21416,7 +24415,7 @@ eForms allows financing and payer parties to differ per lot. However, while this
       </tr>
       <tr id="OPT-302-Organization">
         <td class="field break-all">
-            <p><b>OPT-302-Organization</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/parties.html#_general_structure_of_an_organization_related_information"></a><br>Beneficial Owner Reference</p>
+            <p><b>OPT-302-Organization</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/parties.html#_general_structure_of_an_organization_related_information"></a><br>Beneficial Owner Reference</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:UltimateBeneficialOwner/cbc:ID</span></code>
         </td>
         <td class="mapping">
@@ -21459,7 +24458,7 @@ If there is a `Person` in the organization's `.beneficialOwners` array whose `id
       </tr>
       <tr id="OPT-310-Tender">
         <td class="field break-all">
-            <p><b>OPT-310-Tender</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Tendering Party ID Reference</p>
+            <p><b>OPT-310-Tender</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#lotTenderSection"></a><br>Tendering Party ID Reference</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:TenderingParty/cbc:ID</span></code>
         </td>
         <td class="mapping">
@@ -21500,7 +24499,7 @@ If there is a `Person` in the organization's `.beneficialOwners` array whose `id
       </tr>
       <tr id="OPT-315-LotResult">
         <td class="field break-all">
-            <p><b>OPT-315-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_lot_result"></a><br>Contract Identifier Reference</p>
+            <p><b>OPT-315-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_lot_result"></a><br>Contract Identifier Reference</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:SettledContract/cbc:ID</span></code>
         </td>
         <td class="mapping">
@@ -21562,7 +24561,7 @@ If there is a `Contract` in `contracts` whose `.id` is equal to the value of thi
       </tr>
       <tr id="OPT-320-LotResult">
         <td class="field break-all">
-            <p><b>OPT-320-LotResult</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_lot_result"></a><br>Tender Identifier Reference</p>
+            <p><b>OPT-320-LotResult</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/competition-results.html#_lot_result"></a><br>Tender Identifier Reference</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:LotTender/cbc:ID</span></code>
         </td>
         <td class="mapping">
