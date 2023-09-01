@@ -6,19 +6,20 @@ To avoid repetition in the [Field mappings](mapping), we refer and link to the f
 
 ## Create a release
 
-1. Set [`id`](https://standard.open-contracting.org/latest/en/schema/identifiers/#release-id) to the notice number (`/*/cbc:ID`).
-1. Set `initiationType` to 'tender'.
-1. Set `ocid` as described below.
+If the notice is a prior information or periodic indicative notice used only for information (PIN only), you should repeat the following steps for each part (`/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']`) because each part is treated as a separate planning process. Otherwise, you need only perform the steps once per notice.
 
-The notice's `ocid` will either be a new `ocid`, or the same `ocid` as the previous publication concerning this procedure. The notice's `ocid` will be a new `ocid` if one of the following is true:
+1. Create an empty JSON object
+1. Set its [`id`](https://standard.open-contracting.org/latest/en/schema/identifiers/#release-id) to the notice identifier (`/*/cbc:ID`).
+1. Set its `initiationType` to 'tender'.
+1. Set its `ocid` as described below.
+
+If any of the following are true, assign a new `ocid` by prepending your [OCID prefix](https://standard.open-contracting.org/latest/en/guidance/build/#register-an-ocid-prefix) to a unique identifier of your choice (e.g. a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) or a suitable system-internal identifier):
 
 * The notice is the first publication concerning the procedure.
-* The previous publication is a prior information notice or a periodic indicative notice  (PIN) that has multiple `/*/cac:ProcurementProjectLot` elements, it potentially lead to the launch of several procedures, each with its own `ocid`.
 * The notice is a contract award notice (CAN) for an award within a framework agreement or dynamic purchasing system.
+* The previous publication concerning the procedure is a PIN only notice. Notices following a PIN only notice are assigned a new `ocid` because they may be defined based on multiple parts.
 
-If none is true, then set the notice's `ocid` to be the same as the previous publication's `ocid`. Otherwise, set the notice's [`ocid`](https://standard.open-contracting.org/latest/en/schema/identifiers/#contracting-process-identifier-ocid) by prepending your [OCID prefix](https://standard.open-contracting.org/latest/en/guidance/build/#register-an-ocid-prefix) to a unique identifier of your choice (e.g. a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) or a suitable system-internal identifier).
-
-If the notice is a contract award notice for an award within a framework agreement or dynamic purchasing system, you must also add a `RelatedProcess` object to the `relatedProcesses` array, set its `.id` to '1', add 'framework' to its `.relationship` array, set its `.scheme` to 'ocid', and set its `.identifier` to the `ocid` of the procedure that set up the framework agreement or dynamic purchasing system.
+Otherwise, set `ocid` to the same value as the previous publication's `ocid`.
 
 ## Reference a previous publication
 
@@ -120,15 +121,15 @@ Get the `Organization` object in `parties` whose `.id` is equal to the organizat
 
 ### Get the lot for a ProcurementProjectLot
 
-Get the `Lot` in `tender.lots` whose `.id` is equal to the value of `ancestor::cac:ProcurementProjectLot/cac:ID`. If none exists yet, add a `Lot` to `tender.lots` and set its `id` to the value of `ancestor::cac:ProcurementProjectLot/cac:ID`.
+Get the `Lot` in `tender.lots` whose `.id` is equal to the value of `ancestor::cac:ProcurementProjectLot/cbc:ID`. If none exists yet, add a `Lot` to `tender.lots` and set its `id` to the value of `ancestor::cac:ProcurementProjectLot/cbc:ID`.
 
 ### Get the lot group for a ProcurementProjectLot
 
-Get the `LotGroup` in `tender.lotGroups` whose `.id` is equal to the value of the XPath `ancestor::cac:ProcurementProjectLot/cac:ID`. If none exists yet, add a `LotGroup` to `tender.lotGroups` and set its `id` to the value of the XPath `ancestor::cac:ProcurementProjectLot/cac:ID`.
+Get the `LotGroup` in `tender.lotGroups` whose `.id` is equal to the value of the XPath `ancestor::cac:ProcurementProjectLot/cbc:ID`. If none exists yet, add a `LotGroup` to `tender.lotGroups` and set its `id` to the value of the XPath `ancestor::cac:ProcurementProjectLot/cbc:ID`.
 
 ### Get the item for a ProcurementProjectLot
 
-Get the `Item` in `tender.items` whose `.relatedLot` is equal to the value of `ancestor::cac:ProcurementProjectLot/cac:ID`. If none exists yet, add an `Item` to `tender.items`, set its `.id` incrementally and set its `.relatedLot` to the value of `ancestor::cac:ProcurementProjectLot/cac:ID`.
+Get the `Item` in `tender.items` whose `.relatedLot` is equal to the value of `ancestor::cac:ProcurementProjectLot/cbc:ID`. If none exists yet, add an `Item` to `tender.items`, set its `.id` incrementally and set its `.relatedLot` to the value of `ancestor::cac:ProcurementProjectLot/cbc:ID`.
 
 ### Get the lot for a LotResult
 
@@ -136,7 +137,7 @@ Get the `Lot` in `tender.lots` whose `id` is equal to the value of `ancestor::ef
 
 ### Get the lots for a SettledContract
 
-For each `ancestor::efac:NoticeResult/efac:LotResult` with a `/SettledContract` equal to the value of `ancestor::efac:SettledContract/cbc:ID`, get the `Lot` in `tender/lots` whose `.id` is equal to the value of the `LotResult`'s `/efac:TenderLot/cbc:ID`.
+For each `ancestor::efac:NoticeResult/efac:LotResult` with a `/efac:SettledContract/cbc:ID` equal to the value of `ancestor::efac:SettledContract/cbc:ID`, get the `Lot` in `tender/lots` whose `.id` is equal to the value of the `LotResult`'s `/efac:TenderLot/cbc:ID`.
 
 ### Get the lot for a LotTender
 
@@ -146,9 +147,9 @@ Get the `Lot` object in `tender.lots` whose `.id` matches `ancestor::efac:LotTen
 
 ### Get the bid for a LotTender
 
-Get the `Bid` in `bids` whose `id` is equal to the value of `ancestor::efac:LotTender/cbc:ID`. If none exists yet:
+Get the `Bid` in `bids.details` whose `id` is equal to the value of `ancestor::efac:LotTender/cbc:ID`. If none exists yet:
 
-1. Add a `Bid` to `bids`
+1. Add a `Bid` object to the `bids.details` array
 1. Set its `.id` to the value of `ancestor::efac:LotTender/cbc:ID`
 1. Add the value of `ancestor::efac:LotTender/efac:TenderLot/cbc:ID` to its `.relatedLots`
 

@@ -1876,9 +1876,9 @@ If not already present, add the value of the field to the award's `.relatedLots`
         </td>
         <td class="mapping">
 
-Get the `Bid` in `bids` whose `.id` is equal to the value of `ancestor::efac:LotTender/cbcID`. If none exists yet:
+Get the `Bid` in `bids.details` whose `.id` is equal to the value of `ancestor::efac:LotTender/cbcID`. If none exists yet:
 
-- Add a `Bid` to `bids`.
+- Add a `Bid` object to the `bids.details` array.
 - Set its `.id` to the value of `ancestor::efac:LotTender/cbc:ID`.
 
 If not already present, add the value of this field to the bid's `.relatedLots`.
@@ -2157,17 +2157,27 @@ Otherwise, [get the award for the LotResult](operations.md#get-the-award-for-a-l
 Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/winner-selection-status) and map it to `.statusDetails`.
 
 ```xml
-<efac:LotResult>
-  <cbc:TenderResultCode listName="winner-selection-status">selec-w</cbc:TenderResultCode>
-</efac:LotResult>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <cbc:TenderResultCode listName="winner-selection-status">selec-w</cbc:TenderResultCode>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "awards": [
     {
+      "id": "RES-0001",
       "status": "active",
-      "statusDetails": "At least one winner was chosen."
+      "statusDetails": "At least one winner was chosen.",
+      "relatedLots": [
+        "LOT-0001"
+      ]
     }
   ]
 }
@@ -10714,7 +10724,7 @@ Get the `contract` whose `id` is equal to `ancestor::efac:Change/efac:ChangedSec
 - If there is exactly one, add its `/cbc:ID` to the contract's `.awardID`
 - If there is more than one, add each LotResult's `/cbc:ID` to the contract's `.awardIDs`
 
-For each `efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The .id can be any value guaranteed to be unique within the scope of the procedure.
+For each `efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The .id can be any value guaranteed to be unique within the scope of the procedure.  For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
 
 Map the value of this field to the amendment's `.rationaleClassifications.id`. Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/modification-justification) and map it to `.rationaleClassifications.description`, and set `.rationaleClassifications.scheme` to 'modification justification'.
 
@@ -10780,7 +10790,7 @@ Get the `contract` whose `id` is equal to `ancestor::efac:Change/efac:ChangedSec
 - If there is exactly one, add its `/cbc:ID` to the contract's `.awardID`
 - If there is more than one, add each LotResult's `/cbc:ID` to the contract's `.awardIDs`
 
-For each `efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The .id can be any value guaranteed to be unique within the scope of the procedure.
+For each `efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The .id can be any value guaranteed to be unique within the scope of the procedure.  For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
 
 Map the value of this field to the amendment's `.rationale`
 
@@ -10840,7 +10850,7 @@ Get the `contract` whose `id` is equal to `ancestor::efac:ChangedSection/efbc:Ch
 - If there is exactly one, add its `/cbc:ID` to the contract's `.awardID`
 - If there is more than one, add each LotResult's `/cbc:ID` to the contract's `.awardIDs`
 
-For each `ancestor::efac:ContractModification/efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The .id can be any value guaranteed to be unique within the scope of the procedure.
+For each `ancestor::efac:ContractModification/efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The .id can be any value guaranteed to be unique within the scope of the procedure.  For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
 
 Map the value of this field to the amendment's `.description`.
 
@@ -13745,9 +13755,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
             "region": "UKG23"
           }
         ],
-        "relatedLots": [
-          "LOT-0001"
-        ]
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -14452,9 +14460,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
             "streetAddress": "Main Street, 2, Building B1, 3rd floor"
           }
         ],
-        "relatedLots": [
-          "LOT-0001"
-        ]
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -14575,9 +14581,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
             "streetAddress": "Main Street, 2, Building B1, 3rd floor"
           }
         ],
-        "relatedLots": [
-          "LOT-0001"
-        ]
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -14698,9 +14702,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
             "streetAddress": "Main Street, 2, Building B1, 3rd floor"
           }
         ],
-        "relatedLots": [
-          "LOT-0001"
-        ]
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -14951,9 +14953,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
             "postalCode": "XY14 2LG"
           }
         ],
-        "relatedLots": [
-          "LOT-0001"
-        ]
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -15196,9 +15196,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
             "locality": "BigCity"
           }
         ],
-        "relatedLots": [
-          "LOT-0001"
-        ]
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -15449,9 +15447,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
             "country": "GB"
           }
         ],
-        "relatedLots": [
-          "LOT-0001"
-        ]
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -16936,9 +16932,17 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
 [Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender) and map to its `.subcontracting.value.amount`.  Map `@currencyID` to the value's `.currency`.
 
 ```xml
-<efac:SubcontractingTerm>
-  <efbc:TermAmount currencyID="EUR">9999999.99</efbc:TermAmount>
-</efac:SubcontractingTerm>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    <efac:SubcontractingTerm>
+      <efbc:TermAmount currencyID="EUR">9999999.99</efbc:TermAmount>
+    </efac:SubcontractingTerm>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -16946,12 +16950,16 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
   "bids": {
     "details": [
       {
+        "id": "TEN-0001",
         "subcontracting": {
           "value": {
             "amount": 9999999.99,
             "currency": "EUR"
           }
-        }
+        },
+        "relatedLots": [
+          "LOT-0001"
+        ]
       }
     ]
   }
@@ -16970,9 +16978,17 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
 [Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender) and map to its `.subcontracting.description`.
 
 ```xml
-<efac:SubcontractingTerm>
-  <efbc:TermDescription languageID="ENG">The subcontracting will be...</efbc:TermDescription>
-</efac:SubcontractingTerm>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    <efac:SubcontractingTerm>
+      <efbc:TermDescription languageID="ENG">The subcontracting will be...</efbc:TermDescription>
+    </efac:SubcontractingTerm>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -16980,9 +16996,13 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
   "bids": {
     "details": [
       {
+        "id": "TEN-0001",
         "subcontracting": {
           "description": "The subcontracting will be..."
-        }
+        },
+        "relatedLots": [
+          "LOT-0001"
+        ]
       }
     ]
   }
@@ -17001,9 +17021,17 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
 [Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender), divide the value of this field by 100 and map to the bid's `.subcontracting.minimumPercentage` and `.subcontracting.maximumPercentage`.
 
 ```xml
-<efac:SubcontractingTerm>
-  <efbc:TermPercent>30</efbc:TermPercent>
-</efac:SubcontractingTerm>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    <efac:SubcontractingTerm>
+      <efbc:TermPercent>30</efbc:TermPercent>
+    </efac:SubcontractingTerm>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -17011,10 +17039,14 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
   "bids": {
     "details": [
       {
+        "id": "TEN-0001",
         "subcontracting": {
           "minimumPercentage": 0.3,
           "maximumPercentage": 0.3
-        }
+        },
+        "relatedLots": [
+          "LOT-0001"
+        ]
       }
     ]
   }
@@ -17052,9 +17084,18 @@ Discard.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.renewal.description`.
 
 ```xml
-<cac:Period>
-  <cbc:Description languageID="ENG">The buyer reserves the right to ...</cbc:Description>
-</cac:Period>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:ContractExtension>
+      <cac:Renewal>
+        <cac:Period>
+          <cbc:Description languageID="ENG">The buyer reserves the right to ...</cbc:Description>
+        </cac:Period>
+      </cac:Renewal>
+    </cac:ContractExtension>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17062,6 +17103,7 @@ Discard.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "renewal": {
           "description": "The buyer reserves the right to ..."
         }
@@ -17102,9 +17144,14 @@ Discard. If `.otherRequirements.securityClearance` is set, a security clearance 
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.renewal.maximumRenewals`.
 
 ```xml
-<cac:ContractExtension>
-  <cbc:MaximumNumberNumeric>3</cbc:MaximumNumberNumeric>
-</cac:ContractExtension>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:ContractExtension>
+      <cbc:MaximumNumberNumeric>3</cbc:MaximumNumberNumeric>
+    </cac:ContractExtension>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17112,6 +17159,7 @@ Discard. If `.otherRequirements.securityClearance` is set, a security clearance 
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "renewal": {
           "maximumRenewals": 3
         }
@@ -17147,6 +17195,7 @@ Add 'funder' to its `.roles`.
 {
   "parties": [
     {
+      "id": "1",
       "name": "European Union",
       "roles": [
         "funder"
@@ -17177,9 +17226,16 @@ Add 'funder' to its `.roles`.
   - Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/main-activity) and map it to the classification's `.description`.
 
 ```xml
-<cac:ContractingActivity>
-  <cbc:ActivityTypeCode listName="entity-activity">gas-oil</cbc:ActivityTypeCode>
-</cac:ContractingActivity>
+<cac:ContractingParty>
+  <cac:ContractingActivity>
+    <cbc:ActivityTypeCode listName="entity-activity">gas-oil</cbc:ActivityTypeCode>
+  </cac:ContractingActivity>
+  <cac:Party>
+    <cac:PartyIdentification>
+      <cbc:ID>ORG-0001</cbc:ID>
+    </cac:PartyIdentification>
+  </cac:Party>
+</cac:ContractingParty>
 ```
 
 ```json
@@ -17187,6 +17243,9 @@ Add 'funder' to its `.roles`.
   "parties": [
     {
       "id": "ORG-0001",
+      "roles": [
+        "buyer"
+      ],
       "details": {
         "classifications": [
           {
@@ -17216,20 +17275,33 @@ This field maps to the same `finance` objects as created for BT-5011-Contract an
 For each `efac:Funding`, add or update the corresponding `Finance` object in the contract's `.finance` array and map the value of this field to its `.description`.
 
 ```xml
-<efac:Funding>
-  <cbc:FundingProgram>Program for the development ...</cbc:FundingProgram>
-</efac:Funding>
+<efac:NoticeResult>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <efac:Funding>
+      <cbc:FundingProgram>Program for the development ...</cbc:FundingProgram>
+    </efac:Funding>
+  </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "contracts": [
     {
+      "id": "CON-0001",
       "finance": [
         {
           "description": "Program for the development ..."
         }
-      ]
+      ],
+      "awardID": "RES-0001"
     }
   ]
 }
@@ -17261,6 +17333,7 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
     "budget": {
       "finance": [
         {
+          "id": "1",
           "description": "This project will be financed ..."
         }
       ]
@@ -17282,9 +17355,20 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and add its `id` to the document's `.relatedLots`.
 
 ```xml
-<cac:ExternalReference>
-  <cbc:URI>https://mywebsite.com/proc/2019024/accessinfo</cbc:URI>
-</cac:ExternalReference>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:CallForTendersDocumentReference>
+      <cbc:ID>20210521/CTFD/ENG/7654-02</cbc:ID>
+      <cbc:DocumentType>restricted-document</cbc:DocumentType>
+      <cac:Attachment>
+        <cac:ExternalReference>
+          <cbc:URI>https://mywebsite.com/proc/2019024/accessinfo</cbc:URI>
+        </cac:ExternalReference>
+      </cac:Attachment>
+    </cac:CallForTendersDocumentReference>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17315,9 +17399,15 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
 [Get the document for the document reference](operations.md#get-the-document-for-a-document-reference) and map to its `.accessDetailsURL`.
 
 ```xml
-<cac:ExternalReference>
-  <cbc:URI>https://mywebsite.com/proc/2019024/accessinfo</cbc:URI>
-</cac:ExternalReference>
+<cac:CallForTendersDocumentReference>
+  <cbc:ID>20210521/CTFD/ENG/7654-02</cbc:ID>
+  <cbc:DocumentType>restricted-document</cbc:DocumentType>
+  <cac:Attachment>
+    <cac:ExternalReference>
+      <cbc:URI>https://mywebsite.com/proc/2019024/accessinfo</cbc:URI>
+    </cac:ExternalReference>
+  </cac:Attachment>
+</cac:CallForTendersDocumentReference>
 ```
 
 ```json
@@ -17347,7 +17437,12 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
 - Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/measurement-unit) and map it to `.unit.name`.
 
 ```xml
-<cbc:EstimatedOverallContractQuantity unitCode="TNE">45000</cbc:EstimatedOverallContractQuantity>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cbc:EstimatedOverallContractQuantity unitCode="TNE">45000</cbc:EstimatedOverallContractQuantity>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17355,11 +17450,13 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
   "tender": {
     "items": [
       {
+        "id": "1",
         "unit": {
           "id": "TNE",
           "scheme": "EU Measurement unit",
           "name": "tonne"
-        }
+        },
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -17378,9 +17475,12 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and set its `.submissionTerms.variantPolicy` according to [the allowed values](https://extensions.open-contracting.org/en/extensions/submissionTerms/master/codelists/).
 
 ```xml
-<cac:TenderingTerms>
-  <cbc:VariantConstraintCode listName="permission">allowed</cbc:VariantConstraintCode>
-</cac:TenderingTerms>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cbc:VariantConstraintCode listName="permission">allowed</cbc:VariantConstraintCode>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17388,6 +17488,7 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "submissionTerms": {
           "variantPolicy": "allowed"
         }
@@ -17409,9 +17510,23 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-630(t)-lot">BT-630(t)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `tenderPeriod.endDate`.
 
 ```xml
-<efac:InterestExpressionReceptionPeriod>
-  <cbc:EndDate>2019-10-28+01:00</cbc:EndDate>
-</efac:InterestExpressionReceptionPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:InterestExpressionReceptionPeriod>
+              <cbc:EndDate>2019-10-28+01:00</cbc:EndDate>
+              <cbc:EndTime>18:00:00+01:00</cbc:EndTime>
+            </efac:InterestExpressionReceptionPeriod>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17419,6 +17534,7 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "tenderPeriod": {
           "endDate": "2019-10-28T23:59:59+01:00"
         }
@@ -17440,9 +17556,23 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), combine with <a href="#BT-630(d)-lot">BT-630(d)-Lot</a>, [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `tenderPeriod.endDate`.
 
 ```xml
-<efac:InterestExpressionReceptionPeriod>
-  <cbc:EndTime>18:00:00+01:00</cbc:EndTime>
-</efac:InterestExpressionReceptionPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:InterestExpressionReceptionPeriod>
+              <cbc:EndDate>2019-10-28+01:00</cbc:EndDate>
+              <cbc:EndTime>18:00:00+01:00</cbc:EndTime>
+            </efac:InterestExpressionReceptionPeriod>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17450,6 +17580,7 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "tenderPeriod": {
           "endDate": "2019-10-28T18:00:00+01:00"
         }
@@ -17471,9 +17602,14 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), [convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the lot's `.communication.invitationToConfirmInterestDispatchDate`.
 
 ```xml
-<cac:ParticipationInvitationPeriod>
-  <cbc:StartDate>2019-11-15+01:00</cbc:StartDate>
-</cac:ParticipationInvitationPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:ParticipationInvitationPeriod>
+      <cbc:StartDate>2019-11-15+01:00</cbc:StartDate>
+    </cac:ParticipationInvitationPeriod>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17481,6 +17617,7 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "communication": {
           "invitationToConfirmInterestDispatchDate": "2019-11-15T09:00:00+01:00"
         }
@@ -17502,9 +17639,20 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.communication.atypicalToolName`.
 
 ```xml
-<efext:EformsExtension>
-  <efbc:AccessToolName>AbcKomSoft</efbc:AccessToolName>
-</efext:EformsExtension>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efbc:AccessToolName>AbcKomSoft</efbc:AccessToolName>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17512,6 +17660,7 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "communication": {
           "atypicalToolName": "AbcKomSoft"
         }
@@ -17560,15 +17709,23 @@ Map to `tender.communication.atypicalToolName`.
 [Get the organization for the company](operations.md#get-the-organization-for-a-company), and set it's `details.scale` to 'selfEmployed'.
 
 ```xml
-<efac:Organization>
-  <efbc:NaturalPersonIndicator>false</efbc:NaturalPersonIndicator>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efbc:NaturalPersonIndicator>false</efbc:NaturalPersonIndicator>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "details": {
         "scale": "selfEmployed"
       }
@@ -17628,9 +17785,16 @@ This field maps to the same `Statistic` objects as created for BT-636-LotResult.
 For each `AppealRequestStatistics`, [add a complaints statistic](operations.md#add-a-complaints-statistic) or update the corresponding `Statistic` object and map to its `.value`.
 
 ```xml
-<efac:AppealRequestsStatistics>
-  <efbc:StatisticsNumeric>2</efbc:StatisticsNumeric>
-</efac:AppealRequestsStatistics>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efac:AppealRequestsStatistics>
+      <efbc:StatisticsNumeric>2</efbc:StatisticsNumeric>
+    </efac:AppealRequestsStatistics>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -17639,7 +17803,8 @@ For each `AppealRequestStatistics`, [add a complaints statistic](operations.md#a
     {
       "id": "1",
       "value": 2,
-      "scope": "complaints"
+      "scope": "complaints",
+      "relatedLot": "LOT-0001"
     }
   ]
 }
@@ -17658,9 +17823,16 @@ This field maps to the same `Statistic` objects as created for BT-635-LotResult.
 For each `AppealRequestStatistics`, [add a complaints statistic](operations.md#add-a-complaints-statistic) or update the corresponding `Statistic` object and map to its `.measure`. Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/irregularity-type) and map it to `.notes`
 
 ```xml
-<efac:AppealRequestsStatistics>
-  <efbc:StatisticsCode listName="irregularity-type">unj-lim-subc</efbc:StatisticsCode>
-</efac:AppealRequestsStatistics>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efac:AppealRequestsStatistics>
+      <efbc:StatisticsCode listName="irregularity-type">unj-lim-subc</efbc:StatisticsCode>
+    </efac:AppealRequestsStatistics>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -17670,7 +17842,8 @@ For each `AppealRequestStatistics`, [add a complaints statistic](operations.md#a
       "id": "1",
       "measure": "ab-low",
       "scope": "complaints",
-      "notes": "Unjustified rejection of abnormally low tenders"
+      "notes": "Unjustified rejection of abnormally low tenders",
+      "relatedLot": "LOT-0001"
     }
   ]
 }
@@ -17688,9 +17861,14 @@ For each `AppealRequestStatistics`, [add a complaints statistic](operations.md#a
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), divide the value of this field by 100 and map to the lot's `.subcontractingTerms.competitiveMinimumPercentage`.
 
 ```xml
-<cac:AllowedSubcontractTerms>
-  <cbc:MinimumPercent>25.5</cbc:MinimumPercent>
-</cac:AllowedSubcontractTerms>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AllowedSubcontractTerms>
+      <cbc:MinimumPercent>25.5</cbc:MinimumPercent>
+    </cac:AllowedSubcontractTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17698,6 +17876,7 @@ For each `AppealRequestStatistics`, [add a complaints statistic](operations.md#a
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "subcontractingTerms": {
           "competitiveMinimumPercentage": 0.255
         }
@@ -17722,9 +17901,16 @@ This field maps to the same `Prize` objects as created for BT-44-Lot and BT-45-L
 For each `cac:Prize`, add or update the corresponding `Prize` object in the lot's `designContest.prize.details` array and map to its `value.amount`. Map `@currencyID` to the value's `.currency`.
 
 ```xml
-<cac:Prize>
-  <cbc:ValueAmount currencyID="EUR">5000</cbc:ValueAmount>
-</cac:Prize>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:Prize>
+        <cbc:ValueAmount currencyID="EUR">5000</cbc:ValueAmount>
+      </cac:Prize>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17732,6 +17918,7 @@ For each `cac:Prize`, add or update the corresponding `Prize` object in the lot'
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "designContest": {
           "prizes": {
             "details": [
@@ -17766,9 +17953,14 @@ If different from "none":
 - Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/subcontracting-obligation) and map it to the lot's `.subcontractingTerms.description`.
 
 ```xml
-<cac:AllowedSubcontractTerms>
-  <cbc:SubcontractingConditionsCode listName="subcontracting-obligation">subc-min</cbc:SubcontractingConditionsCode>
-</cac:AllowedSubcontractTerms>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AllowedSubcontractTerms>
+      <cbc:SubcontractingConditionsCode listName="subcontracting-obligation">subc-min</cbc:SubcontractingConditionsCode>
+    </cac:AllowedSubcontractTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17776,6 +17968,7 @@ If different from "none":
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "subcontractingTerms": {
           "description": "The contractor must subcontract a minimum percentage of the contract using the procedure set out in Title III of Directive 2009/81/EC."
         }
@@ -17797,9 +17990,22 @@ If different from "none":
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and add to the lot's `.submissionTerms.subcontractingClauses` array.
 
 ```xml
-<efac:TenderSubcontractingRequirements>
-  <efbc:TenderSubcontractingRequirementsCode listName="subcontracting-indication">subc-oblig</efbc:TenderSubcontractingRequirementsCode>
-</efac:TenderSubcontractingRequirements>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:TenderSubcontractingRequirements>
+              <efbc:TenderSubcontractingRequirementsCode listName="subcontracting-indication">subc-oblig</efbc:TenderSubcontractingRequirementsCode>
+            </efac:TenderSubcontractingRequirements>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17807,6 +18013,7 @@ If different from "none":
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "submissionTerms": {
           "subcontractingClauses": [
             "subc-oblig"
@@ -17830,19 +18037,31 @@ If different from "none":
 [Get the award for the LotResult](operations.md#get-the-award-for-a-lotresult) and map to the award's `.estimatedValue.amount`. Map `@currencyID` to the value's `.currency`.
 
 ```xml
-<efac:FrameworkAgreementValues>
-  <cbc:ReestimatedValueAmount currencyID="EUR">123</cbc:ReestimatedValueAmount>
-</efac:FrameworkAgreementValues>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:FrameworkAgreementValues>
+      <cbc:ReestimatedValueAmount currencyID="EUR">123</cbc:ReestimatedValueAmount>
+    </efac:FrameworkAgreementValues>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "awards": [
     {
+      "id": "RES-0001",
       "estimatedValue": {
         "amount": 123,
         "currency": "EUR"
-      }
+      },
+      "relatedLots": [
+        "LOT-0001"
+      ]
     }
   ]
 }
@@ -17944,10 +18163,15 @@ Concatenate to the `ExclusionCriteria` object's `.description` using a colon and
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractTerms.performanceTerms`.
 
 ```xml
-<cac:ContractExecutionRequirement>
-  <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
-  <cbc:Description languageID="ENG">During execution of the contract, ...</cbc:Description>
-</cac:ContractExecutionRequirement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:ContractExecutionRequirement>
+      <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+      <cbc:Description languageID="ENG">During execution of the contract, ...</cbc:Description>
+    </cac:ContractExecutionRequirement>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -17955,6 +18179,7 @@ Concatenate to the `ExclusionCriteria` object's `.description` using a colon and
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractTerms": {
           "performanceTerms": "During execution of the contract, ..."
         }
@@ -18035,19 +18260,31 @@ Discard `/*/cac:AdditionalNoticeLanguage/cbc:ID`.
 [Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner), look up the equivalent ISO 3166-1 alpha-2 code in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/country) and add to the person's `.nationalities` array.
 
 ```xml
-<efac:UltimateBeneficialOwner>
-  <efac:Nationality>
-    <cbc:NationalityID>DEU</cbc:NationalityID>
-  </efac:Nationality>
-</efac:UltimateBeneficialOwner>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+  <efac:UltimateBeneficialOwner>
+    <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
+    <efac:Nationality>
+      <cbc:NationalityID>DEU</cbc:NationalityID>
+    </efac:Nationality>
+  </efac:UltimateBeneficialOwner>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "beneficialOwners": [
         {
+          "id": "UBO-0001",
           "nationalities": [
             "DE"
           ]
@@ -18072,9 +18309,15 @@ Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and add its `id` to the document's `.relatedLots`.
 
 ```xml
-<cac:CallForTendersDocumentReference>
-  <cbc:DocumentTypeCode listName="communication-justification">ipr-iss</cbc:DocumentTypeCode>
-</cac:CallForTendersDocumentReference>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:CallForTendersDocumentReference>
+      <cbc:ID>20210521/CTFD/ENG/7654-02</cbc:ID>
+      <cbc:DocumentTypeCode listName="communication-justification">ipr-iss</cbc:DocumentTypeCode>
+    </cac:CallForTendersDocumentReference>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -18107,6 +18350,7 @@ Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu
 
 ```xml
 <cac:CallForTendersDocumentReference>
+  <cbc:ID>20210521/CTFD/ENG/7654-02</cbc:ID>
   <cbc:DocumentTypeCode listName="communication-justification">ipr-iss</cbc:DocumentTypeCode>
 </cac:CallForTendersDocumentReference>
 ```
@@ -18145,7 +18389,19 @@ Lowercase and convert the code into a two-letter [ISO 639-1 code](https://en.wik
   <cac:TenderingTerms>
     <cac:CallForTendersDocumentReference>
       <cbc:ID>20210521/CTFD/ENG/7654-02</cbc:ID>
-      <cbc:LanguageID>ENG</cbc:LanguageID>
+      <ext:UBLExtensions>
+        <ext:UBLExtension>
+          <ext:ExtensionContent>
+            <efext:EformsExtension>
+              <efac:OfficialLanguages>
+                <cac:Language>
+                  <cbc:ID>ENG</cbc:ID>
+                </cac:Language>
+              </efac:OfficialLanguages>
+            </efext:EformsExtension>
+          </ext:ExtensionContent>
+        </ext:UBLExtension>
+      </ext:UBLExtensions>
     </cac:CallForTendersDocumentReference>
   </cac:TenderingTerms>
 </cac:ProcurementProjectLot>
@@ -18185,10 +18441,24 @@ Lowercase and convert the code into a two-letter [ISO 639-1 code](https://en.wik
 Add it to the document's `.languages` array.
 
 ```xml
-<cac:CallForTendersDocumentReference>
-  <cbc:ID>20210521/CTFD/ENG/7654-02</cbc:ID>
-  <cbc:LanguageID>ENG</cbc:LanguageID>
-</cac:CallForTendersDocumentReference>
+<cac:TenderingTerms>
+  <cac:CallForTendersDocumentReference>
+    <cbc:ID>20210521/CTFD/ENG/7654-02</cbc:ID>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:OfficialLanguages>
+              <cac:Language>
+                <cbc:ID>ENG</cbc:ID>
+              </cac:Language>
+            </efac:OfficialLanguages>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:CallForTendersDocumentReference>
+</cac:TenderingTerms>
 ```
 
 ```json
@@ -18218,19 +18488,31 @@ Add it to the document's `.languages` array.
 [Get the award for the LotResult](operations.md#get-the-award-for-a-lotresult) and map to the award's `.maximumValue.amount`. Map `@currencyID` to the value's `.currency`.
 
 ```xml
-<efac:FrameworkAgreementValues>
-  <cbc:MaximumValueAmount currencyID="EUR">5000</cbc:MaximumValueAmount>
-</efac:FrameworkAgreementValues>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:FrameworkAgreementValues>
+      <cbc:MaximumValueAmount currencyID="EUR">5000</cbc:MaximumValueAmount>
+    </efac:FrameworkAgreementValues>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "awards": [
     {
+      "id": "RES-0001",
       "maximumValue": {
         "amount": 5000,
         "currency": "EUR"
-      }
+      },
+      "relatedLots": [
+        "LOT-0001"
+      ]
     }
   ]
 }
@@ -18250,9 +18532,16 @@ Add it to the document's `.languages` array.
 If "res-pub-ser", add 'publicServiceMissionOrganization' to the lot's `.otherRequirements.reservedParticipation` array. If "res-ws", add 'shelteredWorkshop' to the lot's `.otherRequirements.reservedParticipation` array. If "none", discard.
 
 ```xml
-<cac:SpecificTendererRequirement>
-  <cbc:TendererRequirementTypeCode listName="reserved-procurement">res-ws</cbc:TendererRequirementTypeCode>
-</cac:SpecificTendererRequirement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:TendererQualificationRequest>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="reserved-procurement">res-ws</cbc:TendererRequirementTypeCode>
+      </cac:SpecificTendererRequirement>
+    </cac:TendererQualificationRequest>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -18260,6 +18549,7 @@ If "res-pub-ser", add 'publicServiceMissionOrganization' to the lot's `.otherReq
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "otherRequirements": {
           "reservedParticipation": [
             "shelteredWorkshop"
@@ -18313,12 +18603,17 @@ If "res-pub-ser", add 'publicServiceMissionOrganization' to `tender.otherRequire
 
 Map `@currencyID` to its `.currency`.
 
-[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult), and add the lot's `.id` to the statistic's `.relatedLots`.
+[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult), and map the lot's `.id` to the statistic's `.relatedLot`.
 
 ```xml
-<efac:LotResult>
-  <cbc:LowerTenderAmount currencyID="EUR">1230000</cbc:LowerTenderAmount>
-</efac:LotResult>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cbc:LowerTenderAmount currencyID="EUR">1230000</cbc:LowerTenderAmount>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -18326,6 +18621,7 @@ Map `@currencyID` to its `.currency`.
   "bids": {
     "statistics": [
       {
+        "id": "1",
         "measure": "lowestValidBidValue",
         "value": 1230000,
         "currency": "EUR",
@@ -18349,12 +18645,17 @@ Map `@currencyID` to its `.currency`.
 
 Map `@currencyID` to its `.currency`.
 
-[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult), and add the lot's `.id` to the statistic's `.relatedLots`.
+[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult), and map the lot's `.id` to the statistic's `.relatedLot`.
 
 ```xml
-<efac:LotResult>
-  <cbc:HigherTenderAmount currencyID="EUR">456</cbc:HigherTenderAmount>
-</efac:LotResult>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cbc:HigherTenderAmount currencyID="EUR">456</cbc:HigherTenderAmount>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -18362,6 +18663,7 @@ Map `@currencyID` to its `.currency`.
   "bids": {
     "statistics": [
       {
+        "id": "1",
         "measure": "highestValidBidValue",
         "value": 456,
         "currency": "EUR",
@@ -18385,12 +18687,19 @@ This field maps to the same `Statistic` objects as created for BT-712(b)-LotResu
 
 For each `ancestor::AppealRequestStatistics`, [add a complaints statistic](operations.md#add-a-complaints-statistic) or update the corresponding `Statistic` object, and set its `.measure` to "complainants".
 
-[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult), and add the lot's `.id` to the statistic's `.relatedLots`.
+[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult), and map the lot's `.id` to the statistic's `.relatedLot`.
 
 ```xml
-<efac:AppealRequestsStatistics>
-  <efbc:StatisticsCode listName="review-type">complainants</efbc:StatisticsCode>
-</efac:AppealRequestsStatistics>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efac:AppealRequestsStatistics>
+      <efbc:StatisticsCode listName="review-type">complainants</efbc:StatisticsCode>
+    </efac:AppealRequestsStatistics>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -18399,7 +18708,8 @@ For each `ancestor::AppealRequestStatistics`, [add a complaints statistic](opera
     {
       "id": "1",
       "value": 2,
-      "measure": "complainants"
+      "measure": "complainants",
+      "relatedLot": "LOT-0001"
     }
   ]
 }
@@ -18418,12 +18728,19 @@ This field maps to the same `Statistic` objects as created for BT-712(a)-LotResu
 
 For each `ancestor::AppealRequestStatistics`, [add a complaints statistic](operations.md#add-a-complaints-statistic) or update the corresponding `Statistic` object, and map to its `.value`.
 
-[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult), and add the lot's `.id` to the statistic's `.relatedLots`.
+[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult), and map the lot's `.id` to the statistic's `.relatedLot`.
 
 ```xml
-<efac:AppealRequestsStatistics>
-  <efbc:StatisticsNumeric>2</efbc:StatisticsNumeric>
-</efac:AppealRequestsStatistics>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efac:AppealRequestsStatistics>
+      <efbc:StatisticsNumeric>2</efbc:StatisticsNumeric>
+    </efac:AppealRequestsStatistics>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -18433,7 +18750,8 @@ For each `ancestor::AppealRequestStatistics`, [add a complaints statistic](opera
       "id": "1",
       "value": 2,
       "measure": "complainants",
-      "scope": "complaints"
+      "scope": "complaints",
+      "relatedLot": "LOT-0001"
     }
   ]
 }
@@ -18451,9 +18769,22 @@ For each `ancestor::AppealRequestStatistics`, [add a complaints statistic](opera
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). If "true", add 'EU-CVD' to the lot's `.coveredBy` array. If "false", discard.
 
 ```xml
-<efac:StrategicProcurement>
-  <efbc:ApplicableLegalBasis listName="cvd-scope">true</efbc:ApplicableLegalBasis>
-</efac:StrategicProcurement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:StrategicProcurement>
+              <efbc:ApplicableLegalBasis listName="cvd-scope">true</efbc:ApplicableLegalBasis>
+            </efac:StrategicProcurement>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -18461,6 +18792,7 @@ For each `ancestor::AppealRequestStatistics`, [add a complaints statistic](opera
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "coveredBy": [
           "EU-CVD"
         ]
@@ -18498,11 +18830,16 @@ Discard. Changed documents can be identified using `tender.documents.dateModifie
         </td>
         <td class="mapping">
 
-If there is at least one `efbc:ChangedSectionIdentifier` in `ancestor::efac:Change/efac:ChangedSection` which is a lot identifier (LOT-XXXX), then for each lot identifier, get the `Document` in `tender.documents` with the lot identifier in `.relatedLots` and 'biddingDocuments' in `.documentType`, [convert the date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the document's `.dateModified`. Otherwise, get the `Document` in `tender.documents` with 'biddingDocuments`in`.documentType`, [convert the date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the document's `.dateModified\`.
+If there is at least one `efbc:ChangedSectionIdentifier` in `ancestor::efac:Change/efac:ChangedSection` which is a lot identifier (LOT-XXXX), then for each lot identifier, get the `Document` in `tender.documents` with the lot identifier in `.relatedLots` and 'biddingDocuments' in `.documentType`, [convert the date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the document's `.dateModified`.
+
+Otherwise, get the `Document` in `tender.documents` with 'biddingDocuments`in`.documentType`, [convert the date to ISO format](operations.md#convert-a-date-to-iso-format) and map to the document's `.dateModified\`.
 
 ```xml
 <efac:Change>
   <efbc:ProcurementDocumentsChangeDate>2019-10-24+01:00</efbc:ProcurementDocumentsChangeDate>
+  <efac:ChangedSection>
+    <efbc:ChangedSectionIdentifier>LOT-0001</efbc:ChangedSectionIdentifier>
+  </efac:ChangedSection>
 </efac:Change>
 ```
 
@@ -18511,7 +18848,11 @@ If there is at least one `efbc:ChangedSectionIdentifier` in `ancestor::efac:Chan
   "tender": {
     "documents": [
       {
-        "dateModified": "2019-10-24T00:00:00+01:00"
+        "dateModified": "2019-10-24T00:00:00+01:00",
+        "documentType": "biddingDocuments",
+        "relatedLots": [
+          "LOT-0001"
+        ]
       }
     ]
   }
@@ -18596,16 +18937,27 @@ Map the value of this field to the awards `.value.amount` and map `@currencyID` 
 [Get the contract for the SettledContract](operations.md#get-the-contract-for-a-settledcontract) and map to the contract's `.title`.
 
 ```xml
-<efac:SettledContract>
-  <cbc:Title languageID="ENG">My contract title</cbc:Title>
-</efac:SettledContract>
+<efac:NoticeResult>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <cbc:Title languageID="ENG">My contract title</cbc:Title>
+  </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "contracts": [
     {
-      "title": "My contract title"
+      "id": "CON-0001",
+      "title": "My contract title",
+      "awardID": "RES-0001"
     }
   ]
 }
@@ -18625,20 +18977,33 @@ This field maps to the same `finance` objects as created for BT-5011 and BT-6110
 For each `efac:Funding`, add or update the corresponding `Finance` object in the contract's `.finance` array and map to its `.title`.
 
 ```xml
-<efac:Funding>
-  <cbc:FundingProgramCode listName="eu-programme">ABC123</cbc:FundingProgramCode>
-</efac:Funding>
+<efac:NoticeResult>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <efac:Funding>
+      <cbc:FundingProgramCode listName="eu-programme">ABC123</cbc:FundingProgramCode>
+    </efac:Funding>
+  </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "contracts": [
     {
+      "id": "CON-0001",
       "finance": [
         {
           "title": "ABC123"
         }
-      ]
+      ],
+      "awardID": "RES-0001"
     }
   ]
 }
@@ -18702,15 +19067,29 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
 - Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/vehicle-category) and map it to the classification's `.description`.
 
 ```xml
-<efac:ProcurementDetails>
-  <efbc:AssetCategoryCode listName="vehicle-category">n2-n3</efbc:AssetCategoryCode>
-</efac:ProcurementDetails>
+<efac:LotResult>
+  <cbc:ID schemeName="result">RES-0001</cbc:ID>
+  <efac:TenderLot>
+    <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  </efac:TenderLot>
+  <efac:StrategicProcurement>
+    <efac:StrategicProcurementInformation>
+      <efac:ProcurementDetails>
+        <efbc:AssetCategoryCode listName="vehicle-category">n2-n3</efbc:AssetCategoryCode>
+      </efac:ProcurementDetails>
+    </efac:StrategicProcurementInformation>
+  </efac:StrategicProcurement>
+</efac:LotResult>
 ```
 
 ```json
 {
   "awards": [
     {
+      "id": "RES-0001",
+      "relatedLots": [
+        "LOT-0001"
+      ],
       "items": [
         {
           "id": "1",
@@ -18740,7 +19119,11 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.suitability.sme`.
 
 ```xml
-<cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot"/>LOT-0001<cac:ProcurementProject>
+    <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -18748,6 +19131,7 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "suitability": {
           "sme": true
         }
@@ -18769,7 +19153,12 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot) and map to the lot group's `.suitability.sme`.
 
 ```xml
-<cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -18777,6 +19166,7 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "suitability": {
           "sme": true
         }
@@ -18827,9 +19217,16 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/other-place-service) and map it to the address's `.description`, concatenating to the existing entry in this field if necessary.
 
 ```xml
-<cac:Address>
-  <cbc:Region>anyw-eea</cbc:Region>
-</cac:Address>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:RealizedLocation>
+      <cac:Address>
+        <cbc:Region>anyw-eea</cbc:Region>
+      </cac:Address>
+    </cac:RealizedLocation>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -18837,6 +19234,8 @@ Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu
   "tender": {
     "items": [
       {
+        "id": "1",
+        "relatedLot": "LOT-0001",
         "deliveryLocations": [
           {
             "description": "Anywhere in the European Economic Area"
@@ -18925,9 +19324,14 @@ This field maps to the same `Address` objects as created for BT-727-Lot, BT-5121
 For each `cac:RealizedLocation`, add or update the corresponding `Address` object in the item's `.deliveryAddresses` array and map to the address's `.description`, concatenating to the existing entry in this field if necessary.
 
 ```xml
-<cac:RealizedLocation>
-  <cbc:Description languageID="ENG">Further realizations ...</cbc:Description>
-</cac:RealizedLocation>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:RealizedLocation>
+      <cbc:Description languageID="ENG">Further realizations ...</cbc:Description>
+    </cac:RealizedLocation>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -18935,7 +19339,9 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
   "tender": {
     "items": [
       {
-        "deliveryAddresses": [
+        "id": "1",
+        "relatedLot": "LOT-0001",
+        "deliveryLocations": [
           {
             "description": "Further realizations..."
           }
@@ -19018,9 +19424,12 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), divide the value of this field by 100 and map to the lot's `.subcontractingTerms.competitiveMaximumPercentage`.
 
 ```xml
-<cac:AllowedSubcontractTerms>
-  <cbc:MaximumPercent>45.5</cbc:MaximumPercent>
-</cac:AllowedSubcontractTerms>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:AllowedSubcontractTerms>
+    <cbc:MaximumPercent>45.5</cbc:MaximumPercent>
+  </cac:AllowedSubcontractTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19028,6 +19437,7 @@ For each `cac:RealizedLocation`, add or update the corresponding `Address` objec
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "subcontractingTerms": {
           "competitiveMaximumPercentage": 0.455
         }
@@ -19087,9 +19497,14 @@ Discard. If the award's `.subcontracting.minimumPercentage` and `.subcontracting
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.otherRequirements.securityClearance`.
 
 ```xml
-<cac:SecurityClearanceTerm>
-  <cbc:Description languageID="ENG">EU Confidential security clearance of Key Management Personnel must be achieved before access to procurement documents be granted</cbc:Description>
-</cac:SecurityClearanceTerm>
+<cac:ProcurementProjectLot>
+  <cbc:ID shemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:SecurityClearanceTerm>
+      <cbc:Description languageID="ENG">EU Confidential security clearance of Key Management Personnel must be achieved before access to procurement documents be granted</cbc:Description>
+    </cac:SecurityClearanceTerm>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19097,6 +19512,7 @@ Discard. If the award's `.subcontracting.minimumPercentage` and `.subcontracting
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "otherRequirements": {
           "securityClearance": "EU Confidential security clearance of Key Management Personnel must be achieved before access to procurement documents be granted"
         }
@@ -19118,9 +19534,16 @@ Discard. If the award's `.subcontracting.minimumPercentage` and `.subcontracting
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.awardCriteria.orderRationale`.
 
 ```xml
-<cac:AwardingCriterion>
-  <cbc:Description languageID="ENG">Each criterion is evaluated separately ...</cbc:Description>
-</cac:AwardingCriterion>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cbc:Description languageID="ENG">Each criterion is evaluated separately ...</cbc:Description>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19149,9 +19572,16 @@ Discard. If the award's `.subcontracting.minimumPercentage` and `.subcontracting
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot) and map to its `.awardCriteria.orderRationale`.
 
 ```xml
-<cac:AwardingCriterion>
-  <cbc:Description languageID="ENG">Each criterion is evaluated separately ...</cbc:Description>
-</cac:AwardingCriterion>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cbc:Description languageID="ENG">Each criterion is evaluated separately ...</cbc:Description>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19159,6 +19589,7 @@ Discard. If the award's `.subcontracting.minimumPercentage` and `.subcontracting
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "awardCriteria": {
           "orderRationale": "Each criterion is evaluated separately ..."
         }
@@ -19183,9 +19614,18 @@ This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, 
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array and map to the the award criterion's `.name`.
 
 ```xml
-<cac:SubordinateAwardingCriterion>
-  <cbc:Name languageID="ENG">Technical merit</cbc:Name>
-</cac:SubordinateAwardingCriterion>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <cbc:Name languageID="ENG">Technical merit</cbc:Name>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19193,6 +19633,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "awardCriteria": {
           "criteria": [
             {
@@ -19221,9 +19662,18 @@ This field maps to the same `AwardCriterion` objects as created for BT-539-LotsG
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot group's `.awardCriteria.criteria` array and map to the the award criterion's `.name`.
 
 ```xml
-<cac:SubordinateAwardingCriterion>
-  <cbc:Name languageID="ENG">Technical merit</cbc:Name>
-</cac:SubordinateAwardingCriterion>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="LotsGroup">GLO-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AwardingTerms>
+      <cac:AwardingCriterion>
+        <cac:SubordinateAwardingCriterion>
+          <cbc:Name languageID="ENG">Technical merit</cbc:Name>
+        </cac:SubordinateAwardingCriterion>
+      </cac:AwardingCriterion>
+    </cac:AwardingTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19231,6 +19681,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
   "tender": {
     "lotGroups": [
       {
+        "id": "GLO-0001",
         "awardCriteria": {
           "criteria": [
             {
@@ -19259,9 +19710,22 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
 - Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/cvd-contract-type) and map it to the classification's `.description`.
 
 ```xml
-<efac:StrategicProcurementInformation>
-  <efbc:ProcurementCategoryCode listName="cvd-contract-type">oth-serv-contr</efbc:ProcurementCategoryCode>
-</efac:StrategicProcurementInformation>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <efext:EformsExtension>
+          <efac:StrategicProcurement>
+            <efac:StrategicProcurementInformation>
+              <efbc:ProcurementCategoryCode listName="cvd-contract-type">oth-serv-contr</efbc:ProcurementCategoryCode>
+            </efac:StrategicProcurementInformation>
+          </efac:StrategicProcurement>
+        </efext:EformsExtension>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19269,6 +19733,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "additionalClassifications": [
           {
             "id": "oth-serv-contr",
@@ -19304,15 +19769,21 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
 - Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/cvd-contract-type) and map it to the classification's `.description`.
 
 ```xml
-<efac:StrategicProcurementInformation>
-  <efbc:ProcurementCategoryCode listName="cvd-contract-type">oth-serv-contr</efbc:ProcurementCategoryCode>
-</efac:StrategicProcurementInformation>
+<efac:LotResult>
+  <cbc:ID>RES-0001</cbc:ID>
+  <efac:StrategicProcurement>
+    <efac:StrategicProcurementInformation>
+      <efbc:ProcurementCategoryCode listName="cvd-contract-type">oth-serv-contr</efbc:ProcurementCategoryCode>
+    </efac:StrategicProcurementInformation>
+  </efac:StrategicProcurement>
+</efac:LotResult>
 ```
 
 ```json
 {
   "awards": [
     {
+      "id": "RES-0001",
       "items": [
         {
           "id": "1",
@@ -19342,9 +19813,14 @@ For each `ancestor::efac:ProcurementDetails/efac:StrategicProcurementStatistics/
 If "yes", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set the lot's `.contractTerms.reservedExecution` to `true`. Otherwise, discard.
 
 ```xml
-<cac:ContractExecutionRequirement>
-  <cbc:ExecutionRequirementCode listName="reserved-execution">yes</cbc:ExecutionRequirementCode>
-</cac:ContractExecutionRequirement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:ContractExecutionRequirement>
+      <cbc:ExecutionRequirementCode listName="reserved-execution">yes</cbc:ExecutionRequirementCode>
+    </cac:ContractExecutionRequirement>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19352,6 +19828,7 @@ If "yes", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractTerms": {
           "reservedExecution": true
         }
@@ -19399,9 +19876,9 @@ Set `tender.contractTerms.reservedExecution` to `true` if `@ExecutionRequirement
 
 [Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
-Set the document's `.unofficialTranslation` to `true`.
+Lowercase and convert the code into a two-letter [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and add it to the document's `.unofficialTranslations` array.
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and add its `id` to the document's `.relatedLots`.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and add it to the document's `.relatedLots`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -19409,7 +19886,19 @@ Set the document's `.unofficialTranslation` to `true`.
   <cac:TenderingTerms>
     <cac:CallForTendersDocumentReference>
       <cbc:ID>20210521/CTFD/ENG/7654-02</cbc:ID>
-      <cbc:DocumentStatusCode listName="document-status">non-official</cbc:DocumentStatusCode>
+      <ext:UBLExtensions>
+        <ext:UBLExtension>
+          <ext:ExtensionContent>
+            <efext:EformsExtension>
+              <efac:NonOfficialLanguages>
+                <cac:Language>
+                  <cbc:ID>ENG</cbc:ID>
+                </cac:Language>
+              </efac:NonOfficialLanguages>
+            </efext:EformsExtension>
+          </ext:ExtensionContent>
+        </ext:UBLExtension>
+      </ext:UBLExtensions>
     </cac:CallForTendersDocumentReference>
   </cac:TenderingTerms>
 </cac:ProcurementProjectLot>
@@ -19421,7 +19910,9 @@ Set the document's `.unofficialTranslation` to `true`.
     "documents": [
       {
         "id": "20210521/CTFD/ENG/7654-02",
-        "unofficialTranslation": true,
+        "unofficialTranslations": [
+          "en"
+        ],
         "relatedLots": [
           "LOT-0001"
         ]
@@ -19442,13 +19933,27 @@ Set the document's `.unofficialTranslation` to `true`.
 
 [Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
 
-Set the document's `.unofficialTranslation` to `true`.
+Lowercase and convert the code into a two-letter [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and add it to the document's `.unofficialTranslations` array.
 
 ```xml
-<cac:CallForTendersDocumentReference>
-  <cbc:ID>20210521/CTFD/ENG/7654-02</cbc:ID>
-  <cbc:DocumentStatusCode listName="document-status">non-official</cbc:DocumentStatusCode>
-</cac:CallForTendersDocumentReference>
+<cac:TenderingTerms>
+  <cac:CallForTendersDocumentReference>
+    <cbc:ID>20210521/CTFD/ENG/7654-02</cbc:ID>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:NonOfficialLanguages>
+              <cac:Language>
+                <cbc:ID>ENG</cbc:ID>
+              </cac:Language>
+            </efac:NonOfficialLanguages>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:CallForTendersDocumentReference>
+</cac:TenderingTerms>
 ```
 
 ```json
@@ -19457,7 +19962,9 @@ Set the document's `.unofficialTranslation` to `true`.
     "documents": [
       {
         "id": "20210521/CTFD/ENG/7654-02",
-        "unofficialTranslation": true
+        "unofficialTranslations": [
+          "en"
+        ]
       }
     ]
   }
@@ -19503,6 +20010,9 @@ Set the document's `.unofficialTranslation` to `true`.
 ```xml
 <efac:Organization>
   <efac:Company>
+    <cac:PartyIdentification>
+      <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+    </cac:PartyIdentification>
     <cac:Contact>
       <cbc:Telefax>(+33) 2 34 56 78 91</cbc:Telefax>
     </cac:Contact>
@@ -19514,6 +20024,7 @@ Set the document's `.unofficialTranslation` to `true`.
 {
   "parties": [
     {
+      "id": "ORG-0003",
       "contactPoint": {
         "faxNumber": "(+33) 2 34 56 78 91"
       }
@@ -19535,7 +20046,14 @@ Set the document's `.unofficialTranslation` to `true`.
 
 ```xml
 <efac:Organization>
+  <efac:Company>
+    <cac:PartyLegalEntity>
+      <cbc:CompanyID/>AB12345</cac:PartyLegalEntity>
+  </efac:Company>
   <efac:TouchPoint>
+    <cac:PartyIdentification>
+      <cbc:ID schemeName="touchpoint">TPO-0001</cbc:ID>
+    </cac:PartyIdentification>
     <cac:Contact>
       <cbc:Telefax>(+33) 2 34 56 78 91</cbc:Telefax>
     </cac:Contact>
@@ -19547,6 +20065,11 @@ Set the document's `.unofficialTranslation` to `true`.
 {
   "parties": [
     {
+      "id": "TPO-0001",
+      "identifier": {
+        "id": "AB12345",
+        "scheme": "GB-COH"
+      },
       "contactPoint": {
         "faxNumber": "(+33) 2 34 56 78 91"
       }
@@ -19567,19 +20090,31 @@ Set the document's `.unofficialTranslation` to `true`.
 [Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.faxNumber`.
 
 ```xml
-<efac:UltimateBeneficialOwner>
-  <cac:Contact>
-    <cbc:Telefax>+123 4567891</cbc:Telefax>
-  </cac:Contact>
-</efac:UltimateBeneficialOwner>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+  <efac:UltimateBeneficialOwner>
+    <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
+    <cac:Contact>
+      <cbc:Telefax>+123 4567891</cbc:Telefax>
+    </cac:Contact>
+  </efac:UltimateBeneficialOwner>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "beneficialOwners": [
         {
+          "id": "UBO-0001",
           "faxNumber": "+123 4567891"
         }
       ]
@@ -19604,6 +20139,11 @@ Set the document's `.unofficialTranslation` to `true`.
 
 ```xml
 <cac:ContractingPartyType>
+  <cac:Party>
+    <cac:PartyIdentification>
+      <cbc:ID>ORG-0001</cbc:ID>
+    </cac:PartyIdentification>
+  </cac:Party>
   <cbc:PartyTypeCode listName="buyer-contracting-type">cont-ent</cbc:PartyTypeCode>
 </cac:ContractingPartyType>
 ```
@@ -19621,7 +20161,10 @@ Set the document's `.unofficialTranslation` to `true`.
             "description": "Contracting Entity"
           }
         ]
-      }
+      },
+      "roles": [
+        "buyer"
+      ]
     }
   ]
 }
@@ -19639,9 +20182,14 @@ Set the document's `.unofficialTranslation` to `true`.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.contractTerms.electronicInvoicingPolicy` according to [the allowed values](https://extensions.open-contracting.org/en/extensions/contractTerms/master/codelists/).
 
 ```xml
-<cac:ContractExecutionRequirement>
-  <cbc:ExecutionRequirementCode listName="einvoicing">required</cbc:ExecutionRequirementCode>
-</cac:ContractExecutionRequirement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:ContractExecutionRequirement>
+      <cbc:ExecutionRequirementCode listName="einvoicing">required</cbc:ExecutionRequirementCode>
+    </cac:ContractExecutionRequirement>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19649,6 +20197,7 @@ Set the document's `.unofficialTranslation` to `true`.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractTerms": {
           "electronicInvoicingPolicy": "required"
         }
@@ -19667,12 +20216,17 @@ Set the document's `.unofficialTranslation` to `true`.
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.submissionTerms.advancedElectronicSignatureRequired` to true.
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and map to its `.submissionTerms.advancedElectronicSignatureRequired`.
 
 ```xml
-<cac:ContractExecutionRequirement>
-  <cbc:ExecutionRequirementCode listName="esignature-submission">false</cbc:ExecutionRequirementCode>
-</cac:ContractExecutionRequirement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:ContractExecutionRequirement>
+      <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+    </cac:ContractExecutionRequirement>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19680,6 +20234,7 @@ Set the document's `.unofficialTranslation` to `true`.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "submissionTerms": {
           "advancedElectronicSignatureRequired": true
         }
@@ -19701,9 +20256,14 @@ Set the document's `.unofficialTranslation` to `true`.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.submissionMethodDetails`.
 
 ```xml
-<cac:ProcessJustification>
-  <cbc:Description languageID="ENG">Tenders shall be sent per registered letter ...</cbc:Description>
-</cac:ProcessJustification>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:ProcessJustification>
+      <cbc:Description languageID="ENG">Tenders shall be sent per registered letter ...</cbc:Description>
+    </cac:ProcessJustification>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19711,6 +20271,7 @@ Set the document's `.unofficialTranslation` to `true`.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "submissionMethodDetails": "Tenders shall be sent per registered letter ..."
       }
     ]
@@ -19730,15 +20291,23 @@ Set the document's `.unofficialTranslation` to `true`.
 [Get the organization for the company](operations.md#get-the-organization-for-a-company) and map to the organization's `.details.listedOnRegulatedMarket`.
 
 ```xml
-<efac:Organization>
-  <efbc:ListedOnRegulatedMarketIndicator>false</efbc:ListedOnRegulatedMarketIndicator>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efbc:ListedOnRegulatedMarketIndicator>false</efbc:ListedOnRegulatedMarketIndicator>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "details": {
         "listedOnRegulatedMarket": false
       }
@@ -19763,9 +20332,22 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
 - Identify the equivalent code in the [selection criterion mapping table](codelists/selection-criterion), and set it as the criterion's `.type`.
 
 ```xml
-<efac:SelectionCriteria>
-  <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
-</efac:SelectionCriteria>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:SelectionCriteria>
+              <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+            </efac:SelectionCriteria>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19773,6 +20355,7 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "selectionCriteria": {
           "criteria": [
             {
@@ -19821,9 +20404,22 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
 - Map to the criterion's `.description`. Concatenate it with <a href="#BT-750-Lot">BT-750-Lot Selection Criteria Description</a>.
 
 ```xml
-<efac:SelectionCriteria>
-  <cbc:Name languageID="ENG">Minimum Turnover</cbc:Name>
-</efac:SelectionCriteria>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:SelectionCriteria>
+              <cbc:Name languageID="ENG">Minimum Turnover</cbc:Name>
+            </efac:SelectionCriteria>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19831,6 +20427,7 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "selectionCriteria": {
           "criteria": [
             {
@@ -19856,9 +20453,14 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.submissionTerms.depositsGuarantees`.
 
 ```xml
-<cac:RequiredFinancialGuarantee>
-  <cbc:Description languageID="ENG">Bids shall include a bid security (Provisional Bank Guarantee or bid bond), ...</cbc:Description>
-</cac:RequiredFinancialGuarantee>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:RequiredFinancialGuarantee>
+      <cbc:Description languageID="ENG">Bids shall include a bid security (Provisional Bank Guarantee or bid bond), ...</cbc:Description>
+    </cac:RequiredFinancialGuarantee>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19866,6 +20468,7 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "submissionTerms": {
           "depositsGuarantees": "Bids shall include a bid security (Provisional Bank Guarantee or bid bond), ..."
         }
@@ -19891,9 +20494,22 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
 - Map to the criterion's `.description`. Concatenate it with <a href="#BT-749-Lot">BT-749-Lot Selection Criteria Name</a>.
 
 ```xml
-<efac:SelectionCriteria>
-  <cbc:Description languageID="ENG">Turnover over contract value rate</cbc:Description>
-</efac:SelectionCriteria>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:SelectionCriteria>
+              <cbc:Description languageID="ENG">Turnover over contract value rate</cbc:Description>
+            </efac:SelectionCriteria>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -19901,6 +20517,7 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "selectionCriteria": {
           "criteria": [
             {
@@ -20070,9 +20687,24 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
 - Identify the equivalent code in the [criterionWeight](https://extensions.open-contracting.org/en/extensions/awardCriteria/master/codelists/#criterionWeight.csv) codelist, and set it as the number's `.weight`.
 
 ```xml
-<efac:CriterionParameter>
-  <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
-</efac:CriterionParameter>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:SelectionCriteria>
+              <efac:CriterionParameter>
+                <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+              </efac:CriterionParameter>
+            </efac:SelectionCriteria>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20080,6 +20712,7 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "selectionCriteria": {
           "criteria": [
             {
@@ -20114,9 +20747,24 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
 - Identify the equivalent code in the [criterionThreshold](https://extensions.open-contracting.org/en/extensions/awardCriteria/master/codelists/#criterionThreshold.csv) codelist and set it as the number's `.threshold`.
 
 ```xml
-<efac:CriterionParameter>
-  <efbc:ParameterCode listName="number-threshold">min-score</efbc:ParameterCode>
-</efac:CriterionParameter>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <ext:UBLExtensions>
+      <ext:UBLExtension>
+        <ext:ExtensionContent>
+          <efext:EformsExtension>
+            <efac:SelectionCriteria>
+              <efac:CriterionParameter>
+                <efbc:ParameterCode listName="number-threshold">min-score</efbc:ParameterCode>
+              </efac:CriterionParameter>
+            </efac:SelectionCriteria>
+          </efext:EformsExtension>
+        </ext:ExtensionContent>
+      </ext:UBLExtension>
+    </ext:UBLExtensions>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20124,6 +20772,7 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "selectionCriteria": {
           "criteria": [
             {
@@ -20153,9 +20802,14 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). If "inc", set the lot's `.hasAccessibilityCriteria` to `true`, otherwise, set to `false`. If "n-inc", set the lot's `.noAccessibilityCriteriaRationale` to "Procurement is not intended for use by natural persons".
 
 ```xml
-<cac:ProcurementAdditionalType>
-  <cbc:ProcurementTypeCode listName="accessibility">n-inc-just</cbc:ProcurementTypeCode>
-</cac:ProcurementAdditionalType>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:ProcurementAdditionalType>
+      <cbc:ProcurementTypeCode listName="accessibility">n-inc-just</cbc:ProcurementTypeCode>
+    </cac:ProcurementAdditionalType>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20163,6 +20817,7 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "hasAccessibilityCriteria": false
       }
     ]
@@ -20182,9 +20837,14 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to the lot's `.noAccessibilityCriteriaRationale`.
 
 ```xml
-<cac:ProcurementAdditionalType>
-  <cbc:ProcurementType languageID="ENG">Accessibility criteria are not included ...</cbc:ProcurementType>
-</cac:ProcurementAdditionalType>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:ProcurementAdditionalType>
+      <cbc:ProcurementType languageID="ENG">Accessibility criteria are not included ...</cbc:ProcurementType>
+    </cac:ProcurementAdditionalType>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20192,6 +20852,7 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "noAccessibilityCriteriaRationale": "Accessibility criteria are not included ..."
       }
     ]
@@ -20271,12 +20932,18 @@ This field maps to the same `Statistic` objects as created for BT-760-LotResult.
 
 For each `efac:ReceivedSubmissionsStatistics`, [add a bids statistic](operations.md#add-a-bids-statistic) or update the corresponding `Statistic` object and map to its `.value`.
 
-[Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult), and add the lot's `.id` to the statistic's `.relatedLots`.
-
 ```xml
-<efac:ReceivedSubmissionsStatistics>
-  <efbc:StatisticsNumeric>12</efbc:StatisticsNumeric>
-</efac:ReceivedSubmissionsStatistics>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:ReceivedSubmissionsStatistics>
+      <efbc:StatisticsNumeric>12</efbc:StatisticsNumeric>
+    </efac:ReceivedSubmissionsStatistics>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -20284,7 +20951,9 @@ For each `efac:ReceivedSubmissionsStatistics`, [add a bids statistic](operations
   "bids": {
     "statistics": [
       {
-        "value": 12
+        "id": "1",
+        "value": 12,
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -20303,9 +20972,14 @@ For each `efac:ReceivedSubmissionsStatistics`, [add a bids statistic](operations
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractTerms.tendererLegalForm`.
 
 ```xml
-<cac:TendererQualificationRequest>
-  <cbc:CompanyLegalForm languageID="ENG">The tenderer ...</cbc:CompanyLegalForm>
-</cac:TendererQualificationRequest>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:TendererQualificationRequest>
+      <cbc:CompanyLegalForm languageID="ENG">The tenderer ...</cbc:CompanyLegalForm>
+    </cac:TendererQualificationRequest>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20313,6 +20987,7 @@ For each `efac:ReceivedSubmissionsStatistics`, [add a bids statistic](operations
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractTerms": {
           "tendererLegalForm": "The tenderer..."
         }
@@ -20338,9 +21013,17 @@ For each `efac:ReceivedSubmissionsStatistics`, [add a bids statistic](operations
 [Get the lot for the LotResult](operations.md#get-the-lot-for-a-lotresult), and add the lot's `.id` to the statistic's `.relatedLots`.
 
 ```xml
-<efac:ReceivedSubmissionsStatistics>
-  <efbc:StatisticsCode listName="received-submission-type">t-sme</efbc:StatisticsCode>
-</efac:ReceivedSubmissionsStatistics>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:ReceivedSubmissionsStatistics>
+      <efbc:StatisticsCode listName="received-submission-type">t-sme</efbc:StatisticsCode>
+    </efac:ReceivedSubmissionsStatistics>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -20348,7 +21031,9 @@ For each `efac:ReceivedSubmissionsStatistics`, [add a bids statistic](operations
   "bids": {
     "statistics": [
       {
-        "measure": "smeBids"
+        "id": "1",
+        "measure": "smeBids",
+        "relatedLot": "LOT-0001"
       }
     ]
   }
@@ -20440,9 +21125,14 @@ Set `tender.lotDetails.maximumLotsBidPerSupplier` to the number (not the string)
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.submissionTerms.electronicCataloguePolicy` according to [the allowed values](https://extensions.open-contracting.org/en/extensions/submissionTerms/master/codelists/).
 
 ```xml
-<cac:ContractExecutionRequirement>
-  <cbc:ExecutionRequirementCode listName="ecatalog-submission">allowed</cbc:ExecutionRequirementCode>
-</cac:ContractExecutionRequirement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:ContractExecutionRequirement>
+      <cbc:ExecutionRequirementCode listName="ecatalog-submission">allowed</cbc:ExecutionRequirementCode>
+    </cac:ContractExecutionRequirement>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20450,6 +21140,7 @@ Set `tender.lotDetails.maximumLotsBidPerSupplier` to the number (not the string)
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "submissionTerms": {
           "electronicCataloguePolicy": "allowed"
         }
@@ -20471,9 +21162,14 @@ Set `tender.lotDetails.maximumLotsBidPerSupplier` to the number (not the string)
 If different from "none", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.techniques.hasFrameworkAgreement` to `true`. Map the code according to the [framework agreement method mapping table](codelists/framework-agreement-method) to the lot's `.techniques.frameworkAgreement.method`. Otherwise discard.
 
 ```xml
-<cac:ContractingSystem>
-  <cbc:ContractingSystemTypeCode listName="framework-agreement">fa-wo-rc</cbc:ContractingSystemTypeCode>
-</cac:ContractingSystem>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:ContractingSystem>
+      <cbc:ContractingSystemTypeCode listName="framework-agreement">fa-wo-rc</cbc:ContractingSystemTypeCode>
+    </cac:ContractingSystem>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20481,6 +21177,7 @@ If different from "none", [get the lot for the ProcurementProjectLot](operations
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "techniques": {
           "hasFrameworkAgreement": true,
           "frameworkAgreement": {
@@ -20535,9 +21232,14 @@ If different from "none", set `tender.techniques.hasFrameworkAgreement` to `true
 If different from "none", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.techniques.hasDynamicPurchasingSystem` to `true`. Map the code according to the [DPS usage mapping table](codelists/dps-usage) to the lot's `.techniques.dynamicPurchasingSystem.type`. Otherwise discard.
 
 ```xml
-<cac:ContractingSystem>
-  <cbc:ContractingSystemTypeCode listName="dps-usage">dps-nlist</cbc:ContractingSystemTypeCode>
-</cac:ContractingSystem>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:ContractingSystem>
+      <cbc:ContractingSystemTypeCode listName="dps-usage">dps-nlist</cbc:ContractingSystemTypeCode>
+    </cac:ContractingSystem>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20545,6 +21247,7 @@ If different from "none", [get the lot for the ProcurementProjectLot](operations
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "techniques": {
           "hasDynamicPurchasingSystem": true,
           "dynamicPurchasingSystem": {
@@ -20599,9 +21302,14 @@ If different from "none", set `tender.techniques.hasDynamicPurchasingSystem` to 
 If "true", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set the lot's `.techniques.hasElectronicAuction` to `true`. Otherwise, discard.
 
 ```xml
-<cac:AuctionTerms>
-  <cbc:AuctionConstraintIndicator>true</cbc:AuctionConstraintIndicator>
-</cac:AuctionTerms>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingProcess>
+    <cac:AuctionTerms>
+      <cbc:AuctionConstraintIndicator>true</cbc:AuctionConstraintIndicator>
+    </cac:AuctionTerms>
+  </cac:TenderingProcess>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20609,6 +21317,7 @@ If "true", [get the lot for the ProcurementProjectLot](operations.md#get-the-lot
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "techniques": {
           "hasElectronicAuction": true
         }
@@ -20649,7 +21358,12 @@ Discard. The contract is awarded within a framework agreement if the related lot
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). If the field's value is 'allowed', set the lot's `.submissionTerms.multipleBidsAllowed` to true. Otherwise, set it to false.
 
 ```xml
-<cbc:MultipleTendersCode listName="permission">allowed</cbc:MultipleTendersCode>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cbc:MultipleTendersCode listName="permission">allowed</cbc:MultipleTendersCode>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20678,9 +21392,14 @@ Discard. The contract is awarded within a framework agreement if the related lot
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractTerms.financialTerms`.
 
 ```xml
-<cac:PaymentTerms>
-  <cbc:Note languageID="ENG">Any payment ...</cbc:Note>
-</cac:PaymentTerms>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:PaymentTerms>
+      <cbc:Note languageID="ENG">Any payment ...</cbc:Note>
+    </cac:PaymentTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20688,6 +21407,7 @@ Discard. The contract is awarded within a framework agreement if the related lot
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractTerms": {
           "financialTerms": "Any payment ..."
         }
@@ -20710,9 +21430,16 @@ Discard. The contract is awarded within a framework agreement if the related lot
 - Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/missing-info-submission) and map it to the lot's `.submissionMethodDetails`. Append if other information is already mapped to this field.
 
 ```xml
-<cac:SpecificTendererRequirement>
-  <cbc:TendererRequirementTypeCode listName="missing-info-submission">late-all</cbc:TendererRequirementTypeCode>
-</cac:SpecificTendererRequirement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:TendererQualificationRequest>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="missing-info-submission">late-all</cbc:TendererRequirementTypeCode>
+      </cac:SpecificTendererRequirement>
+    </cac:TendererQualificationRequest>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20720,6 +21447,7 @@ Discard. The contract is awarded within a framework agreement if the related lot
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "submissionMethodDetails": "All missing tenderer-related documents can be submitted later."
       }
     ]
@@ -20739,9 +21467,16 @@ Discard. The contract is awarded within a framework agreement if the related lot
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.submissionMethodDetails`. Append if other information is already mapped to this field.
 
 ```xml
-<cac:SpecificTendererRequirement>
-  <cbc:Description languageID="ENG">Economic operators who ...</cbc:Description>
-</cac:SpecificTendererRequirement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:TendererQualificationRequest>
+      <cac:SpecificTendererRequirement>
+        <cbc:Description languageID="ENG">Economic operators who ...</cbc:Description>
+      </cac:SpecificTendererRequirement>
+    </cac:TendererQualificationRequest>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20749,6 +21484,7 @@ Discard. The contract is awarded within a framework agreement if the related lot
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "submissionMethodDetails": "Economic operators who ..."
       }
     ]
@@ -20768,9 +21504,12 @@ Discard. The contract is awarded within a framework agreement if the related lot
 [Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender). If "yes", set the bid's `.hasSubcontracting` to `true`. If "no", set the bid's `.hasSubcontracting` to `false`.
 
 ```xml
-<efac:SubcontractingTerm>
-  <efbc:TermCode listName="applicability">yes</efbc:TermCode>
-</efac:SubcontractingTerm>
+<efac:LotTender>
+  <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+  <efac:SubcontractingTerm>
+    <efbc:TermCode listName="applicability">yes</efbc:TermCode>
+  </efac:SubcontractingTerm>
+</efac:LotTender>
 ```
 
 ```json
@@ -20778,6 +21517,7 @@ Discard. The contract is awarded within a framework agreement if the related lot
   "bids": {
     "details": [
       {
+        "id": "TEN-0001",
         "hasSubcontracting": true
       }
     ]
@@ -20801,9 +21541,14 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
 - Map the code to the sustainability''s `.goal` according to the [environmental impact mapping table](codelists/environmental-impact).
 
 ```xml
-<cac:ProcurementAdditionalType>
-  <cbc:ProcurementTypeCode listName="environmental-impact">circ-econ</cbc:ProcurementTypeCode>
-</cac:ProcurementAdditionalType>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:ProcurementAdditionalType>
+      <cbc:ProcurementTypeCode listName="environmental-impact">circ-econ</cbc:ProcurementTypeCode>
+    </cac:ProcurementAdditionalType>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20811,6 +21556,7 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "hasSustainability": true,
         "sustainability": [
           {
@@ -20840,9 +21586,14 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
 - Add 'awardCriteria', 'contractPerformanceConditions', 'selectionCriteria' and 'technicalSpecifications' to the sustainability's `.strategies` array.
 
 ```xml
-<cac:ProcurementAdditionalType>
-  <cbc:ProcurementTypeCode listName="social-objective">et-eq</cbc:ProcurementTypeCode>
-</cac:ProcurementAdditionalType>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:ProcurementAdditionalType>
+      <cbc:ProcurementTypeCode listName="social-objective">et-eq</cbc:ProcurementTypeCode>
+    </cac:ProcurementAdditionalType>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20850,6 +21601,7 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "hasSustainability": true,
         "sustainability": [
           {
@@ -20884,9 +21636,14 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
 - Map the code to the sustainability's `.goal` according to the [innovative acquisition mapping table](codelists/innovative-acquisition).
 
 ```xml
-<cac:ProcurementAdditionalType>
-  <cbc:ProcurementTypeCode listName="innovative-acquisition">proc-innov</cbc:ProcurementTypeCode>
-</cac:ProcurementAdditionalType>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:ProcurementAdditionalType>
+      <cbc:ProcurementTypeCode listName="innovative-acquisition">proc-innov</cbc:ProcurementTypeCode>
+    </cac:ProcurementAdditionalType>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20894,6 +21651,7 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "hasSustainability": true,
         "sustainability": [
           {
@@ -20963,7 +21721,12 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
 - [Convert date to ISO format](operations.md#convert-a-date-to-iso-format) and map to its `.dueDate`.
 
 ```xml
-<cbc:LatestSecurityClearanceDate>2019-11-15+01:00</cbc:LatestSecurityClearanceDate>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cbc:LatestSecurityClearanceDate>2019-11-15+01:00</cbc:LatestSecurityClearanceDate>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -20971,6 +21734,7 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "milestones": [
           {
             "id": "1",
@@ -20996,7 +21760,12 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot). If "par-requ" or "t-requ", set the lot's `.otherRequirements.requiresStaffNamesAndQualifications` to `true`. If "not-requ", set it to `false`. Otherwise, discard.
 
 ```xml
-<cbc:RequiredCurriculaCode listName="requirement-stage">t-requ</cbc:RequiredCurriculaCode>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cbc:RequiredCurriculaCode listName="requirement-stage">t-requ</cbc:RequiredCurriculaCode>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -21004,6 +21773,7 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "otherRequirements": {
           "requiresStaffNamesAndQualifications": true
         }
@@ -21025,9 +21795,14 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractTerms.hasNonDisclosureAgreement`.
 
 ```xml
-<cac:ContractExecutionRequirement>
-  <cbc:ExecutionRequirementCode listName="nda">true</cbc:ExecutionRequirementCode>
-</cac:ContractExecutionRequirement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:ContractExecutionRequirement>
+      <cbc:ExecutionRequirementCode listName="nda">true</cbc:ExecutionRequirementCode>
+    </cac:ContractExecutionRequirement>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -21035,6 +21810,7 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractTerms": {
           "hasNonDisclosureAgreement": true
         }
@@ -21056,9 +21832,14 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractTerms.nonDisclosureAgreement`.
 
 ```xml
-<cac:ContractExecutionRequirement>
-  <cbc:Description languageID="ENG">A Non Disclosure Agreement will need to ...</cbc:Description>
-</cac:ContractExecutionRequirement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:ContractExecutionRequirement>
+      <cbc:Description languageID="ENG">A Non Disclosure Agreement will need to ...</cbc:Description>
+    </cac:ContractExecutionRequirement>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -21066,6 +21847,7 @@ This field maps to the same `Sustainability` objects as created for BT-06-Lot.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractTerms": {
           "nonDisclosureAgreement": "A Non Disclosure Agreement will need to ..."
         }
@@ -21127,9 +21909,14 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
 - Map the code to the sustainability's `.strategies` array according to the [GPP criteria mapping table](codelists/gpp-criteria).
 
 ```xml
-<cac:ProcurementAdditionalType>
-  <cbc:ProcurementTypeCode listName="gpp-criteria">eu</cbc:ProcurementTypeCode>
-</cac:ProcurementAdditionalType>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:ProcurementProject>
+    <cac:ProcurementAdditionalType>
+      <cbc:ProcurementTypeCode listName="gpp-criteria">eu</cbc:ProcurementTypeCode>
+    </cac:ProcurementAdditionalType>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -21137,6 +21924,7 @@ For each `cac:ProcurementAdditionalType` add a corresponding `.sustainability` o
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "hasSustainability": true,
         "sustainability": [
           {
@@ -21188,9 +21976,14 @@ Map to `tender.procurementMethodDetails`
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractTerms.hasElectronicOrdering`.
 
 ```xml
-<cac:PostAwardProcess>
-  <cbc:ElectronicOrderUsageIndicator>true</cbc:ElectronicOrderUsageIndicator>
-</cac:PostAwardProcess>
+<cac:ProcurementProjectLot>
+  <cbc:ID>LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:PostAwardProcess>
+      <cbc:ElectronicOrderUsageIndicator>true</cbc:ElectronicOrderUsageIndicator>
+    </cac:PostAwardProcess>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -21198,6 +21991,7 @@ Map to `tender.procurementMethodDetails`
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractTerms": {
           "hasElectronicOrdering": true
         }
@@ -21219,9 +22013,14 @@ Map to `tender.procurementMethodDetails`
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.contractTerms.hasElectronicPayment`.
 
 ```xml
-<cac:PostAwardProcess>
-  <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
-</cac:PostAwardProcess>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:PostAwardProcess>
+      <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+    </cac:PostAwardProcess>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -21229,6 +22028,7 @@ Map to `tender.procurementMethodDetails`
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractTerms": {
           "hasElectronicPayment": true
         }
@@ -21250,7 +22050,12 @@ Map to `tender.procurementMethodDetails`
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.hasRecurrence`.
 
 ```xml
-<cbc:RecurringProcurementIndicator>true</cbc:RecurringProcurementIndicator>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cbc:RecurringProcurementIndicator>true</cbc:RecurringProcurementIndicator>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -21258,6 +22063,7 @@ Map to `tender.procurementMethodDetails`
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "hasRecurrence": true
       }
     ]
@@ -21277,7 +22083,12 @@ Map to `tender.procurementMethodDetails`
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.recurrence.description`.
 
 ```xml
-<cbc:RecurringProcurementDescription languageID="ENG">The current procurement ...</cbc:RecurringProcurementDescription>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cbc:RecurringProcurementDescription languageID="ENG">The current procurement ...</cbc:RecurringProcurementDescription>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -21285,6 +22096,7 @@ Map to `tender.procurementMethodDetails`
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "recurrence": {
           "description": "The current procurement..."
         }
@@ -21306,9 +22118,14 @@ Map to `tender.procurementMethodDetails`
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), map to ISO 639-1 in the [language authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/language), and add to the lot's `.submissionTerms.languages` array.
 
 ```xml
-<cac:Language>
-  <cbc:ID>FRA</cbc:ID>
-</cac:Language>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:Language>
+      <cbc:ID>FRA</cbc:ID>
+    </cac:Language>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -21316,6 +22133,7 @@ Map to `tender.procurementMethodDetails`
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "submissionTerms": {
           "languages": [
             "fr"
@@ -21348,9 +22166,14 @@ Multiply by:
 Map to the lot's `.submissionTerms.bidValidityPeriod.durationInDays`.
 
 ```xml
-<cac:TenderValidityPeriod>
-  <cbc:DurationMeasure unitCode="MONTH">4</cbc:DurationMeasure>
-</cac:TenderValidityPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:TenderValidityPeriod>
+      <cbc:DurationMeasure unitCode="MONTH">4</cbc:DurationMeasure>
+    </cac:TenderValidityPeriod>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -21358,6 +22181,7 @@ Map to the lot's `.submissionTerms.bidValidityPeriod.durationInDays`.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "submissionTerms": {
           "bidValidityPeriod": {
             "durationInDays": 120
@@ -21381,9 +22205,16 @@ Map to the lot's `.submissionTerms.bidValidityPeriod.durationInDays`.
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot) and map to its `.reviewDetails`.
 
 ```xml
-<cac:PresentationPeriod>
-  <cbc:Description languageID="ENG">Any review request shall be submitted ...</cbc:Description>
-</cac:PresentationPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:AppealTerms>
+      <cac:PresentationPeriod>
+        <cbc:Description languageID="ENG">Any review request shall be submitted ...</cbc:Description>
+      </cac:PresentationPeriod>
+    </cac:AppealTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -21391,6 +22222,7 @@ Map to the lot's `.submissionTerms.bidValidityPeriod.durationInDays`.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "reviewDetails": "Any review request shall be submitted ..."
       }
     ]
@@ -21410,9 +22242,14 @@ Map to the lot's `.submissionTerms.bidValidityPeriod.durationInDays`.
 Follow guidance for BT-36-Lot.
 
 ```xml
-<cac:PlannedPeriod>
-  <cbc:DurationMeasure unitCode="DAY">3</cbc:DurationMeasure>
-</cac:PlannedPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot"/>
+  <cac:ProcurementProject>
+    <cac:PlannedPeriod>
+      <cbc:DurationMeasure unitCode="DAY">3</cbc:DurationMeasure>
+    </cac:PlannedPeriod>
+  </cac:ProcurementProject>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -21468,9 +22305,14 @@ Follow guidance for BT-36-Part.
 Follow guidance for BT-98-Lot.
 
 ```xml
-<cac:TenderValidityPeriod>
-  <cbc:DurationMeasure unitCode="MONTH">4</cbc:DurationMeasure>
-</cac:TenderValidityPeriod>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:TenderValidityPeriod>
+      <cbc:DurationMeasure unitCode="MONTH">4</cbc:DurationMeasure>
+    </cac:TenderValidityPeriod>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -21478,6 +22320,7 @@ Follow guidance for BT-98-Lot.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "submissionTerms": {
           "bidValidityPeriod": {
             "durationInDays": 120
@@ -21558,11 +22401,21 @@ Discard.
 [Get the lots for the SettledContract](operations.md#get-the-lots-for-a-settledcontract) and map to each lot's `.hasEssentialAssets`.
 
 ```xml
-<efac:SettledContract>
-  <efac:DurationJustification>
-    <efbc:ExtendedDurationIndicator>true</efbc:ExtendedDurationIndicator>
-  </efac:DurationJustification>
-</efac:SettledContract>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <efac:TenderLot>
+      <cbc:ID schemeName="lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+    <efac:SettledContract/>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+  </efac:LotResult>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <efac:DurationJustification>
+      <efbc:ExtendedDurationIndicator>true</efbc:ExtendedDurationIndicator>
+    </efac:DurationJustification>
+  </efac:SettledContract>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -21570,6 +22423,7 @@ Discard.
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "hasEssentialAssets": true
       }
     ]
@@ -21591,15 +22445,27 @@ This field maps to the same `EssentialAssets` objects created for OPP-022-Contra
 [Get the lots for the SettledContract](operations.md#get-the-lots-for-a-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.description`.
 
 ```xml
-<efac:SettledContract>
-  <efac:DurationJustification>
-    <efac:AssetsList>
-      <efac:Asset>
-        <efbc:AssetDescription languageID="SPA">Asset 1 blabla</efbc:AssetDescription>
-      </efac:Asset>
-    </efac:AssetsList>
-  </efac:DurationJustification>
-</efac:SettledContract>
+<efac:NoticeResult>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <efac:DurationJustification>
+      <efac:AssetsList>
+        <efac:Asset>
+          <efbc:AssetDescription languageID="SPA">Asset 1 blabla</efbc:AssetDescription>
+        </efac:Asset>
+      </efac:AssetsList>
+    </efac:DurationJustification>
+  </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -21607,6 +22473,7 @@ This field maps to the same `EssentialAssets` objects created for OPP-022-Contra
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "essentialAssets": [
           {
             "description": "Asset 1 blabla"
@@ -21632,15 +22499,27 @@ This field maps to the same `EssentialAssets` objects created for OPP-021-Contra
 [Get the lots for the SettledContract](operations.md#get-the-lots-for-a-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.significance`.
 
 ```xml
-<efac:SettledContract>
-  <efac:DurationJustification>
-    <efac:AssetsList>
-      <efac:Asset>
-        <efbc:AssetSignificance languageID="SPA">30</efbc:AssetSignificance>
-      </efac:Asset>
-    </efac:AssetsList>
-  </efac:DurationJustification>
-</efac:SettledContract>
+<efac:NoticeResult>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <efac:DurationJustification>
+      <efac:AssetsList>
+        <efac:Asset>
+          <efbc:AssetSignificance languageID="SPA">30</efbc:AssetSignificance>
+        </efac:Asset>
+      </efac:AssetsList>
+    </efac:DurationJustification>
+  </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -21648,6 +22527,7 @@ This field maps to the same `EssentialAssets` objects created for OPP-021-Contra
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "essentialAssets": [
           {
             "significance": "30"
@@ -21673,15 +22553,27 @@ This field maps to the same `EssentialAssets` objects created for OPP-021-Contra
 [Get the lots for the SettledContract](operations.md#get-the-lots-for-a-settledcontract). For each lot, add or update the corresponding `EssentialAssets` object in the lot's `.essentialAssets` array and map to its `.predominance`.
 
 ```xml
-<efac:SettledContract>
-  <efac:DurationJustification>
-    <efac:AssetsList>
-      <efac:Asset>
-        <efbc:AssetPredominance languageID="SPA">40</efbc:AssetPredominance>
-      </efac:Asset>
-    </efac:AssetsList>
-  </efac:DurationJustification>
-</efac:SettledContract>
+<efac:NoticeResult>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <efac:DurationJustification>
+      <efac:AssetsList>
+        <efac:Asset>
+          <efbc:AssetPredominance languageID="SPA">40</efbc:AssetPredominance>
+        </efac:Asset>
+      </efac:AssetsList>
+    </efac:DurationJustification>
+  </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -21689,6 +22581,7 @@ This field maps to the same `EssentialAssets` objects created for OPP-021-Contra
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "essentialAssets": [
           {
             "predominance": "40"
@@ -21742,10 +22635,18 @@ If the value of `ancestor::ContractTerm/efbc:TermCode` is `exc-right`, set the l
 ```
 
 ```xml
-<efac:ContractTerm>
-  <efbc:TermCode listName="contract-detail">soc-stand</efbc:TermCode>
-  <efbc:TermDescription languageID="ENG">Description of the social-standards blablabla ...</efbc:TermDescription>
-</efac:ContractTerm>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    <efac:ContractTerm>
+      <efbc:TermCode listName="contract-detail">soc-stand</efbc:TermCode>
+      <efbc:TermDescription languageID="ENG">Description of the social-standards blablabla ...</efbc:TermDescription>
+    </efac:ContractTerm>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -21753,6 +22654,7 @@ If the value of `ancestor::ContractTerm/efbc:TermCode` is `exc-right`, set the l
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractTerms": {
           "socialStandards": "Description of the social-standards blablabla ..."
         }
@@ -21776,10 +22678,18 @@ This mapping assumes that the value of this field is consistent across all the L
 [Get the lot for the lot tender](operations.md#get-the-lot-for-a-lottender), divide by 100 and map the result to the lot's `.contractTerms.operatorRevenueShare`.
 
 ```xml
-<efac:ContractTerm>
-  <efbc:TermCode>all-rev-ic</efbc:TermCode>
-  <efbc:TermPercent>100</efbc:TermPercent>
-</efac:ContractTerm>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    <efac:ContractTerm>
+      <efbc:TermCode>all-rev-ic</efbc:TermCode>
+      <efbc:TermPercent>100</efbc:TermPercent>
+    </efac:ContractTerm>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -21787,6 +22697,7 @@ This mapping assumes that the value of this field is consistent across all the L
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractTerms": {
           "operatorRevenueShare": 1
         }
@@ -21829,10 +22740,18 @@ This mapping assumes that the value of this field is consistent across all the L
 [Get the lot for the lot tender](operations.md#get-the-lot-for-a-lottender) and map to its `.contractTerms.rewardsAndPenalties`.
 
 ```xml
-<efac:ContractTerm>
-  <efbc:TermCode listName="rewards-penalties">rew-pen</efbc:TermCode>
-  <efbc:TermDescription languageID="ENG">Information on Rewards and Penalties ....</efbc:TermDescription>
-</efac:ContractTerm>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    <efac:ContractTerm>
+      <efbc:TermCode listName="rewards-penalties">rew-pen</efbc:TermCode>
+      <efbc:TermDescription languageID="ENG">Information on Rewards and Penalties ....</efbc:TermDescription>
+    </efac:ContractTerm>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotTender>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -21840,6 +22759,7 @@ This mapping assumes that the value of this field is consistent across all the L
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractTerms": {
           "rewardsAndPenalties": "Information on Rewards and Penalties ...."
         }
@@ -21888,9 +22808,16 @@ Add to `tender.additionalProcurementCategories` array.
 If the value is "false" then discard. Otherwise [get the organization for the company](operations.md#get-the-organization-for-a-company), and add 'leadBuyer' to the organization's `.roles` array.
 
 ```xml
-<efac:Organization>
-  <efbc:GroupLeadIndicator>true</efbc:GroupLeadIndicator>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efbc:GroupLeadIndicator>true</efbc:GroupLeadIndicator>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
@@ -21918,9 +22845,16 @@ If the value is "false" then discard. Otherwise [get the organization for the co
 If the value is "false" then discard. Otherwise [get the organization for the company](operations.md#get-the-organization-for-a-company), and add 'procuringEntity' to the organization's `.roles` array.
 
 ```xml
-<efac:Organization>
-  <efbc:AwardingCPBIndicator>true</efbc:AwardingCPBIndicator>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efbc:AwardingCPBIndicator>true</efbc:AwardingCPBIndicator>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
@@ -21948,9 +22882,16 @@ If the value is "false" then discard. Otherwise [get the organization for the co
 If the value is "false" then discard. Otherwise [get the organization for the company](operations.md#get-the-organization-for-a-company), and add 'wholesaleBuyer' to the organization's `.roles` array.
 
 ```xml
-<efac:Organization>
-  <efbc:AcquiringCPBIndicator>true</efbc:AcquiringCPBIndicator>
-</efac:Organization>
+<efac:Organizations>
+  <efac:Organization>
+    <efbc:AcquiringCPBIndicator>true</efbc:AcquiringCPBIndicator>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+</efac:Organizations>
 ```
 
 ```json
@@ -21994,19 +22935,36 @@ Discard.
         </td>
         <td class="mapping">
 
-Map to the contract's .publicPassengerTransportServicesKilometers
+Get the `ancestor::efac:NoticeResult/efac:SettledContract` whose `/efac:LotTender:cbc:ID` is equal to the value of `ancestor::efac:LotTender:cbc:ID`, [get its contract](operations.md#get-the-contract-for-a-settledcontract) and map to the contract's `.publicPassengerTransportServicesKilometers`.
 
 ```xml
-<efac:LotTender>
-  <efbc:PublicTransportationCumulatedDistance unitCode="km">988754432110987</efbc:PublicTransportationCumulatedDistance>
-</efac:LotTender>
+<efac:NoticeResult>
+  <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    <efbc:PublicTransportationCumulatedDistance unitCode="km">988754432110987</efbc:PublicTransportationCumulatedDistance>
+  </efac:LotTender>
+  <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    <efac:LotTender>
+      <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+    </efac:LotTender>
+  </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "contracts": [
     {
-      "publicPassengerTransportServicesKilometers": 988754432110987
+      "id": "CON-0001",
+      "publicPassengerTransportServicesKilometers": 988754432110987,
+      "awardID": "RES-0001"
     }
   ]
 }
@@ -22095,15 +23053,25 @@ Get the `Organization` in `parties` whose `id` is equal to the value of `ancesto
 If the value of the field is "serv-prov", add 'procurementServiceProvider' to the organization's `.roles` array. If the value of the field is "ted-esen", add 'eSender' to the organization's `.roles` array.
 
 ```xml
-<cac:ServiceProviderParty>
-  <cbc:ServiceTypeCode listName="organisation-role">ted-esen</cbc:ServiceTypeCode>
-</cac:ServiceProviderParty>
+<cac:ContractingParty>
+  <cac:Party>
+    <cac:ServiceProviderParty>
+      <cbc:ServiceTypeCode listName="organisation-role">ted-esen</cbc:ServiceTypeCode>
+      <cac:Party>
+        <cac:PartyIdentification>
+          <cbc:ID>ORG-0001</cbc:ID>
+        </cac:PartyIdentification>
+      </cac:Party>
+    </cac:ServiceProviderParty>
+  </cac:Party>
+</cac:ContractingParty>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "roles": [
         "eSender"
       ]
@@ -22157,9 +23125,14 @@ Discard. OPT-070 may only be used in some circumstances for a Call for Expressio
 - Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/customer-service) and map it to `.name`.
 
 ```xml
-<cac:ContractExecutionRequirement>
-  <cbc:ExecutionRequirementCode listName="customer-service">clean</cbc:ExecutionRequirementCode>
-</cac:ContractExecutionRequirement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:ContractExecutionRequirement>
+      <cbc:ExecutionRequirementCode listName="customer-service">clean</cbc:ExecutionRequirementCode>
+    </cac:ContractExecutionRequirement>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -22167,6 +23140,7 @@ Discard. OPT-070 may only be used in some circumstances for a Call for Expressio
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractTerms": {
           "customerServices": [
             {
@@ -22197,9 +23171,14 @@ These values map to the same `CustomerServices` objects as created for OPT-071-L
 For each `cac:ContractExecutionRequirement`, add or update the corresponding `CustomerServices` object in the lot's `contractTerms` array and map to its `.description`.
 
 ```xml
-<cac:ContractExecutionRequirement>
-  <cbc:ExecutionRequirementCode listName="customer-service">clean</cbc:ExecutionRequirementCode>
-</cac:ContractExecutionRequirement>
+<cac:ProcurementProjectLot>
+  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+  <cac:TenderingTerms>
+    <cac:ContractExecutionRequirement>
+      <cbc:Description languageID="ENG">A description as given in OPT-072</cbc:Description>
+    </cac:ContractExecutionRequirement>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -22207,6 +23186,7 @@ For each `cac:ContractExecutionRequirement`, add or update the corresponding `Cu
   "tender": {
     "lots": [
       {
+        "id": "LOT-0001",
         "contractTerms": {
           "customerServices": [
             {
@@ -22248,6 +23228,7 @@ Discard
         </td>
         <td class="mapping">
 
+[Get the contract for the SettledContract](operations.md#get-the-contract-for-a-settledcontract).
 Add a `RelatedProcess` to the contract's `.relatedProcesses` array, and:
 
 - Set its `.id` incrementally.
@@ -22262,22 +23243,35 @@ Add a `RelatedProcess` to the contract's `.relatedProcesses` array, and:
 ```xml
 <efac:NoticeResult>
   <efac:SettledContract>
+    <cbc:ID schemeName="contract">CON-0001</cbc:ID>
     <cac:NoticeDocumentReference>
       <cbc:ID schemeName="ojs-notice-id">62783-2020</cbc:ID>
     </cac:NoticeDocumentReference>
   </efac:SettledContract>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
 </efac:NoticeResult>
 ```
 
 ```json
 {
-  "relatedProcesses": [
+  "contracts": [
     {
-      "id": "1",
-      "scheme": "ojs-notice-id",
-      "identifier": "62783-2020",
-      "relationship": [
-        "framework"
+      "id": "CON-0001",
+      "awardID": "RES-0001",
+      "relatedProcesses": [
+        {
+          "id": "1",
+          "scheme": "ojs-notice-id",
+          "identifier": "62783-2020",
+          "relationship": [
+            "framework"
+          ]
+        }
       ]
     }
   ]
@@ -22870,15 +23864,30 @@ For each `efbc:StatisticsCode`, add a `Classification` object to the item's `add
 - Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/vehicles) and map it to the classification's `.description`.
 
 ```xml
-<efac:StrategicProcurementStatistics>
-  <efbc:StatisticsCode listName="vehicles">vehicles-zero-emission</efbc:StatisticsCode>
-</efac:StrategicProcurementStatistics>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:StrategicProcurement>
+      <efac:StrategicProcurementInformation>
+        <efac:ProcurementDetails>
+          <efac:StrategicProcurementStatistics>
+            <efbc:StatisticsCode listName="vehicles">vehicles-zero-emission</efbc:StatisticsCode>
+          </efac:StrategicProcurementStatistics>
+        </efac:ProcurementDetails>
+      </efac:StrategicProcurementInformation>
+    </efac:StrategicProcurement>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "awards": [
     {
+      "id": "RES-0001",
       "items": [
         {
           "id": "1",
@@ -22890,6 +23899,9 @@ For each `efbc:StatisticsCode`, add a `Classification` object to the item's `add
             }
           ]
         }
+      ],
+      "relatedLots": [
+        "LOT-0001"
       ]
     }
   ]
@@ -22914,20 +23926,38 @@ If the value of this field is 0 then discard. Otherwise:
 - If the value is 0 discard the item entirely. Otherwise map the the result to the item's `.quantity`.
 
 ```xml
-<efac:StrategicProcurementStatistics>
-  <efbc:StatisticsNumeric>3</efbc:StatisticsNumeric>
-</efac:StrategicProcurementStatistics>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:StrategicProcurement>
+      <efac:StrategicProcurementInformation>
+        <efac:ProcurementDetails>
+          <efac:StrategicProcurementStatistics>
+            <efbc:StatisticsNumeric>3</efbc:StatisticsNumeric>
+          </efac:StrategicProcurementStatistics>
+        </efac:ProcurementDetails>
+      </efac:StrategicProcurementInformation>
+    </efac:StrategicProcurement>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
 {
   "awards": [
     {
+      "id": "RES-0001",
       "items": [
         {
           "id": "1",
           "quantity": 3
         }
+      ],
+      "relatedLots": [
+        "LOT-0001"
       ]
     }
   ]
@@ -22946,17 +23976,29 @@ If the value of this field is 0 then discard. Otherwise:
 [Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.name`.
 
 ```xml
-<efac:UltimateBeneficialOwner>
-  <cbc:FirstName>Mickey</cbc:FirstName>
-</efac:UltimateBeneficialOwner>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+  <efac:UltimateBeneficialOwner>
+    <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
+    <cbc:FirstName>Mickey</cbc:FirstName>
+  </efac:UltimateBeneficialOwner>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "beneficialOwners": [
         {
+          "id": "UBO-0001",
           "name": "Mickey"
         }
       ]
@@ -22977,9 +24019,12 @@ If the value of this field is 0 then discard. Otherwise:
 [Get the organization for the tenderer](operations.md#get-the-organization-for-a-tenderer). If "true", add 'leadTenderer' to its `.roles`.
 
 ```xml
-<efac:Tenderer>
-  <efbc:GroupLeadIndicator>true</efbc:GroupLeadIndicator>
-</efac:Tenderer>
+<efac:TenderingParty>
+  <efac:Tenderer>
+    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+    <efbc:GroupLeadIndicator>true</efbc:GroupLeadIndicator>
+  </efac:Tenderer>
+</efac:TenderingParty>
 ```
 
 ```json
@@ -23070,15 +24115,25 @@ If there is an `Organization` in `parties` whose `.id` is equal to the value of 
 [Get the person for the ultimate beneficial owner](operations.md#get-the-person-for-an-ultimate-beneficial-owner) and map to the person's `.id`.
 
 ```xml
-<efac:UltimateBeneficialOwner>
-  <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
-</efac:UltimateBeneficialOwner>
+<efac:Organizations>
+  <efac:Organization>
+    <efac:Company>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </efac:Company>
+  </efac:Organization>
+  <efac:UltimateBeneficialOwner>
+    <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
+  </efac:UltimateBeneficialOwner>
+</efac:Organizations>
 ```
 
 ```json
 {
   "parties": [
     {
+      "id": "ORG-0001",
       "beneficialOwners": [
         {
           "id": "UBO-0001"
@@ -23173,12 +24228,20 @@ Discard. Each tenderer in the tendering party is covered by OPT-310-Tenderer.
 
 ```json
 {
+  "parties": [
+    {
+      "id": "ORG-0001",
+      "name": "Financial Administration for ...",
+      "roles": [
+        "buyer"
+      ]
+    }
+  ],
   "awards": [
     {
       "buyers": [
         {
-          "id": "ORG-0001",
-          "name": "Financial Adinistration for ..."
+          "id": "ORG-0001"
         }
       ]
     }
@@ -23201,9 +24264,13 @@ Discard. Each tenderer in the tendering party is covered by OPT-310-Tenderer.
 - Add an `OrganizationReference` object to `buyer`, and set its `.id` to the organization's `.id`.
 
 ```xml
-<cac:PartyIdentification>
-  <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
-</cac:PartyIdentification>
+<cac:ContractingParty>
+  <cac:Party>
+    <cac:PartyIdentification>
+      <cbc:ID>ORG-0001</cbc:ID>
+    </cac:PartyIdentification>
+  </cac:Party>
+</cac:ContractingParty>
 ```
 
 ```json
@@ -23217,8 +24284,7 @@ Discard. Each tenderer in the tendering party is covered by OPT-310-Tenderer.
     }
   ],
   "buyer": {
-    "id": "ORG-0001",
-    "name": "Financial Administration for ..."
+    "id": "ORG-0001"
   }
 }
 ```
@@ -23234,12 +24300,38 @@ Discard. Each tenderer in the tendering party is covered by OPT-310-Tenderer.
 
 [Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference).
 
-Get the `ancestor::efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company` whose `/cac:PartyIdentification/cbc:ID` is equal to the value of this field, and set the organization's `.name` to the value of `/cac:PartyName/cbc:Name`.
+Get the `ancestor::ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company` whose `/cac:PartyIdentification/cbc:ID` is equal to the value of this field, and set the organization's `.name` to the value of `/cac:PartyName/cbc:Name`.
 
 ```xml
-<cac:PartyIdentification>
-  <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
-</cac:PartyIdentification>
+<cac:ContractingParty>
+  <cac:ServiceProviderParty>
+    <cac:Party>
+      <cac:PartyIdentification>
+        <cbc:ID>ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </cac:Party>
+  </cac:ServiceProviderParty>
+</cac:ContractingParty>
+<ext:UBLExtensions>
+  <ext:UBLExtension>
+    <ext:ExtensionContent>
+      <efext:EformsExtension>
+        <efac:Organizations>
+          <efac:Organization>
+            <efac:Company>
+              <cac:PartyIdentification>
+                <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+              </cac:PartyIdentification>
+              <cac:PartyName>
+                <cbc:Name languageID="ENG">Service Provider Ltd</cbc:Name>
+              </cac:PartyName>
+            </efac:Company>
+          </efac:Organization>
+        </efac:Organizations>
+      </efext:EformsExtension>
+    </ext:ExtensionContent>
+  </ext:UBLExtension>
+</ext:UBLExtensions>
 ```
 
 ```json
@@ -23341,7 +24433,7 @@ eForms allows document providers to differ per lot. However, while this may be p
     {
       "id": "TPO-0001",
       "roles": [
-        "offlineDocumentProvider"
+        "processContactPoint"
       ]
     }
   ]
@@ -23584,11 +24676,17 @@ eForms allows document providers to differ per lot. However, while this may be p
 eForms allows review bodies and mediation bodies to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
 ```xml
-<cac:MediationParty>
-  <cac:PartyIdentification>
-    <cbc:ID schemeName="touchpoint">TPO-0005</cbc:ID>
-  </cac:PartyIdentification>
-</cac:MediationParty>
+<cac:ProcurementProjectLot>
+  <cac:TenderingTerms>
+    <cac:AppealTerms>
+      <cac:MediationParty>
+        <cac:PartyIdentification>
+          <cbc:ID schemeName="touchpoint">TPO-0005</cbc:ID>
+        </cac:PartyIdentification>
+      </cac:MediationParty>
+    </cac:AppealTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -23658,11 +24756,17 @@ eForms allows review information providers to differ per lot. However, while thi
 eForms allows review bodies and mediation bodies to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
 ```xml
-<cac:AppealReceiverParty>
-  <cac:PartyIdentification>
-    <cbc:ID schemeName="touchpoint">TPO-0003</cbc:ID>
-  </cac:PartyIdentification>
-</cac:AppealReceiverParty>
+<cac:ProcurementProjectLot>
+  <cac:TenderingTerms>
+    <cac:AppealTerms>
+      <cac:AppealReceiverParty>
+        <cac:PartyIdentification>
+          <cbc:ID schemeName="touchpoint">TPO-0003</cbc:ID>
+        </cac:PartyIdentification>
+      </cac:AppealReceiverParty>
+    </cac:AppealTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -23768,11 +24872,15 @@ eForms allows tender recipient organizations to differ per lot. However, while t
 eForms allows financing and payer parties to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
 ```xml
-<cac:FinancingParty>
-  <cac:PartyIdentification>
-    <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
-  </cac:PartyIdentification>
-</cac:FinancingParty>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cac:FinancingParty>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+      </cac:PartyIdentification>
+    </cac:FinancingParty>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -23802,11 +24910,15 @@ eForms allows financing and payer parties to differ per lot. However, while this
 eForms allows financing and payer parties to differ per lot. However, while this may be permitted by law, we have found no evidence in practice. Please contact data@open-contracting.org if you have a use case.
 
 ```xml
-<cac:PayerParty>
-  <cac:PartyIdentification>
-    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
-  </cac:PartyIdentification>
-</cac:PayerParty>
+<efac:NoticeResult>
+  <efac:LotResult>
+    <cac:PayerParty>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+    </cac:PayerParty>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -23887,7 +24999,7 @@ eForms allows financing and payer parties to differ per lot. However, while this
     {
       "id": "TPO-0001",
       "roles": [
-        "offlineDocumentProvider"
+        "processContactPoint"
       ]
     }
   ]
@@ -24110,11 +25222,17 @@ eForms allows financing and payer parties to differ per lot. However, while this
 [Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference), and add 'mediationBody, to the organization's `.roles` array.
 
 ```xml
-<cac:MediationParty>
-  <cac:PartyIdentification>
-    <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
-  </cac:PartyIdentification>
-</cac:MediationParty>
+<cac:ProcurementProjectLot>
+  <cac:TenderingTerms>
+    <cac:AppealTerms>
+      <cac:MediationParty>
+        <cac:PartyIdentification>
+          <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+        </cac:PartyIdentification>
+      </cac:MediationParty>
+    </cac:AppealTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -24180,11 +25298,17 @@ eForms allows financing and payer parties to differ per lot. However, while this
 [Get the organization for the organization technical identifier reference](operations.md#get-the-organization-for-an-organization-technical-identifier-reference), and add 'reviewBody, to the organization's `.roles` array.
 
 ```xml
-<cac:AppealReceiverParty>
-  <cac:PartyIdentification>
-    <cbc:ID schemeName="touchpoint">TPO-0003</cbc:ID>
-  </cac:PartyIdentification>
-</cac:AppealReceiverParty>
+<cac:ProcurementProjectLot>
+  <cac:TenderingTerms>
+    <cac:AppealTerms>
+      <cac:AppealReceiverParty>
+        <cac:PartyIdentification>
+          <cbc:ID schemeName="touchpoint">TPO-0003</cbc:ID>
+        </cac:PartyIdentification>
+      </cac:AppealReceiverParty>
+    </cac:AppealTerms>
+  </cac:TenderingTerms>
+</cac:ProcurementProjectLot>
 ```
 
 ```json
@@ -24399,8 +25523,7 @@ eForms allows financing and payer parties to differ per lot. However, while this
             {
               "id": "1",
               "subcontractor": {
-                "id": "ORG-0012",
-                "name": "Company ABC"
+                "id": "ORG-0012"
               }
             }
           ]
@@ -24465,28 +25588,46 @@ If there is a `Person` in the organization's `.beneficialOwners` array whose `id
 
 - [Get the bid for the LotTender](operations.md#get-the-bid-for-a-lottender) and get the `ancestor::efac:NoticeResult/efac:TenderingParty` whose `/cbc:ID` is equal to the value of this field.
 - For each `/efac:Tenderer` in the tendering party:
-  - [Get the organization for the tenderer](operations.md#get-the-organization-for-a-tenderer).
+  - [Get the organization for the tenderer](operations.md#get-the-organization-for-a-tenderer) and add 'tenderer' to its `roles` array.
   - Add an `OrganizationReference` object to the bid's `.tenderers` array, and set its `.id` to the organization's `.id`.
 
 ```xml
 <efac:NoticeResult>
   <efac:LotTender>
+    <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
     <efac:TenderingParty>
-      <cbc:ID schemeName="tendering-party">TPA-0002</cbc:ID>
+      <cbc:ID schemeName="tendering-party">TPA-0001</cbc:ID>
     </efac:TenderingParty>
+    <efac:TenderLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    </efac:TenderLot>
   </efac:LotTender>
+  <efac:TenderingParty>
+    <cbc:ID schemeName="tendering-party">TPA-0001</cbc:ID>
+    <efac:Tenderer>
+      <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+    </efac:Tenderer>
+  </efac:TenderingParty>
 </efac:NoticeResult>
 ```
 
 ```json
 {
+  "parties": [
+    {
+      "id": "ORG-0011",
+      "roles": [
+        "tenderer"
+      ]
+    }
+  ],
   "bids": {
     "details": [
       {
+        "id": "TEN-0001",
         "tenderers": [
           {
-            "id": "ORG-0011",
-            "name": "Competitor"
+            "id": "ORG-0011"
           }
         ]
       }
@@ -24507,11 +25648,17 @@ If there is a `Person` in the organization's `.beneficialOwners` array whose `id
 [Get the contract for the SettledContract](operations.md#get-the-contract-for-a-settledcontract) and map to its `.id`.
 
 ```xml
-<efac:LotResult>
+<efac:NoticeResult>
   <efac:SettledContract>
     <cbc:ID schemeName="contract">CON-0001</cbc:ID>
   </efac:SettledContract>
-</efac:LotResult>
+  <efac:LotResult>
+    <cbc:ID schemeName="result">RES-0001</cbc:ID>
+    <efac:SettledContract>
+      <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+    </efac:SettledContract>
+  </efac:LotResult>
+</efac:NoticeResult>
 ```
 
 ```json
@@ -24607,9 +25754,9 @@ If there is a `Contract` in `contracts` whose `.id` is equal to the value of thi
         </td>
         <td class="mapping">
 
-If there is a `Bid` in `bids` whose `.id` is equal to the value of the field discard. Otherwise:
+If there is a `Bid` in `bids.details` whose `.id` is equal to the value of the field discard. Otherwise:
 
-- Add a `Bid` to `bids`.
+- Add a `Bid` object to the `bids.details` array.
 - Map to its `.id`.
 
 ```xml

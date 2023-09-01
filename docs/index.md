@@ -9,6 +9,7 @@ The intended audience of the rest of this profile are technical implementers of 
 ```{toctree}
 :maxdepth: 1
 
+primer
 how
 mapping
 codelists/index
