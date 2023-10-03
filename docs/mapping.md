@@ -22979,7 +22979,7 @@ Get the `ancestor::efac:NoticeResult/efac:SettledContract` whose `/efac:LotTende
         </td>
         <td class="mapping">
 
-[Reference a previous publication](operations.md#reference-a-previous-publication).
+[Reference a previous publication](operations.md#reference-a-previous-publication). If OPP-090-Procedure is repeated, set the relatedProcess's `id` incrementally.
 
 ```xml
 <cac:NoticeDocumentReference>
