@@ -5473,7 +5473,7 @@ Discard. BT-731 is discarded as it is implied by BT-555.
     {
       "field": "awa-cri-nam",
       "id": "awa-cri-nam-LOT-0001",
-      "name": "Award Criteron Name"
+      "name": "Award Criterion Name"
     }
   ]
 }
@@ -5524,7 +5524,7 @@ Discard. BT-731 is discarded as it is implied by BT-555.
     {
       "field": "awa-cri-nam",
       "id": "awa-cri-nam-GLO-0001",
-      "name": "Award Criteron Name"
+      "name": "Award Criterion Name"
     }
   ]
 }
@@ -15849,7 +15849,7 @@ Map to `tender.contractPeriod.description`
         </td>
         <td class="mapping">
 
-This field maps to the same `AwardCriterion` objects as created for BT-540-Lot, BT-541-Lot, BT-5421-Lot, BT-5422-Lot, BT-5423-Lot and BT-734-Lot.
+This field maps to the same `AwardCriterion` objects as created for BT-540-Lot, BT-541-Lot-FixedNumber, BT-541-Lot-ThresholdNumber, BT-541-Lot-WeightNumber, BT-5421-Lot, BT-5422-Lot, BT-5423-Lot and BT-734-Lot.
 
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array and map the value of this field to the award critereon's `.type`.
@@ -15897,7 +15897,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
         </td>
         <td class="mapping">
 
-This field maps to the same `AwardCriterion` objects as created for BT-540-LotsGroup, BT-541-LotsGroup, BT-5421-LotsGroup, BT-5422-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup.
+This field maps to the same `AwardCriterion` objects as created for BT-540-LotsGroup, BT-541-LotsGroup-FixedNumber, BT-541-LotsGroup-ThresholdNumber, BT-541-LotsGroup-WeightNumber, BT-5421-LotsGroup, BT-5422-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup.
 
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot group's `.awardCriteria.criteria` array and map the value of this field to the award critereon's `.type`.
@@ -15982,7 +15982,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
         </td>
         <td class="mapping">
 
-This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-541-Lot, BT-5421-Lot, BT-5422-Lot, BT-5423-Lot and BT-734-Lot.
+This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-541-Lot-FixedNumber, BT-541-Lot-ThresholdNumber, BT-541-Lot-WeightNumber, BT-5421-Lot, BT-5422-Lot, BT-5423-Lot and BT-734-Lot.
 
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array and map the value of this field to the award criterion's `.description`.
@@ -16030,7 +16030,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
         </td>
         <td class="mapping">
 
-This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-541-LotsGroup, BT-5421-LotsGroup, BT-5422-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup.
+This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-541-LotsGroup-FixedNumber, BT-541-LotsGroup-ThresholdNumber, BT-541-LotsGroup-WeightNumber, BT-5421-LotsGroup, BT-5422-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup.
 
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot group's `.awardCriteria.criteria` array and map the value of this field to the award criterion's `.description`.
@@ -16082,7 +16082,7 @@ This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, 
 
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array.
-Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criteron number's `.number`.
+Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criterion number's `.number`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -16146,7 +16146,7 @@ This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, 
 
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array.
-Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criteron number's `.number`.
+Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criterion number's `.number`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -16210,7 +16210,7 @@ This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, 
 
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array.
-Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criteron number's `.number`.
+Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criterion number's `.number`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -16274,7 +16274,7 @@ This field maps to the same `AwardCriterion` objects as created for BT-539-LotsG
 
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot gorup's `.awardCriteria.criteria` array.
-Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criteron number's `.number`.
+Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criterion number's `.number`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -16338,7 +16338,7 @@ This field maps to the same `AwardCriterion` objects as created for BT-539-LotsG
 
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot gorup's `.awardCriteria.criteria` array.
-Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criteron number's `.number`.
+Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criterion number's `.number`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -16402,7 +16402,7 @@ This field maps to the same `AwardCriterion` objects as created for BT-539-LotsG
 
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot gorup's `.awardCriteria.criteria` array.
-Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criteron number's `.number`.
+Add or update a corresponding `CriterionNumber` in the award criterion's `.numbers` array and map the value of this field to the award criterion number's `.number`.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -16462,7 +16462,7 @@ Add or update a corresponding `CriterionNumber` in the award criterion's `.numbe
         </td>
         <td class="mapping">
 
-This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-541-Lot, BT-5422-Lot, BT-5423-Lot and BT-734-Lot and to the same `CriterionNumber` objects as created for BT-541-Lot, BT-5422-Lot and BT-5423-Lot.
+This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-541-Lot-FixedNumber, BT-541-Lot-ThresholdNumber, BT-541-Lot-WeightNumber, BT-5422-Lot, BT-5423-Lot and BT-734-Lot and to the same `CriterionNumber` objects as created for BT-541-Lot-FixedNumber, BT-541-Lot-ThresholdNumber, BT-541-Lot-WeightNumber, BT-5422-Lot and BT-5423-Lot.
 
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 
@@ -16527,7 +16527,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
         </td>
         <td class="mapping">
 
-This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-541-LotsGroup, BT-5422-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup and to the same `CriterionNumber` objects as created for BT-541-LotsGroup, BT-5422-LotsGroup and BT-5423-LotsGroup.
+This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-541-LotsGroup-FixedNumber, BT-541-LotsGroup-ThresholdNumber, BT-541-LotsGroup-WeightNumber, BT-5422-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup and to the same `CriterionNumber` objects as created for BT-541-LotsGroup-FixedNumber, BT-541-LotsGroup-ThresholdNumber, BT-541-LotsGroup-WeightNumber, BT-5422-LotsGroup and BT-5423-LotsGroup.
 
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 
@@ -16592,7 +16592,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
         </td>
         <td class="mapping">
 
-This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-541-Lot, BT-5421-Lot, BT-5423-Lot and BT-734-Lot and to the same `CriterionNumber` objects as created for BT-541-Lot, BT-5421-Lot and BT-5423-Lot.
+This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-541-Lot-FixedNumber, BT-541-Lot-ThresholdNumber, BT-541-Lot-WeightNumber, BT-5421-Lot, BT-5423-Lot and BT-734-Lot and to the same `CriterionNumber` objects as created for BT-541-Lot-FixedNumber, BT-541-Lot-ThresholdNumber, BT-541-Lot-WeightNumber, BT-5421-Lot and BT-5423-Lot.
 
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 
@@ -16657,7 +16657,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
         </td>
         <td class="mapping">
 
-This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-541-LotsGroup, BT-5421-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup and to the same `CriterionNumber` objects as created for BT-541-LotsGroup, BT-5421-LotsGroup and BT-5423-LotsGroup.
+This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-541-LotsGroup-FixedNumber, BT-541-LotsGroup-ThresholdNumber, BT-541-LotsGroup-WeightNumber, BT-5421-LotsGroup, BT-5423-LotsGroup and BT-734-LotsGroup and to the same `CriterionNumber` objects as created for BT-541-LotsGroup-FixedNumber, BT-541-LotsGroup-ThresholdNumber, BT-541-LotsGroup-WeightNumber, BT-5421-LotsGroup and BT-5423-LotsGroup.
 
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 
@@ -16721,7 +16721,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
         </td>
         <td class="mapping">
 
-This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-541-Lot, BT-5421-Lot, BT-5422-Lot and BT-734-Lot and to the same `CriterionNumber` objects as created for BT-541-Lot, BT-5421-Lot and BT-5422-Lot.
+This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-541-Lot-FixedNumber, BT-541-Lot-ThresholdNumber, BT-541-Lot-WeightNumber, BT-5421-Lot, BT-5422-Lot and BT-734-Lot and to the same `CriterionNumber` objects as created for BT-541-Lot-FixedNumber, BT-541-Lot-ThresholdNumber, BT-541-Lot-WeightNumber, BT-5421-Lot and BT-5422-Lot.
 
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 
@@ -16786,7 +16786,7 @@ For each `efac:AwardCriterionParameter`, add or update a corresponding `Criterio
         </td>
         <td class="mapping">
 
-This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-541-LotsGroup, BT-5421-LotsGroup, BT-5422-LotsGroup and BT-734-LotsGroup and to the same `CriterionNumber` objects as created for BT-541-LotsGroup, BT-5421-LotsGroup and BT-5422-LotsGroup.
+This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-541-LotsGroup-FixedNumber, BT-541-LotsGroup-ThresholdNumber, BT-541-LotsGroup-WeightNumber, BT-5421-LotsGroup, BT-5422-LotsGroup and BT-734-LotsGroup and to the same `CriterionNumber` objects as created for BT-541-LotsGroup-FixedNumber, BT-541-LotsGroup-ThresholdNumber, BT-541-LotsGroup-WeightNumber, BT-5421-LotsGroup and BT-5422-LotsGroup.
 
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 
@@ -19608,7 +19608,7 @@ Discard. If the award's `.subcontracting.minimumPercentage` and `.subcontracting
         </td>
         <td class="mapping">
 
-This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-541-Lot, BT-5421-Lot, BT-5422-Lot and BT-5423-Lot.
+This field maps to the same `AwardCriterion` objects as created for BT-539-Lot, BT-540-Lot, BT-541-Lot-FixedNumber, BT-541-Lot-ThresholdNumber, BT-541-Lot-WeightNumber, BT-5421-Lot, BT-5422-Lot and BT-5423-Lot.
 
 [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot's `.awardCriteria.criteria` array and map to the the award criterion's `.name`.
@@ -19656,7 +19656,7 @@ For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `Awar
         </td>
         <td class="mapping">
 
-This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-541-LotsGroup, BT-5421-LotsGroup, BT-5422-LotsGroup and BT-5423-LotsGroup.
+This field maps to the same `AwardCriterion` objects as created for BT-539-LotsGroup, BT-540-LotsGroup, BT-541-LotsGroup-FixedNumber, BT-541-LotsGroup-ThresholdNumber, BT-541-LotsGroup-WeightNumber, BT-5421-LotsGroup, BT-5422-LotsGroup and BT-5423-LotsGroup.
 
 [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot).
 For each `cac:SubordinateAwardingCriterion`, add or update a corresponding `AwardCriterion` in the lot group's `.awardCriteria.criteria` array and map to the the award criterion's `.name`.
@@ -20397,7 +20397,7 @@ Discard.
         </td>
         <td class="mapping">
 
-If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-750-Lot, BT-752-Lot, BT-7531-Lot and BT-7532-Lot.
+If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-750-Lot, BT-752-Lot-ThresholdNumber, BT-752-Lot-WeightNumber, BT-7531-Lot and BT-7532-Lot.
 
 - [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 - For each `efac:SelectionCriteria`, add or update a corresponding `SelectionCriterion` object in the lot's `.selectionCriteria.criteria`.
@@ -20487,7 +20487,7 @@ If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", disc
         </td>
         <td class="mapping">
 
-If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-752-Lot, BT-7531-Lot and BT-7532-Lot.
+If `cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-752-Lot-ThresholdNumber, BT-752-Lot-WeightNumber, BT-7531-Lot and BT-7532-Lot.
 
 - [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 - For each `efac:SelectionCriteria`, add or update a corresponding `SelectionCriterion` object in the lot's `.selectionCriteria.criteria`.
@@ -20679,7 +20679,7 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
         </td>
         <td class="mapping">
 
-If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-750-Lot, BT-752-Lot and BT-7532-Lot, and the same `SelectionCriterionNumber` objects as created for BT-752-Lot and BT-7532-Lot.
+If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-750-Lot, BT-752-Lot-ThresholdNumber, BT-752-Lot-WeightNumber and BT-7532-Lot, and the same `SelectionCriterionNumber` objects as created for BT-752-Lot-ThresholdNumber, BT-752-Lot-WeightNumber and BT-7532-Lot.
 
 - [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 - For each `efac:SelectionCriteria`, add or update a corresponding `SelectionCriterion` object in the lot's `.selectionCriteria.criteria`.
@@ -20739,7 +20739,7 @@ If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="us
         </td>
         <td class="mapping">
 
-If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-750-Lot, BT-752-Lot and BT-7531-Lot, and the same `SelectionCriterionNumber` objects as created for BT-752-Lot and BT-7531-Lot.
+If `ancestor::efac:SelectionCriteria/cbc:CalculationExpressionCode[@listName="usage"]` is not set to "used", discard. Otherwise, these values are mapped to the same `SelectionCriterion` objects as created for BT-40-Lot, BT-747-Lot, BT-749-Lot, BT-750-Lot, BT-752-Lot-ThresholdNumber, BT-752-Lot-WeightNumber and BT-7531-Lot, and the same `SelectionCriterionNumber` objects as created for BT-752-Lot-ThresholdNumber, BT-752-Lot-WeightNumber and BT-7531-Lot.
 
 - [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot).
 - For each `efac:SelectionCriteria`, add or update a corresponding `SelectionCriterion` object in the lot's `.selectionCriteria.criteria`.
