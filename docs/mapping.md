@@ -1128,7 +1128,7 @@ Concatenate with <a href="#BT-125(i)-Part">BT-125(i)-Part Previous Planning Iden
         </td>
         <td class="mapping">
 
-Add a `RelatedProcess` object to the `relatedProcesses` array, and set its .id (string) sequentially across all notices for this procedure.
+Add a `RelatedProcess` object to the `relatedProcesses` array, and set its `.id` (string) sequentially across all notices for this procedure.
 
 For example, if a first notice for a given procedure has nine related processes, it uses id's "1" through "9". A second notice for the same procedure then uses id's "10" and up, etc.
 
@@ -1505,7 +1505,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
       </tr>
       <tr id="BT-132(d)-Lot">
         <td class="field break-all">
-            <p><b>BT-132(d)-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#openingEventSection"></a><br>Public Opening Date</p><p><i>BT-132:</i> The date and time for the public opening of tenders.</p>
+            <p><b>BT-132(d)-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#openingEventSection"></a><br>Public Opening Date</p><p><i>BT-132:</i> The date and time for the public opening of tenders.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:OpenTenderEvent/cbc:OccurrenceDate</span></code>
         </td>
         <td class="mapping">
@@ -1543,7 +1543,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
       </tr>
       <tr id="BT-132(t)-Lot">
         <td class="field break-all">
-            <p><b>BT-132(t)-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#openingEventSection"></a><br>Public Opening Date</p><p><i>BT-132:</i> The date and time for the public opening of tenders.</p>
+            <p><b>BT-132(t)-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#openingEventSection"></a><br>Public Opening Date</p><p><i>BT-132:</i> The date and time for the public opening of tenders.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:OpenTenderEvent/cbc:OccurrenceTime</span></code>
         </td>
         <td class="mapping">
@@ -1581,7 +1581,7 @@ Combine with <a href="#BT-13(d)-part">BT-13(d)-Part</a>, [convert date to ISO fo
       </tr>
       <tr id="BT-133-Lot">
         <td class="field break-all">
-            <p><b>BT-133-Lot</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#openingEventSection"></a><br>Public Opening Place</p><p><i>BT-133:</i> The place (e.g. physical address, URL) where the tenders will be publicly opened.</p>
+            <p><b>BT-133-Lot</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#openingEventSection"></a><br>Public Opening Place</p><p><i>BT-133:</i> The place (e.g. physical address, URL) where the tenders will be publicly opened.</p>
             <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:OpenTenderEvent/cac:OccurenceLocation/cbc:Description</span></code>
         </td>
         <td class="mapping">
@@ -10724,7 +10724,7 @@ Get the `contract` whose `id` is equal to `ancestor::efac:Change/efac:ChangedSec
 - If there is exactly one, add its `/cbc:ID` to the contract's `.awardID`
 - If there is more than one, add each LotResult's `/cbc:ID` to the contract's `.awardIDs`
 
-For each `efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The .id can be any value guaranteed to be unique within the scope of the procedure.  For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
+For each `efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The `.id` can be any value guaranteed to be unique within the scope of the procedure.  For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
 
 Map the value of this field to the amendment's `.rationaleClassifications.id`. Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/modification-justification) and map it to `.rationaleClassifications.description`, and set `.rationaleClassifications.scheme` to 'modification justification'.
 
@@ -10790,7 +10790,7 @@ Get the `contract` whose `id` is equal to `ancestor::efac:Change/efac:ChangedSec
 - If there is exactly one, add its `/cbc:ID` to the contract's `.awardID`
 - If there is more than one, add each LotResult's `/cbc:ID` to the contract's `.awardIDs`
 
-For each `efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The .id can be any value guaranteed to be unique within the scope of the procedure.  For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
+For each `efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The `.id` can be any value guaranteed to be unique within the scope of the procedure.  For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
 
 Map the value of this field to the amendment's `.rationale`
 
@@ -10850,7 +10850,7 @@ Get the `contract` whose `id` is equal to `ancestor::efac:ChangedSection/efbc:Ch
 - If there is exactly one, add its `/cbc:ID` to the contract's `.awardID`
 - If there is more than one, add each LotResult's `/cbc:ID` to the contract's `.awardIDs`
 
-For each `ancestor::efac:ContractModification/efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The .id can be any value guaranteed to be unique within the scope of the procedure.  For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
+For each `ancestor::efac:ContractModification/efac:ChangeReason`, add or update a corresponding `Amendment` object to the contract's `.amendments` array ensuring its `.id` (string) is set. The `.id` can be any value guaranteed to be unique within the scope of the procedure.  For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
 
 Map the value of this field to the amendment's `.description`.
 
@@ -22232,108 +22232,6 @@ Map to the lot's `.submissionTerms.bidValidityPeriod.durationInDays`.
 
 </td>
       </tr>
-      <tr id="OPA-36-Lot-Number">
-        <td class="field break-all">
-            <p><b>OPA-36-Lot-Number</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#plannedPeriodSection"></a><br>Numeric value of the duration period</p><p><i>BT-36:</i> The (estimated) period from the start to the end of the contract, framework agreement, dynamic purchasing system or qualification system. This shall include any options and renewals.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:PlannedPeriod/cbc:DurationMeasure</span></code>
-        </td>
-        <td class="mapping">
-
-Follow guidance for BT-36-Lot.
-
-```xml
-<cac:ProcurementProjectLot>
-  <cbc:ID schemeName="Lot"/>
-  <cac:ProcurementProject>
-    <cac:PlannedPeriod>
-      <cbc:DurationMeasure unitCode="DAY">3</cbc:DurationMeasure>
-    </cac:PlannedPeriod>
-  </cac:ProcurementProject>
-</cac:ProcurementProjectLot>
-```
-
-```json
-{
-  "tender": {
-    "lots": [
-      {
-        "contractPeriod": {
-          "durationInDays": 3
-        }
-      }
-    ]
-  }
-}
-```
-
-</td>
-      </tr>
-      <tr id="OPA-36-Part-Number">
-        <td class="field break-all">
-            <p><b>OPA-36-Part-Number</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#plannedPeriodSection"></a><br>Numeric value of the duration period</p><p><i>BT-36:</i> The (estimated) period from the start to the end of the contract, framework agreement, dynamic purchasing system or qualification system. This shall include any options and renewals.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Part']/cac:ProcurementProject/cac:PlannedPeriod/cbc:DurationMeasure</span></code>
-        </td>
-        <td class="mapping">
-
-Follow guidance for BT-36-Part.
-
-```xml
-<cac:PlannedPeriod>
-  <cbc:DurationMeasure unitCode="DAY">3</cbc:DurationMeasure>
-</cac:PlannedPeriod>
-```
-
-```json
-{
-  "tender": {
-    "contractPeriod": {
-      "durationInDays": 3
-    }
-  }
-}
-```
-
-</td>
-      </tr>
-      <tr id="OPA-98-Lot-Number">
-        <td class="field break-all">
-            <p><b>OPA-98-Lot-Number</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/procedure-lot-part-information.html#tenderValiditySection"></a><br>Numeric value of the tender validity deadline</p><p><i>BT-98:</i> The period, from the tender submission deadline, for which tenders must remain valid.</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:TenderValidityPeriod/cbc:DurationMeasure</span></code>
-        </td>
-        <td class="mapping">
-
-Follow guidance for BT-98-Lot.
-
-```xml
-<cac:ProcurementProjectLot>
-  <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
-  <cac:TenderingTerms>
-    <cac:TenderValidityPeriod>
-      <cbc:DurationMeasure unitCode="MONTH">4</cbc:DurationMeasure>
-    </cac:TenderValidityPeriod>
-  </cac:TenderingTerms>
-</cac:ProcurementProjectLot>
-```
-
-```json
-{
-  "tender": {
-    "lots": [
-      {
-        "id": "LOT-0001",
-        "submissionTerms": {
-          "bidValidityPeriod": {
-            "durationInDays": 120
-          }
-        }
-      }
-    ]
-  }
-}
-```
-
-</td>
-      </tr>
       <tr id="OPP-010-notice">
         <td class="field break-all">
             <p><b>OPP-010-notice</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/notice-information.html#pubInfoSection"></a><br>Notice Publication Number</p>
@@ -23824,21 +23722,6 @@ Map to the document's `.url`.
   }
 }
 ```
-
-</td>
-      </tr>
-      <tr id="OPT-150-Lot">
-        <td class="field break-all">
-            <p><b>OPT-150-Lot</b> <b>*</b> <br>Subcontracting Allowed</p>
-            <code class="docutils literal notranslate"><span class="pre">/*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:AllowedSubcontractTerms[cbc:SubcontractingConditionsCode/@listName='subcontracting-allowed']/cbc:SubcontractingConditionsCode</span></code>
-        </td>
-        <td class="mapping">
-
-This data element is underspecified in eForms. No mapping is available.
-
-
-
-
 
 </td>
       </tr>
@@ -25538,7 +25421,7 @@ eForms allows financing and payer parties to differ per lot. However, while this
       </tr>
       <tr id="OPT-302-Organization">
         <td class="field break-all">
-            <p><b>OPT-302-Organization</b> <b>*</b> <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/parties.html#_general_structure_of_an_organization_related_information"></a><br>Beneficial Owner Reference</p>
+            <p><b>OPT-302-Organization</b>  <a class="reference external" href="https://docs.ted.europa.eu/eforms/latest/schema/parties.html#_general_structure_of_an_organization_related_information"></a><br>Beneficial Owner Reference</p>
             <code class="docutils literal notranslate"><span class="pre">/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:UltimateBeneficialOwner/cbc:ID</span></code>
         </td>
         <td class="mapping">

@@ -1,6 +1,6 @@
 # Changelog
 
-The profile is up-to-date with eForms SDK 1.7.0.
+The profile is up-to-date with eForms SDK 1.9.0.
 
 ## 2023-04-25
 
