@@ -21122,7 +21122,7 @@ Set `tender.lotDetails.maximumLotsBidPerSupplier` to the number (not the string)
         </td>
         <td class="mapping">
 
-[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.submissionTerms.electronicCataloguePolicy` according to [the allowed values](https://extensions.open-contracting.org/en/extensions/submissionTerms/master/codelists/).
+[Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot), and set its `.submissionTerms.electronicCatalogPolicy` according to [the allowed values](https://extensions.open-contracting.org/en/extensions/submissionTerms/master/codelists/).
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -21142,7 +21142,7 @@ Set `tender.lotDetails.maximumLotsBidPerSupplier` to the number (not the string)
       {
         "id": "LOT-0001",
         "submissionTerms": {
-          "electronicCataloguePolicy": "allowed"
+          "electronicCatalogPolicy": "allowed"
         }
       }
     ]
