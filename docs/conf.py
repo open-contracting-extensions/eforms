@@ -106,6 +106,7 @@ html_theme_options = {
     'repository_url': repository_url,
     'style_external_links': True,
 }
+html_short_title = f'{html_theme_options["short_project"]} v{release}'
 
 # Imported by manage.py.
 standard_tag = '1__1__5'  # the version of OCDS to patch
