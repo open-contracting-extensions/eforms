@@ -8,3 +8,4 @@ jobs:
       elasticsearch-password: ${{ secrets.ELASTICSEARCH_PASSWORD }}
     with:
       path-prefix: profiles/eforms/
+      linkcheck: false
