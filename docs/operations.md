@@ -21,11 +21,20 @@ If any of the following are true, assign a new `ocid` by prepending your [OCID p
 
 Otherwise, set `ocid` to the same value as the previous publication's `ocid`.
 
-## Reference a previous publication
+## Reference a previous planning notice
 
-If the *Previous publication concerning this procedure* is neither a prior information notice nor a periodic indicative notice (PIN), or if the PIN has a single `/*/cac:ProcurementProjectLot` (*Object*) element, then discard `/*/cbc:ID`. In this case, the *previous publication concerning this procedure* is the OCDS release with the same `ocid` as this release and with the nearest earlier `date` to this release.
-
-Otherwise, if the *Previous publication concerning this procedure* is a prior information notice or periodic indicative notice that has multiple `/*/cac:ProcurementProjectLot` (*Object*) elements, add a `RelatedProcess` object to the `relatedProcesses` array, set its `.id` to '1', add 'planning' to its `.relationship` array, set its `.scheme` to 'eu-oj' (or to a scheme of your choice if outside the EU), and map `/*/cbc:ID` to `.identifier`.
+* Add a `RelatedProcess` object to the `relatedProcesses` array:
+  * Set its `id` incrementally.
+  * Add 'planning' to its `.relationship` array.
+  * Prepend "eu-" to the value of `@schemeName`, and map to its `.scheme`.
+  * Map `cbc:ID` to its `.identifier`.
+  * If there is an `ancestor::cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']`, add `ancestor::cac:ProcurementProjectLot/cbc:ID` to its `.relatedLots`.
+* If the referenced notice is available in OCDS, add another `RelatedProcess` object to the `relatedProcesses` array:
+  * Set its `id` incrementally.
+  * Add 'planning' to its `.relationship` array.
+  * Set its `.scheme` to 'ocid'.
+  * Set its `.identifier` to the `ocid` of the referenced notice.
+  * If there is an `ancestor::cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']`, add `ancestor::cac:ProcurementProjectLot/cbc:ID` to its `.relatedLots`.
 
 ## Convert a date to ISO format
 
@@ -36,6 +45,28 @@ If a time component is missing from a date, use 'T23:59:59Z' for end dates and '
 If a timezone component is present in the date (e.g. '+02:00'), preserve it. Otherwise, use the UTC timezone indicate 'Z'.
 
 The final value would be '2020-10-21T23:59:59Z' or '2020-10-21T00:00:00Z'.
+
+## Convert a language code to ISO 639-1
+
+Look up the code in the [ISO 639-3 code tables](https://iso639-3.sil.org/code_tables/639/data) ([TSV file](https://iso639-3.sil.org/code_tables/download_tables#639-3%20Code%20Set)) and get the value in the `639-1` column (`Part1` column in the TSV file).
+
+If the code has no correspondence in ISO 639-1, contact the [OCDS Data Support Team](mailto:data@open-contracting.org).
+
+## Convert a duration to a number of days
+
+If `@unitCode` is 'DAY' or 'CALENDAR_DAY', do nothing.
+
+Otherwise, multiply the duration according to the value of `@unitCode`:
+
+| `@unitCode` | Multiplier |
+| --- | --- |
+| WEEK | 7 |
+| MONTH | 30 |
+| QUARTER | 91 |
+| YEAR_HALF | 182 |
+| YEAR | 365 |
+
+If the value of `@unitCode` does not appear in the above table, contact the [OCDS Data Support Team](mailto:data@open-contracting.org).
 
 ## Add a complaints statistic
 

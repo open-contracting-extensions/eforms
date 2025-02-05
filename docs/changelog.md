@@ -2,6 +2,13 @@
 
 The profile is up-to-date with eForms SDK 1.12.0.
 
+## 2025-02-05
+
+- Title: Map BT-21-Procedure to `title`, instead of `tender.title`. (:pull:`248`)
+- Description: Combine BT-24-Procedure and BT-24-Part into `tender.description`. (:pull:`248`)
+- Previous Planning Identifier, Previous Planning Part Identifier and Previous Notice Identifier: Update BT-125(i)-Lot, BT-125(i)-Part, BT-1251-Lot, BT-1251-Part and OPP-090-Procedure. (:issue:`238`)
+- Various changes to improve clarity.
+
 ## 2025-01-22
 
 Updates for SDK 1.12.0.
