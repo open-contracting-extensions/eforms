@@ -11167,9 +11167,10 @@ If no `Contract` object in the `contracts` array has an `.id` equal to `ancestor
 For each `efac:ChangeReason`, add or update the corresponding `Amendment` object in the contract's `.amendments` array:
 
 - Ensure its `.id` is set. The `.id` can be any value guaranteed to be unique within the scope of the procedure. For example, it can be set to a [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), or it can be assigned sequentially across all notices for this procedure (the first notice sets it to "1", the second to "2", etc.).
-- Map this field to its `.rationaleClassifications.id`.
-- Set its `.rationaleClassifications.scheme` to 'modification justification'.
-- Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/modification-justification), and map it to its `.rationaleClassifications.description`.
+- Add a `Classification` object to its `.rationaleClassifications` array:
+  - Map this field to its `.id`.
+  - Set its `.scheme` to 'eu-modification-justification'.
+  - Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/modification-justification), and map it to its `.description`.
 
 ```xml
 <efac:ContractModification>
@@ -11204,7 +11205,7 @@ For each `efac:ChangeReason`, add or update the corresponding `Amendment` object
             {
               "id": "add-wss",
               "description": "Need for additional works, services or supplies by the original contractor.",
-              "scheme": "Modification justification"
+              "scheme": "eu-modification-justification"
             }
           ]
         }
@@ -11459,8 +11460,9 @@ Map to `.title`
         <td class="mapping">
 
 - [Get the lot for the ProcurementProjectLot](operations.md#get-the-lot-for-a-procurementprojectlot):
-  - Map to its `.identifiers.id`.
-  - Set its `.identifiers.scheme` to 'internal'.
+  - Add a `SimpleIdentifier` object to the lot's `.identifiers` array:
+    - Map to its `.id`.
+    - Set its `.scheme` to 'internal'.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -11499,8 +11501,9 @@ Map to `.title`
         <td class="mapping">
 
 - [Get the lot group for the ProcurementProjectLot](operations.md#get-the-lot-group-for-a-procurementprojectlot):
-  - Map to its `.identifiers.id`.
-  - Set its `.identifiers.scheme` to 'internal'.
+  - Add a `SimpleIdentifier` object to the lot group's `.identifiers` array:
+    - Map to its `.id`.
+    - Set its `.scheme` to 'internal'.
 
 ```xml
 <cac:ProcurementProjectLot>
@@ -11538,8 +11541,9 @@ Map to `.title`
         </td>
         <td class="mapping">
 
-- Map to `tender.identifiers.id`.
-- Set `tender.identifiers.scheme` to 'internal'.
+- Add a `SimpleIdentifier` object to the `tender.identifiers` array:
+  - Map to its `.id`.
+  - Set its `.scheme` to 'internal'.
 
 ```xml
 <cbc:ID schemeName="InternalID">PROC/2020/0024-ABC-FGHI</cbc:ID>
@@ -11567,8 +11571,9 @@ Map to `.title`
         </td>
         <td class="mapping">
 
-- Map to `tender.identifiers.id`.
-- Set `tender.identifiers.scheme` to 'internal'.
+- Add a `SimpleIdentifier` object to the `tender.identifiers` array:
+  - Map to its `.id`.
+  - Set its `.scheme` to 'internal'.
 
 ```xml
 <cbc:ID schemeName="InternalID">PROC/2020/0024-ABC-FGHI</cbc:ID>
@@ -18024,7 +18029,7 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
 
 - [Get the item for the ProcurementProjectLot](operations.md#get-the-item-for-a-procurementprojectlot):
   - Map this field to its `.unit.id`.
-  - Set its `.unit.scheme` to ['EU Measurement unit'](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/measurement-unit).
+  - Set its `.unit.scheme` to 'UNCEFACT'.
   - Look up the code's label in the [authority table](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/measurement-unit), and map it to its `.unit.name`.
 
 ```xml
@@ -18044,7 +18049,7 @@ For each `efac:Funding`, add or update the corresponding `Finance` object in the
         "id": "1",
         "unit": {
           "id": "TNE",
-          "scheme": "EU Measurement unit",
+          "scheme": "UNCEFACT",
           "name": "tonne"
         },
         "relatedLot": "LOT-0001"
@@ -25050,7 +25055,7 @@ Set the document's `.documentType` to 'legislation'.
         </td>
         <td class="mapping">
 
-[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference).
+[Get the document for the document reference](operations.md#get-the-document-for-a-document-reference). (This creates a `Document` object in the `tender.documents` array.)
 
 ```xml
 <cac:CallForTendersDocumentReference>
@@ -25088,7 +25093,7 @@ If the value of `ancestor::efac:StrategicProcurementStatistics/efbc:StatisticsNu
   - Set the item's `.id` incrementally.
   - For each `efbc:StatisticsCode`, add a `Classification` object to the item's `additionalClassifications` array:
     - Map this field to its `.id`.
-    - Set its `.scheme` to 'vehicles'.
+    - Set its `.scheme` to 'eu-vehicles'.
     - Look up the code's label in the [eForms codelist](https://docs.ted.europa.eu/eforms/latest/reference/code-lists/vehicles.html), and map it to its `.description`.
 
 ```xml
@@ -25121,7 +25126,7 @@ If the value of `ancestor::efac:StrategicProcurementStatistics/efbc:StatisticsNu
           "id": "1",
           "additionalClassifications": [
             {
-              "scheme": "vehicles",
+              "scheme": "eu-vehicles",
               "id": "vehicles-zero-emission",
               "description": "vehicles zero emission"
             }
