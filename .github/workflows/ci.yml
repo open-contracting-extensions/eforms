@@ -10,4 +10,5 @@ jobs:
       elasticsearch-password: ${{ secrets.ELASTICSEARCH_PASSWORD }}
     with:
       path-prefix: profiles/eforms/
+      # Linkcheck is slow (many docs.ted.europa.eu URLs).
       linkcheck: false
