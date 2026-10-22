@@ -41,6 +41,7 @@ This profile makes use of the extensions below. Instead of declaring each extens
 * [European Union](https://extensions.open-contracting.org/en/extensions/eu/1.1/)
 * [Exclusion grounds](https://extensions.open-contracting.org/en/extensions/exclusionGrounds/master/)
 * [Finance](https://extensions.open-contracting.org/en/extensions/finance/master/)
+* [Item attributes](https://extensions.open-contracting.org/en/extensions/itemAttributes/master/)
 * [Legal basis](https://extensions.open-contracting.org/en/extensions/legalBasis/1.1/)
 * [Location](https://extensions.open-contracting.org/en/extensions/location/master/)
 * [Lots](https://extensions.open-contracting.org/en/extensions/lots/master/)
