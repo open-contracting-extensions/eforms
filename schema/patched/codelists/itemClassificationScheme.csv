@@ -15,6 +15,9 @@ eu-modification-justification,EU modification justification,The main reasons for
 eu-vehicles,European Union vehicle type,The type of vehicle specified in eForms.,European Union
 eu-vehicle-category,European Union Clean Vehicle Directive vehicle category,The category of vehicle falling within the scope of the EU Clean Vehicles Directive 2009/33/EC.,European Union
 eu-cvd-contract-type,European Union Clean Vehicle Directive contract type,The category of contract according to the EU Clean Vehicles Directive 2009/33/EC.,European Union
+eu-energy-efficiency-basis,European Union Energy Efficiency Directive basis,"The legal framework that applies to a product, service, work or building within the scope of the EU Energy Efficiency Directive (EU) 2023/1791, like the Energy Label or Ecodesign rules.",European Union
+eu-energy-efficiency-item,European Union Energy Efficiency Directive item,"The kind of product, service, work or building within the scope of the EU Energy Efficiency Directive (EU) 2023/1791.",European Union
+eu-energy-efficiency-label,European Union energy efficiency label,"The energy efficiency class of a product, according to its EU energy label.",European Union
 CELEX,CELEX number,Identifier scheme for EUR-Lex documents,Legal basis
 ELI,European Legislation Identifier,Identifier scheme for European legislation,Legal basis
 LEXML,LexML URN,Identifier scheme for BR-Lex documents,Legal basis
