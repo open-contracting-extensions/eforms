@@ -7,5 +7,5 @@ test_basic_params = {
 }
 
 test_search_params = [
-    ("en", r"found \d+ page\(s\) matching"),
+    ("en", r"Found (?:one page|\d+ pages) matching"),
 ]
