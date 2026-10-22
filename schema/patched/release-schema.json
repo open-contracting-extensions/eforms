@@ -125,6 +125,17 @@
       "title": "Related processes",
       "type": "array"
     },
+    "links": {
+      "title": "Links",
+      "description": "Links to related resources. In a release, links relate to the individual release: for example, a link to a canonical version of the release in another OCDS publication. In a compiled release, links relate to the entire contracting (or planning) process: for example, a link to a resource in a non-OCDS publication that represents the entire contracting process. For references to related processes, see the `relatedProcesses` array.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Link"
+      },
+      "uniqueItems": true,
+      "omitWhenMerged": true,
+      "minItems": 1
+    },
     "bids": {
       "title": "Submissions",
       "description": "Information about individual bids and expressions of interest, and summary statistics.",
@@ -1674,7 +1685,7 @@
         },
         "unofficialTranslations": {
           "title": "Unofficial translations",
-          "description": "The languages in which unofficial translations of the document are available, from the open [language](https://standard.open-contracting.org/{{version}}/{{lang}}/schema/codelists/#language) codelist. A [BCP47 language tag](https://www.w3.org/International/articles/language-tags/) is allowed, if there is a user need for the additional information.",
+          "description": "The languages in which unofficial translations of the document are available, from the open [language](https://standard.open-contracting.org/latest/en/schema/codelists/#language) codelist. A [BCP47 language tag](https://www.w3.org/International/articles/language-tags/) is allowed, if there is a user need for the additional information.",
           "type": [
             "array",
             "null"
@@ -2221,17 +2232,6 @@
             }
           }
         },
-        "deliveryAddresses": {
-          "title": "Delivery Addresses",
-          "description": "The addresses to which, or where, goods or services related to this tender, contract or license will be delivered.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Address"
-          },
-          "wholeListMerge": true,
-          "uniqueItems": true,
-          "minItems": 1
-        },
         "deliveryLocations": {
           "title": "Delivery Locations",
           "description": "The locations where activity related to this tender, contract or license will be delivered.",
@@ -2251,6 +2251,17 @@
             "description": "This field is deprecated in favour of `.deliveryLocations` to support items with multiple delivery locations.",
             "deprecatedVersion": "1.2.0"
           }
+        },
+        "deliveryAddresses": {
+          "title": "Delivery Addresses",
+          "description": "The addresses to which, or where, goods or services related to this tender, contract or license will be delivered.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Address"
+          },
+          "wholeListMerge": true,
+          "uniqueItems": true,
+          "minItems": 1
         },
         "deliveryAddress": {
           "title": "Delivery Address",
@@ -3322,6 +3333,15 @@
             "null"
           ]
         },
+        "part": {
+          "title": "Part",
+          "description": "The identifier of a part of a prior information notice, or another similar notice, that describes a planning process.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
         "relatedLots": {
           "title": "Related lot(s)",
           "description": "The identifiers of the lots in the related process to which this process relates.",
@@ -3337,6 +3357,28 @@
           "minItems": 1
         }
       }
+    },
+    "Link": {
+      "title": "Link",
+      "description": "A reference to a related resource.",
+      "type": "object",
+      "properties": {
+        "rel": {
+          "title": "Link relation type",
+          "description": "The relationship with the related resource, using the open [link relation type](https://standard.open-contracting.org/{{version}}/{{lang}}/schema/codelists/#link-relation-type) codelist.",
+          "type": "string",
+          "codelist": "linkRelationType.csv",
+          "openCodelist": true,
+          "minLength": 1
+        },
+        "href": {
+          "title": "Link target",
+          "description": "The URL of the related resource.",
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "minProperties": 1
     },
     "SimpleIdentifier": {
       "title": "Simple identifier",
@@ -3515,7 +3557,7 @@
           "description": "The maximum estimated value of this lot.",
           "$ref": "#/definitions/Value"
         },
-        "minValue": {
+        "minimumValue": {
           "title": "Minimum value",
           "description": "The estimated minimum value of the lot. A negative value indicates that the contracting process may involve payments from the supplier to the buyer (commonly used in concession contracts).",
           "$ref": "#/definitions/Value"
@@ -5107,6 +5149,26 @@
             "null"
           ]
         },
+        "foreignSubsidyMeasures": {
+          "title": "Foreign subsidy measures",
+          "description": "The measures applied under the Foreign Subsidies Regulation (EU) 2022/2560.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "fsr-adm-clos",
+            "fsr-commit",
+            "fsr-irregul",
+            "fsr-meat",
+            "fsr-no-obj",
+            "fsr-proh",
+            "fsr-stand",
+            null
+          ],
+          "codelist": "foreignSubsidyMeasures.csv",
+          "openCodelist": false
+        },
         "hasSubcontracting": {
           "title": "Subcontracting involved",
           "description": "Whether a part of the contract will be subcontracted to third parties.",
@@ -5649,10 +5711,27 @@
       "minProperties": 1
     },
     "ExclusionGrounds": {
-      "title": "Exclusion grounds",
-      "description": "Information about the criteria regarding the situation of a tenderer that can lead to its exclusion from the contracting process. For example: criminal convictions, bankruptcy, presence on a blacklist or failure to pay taxes.",
-      "type": "object",
       "properties": {
+        "sources": {
+          "title": "Sources",
+          "description": "The sources in which the exclusion grounds are defined.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "enum": [
+              "epo-notice",
+              "epo-procurement-document",
+              "epo-sub-espd"
+            ]
+          },
+          "codelist": "sources.csv",
+          "openCodelist": false,
+          "uniqueItems": true,
+          "minItems": 1
+        },
         "criteria": {
           "title": "Exclusion criteria",
           "description": "The exclusion criteria.",
@@ -5665,6 +5744,57 @@
           "minItems": 1
         }
       },
+      "title": "Exclusion grounds",
+      "description": "Information about the criteria regarding the situation of a tenderer that can lead to its exclusion from the contracting process. For example: criminal convictions, bankruptcy, presence on a blacklist or failure to pay taxes.",
+      "type": "object",
+      "minProperties": 1
+    },
+    "SelectionCriteria": {
+      "properties": {
+        "sources": {
+          "title": "Sources",
+          "description": "The sources in which the selection criteria are defined.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "enum": [
+              "epo-notice",
+              "epo-procurement-document",
+              "epo-sub-espd"
+            ]
+          },
+          "codelist": "sources.csv",
+          "openCodelist": false,
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "criteria": {
+          "title": "Selection criteria",
+          "description": "The selection criteria.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SelectionCriterion"
+          },
+          "wholeListMerge": true,
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "description": {
+          "title": "Description",
+          "description": "The description of the criteria.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "title": "Selection criteria",
+      "description": "Information about conditions for participation.",
+      "type": "object",
       "minProperties": 1
     },
     "ExclusionCriterion": {
@@ -6378,34 +6508,6 @@
       },
       "minProperties": 1
     },
-    "SelectionCriteria": {
-      "title": "Selection criteria",
-      "description": "Information about conditions for participation.",
-      "type": "object",
-      "properties": {
-        "criteria": {
-          "title": "Selection criteria",
-          "description": "The selection criteria.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/SelectionCriterion"
-          },
-          "wholeListMerge": true,
-          "uniqueItems": true,
-          "minItems": 1
-        },
-        "description": {
-          "title": "Description",
-          "description": "The description of the criteria.",
-          "type": [
-            "string",
-            "null"
-          ],
-          "minLength": 1
-        }
-      },
-      "minProperties": 1
-    },
     "SelectionCriterion": {
       "title": "Selection criterion",
       "description": "Information about the selection criterion.",
@@ -6427,6 +6529,15 @@
             "other",
             null
           ]
+        },
+        "subType": {
+          "title": "Subtype",
+          "description": "The subtype of the criterion.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
         },
         "description": {
           "title": "Description",
