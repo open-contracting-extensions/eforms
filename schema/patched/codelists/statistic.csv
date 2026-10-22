@@ -13,6 +13,7 @@ microBids,Bids from micro companies,The number of bids received from micro enter
 smeBids,Bids from SMEs,The number of bids received from small and medium enterprises.,Bids and expressions of interest
 smallBids,Bids from small companies,The number of bids received from small enterprises.,Bids and expressions of interest
 mediumBids,Bids from medium companies,The number of bids received from medium enterprises.,Bids and expressions of interest
+largeBids,Bids from large companies,The number of bids received from large enterprises.,Bids and expressions of interest
 foreignBids,Bids from foreign firms,The number of bids received from bidders from outside the country where the tender is issued.,Bids and expressions of interest
 foreignBidsFromEU,Bids from firms in other European Economic Area countries,The number of bids received from tenderers from other European Economic Area countries.,Bids and expressions of interest
 foreignBidsFromNonEU,Bids from firms in non-European Economic Area countries,The number of bids received from tenderers from non-European Economic Area countries.,Bids and expressions of interest

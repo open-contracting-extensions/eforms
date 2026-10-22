@@ -1,4 +1,76 @@
 {
+  "properties": {
+    "links": {
+      "title": "Links",
+      "description": "Links to related resources. In a release, links relate to the individual release: for example, a link to a canonical version of the release in another OCDS publication. In a compiled release, links relate to the entire contracting (or planning) process: for example, a link to a resource in a non-OCDS publication that represents the entire contracting process. For references to related processes, see the `relatedProcesses` array.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Link"
+      },
+      "uniqueItems": true,
+      "omitWhenMerged": true,
+      "minItems": 1
+    },
+    "bids": {
+      "title": "Submissions",
+      "description": "Information about individual bids and expressions of interest, and summary statistics.",
+      "type": "object",
+      "properties": {
+        "statistics": {
+          "title": "Statistics",
+          "description": "Summary statistics about the number of bidders, bids and expressions of interest.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Statistic"
+          }
+        },
+        "details": {
+          "title": "Submission details",
+          "description": "Information about individual bids and expressions of interest.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Bid"
+          }
+        }
+      }
+    },
+    "title": {
+      "title": "Title",
+      "description": "A overall title for this contracting process or release.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "description": {
+      "title": "Description",
+      "description": "An overall description of this contracting process or release. This does not replace a detailed breakdown of the objects of the contracting process in the planning, tender, award or contracts section.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "statistics": {
+      "title": "Statistics",
+      "description": "Statistics about the contracting process.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Statistic"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "withheldInformation": {
+      "title": "Withheld information",
+      "description": "Details of items of information whose publication is temporarily or permanently withheld.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/WithheldInformationItem"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    }
+  },
   "definitions": {
     "Tender": {
       "properties": {
@@ -598,7 +670,7 @@
         },
         "unofficialTranslations": {
           "title": "Unofficial translations",
-          "description": "The languages in which unofficial translations of the document are available, from the open [language](https://standard.open-contracting.org/{{version}}/{{lang}}/schema/codelists/#language) codelist. A [BCP47 language tag](https://www.w3.org/International/articles/language-tags/) is allowed, if there is a user need for the additional information.",
+          "description": "The languages in which unofficial translations of the document are available, from the open [language](https://standard.open-contracting.org/latest/en/schema/codelists/#language) codelist. A [BCP47 language tag](https://www.w3.org/International/articles/language-tags/) is allowed, if there is a user need for the additional information.",
           "type": [
             "array",
             "null"
@@ -624,6 +696,28 @@
           }
         }
       }
+    },
+    "Link": {
+      "title": "Link",
+      "description": "A reference to a related resource.",
+      "type": "object",
+      "properties": {
+        "rel": {
+          "title": "Link relation type",
+          "description": "The relationship with the related resource, using the open [link relation type](https://standard.open-contracting.org/{{version}}/{{lang}}/schema/codelists/#link-relation-type) codelist.",
+          "type": "string",
+          "codelist": "linkRelationType.csv",
+          "openCodelist": true,
+          "minLength": 1
+        },
+        "href": {
+          "title": "Link target",
+          "description": "The URL of the related resource.",
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "minProperties": 1
     },
     "SimpleIdentifier": {
       "title": "Simple identifier",
@@ -831,7 +925,7 @@
           "description": "The maximum estimated value of this lot.",
           "$ref": "#/definitions/Value"
         },
-        "minValue": {
+        "minimumValue": {
           "title": "Minimum value",
           "description": "The estimated minimum value of the lot. A negative value indicates that the contracting process may involve payments from the supplier to the buyer (commonly used in concession contracts).",
           "$ref": "#/definitions/Value"
@@ -2506,6 +2600,26 @@
             "null"
           ]
         },
+        "foreignSubsidyMeasures": {
+          "title": "Foreign subsidy measures",
+          "description": "The measures applied under the Foreign Subsidies Regulation (EU) 2022/2560.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "fsr-adm-clos",
+            "fsr-commit",
+            "fsr-irregul",
+            "fsr-meat",
+            "fsr-no-obj",
+            "fsr-proh",
+            "fsr-stand",
+            null
+          ],
+          "codelist": "foreignSubsidyMeasures.csv",
+          "openCodelist": false
+        },
         "hasSubcontracting": {
           "title": "Subcontracting involved",
           "description": "Whether a part of the contract will be subcontracted to third parties.",
@@ -3305,58 +3419,6 @@
       },
       "minProperties": 1
     },
-    "Item": {
-      "properties": {
-        "deliveryAddresses": {
-          "title": "Delivery Addresses",
-          "description": "The addresses to which, or where, goods or services related to this tender, contract or license will be delivered.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Address"
-          },
-          "wholeListMerge": true,
-          "uniqueItems": true,
-          "minItems": 1
-        },
-        "deliveryLocations": {
-          "title": "Delivery Locations",
-          "description": "The locations where activity related to this tender, contract or license will be delivered.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Location"
-          },
-          "wholeListMerge": true,
-          "uniqueItems": true,
-          "minItems": 1
-        },
-        "deliveryLocation": {
-          "title": "Delivery Location",
-          "description": "The location where activity related to this tender, contract or license will be delivered, or will take place.",
-          "$ref": "#/definitions/Location",
-          "deprecated": {
-            "description": "This field is deprecated in favour of `.deliveryLocations` to support items with multiple delivery locations.",
-            "deprecatedVersion": "1.2.0"
-          }
-        },
-        "deliveryAddress": {
-          "title": "Delivery Address",
-          "description": "The address to which, or where, goods or services related to this tender, contract or license will be delivered.",
-          "$ref": "#/definitions/Address",
-          "deprecated": {
-            "description": "This field is deprecated in favour of `.deliveryAddresses` to support items with multiple delivery locations.",
-            "deprecatedVersion": "1.2.0"
-          }
-        },
-        "relatedLot": {
-          "title": "Related lot",
-          "description": "The identifier of the lot to which this item relates.",
-          "type": [
-            "string",
-            "null"
-          ]
-        }
-      }
-    },
     "Period": {
       "properties": {
         "description": {
@@ -3367,6 +3429,33 @@
             "null"
           ],
           "minLength": 1
+        }
+      }
+    },
+    "RelatedProcess": {
+      "properties": {
+        "part": {
+          "title": "Part",
+          "description": "The identifier of a part of a prior information notice, or another similar notice, that describes a planning process.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "relatedLots": {
+          "title": "Related lot(s)",
+          "description": "The identifiers of the lots in the related process to which this process relates.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "minItems": 1
         }
       }
     },
@@ -3402,10 +3491,27 @@
       "minProperties": 1
     },
     "ExclusionGrounds": {
-      "title": "Exclusion grounds",
-      "description": "Information about the criteria regarding the situation of a tenderer that can lead to its exclusion from the contracting process. For example: criminal convictions, bankruptcy, presence on a blacklist or failure to pay taxes.",
-      "type": "object",
       "properties": {
+        "sources": {
+          "title": "Sources",
+          "description": "The sources in which the exclusion grounds are defined.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "enum": [
+              "epo-notice",
+              "epo-procurement-document",
+              "epo-sub-espd"
+            ]
+          },
+          "codelist": "sources.csv",
+          "openCodelist": false,
+          "uniqueItems": true,
+          "minItems": 1
+        },
         "criteria": {
           "title": "Exclusion criteria",
           "description": "The exclusion criteria.",
@@ -3418,6 +3524,57 @@
           "minItems": 1
         }
       },
+      "title": "Exclusion grounds",
+      "description": "Information about the criteria regarding the situation of a tenderer that can lead to its exclusion from the contracting process. For example: criminal convictions, bankruptcy, presence on a blacklist or failure to pay taxes.",
+      "type": "object",
+      "minProperties": 1
+    },
+    "SelectionCriteria": {
+      "properties": {
+        "sources": {
+          "title": "Sources",
+          "description": "The sources in which the selection criteria are defined.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "enum": [
+              "epo-notice",
+              "epo-procurement-document",
+              "epo-sub-espd"
+            ]
+          },
+          "codelist": "sources.csv",
+          "openCodelist": false,
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "criteria": {
+          "title": "Selection criteria",
+          "description": "The selection criteria.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SelectionCriterion"
+          },
+          "wholeListMerge": true,
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "description": {
+          "title": "Description",
+          "description": "The description of the criteria.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "title": "Selection criteria",
+      "description": "Information about conditions for participation.",
+      "type": "object",
       "minProperties": 1
     },
     "ExclusionCriterion": {
@@ -3696,6 +3853,58 @@
       },
       "minProperties": 1
     },
+    "Item": {
+      "properties": {
+        "deliveryLocations": {
+          "title": "Delivery Locations",
+          "description": "The locations where activity related to this tender, contract or license will be delivered.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Location"
+          },
+          "wholeListMerge": true,
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "deliveryLocation": {
+          "title": "Delivery Location",
+          "description": "The location where activity related to this tender, contract or license will be delivered, or will take place.",
+          "$ref": "#/definitions/Location",
+          "deprecated": {
+            "description": "This field is deprecated in favour of `.deliveryLocations` to support items with multiple delivery locations.",
+            "deprecatedVersion": "1.2.0"
+          }
+        },
+        "deliveryAddresses": {
+          "title": "Delivery Addresses",
+          "description": "The addresses to which, or where, goods or services related to this tender, contract or license will be delivered.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Address"
+          },
+          "wholeListMerge": true,
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "deliveryAddress": {
+          "title": "Delivery Address",
+          "description": "The address to which, or where, goods or services related to this tender, contract or license will be delivered.",
+          "$ref": "#/definitions/Address",
+          "deprecated": {
+            "description": "This field is deprecated in favour of `.deliveryAddresses` to support items with multiple delivery locations.",
+            "deprecatedVersion": "1.2.0"
+          }
+        },
+        "relatedLot": {
+          "title": "Related lot",
+          "description": "The identifier of the lot to which this item relates.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
     "Location": {
       "title": "Location",
       "description": "A physical or virtual location.",
@@ -3800,24 +4009,6 @@
           "items": {
             "type": "string"
           }
-        }
-      }
-    },
-    "RelatedProcess": {
-      "properties": {
-        "relatedLots": {
-          "title": "Related lot(s)",
-          "description": "The identifiers of the lots in the related process to which this process relates.",
-          "type": [
-            "array",
-            "null"
-          ],
-          "items": {
-            "type": "string",
-            "minLength": 1
-          },
-          "uniqueItems": true,
-          "minItems": 1
         }
       }
     },
@@ -4178,34 +4369,6 @@
       },
       "minProperties": 1
     },
-    "SelectionCriteria": {
-      "title": "Selection criteria",
-      "description": "Information about conditions for participation.",
-      "type": "object",
-      "properties": {
-        "criteria": {
-          "title": "Selection criteria",
-          "description": "The selection criteria.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/SelectionCriterion"
-          },
-          "wholeListMerge": true,
-          "uniqueItems": true,
-          "minItems": 1
-        },
-        "description": {
-          "title": "Description",
-          "description": "The description of the criteria.",
-          "type": [
-            "string",
-            "null"
-          ],
-          "minLength": 1
-        }
-      },
-      "minProperties": 1
-    },
     "SelectionCriterion": {
       "title": "Selection criterion",
       "description": "Information about the selection criterion.",
@@ -4227,6 +4390,15 @@
             "other",
             null
           ]
+        },
+        "subType": {
+          "title": "Subtype",
+          "description": "The subtype of the criterion.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
         },
         "description": {
           "title": "Description",
@@ -4899,67 +5071,6 @@
         }
       },
       "minProperties": 1
-    }
-  },
-  "properties": {
-    "bids": {
-      "title": "Submissions",
-      "description": "Information about individual bids and expressions of interest, and summary statistics.",
-      "type": "object",
-      "properties": {
-        "statistics": {
-          "title": "Statistics",
-          "description": "Summary statistics about the number of bidders, bids and expressions of interest.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Statistic"
-          }
-        },
-        "details": {
-          "title": "Submission details",
-          "description": "Information about individual bids and expressions of interest.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Bid"
-          }
-        }
-      }
-    },
-    "title": {
-      "title": "Title",
-      "description": "A overall title for this contracting process or release.",
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "description": {
-      "title": "Description",
-      "description": "An overall description of this contracting process or release. This does not replace a detailed breakdown of the objects of the contracting process in the planning, tender, award or contracts section.",
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "statistics": {
-      "title": "Statistics",
-      "description": "Statistics about the contracting process.",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Statistic"
-      },
-      "uniqueItems": true,
-      "minItems": 1
-    },
-    "withheldInformation": {
-      "title": "Withheld information",
-      "description": "Details of items of information whose publication is temporarily or permanently withheld.",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/WithheldInformationItem"
-      },
-      "uniqueItems": true,
-      "minItems": 1
     }
   }
 }

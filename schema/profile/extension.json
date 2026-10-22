@@ -36,6 +36,8 @@
     "+documentType.csv",
     "+milestoneType.csv",
     "+relatedProcessScheme.csv",
+    "foreignSubsidyMeasures.csv",
+    "sources.csv",
     "assetClass.csv",
     "debtRepaymentPriority.csv",
     "financingArrangementType.csv",
